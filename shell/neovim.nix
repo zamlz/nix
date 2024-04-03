@@ -28,7 +28,7 @@ in {
       maplocalleader = " ";
     };
 
-    options = {
+    opts = {
       # set window title
       title = true;
       # fringe line numbers

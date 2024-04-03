@@ -5,8 +5,8 @@
     dotDir = ".config/zsh";
     autocd = true;
     defaultKeymap = "viins";
-    enableAutosuggestions = true;
     enableCompletion = true;
+    autosuggestion.enable= true;
     syntaxHighlighting.enable = true;
     enableVteIntegration = true;
     history = {
