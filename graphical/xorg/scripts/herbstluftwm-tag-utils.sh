@@ -38,7 +38,6 @@ get_hc_command() {
         "$CMD_REMOVE") echo "merge_tag";;
         *) logger "unknown operation name: ${operation_name}"; exit 1;;
     esac
-    logger "will be performing op: $hc_command"
 }
 
 get_tag() {
@@ -57,7 +56,8 @@ get_tag() {
         --option "window.dimensions.lines=10" \
         --option "window.dimensions.columns=120" \
         --command $HOME/.config/herbstluftwm/fzf.sh \
-        ${operation_name} ${full_options_file} ${selected_option_file}
+        ${operation_name} ${full_options_file} ${selected_option_file} \
+        >/dev/null 2>&1
     tag=$(cat ${selected_option_file})
 
     if [ -z "$tag" ]; then
@@ -78,8 +78,10 @@ error_code=$?
 if  [ $error_code -ne 0 ]; then
     exit $error_code
 fi
+logger "Using tag: $tag"
 
 hc_command=$(get_hc_command ${OPERATION_NAME})
+logger "will be performing op: $hc_command"
 
 # WHY DO WE ATTEMPT COMMAND BEFORE CHECKING FOR TAG?
 # > Well, it may look like bad practice but it's actually quite robust.
