@@ -2,7 +2,9 @@
 
 A (WIP) NixOS Configuration repo for all my systems.
 
-## Features
+## TODOs
+
+### NixOS
 - [x] Use `flake.nix` 
 - [ ] Control backlight with keyboard buttons
 - [ ] Control Volume with keyboard buttons
@@ -11,8 +13,5 @@ A (WIP) NixOS Configuration repo for all my systems.
 - [ ] Full Disk Encryption
 - [ ] Use `deploy-rs`
 
-## Structure
-WIP
-
-## Usage
-WIP
+### Desktop Environment
+- [ ] Implement FS Explorer script
