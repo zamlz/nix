@@ -60,9 +60,7 @@
           exec qtile start -b wayland
       fi
     '';
-    initExtra = ''
-    source $HOME/.config/zsh/prompt.zsh
-    
+    envExtra = ''
     # prepare the window id directory
     WINDIR=/tmp/.wid
     mkdir -p $WINDIR
@@ -83,6 +81,13 @@
             echo "WINDOW_PWD='$(pwd)'" | tee $WINDOWID_FILE
         fi
     }
+
+    # Finally, just save the window info in case other processes are started without
+    # ever needing a zsh prompt (alacritty spawners)
+    save_window_info > /dev/null 2>&1
+    '';
+    initExtra = ''
+    source $HOME/.config/zsh/prompt.zsh
 
     # register hooks before the user is given the oppurtunity to enter a command
     precmd() {
