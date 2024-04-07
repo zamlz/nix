@@ -5,7 +5,7 @@ LOGGER=$(which logger)
 logger() {$LOGGER --tag fzf-file-explorer -- $@}
 
 # get the last focused wid by running the save-window-id.sh script
-source /tmp/.wid/$(cat /tmp/.last_focused_wid)
+source /tmp/.wid/$(cat /tmp/.last_focused_wid) > /dev/null 2>&1
 if [ -z "${WINDOW_PWD}" ]; then
     logger "no previouw window: ${HOME}"
     FILESYSTEM_POINTER=$HOME
@@ -15,6 +15,7 @@ else
 fi
 LS_HIDDEN_ARG=""
 TOGGLE_HIDDEN_ACTION="__TOGGLE_HIDDEN_VIEW__"
+SPAWN_TERMINAL_ACTION="__SPAWN_TERMINAL__"
 
 while [ -d $FILESYSTEM_POINTER ] || [ -f $FILESYSTEM_POINTER ]; do
     logger "start: ${selection} ${FILESYSTEM_POINTER}"
@@ -37,6 +38,7 @@ while [ -d $FILESYSTEM_POINTER ] || [ -f $FILESYSTEM_POINTER ]; do
                 --bind "alt-j:down" \
                 --bind "alt-k:up" \
                 --bind "alt-l:become(echo {})" \
+                --bind "alt-enter:become(echo ${SPAWN_TERMINAL_ACTION})" \
             | awk '{print $NF}')
 
         logger "  current ${selection} and ${FILESYSTEM_POINTER}"
@@ -46,6 +48,10 @@ while [ -d $FILESYSTEM_POINTER ] || [ -f $FILESYSTEM_POINTER ]; do
             else
                 LS_HIDDEN_ARG=""
             fi
+        elif [ "$selection" = "${SPAWN_TERMINAL_ACTION}" ]; then
+            nohup alacritty --working-directory ${FILESYSTEM_POINTER} > /dev/null 2>&1 &
+            sleep 0.1
+            return
         elif [ -z "$selection" ]; then
             return
         else
