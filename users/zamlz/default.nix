@@ -36,6 +36,7 @@
       cmatrix
       figlet
       lolcat
+      bat
       # Fonts
       iosevka
       # Desktop Environment Utilities
