@@ -11,13 +11,15 @@
   termPromptWindowSwitcherScript = termPromptLauncher "$HOME/.config/sxhkd/fzf-window-switcher.sh" 20 100 8;
   termPromptPasswordStoreScript = termPromptLauncher "$HOME/.config/sxhkd/fzf-password-store.sh" 10 100 8;
   termPromptSystemManagerScript = termPromptLauncher "$HOME/.config/sxhkd/fzf-system-manager.sh" 6 40 8;
-  termPromptDiredScript = termPromptLauncher "$HOME/.config/sxhkd/fzf-file-explorer.sh" 40 200 7;
+  termPromptFileSystemExplorerScript = termPromptLauncher "$HOME/.config/sxhkd/fzf-file-system-explorer.sh" 40 200 7;
+  termPromptFileOpenScript = termPromptLauncher "$HOME/.config/sxhkd/fzf-file-open.sh" 40 200 7;
   termPromptLazyGit = termPromptLauncher "$HOME/.config/sxhkd/launch-lazygit.sh" 40 200 7;
   maimScreenshotScript = "$HOME/.config/sxhkd/maim-screenshot.sh";
   saveWindowIdScript = "$HOME/.config/sxhkd/save-window-id.sh";
 in {
-  xdg.configFile."sxhkd/fzf-file-explorer.sh".source = ../../scripts/fzf-file-explorer.sh;
+  xdg.configFile."sxhkd/fzf-file-system-explorer.sh".source = ../../scripts/fzf-file-system-explorer.sh;
   xdg.configFile."sxhkd/fzf-file-preview.sh".source = ../../scripts/fzf-file-preview.sh;
+  xdg.configFile."sxhkd/fzf-file-open.sh".source = ../../scripts/fzf-file-open.sh;
   xdg.configFile."sxhkd/fzf-password-store.sh".source = ../../scripts/fzf-password-store.sh;
   xdg.configFile."sxhkd/fzf-program-launcher.sh".source = ../../scripts/fzf-program-launcher.sh;
   xdg.configFile."sxhkd/fzf-system-manager.sh".source = ../../scripts/fzf-system-manager.sh;
@@ -34,7 +36,8 @@ in {
       "super + Return" = "${terminal}";
       "super + e" = "${termPromptProgramLauncherScript}";
       "super + w" = "${termPromptWindowSwitcherScript}";
-      "super + d" = "${saveWindowIdScript}; ${termPromptDiredScript}";
+      "super + d" = "${saveWindowIdScript}; ${termPromptFileSystemExplorerScript}";
+      "super + x" = "${saveWindowIdScript}; ${termPromptFileOpenScript}";
       "super + g" = "${saveWindowIdScript}; ${termPromptLazyGit}";
       
       # FIXME: This configuration should somehow be owned by password-store?
