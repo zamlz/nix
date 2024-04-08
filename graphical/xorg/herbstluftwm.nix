@@ -110,7 +110,7 @@ in {
       # Layout Control
       "${super}-r" = "remove";
       "${super}-s" = "floating toggle";
-      "${super}-f" = "fullscreen toggle";
+      "${super}-y" = "fullscreen toggle";
       "${super}-t" = "pseudotile toggle";
 
       # The following cycles through the available layouts within a frame, but skips

@@ -37,7 +37,7 @@ in {
       "super + e" = "${termPromptProgramLauncherScript}";
       "super + w" = "${termPromptWindowSwitcherScript}";
       "super + d" = "${saveWindowIdScript}; ${termPromptFileSystemExplorerScript}";
-      "super + x" = "${saveWindowIdScript}; ${termPromptFileOpenScript}";
+      "super + f" = "${saveWindowIdScript}; ${termPromptFileOpenScript}";
       "super + g" = "${saveWindowIdScript}; ${termPromptLazyGit}";
       
       # FIXME: This configuration should somehow be owned by password-store?
