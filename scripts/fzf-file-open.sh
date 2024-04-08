@@ -17,9 +17,10 @@ else
     FILESYSTEM_POINTER=${WINDOW_PWD}
 fi
 
-selection=$(find $FILESYSTEM_POINTER -not -path '*/.*' -type f | \
-    fzf -m --ansi --reverse \
-        --preview $HOME'/.config/sxhkd/fzf-file-preview.sh {}')
+selection=$(find $FILESYSTEM_POINTER -not -path '*/.*' -type f \
+    | sed -e "s|^$FILESYSTEM_POINTER|\.|g" \
+    | fzf -m --ansi --reverse \
+        --preview "$HOME/.config/sxhkd/fzf-file-preview.sh $FILESYSTEM_POINTER/{}")
 
 if [ -z "$selection" ]; then
     return
@@ -27,8 +28,8 @@ fi
 
 echo $selection | while read -r selected_file; do
     nohup alacritty \
-        --working-directory $(dirname $selected_file) \
-        --command zsh -c "$EDITOR $selected_file" > /dev/null 2>&1 &
+        --working-directory $(dirname $FILESYSTEM_POINTER/$selected_file) \
+        --command zsh -c "$EDITOR $FILESYSTEM_POINTER/$selected_file" > /dev/null 2>&1 &
 done
 sleep 0.1
 return
