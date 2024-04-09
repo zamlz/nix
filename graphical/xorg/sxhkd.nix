@@ -39,10 +39,12 @@ in {
       "super + x" = "${saveWindowIdScript}; ${termPromptFileSystemExplorerScript}";
       "super + d" = "${saveWindowIdScript}; ${termPromptFileSystemOpenScript} -d";
       "super + f" = "${saveWindowIdScript}; ${termPromptFileSystemOpenScript} -f";
+      "super + shift + d" = "${saveWindowIdScript}; ${termPromptFileSystemOpenScript} -d -g";
+      "super + shift + f" = "${saveWindowIdScript}; ${termPromptFileSystemOpenScript} -f -g";
       "super + g" = "${saveWindowIdScript}; ${termPromptLazyGit}";
       
       # FIXME: This configuration should somehow be owned by password-store?
-      "super + p" = "${termPromptPasswordStoreScript}";
+      "super + p"         = "${termPromptPasswordStoreScript}";
       "super + shift + p" = "${termPromptPasswordStoreScript} --qrcode";
 
       # System Controls
@@ -54,7 +56,7 @@ in {
       #   token as it implies that the command should be executed on key release as
       #   opposed to key press. Scrot and xclip here will not work properly unless they
       #   are on key release.
-      "@Print" = "${maimScreenshotScript} -s";
+      "@Print"         = "${maimScreenshotScript} -s";
       "@shift + Print" = "${maimScreenshotScript}";
       
       # Multimedia and Physical Switches
