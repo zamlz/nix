@@ -3,6 +3,8 @@
 # simple utility to show all files under directory.
 # defaults to using the directory of currently focused window
 
+# FIXME: commonize with the directory open script
+
 # configure logger
 LOGGER=$(which logger)
 logger() {$LOGGER --tag fzf-file-open -- $@}
@@ -14,12 +16,18 @@ if [ -z "${WINDOW_PWD}" ]; then
     FILESYSTEM_POINTER=$HOME
 else
     logger "loaded from old window: ${WINDOW_PWD}"
-    FILESYSTEM_POINTER=${WINDOW_PWD}
+    FILESYSTEM_POINTER=$(git -C ${WINDOW_PWD} rev-parse --show-toplevel)
+    if [ $? -ne 0 ]; then
+        logger "unable to find parent git repo"
+        FILESYSTEM_POINTER=$HOME
+    fi
 fi
 
 selection=$(find $FILESYSTEM_POINTER -not -path '*/.*' -type f \
     | sed -e "s|^$FILESYSTEM_POINTER|\.|g" \
     | fzf -m --ansi --reverse \
+        --prompt="Open file: " \
+        --header="(Currently in $FILESYSTEM_POINTER)" \
         --preview "$HOME/.config/sxhkd/fzf-file-preview.sh $FILESYSTEM_POINTER/{}")
 
 if [ -z "$selection" ]; then
