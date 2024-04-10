@@ -16,7 +16,7 @@ in {
         width = "100%";
         height = "3%";
         radius = 0;
-        font-0 = "Iosevka:size=12";
+        font-0 = "Iosevka:size=14";
         separator = " ";
         background = "${colorScheme.background}";
         foreground = "${colorScheme.foreground}";
