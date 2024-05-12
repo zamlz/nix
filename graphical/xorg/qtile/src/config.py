@@ -46,7 +46,7 @@ keys = [
     Key([ModifierKey.SUPER, ModifierKey.CONTROL], "l", lazy.layout.grow_right(), desc="Grow window to the right"),
     Key([ModifierKey.SUPER, ModifierKey.CONTROL], "j", lazy.layout.grow_down(), desc="Grow window down"),
     Key([ModifierKey.SUPER, ModifierKey.CONTROL], "k", lazy.layout.grow_up(), desc="Grow window up"),
-    Key([ModifierKey.SUPER], "r", lazy.layout.normalize(), desc="Reset all window sizes"),
+    Key([ModifierKey.SUPER, ModifierKey.CONTROL], "r", lazy.layout.normalize(), desc="Reset all window sizes"),
     
     # Toggle between split and unsplit sides of stack.
     # Split = all windows displayed
@@ -57,11 +57,18 @@ keys = [
     # Toggle between different layouts as defined below
     Key([ModifierKey.SUPER], "Space", lazy.next_layout(), desc="Toggle between layouts"),
     Key([ModifierKey.SUPER], "q", lazy.window.kill(), desc="Kill focused window"),
-    Key([ModifierKey.SUPER], "f", lazy.window.toggle_fullscreen(), desc="Toggle fullscreen on the focused window"),
+    Key([ModifierKey.SUPER, ModifierKey.SHIFT], "f", lazy.window.toggle_fullscreen(), desc="Toggle fullscreen on the focused window"),
     Key([ModifierKey.SUPER], "t", lazy.window.toggle_floating(), desc="Toggle floating on the focused window"),
     Key([ModifierKey.SUPER, ModifierKey.CONTROL, ModifierKey.ALT], "r", lazy.reload_config(), desc="Reload the config"),
     Key([ModifierKey.SUPER, ModifierKey.CONTROL, ModifierKey.ALT, ModifierKey.SHIFT], "Escape", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([ModifierKey.SUPER], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
+]
+
+# Drag floating layouts.
+mouse = [
+    Drag([ModifierKey.SUPER], "Button1", lazy.window.set_position_floating(), start=lazy.window.get_position()),
+    Drag([ModifierKey.SUPER], "Button3", lazy.window.set_size_floating(), start=lazy.window.get_size()),
+    Click([ModifierKey.SUPER], "Button2", lazy.window.bring_to_front()),
 ]
 
 # FIXME: WTF IS THIS?
@@ -121,7 +128,6 @@ layouts = [
     layout.Zoomy(),
 ]
 
-# Why do I need this?
 widget_defaults = dict(
     font="sans",
     fontsize=12,
@@ -134,13 +140,6 @@ extension_defaults = widget_defaults.copy()
 # This variable is set to None (no cap) by default, but you can set it to 60 to indicate that you limit it to 60 events per second
 #       Screen(x11_drag_polling_rate = 60)
 screens = [Screen()]
-
-# Drag floating layouts.
-mouse = [
-    Drag([ModifierKey.SUPER], "Button1", lazy.window.set_position_floating(), start=lazy.window.get_position()),
-    Drag([ModifierKey.SUPER], "Button3", lazy.window.set_size_floating(), start=lazy.window.get_size()),
-    Click([ModifierKey.SUPER], "Button2", lazy.window.bring_to_front()),
-]
 
 dgroups_key_binder = None
 dgroups_app_rules = []
