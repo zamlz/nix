@@ -9,7 +9,7 @@
     in
     "${terminal} ${termClass} ${fontOption} ${lineOption} ${columnOption} --command ${script}";
   ProgramLauncher = termPromptLauncher "$HOME/.config/sxhkd/fzf-program-launcher.sh" 16 80 9;
-  WindowSwitcher = termPromptLauncher "$HOME/.config/sxhkd/fzf-window-switcher.sh" 20 100 9;
+  WindowSwitcher = termPromptLauncher "$HOME/.config/sxhkd/window_switcher.py" 20 100 9;
   PasswordStore = termPromptLauncher "$HOME/.config/sxhkd/fzf-password-store.sh" 10 100 9;
   SystemManager = termPromptLauncher "$HOME/.config/sxhkd/system_manager.py" 6 40 12;
   FileSystemExplorer = termPromptLauncher "$HOME/.config/sxhkd/fzf-file-system-explorer.sh" 35 164 8;
@@ -24,12 +24,13 @@ in {
   xdg.configFile."sxhkd/fzf-password-store.sh".source = ../../scripts/fzf-password-store.sh;
   xdg.configFile."sxhkd/fzf-program-launcher.sh".source = ../../scripts/fzf-program-launcher.sh;
   xdg.configFile."sxhkd/fzf.py".source = ../../scripts/fzf.py;
-  xdg.configFile."sxhkd/fzf-window-switcher.sh".source = ../../scripts/fzf-window-switcher.sh;
   xdg.configFile."sxhkd/get-window-info.sh".source = ../../scripts/get-window-info.sh;
   xdg.configFile."sxhkd/launch-lazygit.sh".source = ../../scripts/launch-lazygit.sh;
   xdg.configFile."sxhkd/maim-screenshot.sh".source = ./scripts/maim-screenshot.sh;
   xdg.configFile."sxhkd/save-window-id.sh".source = ../../scripts/save-window-id.sh;
   xdg.configFile."sxhkd/system_manager.py".source = ../../scripts/system_manager.py;
+  xdg.configFile."sxhkd/window_switcher.py".source = ../../scripts/window_switcher.py;
+  xdg.configFile."sxhkd/xorg.py".source = ../../scripts/xorg.py;
 
   services.sxhkd = {
     enable = true;

@@ -7,14 +7,23 @@ from typing import List, Optional
 class Fzf:
     def __init__(
             self,
+            ansi: bool = True,
+            reverse: bool = True,
             prompt: Optional[str] = None,
-            reverse: bool = False
+            preview: Optional[str] = None,
+            preview_window: Optional[str] = None,
     ) -> None:
         args = []
+        if ansi:
+            args.append("--ansi")
         if reverse:
             args.append("--reverse")
         if prompt is not None:
             args.append(f"--prompt '{prompt}'")
+        if preview is not None:
+            args.append(f"--preview '{preview}'")
+        if preview_window is not None:
+            args.append(f"--preview-window={preview_window}")
         self.args = ' '.join(args)
 
     def prompt(self, options: List[str]) -> str:

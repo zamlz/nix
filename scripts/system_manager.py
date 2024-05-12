@@ -11,6 +11,7 @@ from typing import List
 # Eventually, I should consolidate this and create a mechanism in nix to do so.
 site.addsitedir(str(Path(__file__).parent))
 
+import xorg
 from fzf import Fzf
 
 
@@ -68,6 +69,7 @@ def reload_gpg_agent() -> None:
 
 
 def main() -> None:
+    xorg.set_window_title("FZF: System Manager")
     fzf = Fzf(prompt="System Action: ", reverse=True)
     action = fzf.prompt(list(SystemActions))
     match action:
