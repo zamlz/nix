@@ -28,19 +28,8 @@ in {
       herbstclient emit_hook reload
       herbstclient detect_monitors
 
-      # services
-      # FIXME: this shouldn't be here either
-      $HOME/.fehbg
-      (pkill sxhkd; sleep 0.1; ${pkgs.sxhkd}/bin/sxhkd) &
-      (pkill picom; sleep 0.1; ${pkgs.picom}/bin/picom) &
-      (pkill -f "polybar top"; sleep 0.1; ${pkgs.polybar}/bin/polybar top) &
-      (pkill -f "polybar bot"; sleep 0.1; ${pkgs.polybar}/bin/polybar bot) &
-
-      # xorg settings
-      # FIXME: this shouldn't belong here, atleast not with NIXOS
-      xset r rate 400 50
-      xset s off
-      setxkbmap -option caps:escape
+      # configures wallpaper, bars, other key mappers, various general xorg settings, etc.
+      ~/.config/xinit/autostart.sh
     '';
     # mod4 is SUPER
     # You can use xev to identify X11 keys very easily!
@@ -48,8 +37,8 @@ in {
       super = "Mod4";
       resizestep = "0.01";
     in {
-      # FIXME: Dynamically set this is sxhkd is not used
-      # "${super}-Ctrl-Alt-Escape" = "quit";
+      # This is a backup quit option in case sxhkd fails
+      "${super}-Ctrl-Alt-Shift-Escape" = "quit";
 
       # Reload WM and Close Window
       "${super}-Ctrl-Alt-r" = "chain , spawn $HOME/etc/xorg/refresh.sh , reload";
