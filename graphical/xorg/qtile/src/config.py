@@ -9,8 +9,8 @@ from libqtile.lazy import lazy
 
 @hook.subscribe.startup
 def autostart() -> None:
-    autostart_script = Path("~/.config/xinit/autostart.sh").expanduser()
-    subprocess.Popen([str(autostart_script)])
+    autostart_script = Path.home() / ".config/xinit/autostart.sh"
+    subprocess.run([str(autostart_script)])
 
 
 class ModifierKey(StrEnum):

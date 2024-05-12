@@ -4,7 +4,7 @@
   xdg.configFile."xinit/autostart.sh".text = ''
     #!/bin/sh
     # utilities
-    $HOME/.fehbg
+    $HOME/.fehbg &
     (pkill sxhkd; sleep 0.1; ${pkgs.sxhkd}/bin/sxhkd) &
     (pkill picom; sleep 0.1; ${pkgs.picom}/bin/picom) &
     (pkill -f "polybar top"; sleep 0.1; ${pkgs.polybar}/bin/polybar top) &
