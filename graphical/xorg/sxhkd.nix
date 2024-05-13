@@ -24,6 +24,7 @@ in {
   xdg.configFile."sxhkd/fzf-password-store.sh".source = ../../scripts/fzf-password-store.sh;
   xdg.configFile."sxhkd/fzf-program-launcher.sh".source = ../../scripts/fzf-program-launcher.sh;
   xdg.configFile."sxhkd/fzf.py".source = ../../scripts/fzf.py;
+  xdg.configFile."sxhkd/ps.py".source = ../../scripts/ps.py;
   xdg.configFile."sxhkd/get-window-info.sh".source = ../../scripts/get-window-info.sh;
   xdg.configFile."sxhkd/launch-lazygit.sh".source = ../../scripts/launch-lazygit.sh;
   xdg.configFile."sxhkd/maim-screenshot.sh".source = ./scripts/maim-screenshot.sh;

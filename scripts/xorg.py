@@ -1,6 +1,16 @@
 import subprocess
 from dataclasses import dataclass
+from enum import StrEnum
+from pathlib import Path
 from typing import Dict
+
+import ps
+
+
+class WindowManager(StrEnum):
+    # This is the name of the process from `ps`
+    QTILE = '.qtile-wrapped'
+    HERBSTLUFTWM = 'herbstluftwm'
 
 
 @dataclass(frozen=True)
@@ -44,6 +54,53 @@ def focus_window(window: XorgWindow) -> None:
     # we are effectively changing focus to the window
     subprocess.run(["wmctrl", "-i", "-a", window.window_id_hex])
     subprocess.run(["xdotool", "windowfocus", window.window_id_hex])
+
+
+def get_running_wm() -> WindowManager:
+    result = subprocess.run(["ps", "-a"], capture_output=True)
+    result.check_returncode()
+    # split the output over lines and skip the header line
+    for row in str(result.stdout, encoding="utf-8").strip().split('\n')[1:]:
+        match row.strip().split()[-1]:
+            case WindowManager.HERBSTLUFTWM:
+                return WindowManager.HERBSTLUFTWM
+            case WindowManager.QTILE:
+                return WindowManager.QTILE
+    raise ValueError("Unable to identify running window manager!")
+
+
+def kill_window_manager() -> None:
+    match get_running_wm():
+        case WindowManager.HERBSTLUFTWM:
+            exec(["herbstclient", "quit"])
+        case WindowManager.QTILE:
+            exec(["qtile", "cmd-obj", "-o", "cmd", "-f", "shutdown"])
+
+
+def get_wallpaper() -> Path:
+    with open(Path.home() / ".fehbg", 'r') as f:
+        return Path(f.readlines()[-1].strip().split(' ')[-1].replace("'", ''))
+
+
+def blur_image(image: Path) -> Path:
+    blurred_image = Path("/tmp/.blurred") / str(image).replace('/', '.')
+    if not blurred_image.exists():
+        blurred_image.parent.mkdir(parents=True, exist_ok=True)
+        # FIXME: Use a native blurring algorithm?
+        result = subprocess.run(
+            ["convert", str(image), "-blur", "0x8", str(blurred_image)]
+        )
+        result.check_returncode()
+    return blurred_image
+
+
+def lock_screen() -> None:
+    wallpaper = get_wallpaper()
+    if wallpaper.exists():
+        blurred_wallpaper = blur_image(wallpaper)
+        ps.exec(["i3lock", "-tnefi", str(blurred_wallpaper)])
+    else:
+        ps.exec(["i3lock", "-nef", "--color=000000"])
 
 
 def set_window_title(title: str) -> None:

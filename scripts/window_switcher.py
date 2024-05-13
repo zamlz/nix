@@ -10,6 +10,7 @@ site.addsitedir(str(Path(__file__).parent))
 import xorg
 from fzf import Fzf
 
+
 def main() -> None:
     xorg.set_window_title("FZF: Window Switcher")
     windows = xorg.get_active_windows()
