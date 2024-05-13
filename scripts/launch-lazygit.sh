@@ -8,5 +8,7 @@ else
     cd $WINDOW_PWD
 fi
 
+# Set the terminal window title
 echo -en "\033]0;LazyGit: $(pwd)\a"
+
 lazygit
