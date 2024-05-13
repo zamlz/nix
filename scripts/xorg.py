@@ -72,9 +72,9 @@ def get_running_wm() -> WindowManager:
 def kill_window_manager() -> None:
     match get_running_wm():
         case WindowManager.HERBSTLUFTWM:
-            exec(["herbstclient", "quit"])
+            ps.exec(["herbstclient", "quit"])
         case WindowManager.QTILE:
-            exec(["qtile", "cmd-obj", "-o", "cmd", "-f", "shutdown"])
+            ps.exec(["qtile", "cmd-obj", "-o", "cmd", "-f", "shutdown"])
 
 
 def get_wallpaper() -> Path:
