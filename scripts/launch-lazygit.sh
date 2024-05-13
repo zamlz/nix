@@ -8,4 +8,5 @@ else
     cd $WINDOW_PWD
 fi
 
+echo -en "\033]0;LazyGit: $(pwd)\a"
 lazygit
