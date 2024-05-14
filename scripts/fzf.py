@@ -9,6 +9,8 @@ class Fzf:
             self,
             ansi: bool = True,
             reverse: bool = True,
+            disabled: bool = False,
+            binds: List[str] = [],
             prompt: Optional[str] = None,
             preview: Optional[str] = None,
             preview_window: Optional[str] = None,
@@ -18,15 +20,19 @@ class Fzf:
             args.append("--ansi")
         if reverse:
             args.append("--reverse")
+        if disabled:
+            args.append("--disabled")
         if prompt is not None:
             args.append(f"--prompt '{prompt}'")
         if preview is not None:
             args.append(f"--preview '{preview}'")
         if preview_window is not None:
             args.append(f"--preview-window={preview_window}")
+        for bind in binds:
+            args.append(f"--bind '{bind}'")
         self.args = ' '.join(args)
 
-    def prompt(self, options: List[str]) -> str:
+    def prompt(self, options: List[str] = []) -> str:
         with NamedTemporaryFile() as ifp:
             with NamedTemporaryFile() as ofp:
                 with open(ifp.name, 'w') as f:
