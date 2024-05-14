@@ -62,57 +62,56 @@
       fi
     '';
     envExtra = ''
-    # prepare the window id directory
-    WINDIR=/tmp/.wid
-    mkdir -p $WINDIR
-    
-    # Load window info for given Target Window ID (used with pwdcfw.sh)
-    function load_window_info() {
-        if [ -n "$DISPLAY" ] && [ -n "$TARGET_WINDOWID" ]; then
-            source "$WINDIR/$TARGET_WINDOWID"
-            cd $WINDOW_PWD
-            unset TARGET_WINDOWID
-        fi
-    }
-    
-    # Save window info for given Window ID (used with pwdcfw.sh)
-    function save_window_info() {
-        if [ -n "$DISPLAY" ] && [ -n "$WINDOWID" ]; then
-            WINDOWID_FILE="$WINDIR/$WINDOWID"
-            echo "WINDOW_PWD='$(pwd)'" | tee $WINDOWID_FILE
-        fi
-    }
+      export LESS="-R --no-init --quit-if-one-screen"
+      # no longer creates __pycache__ folders in the same folder as *.py files
+      export PYTHONPYCACHEPREFIX="$HOME/.cache/__pycache__"
 
-    # Finally, just save the window info in case other processes are started without
-    # ever needing a zsh prompt (alacritty spawners)
-    save_window_info > /dev/null 2>&1
+      # prepare the window id directory
+      WINDIR=/tmp/.wid
+      mkdir -p $WINDIR
+
+      # Load window info for given Target Window ID (used with pwdcfw.sh)
+      function load_window_info() {
+          if [ -n "$DISPLAY" ] && [ -n "$TARGET_WINDOWID" ]; then
+              source "$WINDIR/$TARGET_WINDOWID"
+              cd $WINDOW_PWD
+              unset TARGET_WINDOWID
+          fi
+      }
+
+      # Save window info for given Window ID (used with pwdcfw.sh)
+      function save_window_info() {
+          if [ -n "$DISPLAY" ] && [ -n "$WINDOWID" ]; then
+              WINDOWID_FILE="$WINDIR/$WINDOWID"
+              echo "WINDOW_PWD='$(pwd)'" | tee $WINDOWID_FILE
+          fi
+      }
+
+      # Finally, just save the window info in case other processes are started without
+      # ever needing a zsh prompt (alacritty spawners)
+      save_window_info > /dev/null 2>&1
     '';
     initExtra = ''
-    source $HOME/.config/zsh/prompt.zsh
+      source $HOME/.config/zsh/prompt.zsh
 
-    # register hooks before the user is given the oppurtunity to enter a command
-    precmd() {
-        # load terminal window info if it exists
-        load_window_info > /dev/null 2>&1
-        export PROMPT=$(prompt_generate $?)
-        # save terminal window info (creates id file)
-        save_window_info > /dev/null 2>&1
-        # update the terminal title
-        # FIXME: maybe incorporate previously run command if exists?
-        print -Pn "\e]0;zsh %(1j,%j job%(2j|s|); ,)%~\a"
-    }
+      # register hooks before the user is given the oppurtunity to enter a command
+      precmd() {
+          # load terminal window info if it exists
+          load_window_info > /dev/null 2>&1
+          export PROMPT=$(prompt_generate $?)
+          # save terminal window info (creates id file)
+          save_window_info > /dev/null 2>&1
+          # update the terminal title
+          # FIXME: maybe incorporate previously run command if exists?
+          print -Pn "\e]0;zsh %(1j,%j job%(2j|s|); ,)%~\a"
+      }
 
-    # register hooks to run after accepting a command but before executing it
-    preexec() {
-        # writes the command and it's arguments to the title
-        # FIXME: does not work with fg well
-        printf "\033]0;%s\a" "$1"
-    }
+      # register hooks to run after accepting a command but before executing it
+      preexec() {
+          # writes the command and it's arguments to the title
+          # FIXME: does not work with fg well
+          printf "\033]0;%s\a" "$1"
+      }
     '';
-    localVariables = {
-      LESS = "-R --no-init --quit-if-one-screen";
-      # no longer creates __pycache__ folders in the same folder as *.py files
-      PYTHONPYCACHEPREFIX = "$HOME/.cache/__pycache__";
-    };
   };
 }
