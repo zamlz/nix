@@ -1,10 +1,16 @@
+import re
 import subprocess
 from dataclasses import dataclass
 from enum import StrEnum
 from pathlib import Path
-from typing import Dict
+from typing import Dict, Optional
 
 import ps
+from colors import AnsiColor
+
+
+WINDOW_ID_ENV_DIR = Path("/tmp/.wid")
+WINDOW_PWD_REGEX = re.compile("^WINDOW_PWD='(.+)'$")
 
 
 class WindowManager(StrEnum):
@@ -22,9 +28,56 @@ class XorgWindow:
     wm_class: str
     hostname: str
     title: str
+    pwd: Optional[Path]
 
     def __str__(self) -> str:
         return f"{self.window_id_hex} {self.title}"
+
+
+def display_window_info(window: XorgWindow) -> None:
+    print(
+        f"{AnsiColor.BOLD}WINDOW_ID{AnsiColor.RESET} = "
+        f"{AnsiColor.CYAN}{window.window_id}{AnsiColor.RESET}"
+    )
+    print(
+        f"{AnsiColor.BOLD}WINDOW_ID (hex){AnsiColor.RESET} = "
+        f"{AnsiColor.CYAN}{window.window_id_hex}{AnsiColor.RESET}"
+    )
+    print(
+        f"{AnsiColor.BOLD}WORKSPACE_ID{AnsiColor.RESET} = "
+        f"{AnsiColor.YELLOW}{window.workspace}{AnsiColor.RESET}"
+    )
+    print(
+        f"{AnsiColor.BOLD}PROCESS_ID{AnsiColor.RESET} = "
+        f"{AnsiColor.RED}{window.process_id}{AnsiColor.RESET}"
+    )
+    print(
+        f"{AnsiColor.BOLD}CLASS{AnsiColor.RESET} = "
+        f"{AnsiColor.MAGENTA}{window.wm_class}{AnsiColor.RESET}"
+    )
+    print(
+        f"{AnsiColor.BOLD}TITLE{AnsiColor.RESET} = "
+        f"{AnsiColor.GREEN}{window.title}{AnsiColor.RESET}"
+    )
+    if window.pwd is not None:
+        print(
+            f"{AnsiColor.BOLD}WINDOW_PWD{AnsiColor.RESET} = "
+            f"{AnsiColor.BLUE}{window.pwd}{AnsiColor.RESET}"
+        )
+
+
+def get_pwd_of_window(window_id: int) -> Optional[Path]:
+    window_id_file = WINDOW_ID_ENV_DIR / f"{window_id}"
+    if not window_id_file.exists():
+        return None
+    with open(window_id_file, 'r') as f:
+        for line in f.readlines():
+            match = re.match(WINDOW_PWD_REGEX, line)
+            if match is not None:
+                return match.group(1)
+    raise ValueError(
+        f"Found window id file for {window_id} but no pwd was found!"
+    )
 
 
 def get_active_windows() -> Dict[int ,XorgWindow]:
@@ -33,14 +86,17 @@ def get_active_windows() -> Dict[int ,XorgWindow]:
     windows = {}
     for row in str(result.stdout, encoding="utf-8").strip().split("\n"):
         extracted_values = row.strip().split(maxsplit=5)
-        windows[extracted_values[0]] = XorgWindow(
+        # infer the actual int value of the window id string
+        window_id = int(extracted_values[0], 0)
+        windows[window_id] = XorgWindow(
             window_id_hex = extracted_values[0],
-            window_id = int(extracted_values[0], 0),
+            window_id = window_id,
             workspace = int(extracted_values[1]),
             process_id = int(extracted_values[2]),
             wm_class = extracted_values[3],
             hostname = extracted_values[4],
-            title = extracted_values[5]
+            title = extracted_values[5],
+            pwd = get_pwd_of_window(window_id)
         )
     return windows
 

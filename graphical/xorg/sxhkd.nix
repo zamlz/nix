@@ -25,7 +25,8 @@ in {
   xdg.configFile."sxhkd/fzf-program-launcher.sh".source = ../../scripts/fzf-program-launcher.sh;
   xdg.configFile."sxhkd/fzf.py".source = ../../scripts/fzf.py;
   xdg.configFile."sxhkd/ps.py".source = ../../scripts/ps.py;
-  xdg.configFile."sxhkd/get-window-info.sh".source = ../../scripts/get-window-info.sh;
+  xdg.configFile."sxhkd/colors.py".source = ../../scripts/colors.py;
+  xdg.configFile."sxhkd/display_window_info.py".source = ../../scripts/display_window_info.py;
   xdg.configFile."sxhkd/launch-lazygit.sh".source = ../../scripts/launch-lazygit.sh;
   xdg.configFile."sxhkd/maim-screenshot.sh".source = ./scripts/maim-screenshot.sh;
   xdg.configFile."sxhkd/save-window-id.sh".source = ../../scripts/save-window-id.sh;

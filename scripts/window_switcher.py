@@ -16,16 +16,16 @@ def main() -> None:
     windows = xorg.get_active_windows()
     fzf = Fzf(
         prompt="Switch Window: ",
-        preview=str(Path.home() / ".config/sxhkd/get-window-info.sh") + " {1}",
+        preview=str(Path(__file__).parent / "display_window_info.py") + " {1}",
         preview_window="down,7",
     )
     action = fzf.prompt(list(str(w) for w in windows.values()))
     if action == '':
         return
-    window_id_hex = action.split()[0]
-    if window_id_hex not in windows.keys():
+    window_id = int(action.split()[0], 0)
+    if window_id not in windows.keys():
         return
-    xorg.focus_window(windows.get(window_id_hex))
+    xorg.focus_window(windows.get(window_id))
 
 
 if __name__ == "__main__":
