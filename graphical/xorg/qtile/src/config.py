@@ -57,7 +57,7 @@ keys = [
     # Toggle between different layouts as defined below
     Key([ModifierKey.SUPER], "Space", lazy.next_layout(), desc="Toggle between layouts"),
     Key([ModifierKey.SUPER], "q", lazy.window.kill(), desc="Kill focused window"),
-    Key([ModifierKey.SUPER, ModifierKey.SHIFT], "f", lazy.window.toggle_fullscreen(), desc="Toggle fullscreen on the focused window"),
+    Key([ModifierKey.SUPER, ModifierKey.SHIFT], "y", lazy.window.toggle_fullscreen(), desc="Toggle fullscreen on the focused window"),
     Key([ModifierKey.SUPER], "t", lazy.window.toggle_floating(), desc="Toggle floating on the focused window"),
     Key([ModifierKey.SUPER, ModifierKey.CONTROL, ModifierKey.ALT], "r", lazy.reload_config(), desc="Reload the config"),
     Key([ModifierKey.SUPER, ModifierKey.CONTROL, ModifierKey.ALT, ModifierKey.SHIFT], "Escape", lazy.shutdown(), desc="Shutdown Qtile"),
