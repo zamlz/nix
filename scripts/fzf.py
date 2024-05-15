@@ -12,6 +12,7 @@ class Fzf:
             disabled: bool = False,
             binds: List[str] = [],
             prompt: Optional[str] = None,
+            delimiter: Optional[str] = None,
             preview: Optional[str] = None,
             preview_window: Optional[str] = None,
     ) -> None:
@@ -24,6 +25,8 @@ class Fzf:
             args.append("--disabled")
         if prompt is not None:
             args.append(f"--prompt '{prompt}'")
+        if delimiter is not None:
+            args.append(f"--delimiter '{delimiter}'")
         if preview is not None:
             args.append(f"--preview '{preview}'")
         if preview_window is not None:

@@ -11,17 +11,23 @@ import xorg
 from fzf import Fzf
 
 
-RG_COMMAND="rg --column --line-number --no-heading --color=always --smart-case"
+RG_COMMAND="rg --line-number --no-heading --color=always --smart-case"
 
 
 def main() -> None:
     xorg.set_window_title("FZF: Interactive RipGrep in ${PWD}")
     fzf = Fzf(
-        prompt="Rg: ",
+        prompt="Ripgrep: ",
+        delimiter=':',
         binds=[
             f"start:reload:{RG_COMMAND} \"\"",
             f"change:reload:{RG_COMMAND} {{q}} || true"
-        ]
+        ],
+        preview=(
+            "bat --color=always --style=numbers --theme=ansi "
+            "{1} --highlight-line {2}"
+        ),
+        preview_window="down,60%,border-top,+{2}+3/3,~3"
     )
     print(fzf.prompt())
 
