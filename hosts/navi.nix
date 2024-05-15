@@ -114,17 +114,7 @@
     jack.enable = true;
   };
 
-  services.libinput = {
-    enable = true;
-    mouse = {
-      disableWhileTyping = true;
-      tapping = false;
-    };
-    touchpad = {
-      disableWhileTyping = true;
-      tapping = false;
-    };
-  };
+  services.libinput.enable = true;
 
   services.xserver = {
     enable = true;
