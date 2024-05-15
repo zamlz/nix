@@ -87,7 +87,7 @@ mouse = [
 #     )
 
 
-groups = [Group(i) for i in "1"]
+groups = [Group(i) for i in "1234567890"]
 
 for i in groups:
     keys.extend(
