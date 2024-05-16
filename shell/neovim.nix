@@ -21,6 +21,7 @@ in {
   programs.nixvim = {
     enable = true;
     enableMan = true;
+    defaultEditor = true;
     colorscheme = "peachpuff_custom";
 
     globals = {

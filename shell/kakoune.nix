@@ -1,7 +1,7 @@
 { inputs, lib, config, pkgs, ... }: {
   programs.kakoune = {
     enable = true;
-    defaultEditor = true;
+    defaultEditor = false;
     config = {
       numberLines = {
         enable = true;
