@@ -21,7 +21,8 @@ def main() -> None:
         delimiter=':',
         binds=[
             f"start:reload:{RG_COMMAND} \"\"",
-            f"change:reload:{RG_COMMAND} {{q}} || true"
+            f"change:reload:{RG_COMMAND} {{q}} || true",
+            "enter:become(echo {1})"
         ],
         preview=(
             "bat --color=always --style=numbers --theme=ansi "
@@ -29,7 +30,7 @@ def main() -> None:
         ),
         preview_window="down,60%,border-top,+{2}+3/3,~3"
     )
-    print(fzf.prompt())
+    file_name = fzf.prompt()
 
 
 if __name__ == "__main__":
