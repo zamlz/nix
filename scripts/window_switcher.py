@@ -19,7 +19,7 @@ def main() -> None:
         preview=str(Path(__file__).parent / "display_window_info.py") + " {1}",
         preview_window="down,7",
     )
-    action = fzf.prompt(list(str(w) for w in windows.values()))
+    action = fzf.prompt(list(str(w) for w in windows.values()))[0]
     if action == '':
         return
     window_id = int(action.split()[0], 0)

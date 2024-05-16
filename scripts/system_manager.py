@@ -33,7 +33,7 @@ def reload_gpg_agent() -> None:
 def main() -> None:
     xorg.set_window_title("FZF: System Manager")
     fzf = Fzf(prompt="System Action: ", reverse=True)
-    action = fzf.prompt(list(SystemActions))
+    action = fzf.prompt(list(SystemActions))[0]
     match action:
         case SystemActions.LOCK_SCREEN:
             reload_gpg_agent()

@@ -27,18 +27,19 @@ def main() -> None:
     fzf = Fzf(
         prompt=f"Open {'File' if args.file else 'Directory'}:",
         header=f"(Currently in {filesystem_pointer})",
+        multi=True,
         preview=(
             str(Path(__file__).parent / "fzf-file-preview.sh") \
             + f" {filesystem_pointer}{{}}"
         )
     )
 
-    selection = fzf.prompt(xorg.get_dir_items(
+    selections = fzf.prompt(xorg.get_dir_items(
         filesystem_pointer,
         xorg.SearchMode.FILE if args.file else xorg.SearchMode.DIRECTORY
     ))
 
-    if selection == "":
+    if selections == [""]:
         sys.exit(0)
 
 

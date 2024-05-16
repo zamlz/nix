@@ -30,7 +30,7 @@ def main() -> None:
         ),
         preview_window="down,60%,border-top,+{2}+3/3,~3"
     )
-    file_name = fzf.prompt()
+    file_name = fzf.prompt()[0]
 
 
 if __name__ == "__main__":
