@@ -8,19 +8,14 @@ from pathlib import Path
 # Eventually, I should consolidate this and create a mechanism in nix to do so.
 site.addsitedir(str(Path(__file__).parent))
 
-from navi import xorg
+from navi.xorg.xwindow import XorgWindow
 
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("window_id", type=str)
+    parser.add_argument("window_id_hex", type=str)
     args = parser.parse_args()
-    # infer the actual int value of the window id string
-    window_id = int(args.window_id, 0)
-    windows = xorg.get_active_windows()
-    if window_id not in windows.keys():
-        raise ValueError(f"{window_id} not found among active windows")
-    xorg.display_window_info(windows[window_id])
+    print(repr(XorgWindow.get_window_from_hex(args.window_id_hex)))
 
 
 if __name__ == "__main__":

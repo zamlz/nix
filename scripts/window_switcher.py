@@ -7,13 +7,13 @@ from pathlib import Path
 # Eventually, I should consolidate this and create a mechanism in nix to do so.
 site.addsitedir(str(Path(__file__).parent))
 
-from navi import xorg
-from navi.fzf import Fzf
+from navi.tools.fzf import Fzf
+from navi.xorg.xwindow import XorgWindow, set_window_title
 
 
 def main() -> None:
-    xorg.set_window_title("FZF: Window Switcher")
-    windows = xorg.get_active_windows()
+    set_window_title("FZF: Window Switcher")
+    windows = XorgWindow.get_active_windows()
     fzf = Fzf(
         prompt="Switch Window: ",
         preview=str(Path(__file__).parent / "display_window_info.py") + " {1}",
@@ -25,7 +25,7 @@ def main() -> None:
     window_id = int(action.split()[0], 0)
     if window_id not in windows.keys():
         return
-    xorg.focus_window(windows.get(window_id))
+    windows.get(window_id).focus()
 
 
 if __name__ == "__main__":

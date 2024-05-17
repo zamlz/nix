@@ -7,15 +7,15 @@ from pathlib import Path
 # Eventually, I should consolidate this and create a mechanism in nix to do so.
 site.addsitedir(str(Path(__file__).parent))
 
-from navi import xorg
-from navi.fzf import Fzf
+from navi.tools.fzf import Fzf
+from navi.xorg import xwindow
 
 
 RG_COMMAND="rg --line-number --no-heading --color=always --smart-case"
 
 
 def main() -> None:
-    xorg.set_window_title("FZF: Interactive RipGrep in ${PWD}")
+    xwindow.set_window_title("FZF: Interactive RipGrep in ${PWD}")
     fzf = Fzf(
         prompt="Ripgrep: ",
         delimiter=':',
@@ -31,6 +31,7 @@ def main() -> None:
         preview_window="down,60%,border-top,+{2}+3/3,~3"
     )
     file_name = fzf.prompt()[0]
+    print(file_name)
 
 
 if __name__ == "__main__":
