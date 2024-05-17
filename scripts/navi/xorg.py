@@ -5,8 +5,8 @@ from enum import StrEnum
 from pathlib import Path
 from typing import Dict, List, Optional
 
-import ps
-from colors import AnsiColor
+from . import process
+from .colors import AnsiColor
 
 
 WINDOW_ID_ENV_DIR = Path("/tmp/.wid")
@@ -149,9 +149,9 @@ def get_running_wm() -> WindowManager:
 def kill_window_manager() -> None:
     match get_running_wm():
         case WindowManager.HERBSTLUFTWM:
-            ps.exec(["herbstclient", "quit"])
+            process.exec(["herbstclient", "quit"])
         case WindowManager.QTILE:
-            ps.exec(["qtile", "cmd-obj", "-o", "cmd", "-f", "shutdown"])
+            process.exec(["qtile", "cmd-obj", "-o", "cmd", "-f", "shutdown"])
 
 
 def get_wallpaper() -> Path:
@@ -175,9 +175,9 @@ def lock_screen() -> None:
     wallpaper = get_wallpaper()
     if wallpaper.exists():
         blurred_wallpaper = blur_image(wallpaper)
-        ps.exec(["i3lock", "-tnefi", str(blurred_wallpaper)])
+        process.exec(["i3lock", "-tnefi", str(blurred_wallpaper)])
     else:
-        ps.exec(["i3lock", "-nef", "--color=000000"])
+        process.exec(["i3lock", "-nef", "--color=000000"])
 
 
 def set_window_title(title: str) -> None:

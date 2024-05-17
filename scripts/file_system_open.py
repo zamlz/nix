@@ -9,9 +9,9 @@ from pathlib import Path
 # Eventually, I should consolidate this and create a mechanism in nix to do so.
 site.addsitedir(str(Path(__file__).parent))
 
-import ps
-import xorg
-from fzf import Fzf
+from navi import ps
+from navi import xorg
+from navi.fzf import Fzf
 
 
 def main() -> None:

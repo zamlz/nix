@@ -24,17 +24,15 @@ in {
   xdg.configFile."sxhkd/fzf-file-system-open.sh".source = ../../scripts/fzf-file-system-open.sh;
   xdg.configFile."sxhkd/fzf-password-store.sh".source = ../../scripts/fzf-password-store.sh;
   xdg.configFile."sxhkd/fzf-program-launcher.sh".source = ../../scripts/fzf-program-launcher.sh;
-  xdg.configFile."sxhkd/fzf.py".source = ../../scripts/fzf.py;
-  xdg.configFile."sxhkd/ps.py".source = ../../scripts/ps.py;
   xdg.configFile."sxhkd/ripgrep.py".source = ../../scripts/ripgrep.py;
-  xdg.configFile."sxhkd/colors.py".source = ../../scripts/colors.py;
   xdg.configFile."sxhkd/display_window_info.py".source = ../../scripts/display_window_info.py;
   xdg.configFile."sxhkd/launch-lazygit.sh".source = ../../scripts/launch-lazygit.sh;
   xdg.configFile."sxhkd/maim-screenshot.sh".source = ./scripts/maim-screenshot.sh;
   xdg.configFile."sxhkd/save-window-id.sh".source = ../../scripts/save-window-id.sh;
   xdg.configFile."sxhkd/system_manager.py".source = ../../scripts/system_manager.py;
   xdg.configFile."sxhkd/window_switcher.py".source = ../../scripts/window_switcher.py;
-  xdg.configFile."sxhkd/xorg.py".source = ../../scripts/xorg.py;
+  xdg.configFile."sxhkd/navi".source = ../../scripts/navi;
+  xdg.configFile."sxhkd/navi".recursive = true;
 
   services.sxhkd = {
     enable = true;

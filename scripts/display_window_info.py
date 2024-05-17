@@ -8,7 +8,7 @@ from pathlib import Path
 # Eventually, I should consolidate this and create a mechanism in nix to do so.
 site.addsitedir(str(Path(__file__).parent))
 
-import xorg
+from navi import xorg
 
 
 def main() -> None:

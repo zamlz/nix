@@ -10,10 +10,9 @@ from pathlib import Path
 # Eventually, I should consolidate this and create a mechanism in nix to do so.
 site.addsitedir(str(Path(__file__).parent))
 
-import ps
-import xorg
-from fzf import Fzf
-from xorg import WindowManager
+from navi import process
+from navi import xorg
+from navi.fzf import Fzf
 
 
 class SystemActions(StrEnum):
@@ -41,9 +40,9 @@ def main() -> None:
         case SystemActions.QUIT_WINDOW_MANAGER:
             xorg.kill_window_manager()
         case SystemActions.POWER_OFF:
-            ps.exec(["sudo", "poweroff"])
+            process.exec(["sudo", "poweroff"])
         case SystemActions.REBOOT:
-            ps.exec(["sudo", "reboot"])
+            process.exec(["sudo", "reboot"])
 
 
 if __name__ == "__main__":
