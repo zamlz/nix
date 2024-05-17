@@ -6,6 +6,7 @@ from enum import StrEnum
 from pathlib import Path
 from typing import Dict, List, Optional
 
+from navi.xorg import xwindow
 from navi.xorg.window_manager import WindowManager, get_running_wm
 
 
@@ -75,10 +76,10 @@ def power_off() -> None:
 def get_filesystem_pointer(global_search_mode: bool) -> Path:
     if global_search_mode:
         return Path.home()
-    last_focused_window_id = get_last_focused_window_id()
+    last_focused_window_id = xwindow.get_last_focused_window_id()
     if last_focused_window_id is None:
         return Path.home()
-    window_pwd = get_pwd_of_window(last_focused_window_id)
+    window_pwd = xwindow.get_pwd_of_window(last_focused_window_id)
     # FIXME: convert it to git path
     return window_pwd
 

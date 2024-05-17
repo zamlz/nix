@@ -15,7 +15,7 @@
   FileSystemExplorer = termPromptLauncher "$HOME/.config/sxhkd/fzf-file-system-explorer.sh" 35 164 8;
   FileSystemOpen = termPromptLauncher "$HOME/.config/sxhkd/fzf-file-system-open.sh" 35 164 8;
   RipGrep = termPromptLauncher "$HOME/.config/sxhkd/ripgrep.py" 35 164 8;
-  LazyGit = termPromptLauncher "$HOME/.config/sxhkd/launch-lazygit.sh" 35 164 8;
+  LazyGit = termPromptLauncher "$HOME/.config/sxhkd/launch_lazygit.py" 35 164 8;
   maimScreenshot = "$HOME/.config/sxhkd/maim-screenshot.sh";
   saveWindowId = "$HOME/.config/sxhkd/save-window-id.sh";
 in {
@@ -26,7 +26,7 @@ in {
   xdg.configFile."sxhkd/fzf-program-launcher.sh".source = ../../scripts/fzf-program-launcher.sh;
   xdg.configFile."sxhkd/ripgrep.py".source = ../../scripts/ripgrep.py;
   xdg.configFile."sxhkd/display_window_info.py".source = ../../scripts/display_window_info.py;
-  xdg.configFile."sxhkd/launch-lazygit.sh".source = ../../scripts/launch-lazygit.sh;
+  xdg.configFile."sxhkd/launch_lazygit.py".source = ../../scripts/launch_lazygit.py;
   xdg.configFile."sxhkd/maim-screenshot.sh".source = ./scripts/maim-screenshot.sh;
   xdg.configFile."sxhkd/save-window-id.sh".source = ../../scripts/save-window-id.sh;
   xdg.configFile."sxhkd/system_manager.py".source = ../../scripts/system_manager.py;

@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import os
 import site
 from pathlib import Path
 
@@ -7,6 +8,7 @@ from pathlib import Path
 # Eventually, I should consolidate this and create a mechanism in nix to do so.
 site.addsitedir(str(Path(__file__).parent))
 
+import navi.system
 from navi.tools.fzf import Fzf
 from navi.xorg import xwindow
 
@@ -15,7 +17,11 @@ RG_COMMAND="rg --line-number --no-heading --color=always --smart-case"
 
 
 def main() -> None:
-    xwindow.set_window_title("FZF: Interactive RipGrep in ${PWD}")
+    filesystem_pointer = navi.system.get_filesystem_pointer(False)
+    os.chdir(filesystem_pointer)
+    xwindow.set_window_title(
+        f"FZF: Interactive RipGrep in {filesystem_pointer}"
+    )
     fzf = Fzf(
         prompt="Ripgrep: ",
         delimiter=':',
