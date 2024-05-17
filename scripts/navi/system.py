@@ -80,6 +80,8 @@ def get_filesystem_pointer(global_search_mode: bool) -> Path:
     if last_focused_window_id is None:
         return Path.home()
     window_pwd = xwindow.get_pwd_of_window(last_focused_window_id)
+    if window_pwd is None:
+        return Path.home()
     # FIXME: convert it to git path
     return window_pwd
 

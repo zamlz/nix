@@ -22,6 +22,7 @@ def main() -> None:
     xwindow.set_window_title(f"FZF: Interactive RipGrep in {fs_ptr}")
     fzf = Fzf(
         prompt="Ripgrep: ",
+        header=f"(Currently in {fs_ptr})",
         delimiter=':',
         binds=[
             f"start:reload:{RG_COMMAND} \"\"",
