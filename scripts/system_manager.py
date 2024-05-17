@@ -33,9 +33,9 @@ def main() -> None:
         case SystemActions.QUIT_WINDOW_MANAGER:
             navi.system.kill_window_manager()
         case SystemActions.POWER_OFF:
-            navi.system.execute(["sudo", "poweroff"])
+            navi.system.power_off()
         case SystemActions.REBOOT:
-            navi.system.exec(["sudo", "reboot"])
+            navi.system.reboot()
 
 
 if __name__ == "__main__":

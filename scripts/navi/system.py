@@ -13,6 +13,10 @@ def execute(command: List[str]) -> None:
     os.execlp(command[0], *command)
 
 
+def sudo_execute(command: List[str]) -> None:
+    execute(["sudo", *command])
+
+
 def reload_gpg_agent() -> None:
     subprocess.run(
         ["gpg-connect-agent", "--no-autostart", "RELOADAGENT", "/bye"],
@@ -50,9 +54,17 @@ def lock_screen() -> None:
 def kill_window_manager() -> None:
     match get_running_wm():
         case WindowManager.HERBSTLUFTWM:
-            execute(["herbstclient", "quit"])
+            sudo_execute(["herbstclient", "quit"])
         case WindowManager.QTILE:
-            execute(["qtile", "cmd-obj", "-o", "cmd", "-f", "shutdown"])
+            sudo_execute(["qtile", "cmd-obj", "-o", "cmd", "-f", "shutdown"])
+
+
+def reboot() -> None:
+    sudo_execute(["reboot"])
+
+
+def power_off() -> None:
+    sudo_execute(["poweroff"])
 
 
 #FIXME: where to put these below?
