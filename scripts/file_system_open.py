@@ -9,9 +9,9 @@ from pathlib import Path
 # Eventually, I should consolidate this and create a mechanism in nix to do so.
 site.addsitedir(str(Path(__file__).parent))
 
-from navi import ps
-from navi import xorg
-from navi.fzf import Fzf
+import navi.system
+from navi.tools.fzf import Fzf
+from navi.xorg import xwindow
 
 
 def main() -> None:
@@ -22,23 +22,27 @@ def main() -> None:
     args = parser.parse_args()
     if args.file == args.directory:
         raise ValueError("Mode must be -f or -d")
+    elif args.file:
+        fs_object = "File"
+        search_mode = navi.system.SearchMode.FILE
+    else:
+        fs_object = "Directory"
+        search_mode = navi.system.SearchMode.DIRECTORY
 
-    filesystem_pointer = xorg.get_filesystem_pointer(args.global_search)
+    fs_ptr = navi.system.get_filesystem_pointer(args.global_search)
+    xwindow.set_window_title(f"FZF: Open {fs_object} (from {fs_ptr})")
+
     fzf = Fzf(
-        prompt=f"Open {'File' if args.file else 'Directory'}:",
-        header=f"(Currently in {filesystem_pointer})",
+        prompt=f"Open {fs_object}:",
+        header=f"(Currently in {fs_ptr})",
         multi=True,
         preview=(
             str(Path(__file__).parent / "fzf-file-preview.sh") \
-            + f" {filesystem_pointer}{{}}"
+            + f" {fs_ptr}/{{}}"
         )
     )
 
-    selections = fzf.prompt(xorg.get_dir_items(
-        filesystem_pointer,
-        xorg.SearchMode.FILE if args.file else xorg.SearchMode.DIRECTORY
-    ))
-
+    selections = fzf.prompt(navi.system.get_dir_items(fs_ptr, search_mode))
     if selections == [""]:
         sys.exit(0)
 

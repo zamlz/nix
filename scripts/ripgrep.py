@@ -17,11 +17,9 @@ RG_COMMAND="rg --line-number --no-heading --color=always --smart-case"
 
 
 def main() -> None:
-    filesystem_pointer = navi.system.get_filesystem_pointer(False)
-    os.chdir(filesystem_pointer)
-    xwindow.set_window_title(
-        f"FZF: Interactive RipGrep in {filesystem_pointer}"
-    )
+    fs_ptr = navi.system.get_filesystem_pointer(False)
+    os.chdir(fs_ptr)
+    xwindow.set_window_title(f"FZF: Interactive RipGrep in {fs_ptr}")
     fzf = Fzf(
         prompt="Ripgrep: ",
         delimiter=':',
