@@ -5,6 +5,5 @@
 # whenever I want.
 # > Look at the python3 module "navi.system.nohup"
 
-echo "$@"
 nohup "$@" > /dev/null 2>&1 &
 sleep 0.1
