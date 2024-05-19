@@ -45,7 +45,7 @@ selection=$(find "$FILESYSTEM_POINTER" -not -path '*/.*' -type "$find_type" \
     | fzf -m --ansi --reverse \
         --prompt="Open $prompt_noun: " \
         --header="(Currently in $FILESYSTEM_POINTER)" \
-        --preview="$HOME/.config/sxhkd/fzf-file-preview.sh $FILESYSTEM_POINTER/{}")
+        --preview="$HOME/.config/sxhkd/file_preview.sh $FILESYSTEM_POINTER/{}")
 
 if [ -z "$selection" ]; then
     return

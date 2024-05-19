@@ -42,7 +42,7 @@ def main() -> None:
         header=f"(Currently in {fs_ptr})",
         multi=True,
         preview=(
-            str(Path(__file__).parent / "fzf-file-preview.sh") \
+            str(Path(__file__).parent / "file_preview.sh") \
             + f" {fs_ptr}/{{}}"
         )
     )

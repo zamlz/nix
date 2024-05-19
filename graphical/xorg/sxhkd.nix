@@ -19,7 +19,7 @@
   maimScreenshot = "$HOME/.config/sxhkd/maim-screenshot.sh";
   saveWindowId = "$HOME/.config/sxhkd/save-window-id.sh";
 in {
-  xdg.configFile."sxhkd/fzf-file-preview.sh".source = ../../scripts/fzf-file-preview.sh;
+  xdg.configFile."sxhkd/file_preview.sh".source = ../../scripts/file_preview.sh;
   xdg.configFile."sxhkd/fzf-file-system-explorer.sh".source = ../../scripts/fzf-file-system-explorer.sh;
   xdg.configFile."sxhkd/file_system_open.py".source = ../../scripts/file_system_open.py;
   xdg.configFile."sxhkd/fzf-password-store.sh".source = ../../scripts/fzf-password-store.sh;

@@ -35,7 +35,7 @@ while [ -d $FILESYSTEM_POINTER ] || [ -f $FILESYSTEM_POINTER ]; do
         cd $FILESYSTEM_POINTER
         selection=$(ls -lh ${LS_HIDDEN_ARG} --color=always \
             | fzf --ansi --nth 9 --reverse --header-lines=1 \
-                --preview $HOME'/.config/sxhkd/fzf-file-preview.sh {9}' \
+                --preview $HOME'/.config/sxhkd/file_preview.sh {9}' \
                 --bind "ctrl-h:become(echo ${TOGGLE_HIDDEN_ACTION})" \
                 --bind "alt-h:become(echo ..)" \
                 --bind "alt-j:down" \
