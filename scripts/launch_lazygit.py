@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import logging
 import os
 import site
 from pathlib import Path
@@ -9,7 +10,11 @@ from pathlib import Path
 site.addsitedir(str(Path(__file__).parent))
 
 import navi.system
+from navi.logging import setup_logger
 from navi.xorg import xwindow
+
+
+logger = logging.getLogger(__name__)
 
 
 def main() -> None:
@@ -20,4 +25,5 @@ def main() -> None:
 
 
 if __name__ == "__main__":
+    setup_logger()
     main()
