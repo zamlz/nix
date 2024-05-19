@@ -4,7 +4,7 @@
     defaultEditor = true;
     config = {
       numberLines = {
-        enable = true;
+        enable = false;
         highlightCursor = true;
         relative = false;
       };

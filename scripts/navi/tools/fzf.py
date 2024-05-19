@@ -1,7 +1,11 @@
+import logging
 import os
 from pathlib import Path
 from tempfile import NamedTemporaryFile
 from typing import List, Optional
+
+
+logger = logging.getLogger(__name__)
 
 
 class Fzf:
@@ -48,7 +52,9 @@ class Fzf:
                     f.writelines([f"{opt}\n" for opt in options])
                 os.system(f"fzf {self.args} < {ifp.name} > {ofp.name}")
                 with open(ofp.name, 'r') as f:
-                    return f.read().strip().split('\n')
+                    selection = f.read().strip().split('\n')
+                    logger.debug(f"Fzf selection: {selection}")
+                    return selection
 
 
 if __name__ == "__main__":

@@ -115,7 +115,9 @@ def get_last_focused_window_id() -> Optional[int]:
     if not LAST_FOCUSED_WINDOW_ID_FILE.exists():
         return None
     with open(LAST_FOCUSED_WINDOW_ID_FILE, 'r') as f:
-        return int(f.read().strip())
+        if (data := f.read().strip()) == '':
+            return None
+        return int(data)
 
 
 # the filesystem pointer is a special construct for keeping track of

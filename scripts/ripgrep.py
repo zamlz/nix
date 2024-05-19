@@ -3,6 +3,7 @@
 import logging
 import os
 import site
+import sys
 from pathlib import Path
 
 # FIXME: I have utils that are not installed as python packages yet.
@@ -30,7 +31,6 @@ def main() -> None:
         binds=[
             f"start:reload:{RG_COMMAND} \"\"",
             f"change:reload:{RG_COMMAND} {{q}} || true",
-            "enter:become(echo {1})"
         ],
         preview=(
             "bat --color=always --style=numbers --theme=ansi "
@@ -38,8 +38,11 @@ def main() -> None:
         ),
         preview_window="down,60%,border-top,+{2}+3/3,~3"
     )
-    file_name = fzf.prompt()[0]
-    print(file_name)
+    selections = fzf.prompt()
+    if selections == [""]:
+        sys.exit(0)
+    selected_files = [fs_ptr / p.split(':')[0] for p in selections]
+    navi.system.open_items(selected_files)
 
 
 if __name__ == "__main__":

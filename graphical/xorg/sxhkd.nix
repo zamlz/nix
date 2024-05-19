@@ -13,7 +13,7 @@
   PasswordStore = termPromptLauncher "$HOME/.config/sxhkd/fzf-password-store.sh" 10 100 9;
   SystemManager = termPromptLauncher "$HOME/.config/sxhkd/system_manager.py" 6 40 12;
   FileSystemExplorer = termPromptLauncher "$HOME/.config/sxhkd/fzf-file-system-explorer.sh" 35 164 8;
-  FileSystemOpen = termPromptLauncher "$HOME/.config/sxhkd/fzf-file-system-open.sh" 35 164 8;
+  FileSystemOpen = termPromptLauncher "$HOME/.config/sxhkd/file_system_open.py" 35 164 8;
   RipGrep = termPromptLauncher "$HOME/.config/sxhkd/ripgrep.py" 35 164 8;
   LazyGit = termPromptLauncher "$HOME/.config/sxhkd/launch_lazygit.py" 35 164 8;
   maimScreenshot = "$HOME/.config/sxhkd/maim-screenshot.sh";
@@ -21,7 +21,7 @@
 in {
   xdg.configFile."sxhkd/fzf-file-preview.sh".source = ../../scripts/fzf-file-preview.sh;
   xdg.configFile."sxhkd/fzf-file-system-explorer.sh".source = ../../scripts/fzf-file-system-explorer.sh;
-  xdg.configFile."sxhkd/fzf-file-system-open.sh".source = ../../scripts/fzf-file-system-open.sh;
+  xdg.configFile."sxhkd/file_system_open.py".source = ../../scripts/file_system_open.py;
   xdg.configFile."sxhkd/fzf-password-store.sh".source = ../../scripts/fzf-password-store.sh;
   xdg.configFile."sxhkd/fzf-program-launcher.sh".source = ../../scripts/fzf-program-launcher.sh;
   xdg.configFile."sxhkd/ripgrep.py".source = ../../scripts/ripgrep.py;
@@ -33,6 +33,7 @@ in {
   xdg.configFile."sxhkd/window_switcher.py".source = ../../scripts/window_switcher.py;
   xdg.configFile."sxhkd/navi".source = ../../scripts/navi;
   xdg.configFile."sxhkd/navi".recursive = true;
+  xdg.configFile."sxhkd/nohup.sh".source = ../../scripts/nohup.sh;
 
   services.sxhkd = {
     enable = true;

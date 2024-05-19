@@ -1,3 +1,4 @@
+import logging
 import os
 import re
 import subprocess
@@ -10,12 +11,25 @@ from navi.xorg import xwindow
 from navi.xorg.window_manager import WindowManager, get_running_wm
 
 
+logger = logging.getLogger(__name__)
+
+
+# FIXME: I really don't like this sort of path referencing...
+NOHUP_SCRIPT = Path(__file__).parent.parent / "nohup.sh"
+
+
 def execute(command: List[str]) -> None:
     os.execlp(command[0], *command)
 
 
 def sudo_execute(command: List[str]) -> None:
     execute(["sudo", *command])
+
+
+def nohup(command: List[str]) -> None:
+    subprocess.run(
+        [NOHUP_SCRIPT, *command],
+    ).check_returncode()
 
 
 def reload_gpg_agent() -> None:
@@ -99,3 +113,21 @@ def get_dir_items(root_dir: Path, mode: SearchMode) -> List[str]:
     result.check_returncode()
     paths = str(result.stdout, encoding="utf-8").strip().split("\n")
     return [p.replace(str(root_dir), ".") for p in paths]
+
+
+def open_items(items: List[Path]) -> None:
+    for item in items:
+        logger.debug(f"opening item: {item}")
+        if item.is_file():
+            nohup([
+                "alacritty",
+                "--working-directory", item.parent,
+                # So why do we not run the editor command directly?
+                # Well it would work in starting the editor, but zsh startup
+                # runs all the hooks for saving the window details.
+                # In other words, in order for every terminal window to have
+                # a window_id file generated, we must start zsh
+                "--command", "zsh", "-c", f"{os.getenv('EDITOR')} {item}"
+            ])
+        else:
+            nohup(["alacritty", "--working-directory", item])

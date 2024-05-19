@@ -50,6 +50,8 @@ def main() -> None:
     selections = fzf.prompt(navi.system.get_dir_items(fs_ptr, search_mode))
     if selections == [""]:
         sys.exit(0)
+    selected_items = [fs_ptr / p for p in selections]
+    navi.system.open_items(selected_items)
 
 
 if __name__ == "__main__":
