@@ -10,7 +10,7 @@
     "${terminal} ${termClass} ${fontOption} ${lineOption} ${columnOption} --command ${script}";
   ProgramLauncher = termPromptLauncher "$HOME/.config/sxhkd/fzf-program-launcher.sh" 16 80 9;
   WindowSwitcher = termPromptLauncher "$HOME/.config/sxhkd/window_switcher.py" 20 100 9;
-  PasswordStore = termPromptLauncher "$HOME/.config/sxhkd/fzf-password-store.sh" 10 100 9;
+  PasswordStore = termPromptLauncher "$HOME/.config/sxhkd/fzf-password-store.sh" 14 100 9;
   SystemManager = termPromptLauncher "$HOME/.config/sxhkd/system_manager.py" 6 40 12;
   FileSystemExplorer = termPromptLauncher "$HOME/.config/sxhkd/fzf-file-system-explorer.sh" 35 164 8;
   FileSystemOpen = termPromptLauncher "$HOME/.config/sxhkd/file_system_open.py" 35 164 8;
