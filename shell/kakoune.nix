@@ -59,7 +59,7 @@ in {
     face global PrimaryCursorEol black,cyan+fg
     face global SecondaryCursorEol black,cyan+fg
     face global LineNumbers ${blackAlt},${background}
-    face global LineNumberCursor default,default
+    face global LineNumberCursor ${yellow},${background}+b
     face global MenuForeground ${black},${white}
     face global MenuBackground ${white},${black}
     face global MenuInfo cyan
