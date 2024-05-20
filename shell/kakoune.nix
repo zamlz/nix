@@ -63,7 +63,7 @@ in {
     face global MenuForeground ${black},${white}
     face global MenuBackground ${white},${black}
     face global MenuInfo cyan
-    face global Information ${white},${black}
+    face global Information ${white},${background}
     face global Error ${background},red+b
     face global DiagnosticError red
     face global DiagnosticWarning yellow
