@@ -107,12 +107,13 @@ class SearchMode(StrEnum):
 
 def get_dir_items(root_dir: Path, mode: SearchMode) -> List[str]:
     result = subprocess.run(
-        ["find", str(root_dir), "-not", "-path", "'*/.*'", "-type", mode],
+        # We use ripgrep here because it respects .gitignore files
+        ["rg", "--files", str(root_dir)],
         capture_output=True
     )
     result.check_returncode()
     paths = str(result.stdout, encoding="utf-8").strip().split("\n")
-    return [p.replace(str(root_dir), ".") for p in paths]
+    return [p.replace(str(root_dir), ".") for p in sorted(paths)]
 
 
 def open_items(items: List[Path]) -> None:
