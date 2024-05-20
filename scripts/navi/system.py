@@ -96,8 +96,15 @@ def get_filesystem_pointer(global_search_mode: bool) -> Path:
     window_pwd = xwindow.get_pwd_of_window(last_focused_window_id)
     if window_pwd is None:
         return Path.home()
-    # FIXME: convert it to git path
-    return window_pwd
+    try:
+        result = subprocess.run(
+            ["git", "-C", str(window_pwd), "rev-parse", "--show-toplevel"],
+            capture_output=True
+        )
+        result.check_returncode()
+        return Path(str(result.stdout, encoding="utf-8").strip())
+    except subprocess.CalledProcessError:
+        return window_pwd
 
 
 class SearchMode(StrEnum):
@@ -105,15 +112,38 @@ class SearchMode(StrEnum):
     DIRECTORY = 'd'
 
 
-def get_dir_items(root_dir: Path, mode: SearchMode) -> List[str]:
+def filter_hidden_items(raw_items: List[Path]) -> List[Path]:
+    filtered_items = []
+    for item in raw_items:
+        if any(map(lambda x: x.startswith('.'), item.parts)):
+            continue
+        filtered_items.append(item)
+    return filtered_items
+
+
+def get_dir_items(
+        root_dir: Path,
+        mode: SearchMode,
+        show_hidden: bool
+) -> List[str]:
+    # This is way faster than globbing from pathlib objects.
+    # like extremely faster
     result = subprocess.run(
-        # We use ripgrep here because it respects .gitignore files
-        ["rg", "--files", str(root_dir)],
+        ["find", str(root_dir), "-type", mode],
         capture_output=True
     )
     result.check_returncode()
-    paths = str(result.stdout, encoding="utf-8").strip().split("\n")
-    return [p.replace(str(root_dir), ".") for p in sorted(paths)]
+    paths = str(result.stdout, encoding="utf-8").strip().split('\n')
+    paths = sorted([
+        p.replace(str(root_dir), '.', 1)
+        for p in paths
+    ])
+    if show_hidden:
+        return paths
+    # A not so smart hidden path check
+    # note, that this filtering should be done after removing the
+    # root_dir name
+    return [p for p in paths if "/." not in p]
 
 
 def open_items(items: List[Path]) -> None:

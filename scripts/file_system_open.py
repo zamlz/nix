@@ -19,6 +19,9 @@ from navi.xorg import xwindow
 logger = logging.getLogger(__name__)
 
 
+TOGGLE_HIDDEN_ACTION = "__TOGGLE_HIDDEN_ACTION__"
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("-f", "--file", action="store_true")
@@ -44,14 +47,23 @@ def main() -> None:
         preview=(
             str(Path(__file__).parent / "file_preview.sh") \
             + f" {fs_ptr}/{{}}"
-        )
+        ),
+        binds=[f"ctrl-h:become(echo {TOGGLE_HIDDEN_ACTION})"]
     )
 
-    selections = fzf.prompt(navi.system.get_dir_items(fs_ptr, search_mode))
-    if selections == [""]:
-        sys.exit(0)
-    selected_items = [fs_ptr / p for p in selections]
-    navi.system.open_items(selected_items)
+    show_hidden = False
+    while True:
+        dir_items = navi.system.get_dir_items(fs_ptr, search_mode, show_hidden)
+        selections = fzf.prompt(dir_items)
+        if selections == [TOGGLE_HIDDEN_ACTION]:
+            show_hidden = not show_hidden
+            continue
+        elif selections == [""]:
+            sys.exit(0)
+        else:
+            selected_items = [fs_ptr / p for p in selections]
+            navi.system.open_items(selected_items)
+            sys.exit(0)
 
 
 if __name__ == "__main__":
