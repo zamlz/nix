@@ -62,6 +62,10 @@ keys = [
     Key([ModifierKey.SUPER, ModifierKey.CONTROL, ModifierKey.ALT], "r", lazy.reload_config(), desc="Reload the config"),
     Key([ModifierKey.SUPER, ModifierKey.CONTROL, ModifierKey.ALT, ModifierKey.SHIFT], "Escape", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([ModifierKey.SUPER], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
+
+    # move between groups
+    Key([ModifierKey.SUPER], "bracketright", lazy.screen.next_group(), desc="Move to next group"),
+    Key([ModifierKey.SUPER], "bracketleft", lazy.screen.prev_group(), desc="Move to previous group"),
 ]
 
 # Drag floating layouts.
