@@ -112,15 +112,6 @@ class SearchMode(StrEnum):
     DIRECTORY = 'd'
 
 
-def filter_hidden_items(raw_items: List[Path]) -> List[Path]:
-    filtered_items = []
-    for item in raw_items:
-        if any(map(lambda x: x.startswith('.'), item.parts)):
-            continue
-        filtered_items.append(item)
-    return filtered_items
-
-
 def get_dir_items(
         root_dir: Path,
         mode: SearchMode,
