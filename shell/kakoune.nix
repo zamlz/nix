@@ -9,7 +9,7 @@ in {
       numberLines = {
         enable = true;
         highlightCursor = true;
-        relative = true;
+        relative = false;
         separator = "\" \"";
       };
       showMatching = true;
