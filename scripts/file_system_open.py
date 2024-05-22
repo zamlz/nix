@@ -59,11 +59,11 @@ def main() -> None:
             show_hidden = not show_hidden
             continue
         elif selections == [""]:
-            sys.exit(0)
+            return
         else:
             selected_items = [fs_ptr / p for p in selections]
             navi.system.open_items(selected_items)
-            sys.exit(0)
+            return
 
 
 if __name__ == "__main__":

@@ -137,19 +137,37 @@ def get_dir_items(
     return [p for p in paths if "/." not in p]
 
 
+def open_file(file_path: Path, line_num: int = 0) -> None:
+    logger.debug(f"opening files: {file_path}")
+    if not file_path.is_file():
+        logger.warning(f"{file_path} is not a file!")
+        return
+    nohup([
+        "alacritty",
+        "--working-directory", file_path.parent,
+        # So why do we not run the editor command directly?
+        # Well it would work in starting the editor, but zsh startup
+        # runs all the hooks for saving the window details.
+        # In other words, in order for every terminal window to have
+        # a window_id file generated, we must start zsh
+        "--command", "zsh", "-c",
+        f"{os.getenv('EDITOR')} {file_path} +{line_num}"
+    ])
+
+
+def open_directory(dir_path: Path) -> None:
+    logger.debug(f"opening directory: {dir_path}")
+    if not dir_path.is_dir():
+        logger.warning(f"{dir_path} is not a directory!")
+        return
+    nohup(["alacritty", "--working-directory", dir_path])
+
+
 def open_items(items: List[Path]) -> None:
     for item in items:
-        logger.debug(f"opening item: {item}")
         if item.is_file():
-            nohup([
-                "alacritty",
-                "--working-directory", item.parent,
-                # So why do we not run the editor command directly?
-                # Well it would work in starting the editor, but zsh startup
-                # runs all the hooks for saving the window details.
-                # In other words, in order for every terminal window to have
-                # a window_id file generated, we must start zsh
-                "--command", "zsh", "-c", f"{os.getenv('EDITOR')} {item}"
-            ])
+            open_file(item)
+        elif item.is_dir():
+            open_directory(item)
         else:
-            nohup(["alacritty", "--working-directory", item])
+            logger.warning(f"{item} is not a file or a directory")

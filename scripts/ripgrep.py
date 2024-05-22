@@ -40,9 +40,12 @@ def main() -> None:
     )
     selections = fzf.prompt()
     if selections == [""]:
-        sys.exit(0)
-    selected_files = [fs_ptr / p.split(':')[0] for p in selections]
-    navi.system.open_items(selected_files)
+        return
+
+    for selection in selections:
+        relative_file_path, linenum, _ = selection.split(':')
+        absolute_file_path = fs_ptr / relative_file_path
+        navi.system.open_file(absolute_file_path, int(linenum))
 
 
 if __name__ == "__main__":
