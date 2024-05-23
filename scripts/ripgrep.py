@@ -43,7 +43,7 @@ def main() -> None:
         return
 
     for selection in selections:
-        relative_file_path, linenum, _ = selection.split(':')
+        relative_file_path, linenum, _ = selection.split(':', maxsplit=2)
         absolute_file_path = fs_ptr / relative_file_path
         navi.system.open_file(absolute_file_path, int(linenum))
 
