@@ -12,7 +12,7 @@
   WindowSwitcher = termPromptLauncher "$HOME/.config/sxhkd/window_switcher.py" 20 100 9;
   PasswordStore = termPromptLauncher "$HOME/.config/sxhkd/fzf-password-store.sh" 14 100 9;
   SystemManager = termPromptLauncher "$HOME/.config/sxhkd/system_manager.py" 6 40 12;
-  FileSystemExplorer = termPromptLauncher "$HOME/.config/sxhkd/fzf-file-system-explorer.sh" 35 164 8;
+  FileSystemExplorer = termPromptLauncher "$HOME/.config/sxhkd/file_system_explorer.py" 35 164 8;
   FileSystemOpen = termPromptLauncher "$HOME/.config/sxhkd/file_system_open.py" 35 164 8;
   RipGrep = termPromptLauncher "$HOME/.config/sxhkd/ripgrep.py" 35 164 8;
   LazyGit = termPromptLauncher "$HOME/.config/sxhkd/launch_lazygit.py" 35 164 8;
@@ -20,7 +20,7 @@
   saveWindowId = "$HOME/.config/sxhkd/save-window-id.sh";
 in {
   xdg.configFile."sxhkd/file_preview.sh".source = ../../scripts/file_preview.sh;
-  xdg.configFile."sxhkd/fzf-file-system-explorer.sh".source = ../../scripts/fzf-file-system-explorer.sh;
+  xdg.configFile."sxhkd/file_system_explorer.py".source = ../../scripts/file_system_explorer.py;
   xdg.configFile."sxhkd/file_system_open.py".source = ../../scripts/file_system_open.py;
   xdg.configFile."sxhkd/fzf-password-store.sh".source = ../../scripts/fzf-password-store.sh;
   xdg.configFile."sxhkd/fzf-program-launcher.sh".source = ../../scripts/fzf-program-launcher.sh;

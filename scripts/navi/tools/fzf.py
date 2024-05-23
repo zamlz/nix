@@ -16,8 +16,10 @@ class Fzf:
             disabled: bool = False,
             multi: bool = True,
             binds: List[str] = [],
+            nth: Optional[int] = None,
             prompt: Optional[str] = None,
             header: Optional[str] = None,
+            header_lines: Optional[int] = None,
             delimiter: Optional[str] = None,
             preview: Optional[str] = None,
             preview_window: Optional[str] = None,
@@ -35,12 +37,16 @@ class Fzf:
             args.append(f"--prompt '{prompt}'")
         if header is not None:
             args.append(f"--header '{header}'")
+        if header_lines is not None:
+            args.append(f"--header-lines '{header_lines}'")
         if delimiter is not None:
             args.append(f"--delimiter '{delimiter}'")
         if preview is not None:
             args.append(f"--preview '{preview}'")
         if preview_window is not None:
             args.append(f"--preview-window={preview_window}")
+        if nth is not None:
+            args.append(f"--nth {nth}")
         for bind in binds:
             args.append(f"--bind '{bind}'")
         self.args = ' '.join(args)

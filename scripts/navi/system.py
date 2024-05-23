@@ -87,7 +87,10 @@ def power_off() -> None:
 
 # the filesystem pointer is a special construct for keeping track of
 # working directories in active windows
-def get_filesystem_pointer(global_search_mode: bool) -> Path:
+def get_filesystem_pointer(
+        global_search_mode: bool,
+        find_git_root: bool = True
+) -> Path:
     if global_search_mode:
         return Path.home()
     last_focused_window_id = get_last_focused_window_id()
@@ -96,6 +99,8 @@ def get_filesystem_pointer(global_search_mode: bool) -> Path:
     window_pwd = get_pwd_of_window(last_focused_window_id)
     if window_pwd is None:
         return Path.home()
+    if not find_git_root:
+        return window_pwd
     try:
         result = subprocess.run(
             ["git", "-C", str(window_pwd), "rev-parse", "--show-toplevel"],
