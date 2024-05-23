@@ -36,7 +36,7 @@ def main() -> None:
             "bat --color=always --style=numbers --theme=ansi "
             "{1} --highlight-line {2}"
         ),
-        preview_window="down,60%,border-top,+{2}+3/3,~3"
+        preview_window="down,60%,border-top,+{2}+3/3"
     )
     selections = fzf.prompt()
     if selections == [""]:
