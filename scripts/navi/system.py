@@ -142,7 +142,7 @@ def get_dir_items(
     return [p for p in paths if "/." not in p]
 
 
-def open_file(file_path: Path, line_num: int = 0) -> None:
+def open_file(file_path: Path, line_num: int = 0, column_num: int = 0) -> None:
     logger.debug(f"opening files: {file_path}")
     if not file_path.is_file():
         logger.warning(f"{file_path} is not a file!")
@@ -156,7 +156,7 @@ def open_file(file_path: Path, line_num: int = 0) -> None:
         # In other words, in order for every terminal window to have
         # a window_id file generated, we must start zsh
         "--command", "zsh", "-c",
-        f"{os.getenv('EDITOR')} {file_path} +{line_num}"
+        f"{os.getenv('EDITOR')} {file_path} +{line_num}:{column_num}"
     ])
 
 

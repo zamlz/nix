@@ -17,7 +17,14 @@ from navi.xorg import xwindow
 
 
 logger = logging.getLogger(__name__)
-RG_COMMAND="rg --line-number --no-heading --color=always --smart-case"
+RG_COMMAND=' '.join([
+   "rg",
+   "--line-number",
+   "--column",
+   "--no-heading",
+   "--color=always",
+   "--smart-case"
+])
 
 
 def main() -> None:
@@ -43,9 +50,9 @@ def main() -> None:
         return
 
     for selection in selections:
-        relative_file_path, linenum, _ = selection.split(':', maxsplit=2)
+        relative_file_path, line, column, _ = selection.split(':', maxsplit=3)
         absolute_file_path = fs_ptr / relative_file_path
-        navi.system.open_file(absolute_file_path, int(linenum))
+        navi.system.open_file(absolute_file_path, int(line), int(column))
 
 
 if __name__ == "__main__":
