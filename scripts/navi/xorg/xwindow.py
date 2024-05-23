@@ -120,20 +120,5 @@ def get_last_focused_window_id() -> Optional[int]:
         return int(data)
 
 
-# the filesystem pointer is a special construct for keeping track of
-# working directories in active windows
-def get_filesystem_pointer(global_search_mode: bool) -> Path:
-    if global_search_mode:
-        return Path.home()
-    last_focused_window_id = get_last_focused_window_id()
-    if last_focused_window_id is None:
-        return Path.home()
-    window_pwd = get_pwd_of_window(last_focused_window_id)
-    # FIXME: convert it to git path
-    return window_pwd
-
-
-
-
 def set_window_title(title: str) -> None:
     print(f'\33]0;{title}\a', end='', flush=True)
