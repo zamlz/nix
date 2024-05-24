@@ -11,7 +11,7 @@ site.addsitedir(str(Path(__file__).parent))
 
 import navi.system
 from navi.logging import setup_logger
-from navi.xorg import xwindow
+from navi.xorg.window import set_window_title
 
 
 logger = logging.getLogger(__name__)
@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 def main() -> None:
     filesystem_pointer = navi.system.get_filesystem_pointer(False)
     os.chdir(filesystem_pointer)
-    xwindow.set_window_title(f"LazyGit: {filesystem_pointer}")
+    set_window_title(f"LazyGit: {filesystem_pointer}")
     navi.system.execute(["lazygit"])
 
 

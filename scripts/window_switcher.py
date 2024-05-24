@@ -10,7 +10,7 @@ site.addsitedir(str(Path(__file__).parent))
 
 from navi.logging import setup_logger
 from navi.tools.fzf import Fzf
-from navi.xorg.xwindow import XorgWindow, set_window_title
+from navi.xorg.window import XorgWindow, set_window_title
 
 
 logger = logging.getLogger(__name__)
@@ -23,6 +23,7 @@ def main() -> None:
         prompt="Switch Window: ",
         preview=str(Path(__file__).parent / "display_window_info.py") + " {1}",
         preview_window="down,7",
+        preview_label="[Window Metadata]"
     )
     action = fzf.prompt(list(str(w) for w in windows.values()))[0]
     if action == '':

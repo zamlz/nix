@@ -10,7 +10,7 @@ from pathlib import Path
 site.addsitedir(str(Path(__file__).parent))
 
 from navi.logging import setup_logger
-from navi.xorg.xwindow import XorgWindow
+from navi.xorg.window import XorgWindow
 
 
 logger = logging.getLogger(__name__)

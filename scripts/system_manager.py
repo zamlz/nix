@@ -14,7 +14,7 @@ site.addsitedir(str(Path(__file__).parent))
 import navi.system
 from navi.logging import setup_logger
 from navi.tools.fzf import Fzf
-from navi.xorg import xwindow
+from navi.xorg.window import set_window_title
 
 
 logger = logging.getLogger(__name__)
@@ -28,7 +28,7 @@ class SystemActions(StrEnum):
 
 
 def main() -> None:
-    xwindow.set_window_title("FZF: System Manager")
+    set_window_title("FZF: System Manager")
     fzf = Fzf(prompt="System Action: ", reverse=True)
     action = fzf.prompt(list(SystemActions))[0]
     match action:

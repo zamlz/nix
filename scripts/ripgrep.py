@@ -13,7 +13,7 @@ site.addsitedir(str(Path(__file__).parent))
 import navi.system
 from navi.logging import setup_logger
 from navi.tools.fzf import Fzf
-from navi.xorg import xwindow
+from navi.xorg.window import set_window_title
 
 
 logger = logging.getLogger(__name__)
@@ -30,7 +30,7 @@ RG_COMMAND=' '.join([
 def main() -> None:
     fs_ptr = navi.system.get_filesystem_pointer(False)
     os.chdir(fs_ptr)
-    xwindow.set_window_title(f"FZF: Interactive RipGrep in {fs_ptr}")
+    set_window_title(f"FZF: Interactive RipGrep in {fs_ptr}")
     fzf = Fzf(
         prompt="Ripgrep: ",
         header=f"(Currently in {fs_ptr})",
@@ -43,7 +43,8 @@ def main() -> None:
             "bat --color=always --style=numbers --theme=ansi "
             "{1} --highlight-line {2}"
         ),
-        preview_window="down,60%,border-top,+{2}+3/3"
+        preview_window="down,60%,border-top,+{2}+3/3",
+        preview_label="[File Preview]"
     )
     selections = fzf.prompt()
     if selections == [""]:

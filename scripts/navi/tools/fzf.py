@@ -23,6 +23,7 @@ class Fzf:
             delimiter: Optional[str] = None,
             preview: Optional[str] = None,
             preview_window: Optional[str] = None,
+            preview_label: Optional[str] = None
     ) -> None:
         args = []
         if ansi:
@@ -45,6 +46,8 @@ class Fzf:
             args.append(f"--preview '{preview}'")
         if preview_window is not None:
             args.append(f"--preview-window={preview_window}")
+        if preview_label is not None:
+            args.append(f"--preview-label='{preview_label}'")
         if nth is not None:
             args.append(f"--nth {nth}")
         for bind in binds:

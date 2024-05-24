@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Dict, List, Optional
 
 from navi.xorg.window_manager import WindowManager, get_running_wm
-from navi.xorg.xwindow import get_last_focused_window_id, get_pwd_of_window
+from navi.xorg.window import get_last_focused_window_id, get_pwd_of_window
 
 
 logger = logging.getLogger(__name__)

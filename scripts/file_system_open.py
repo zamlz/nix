@@ -13,7 +13,7 @@ site.addsitedir(str(Path(__file__).parent))
 import navi.system
 from navi.logging import setup_logger
 from navi.tools.fzf import Fzf
-from navi.xorg import xwindow
+from navi.xorg.window import set_window_title
 
 
 logger = logging.getLogger(__name__)
@@ -38,7 +38,7 @@ def main() -> None:
         search_mode = navi.system.SearchMode.DIRECTORY
 
     fs_ptr = navi.system.get_filesystem_pointer(args.global_search)
-    xwindow.set_window_title(f"FZF: Open {fs_object} (from {fs_ptr})")
+    set_window_title(f"FZF: Open {fs_object} (from {fs_ptr})")
 
     fzf = Fzf(
         prompt=f"Open {fs_object}:",
