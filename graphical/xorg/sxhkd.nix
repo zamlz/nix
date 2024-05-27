@@ -53,9 +53,10 @@ in {
       # Desktop Environment
       "super + w" = "${WindowSwitcher}";
       "super + slash" = "${WorkspaceManager} --jump";
+      "super + shift + slash" = "${WorkspaceManager} --move-window";
 
       # Filesystem
-      "super + x" = "${FileSystemExplorer}";
+      "super + a" = "${FileSystemExplorer}";
       "super + f" = "${FileSystemOpen} --file";
       "super + d" = "${FileSystemOpen} --directory";
       "super + shift + f" = "${FileSystemOpen} --file --global-search";

@@ -95,8 +95,6 @@ class XorgWindow:
         )
 
 
-
-
 def get_pwd_of_window(window_id: int) -> Optional[Path]:
     window_id_file = WINDOW_ID_ENV_DIR / f"{window_id}"
     if not window_id_file.exists():

@@ -15,6 +15,7 @@ class Fzf:
             reverse: bool = True,
             disabled: bool = False,
             multi: bool = True,
+            print_query: bool = False,
             binds: List[str] = [],
             nth: Optional[int] = None,
             prompt: Optional[str] = None,
@@ -34,6 +35,8 @@ class Fzf:
             args.append("--multi")
         if disabled:
             args.append("--disabled")
+        if print_query:
+            args.append("--print-query")
         if prompt is not None:
             args.append(f"--prompt '{prompt}'")
         if header is not None:
