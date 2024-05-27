@@ -2,7 +2,7 @@
   terminal = "${pkgs.alacritty}/bin/alacritty";
   termPromptLauncher = script: lineNum: columnNum: fontSize:
     let
-      saveWindowId = "$HOME/.config/sxhkd/save-window-id.sh";
+      saveWindowId = "$HOME/.config/sxhkd/navi/tools/save_active_window_id.py";
       fontOption = "--option 'font.size=${builtins.toString fontSize}'";
       lineOption = "--option 'window.dimensions.lines=${builtins.toString lineNum}'";
       columnOption = "--option 'window.dimensions.columns=${builtins.toString columnNum}'";
@@ -32,7 +32,6 @@ in {
   xdg.configFile."sxhkd/display_window_info.py".source = ../../scripts/display_window_info.py;
   xdg.configFile."sxhkd/launch_lazygit.py".source = ../../scripts/launch_lazygit.py;
   xdg.configFile."sxhkd/maim-screenshot.sh".source = ./scripts/maim-screenshot.sh;
-  xdg.configFile."sxhkd/save-window-id.sh".source = ../../scripts/save-window-id.sh;
   xdg.configFile."sxhkd/system_manager.py".source = ../../scripts/system_manager.py;
   xdg.configFile."sxhkd/window_switcher.py".source = ../../scripts/window_switcher.py;
   xdg.configFile."sxhkd/workspace_manager.py".source = ../../scripts/workspace_manager.py;

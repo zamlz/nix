@@ -10,7 +10,7 @@ from navi.shell.colors import AnsiColor
 
 
 WINDOW_ID_ENV_DIR = Path("/tmp/.wid")
-LAST_FOCUSED_WINDOW_ID_FILE = Path("/tmp/.last_focused_wid")
+LAST_SAVED_ACTIVE_WINDOW_ID_FILE= Path("/tmp/.last_active_wid")
 WINDOW_PWD_REGEX = re.compile("^WINDOW_PWD='(.+)'$")
 
 
@@ -111,10 +111,16 @@ def get_pwd_of_window(window_id: int) -> Optional[Path]:
     )
 
 
+def save_active_window_id() -> None:
+    with open(LAST_SAVED_ACTIVE_WINDOW_ID_FILE, 'w') as f:
+        result = subprocess.run(["xdotool", "getactivewindow"], stdout=f)
+        result.check_returncode()
+
+
 def get_last_focused_window_id() -> Optional[int]:
-    if not LAST_FOCUSED_WINDOW_ID_FILE.exists():
+    if not LAST_SAVED_ACTIVE_WINDOW_ID_FILE.exists():
         return None
-    with open(LAST_FOCUSED_WINDOW_ID_FILE, 'r') as f:
+    with open(LAST_SAVED_ACTIVE_WINDOW_ID_FILE, 'r') as f:
         if (data := f.read().strip()) == '':
             return None
         return int(data)
