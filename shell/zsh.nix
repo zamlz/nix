@@ -42,7 +42,7 @@
       gr = "git rev-parse --show-toplevel";
       grr = "git rev-parse --show-toplevel | xargs";
       # make all vi/vim point to neovim
-      vi = "nvim";
+      vi = "$EDITOR";
       vim = "nvim";
       # aliasing these guys to make them safer
       rm = "rm -I --preserve-root";
