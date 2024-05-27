@@ -10,7 +10,7 @@ site.addsitedir(str(Path(__file__).parent))
 
 from navi.logging import setup_logger
 from navi.tools.fzf import Fzf
-from navi.xorg.window import XorgWindow, set_window_title
+from navi.xorg.window import XorgWindow, focus_window, set_window_title
 
 
 logger = logging.getLogger(__name__)
@@ -30,10 +30,7 @@ def main() -> None:
         logger.warning("No window selected. Aborting!")
         return
     window_id = int(action.split()[0], 0)
-    if window_id not in windows.keys():
-        logger.warning("{window_id} is not an active window. Aborting!")
-        return
-    windows[window_id].focus()
+    focus_window(window_id)
     logger.info(f"Changed window focus to {window_id}")
 
 

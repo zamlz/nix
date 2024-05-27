@@ -66,15 +66,6 @@ class XorgWindow:
     def __str__(self) -> str:
         return f"{self.window_id_hex} {self.title}"
 
-    def focus(self) -> None:
-        # So why am I running both of these comands here?
-        # Changing window focus sometimes means we have to change the workspace
-        # we are in. wmctrl does that effectively, but has trouble when dealing
-        # with herbstluftwm's frames. xdotool on the other hand can handle
-        # this, but it cannot handle workspaces. A combination of both is run
-        # to make sure we are effectively changing focus to the window
-        subprocess.run(["wmctrl", "-i", "-a", self.window_id_hex])
-        subprocess.run(["xdotool", "windowfocus", self.window_id_hex])
 
     def __repr__(self) -> str:
         return (
@@ -93,6 +84,16 @@ class XorgWindow:
             f"{AnsiColor.BOLD}WINDOW_PWD{AnsiColor.RESET} = "
             f"{AnsiColor.BLUE}{self.pwd}{AnsiColor.RESET}"
         )
+
+def focus_window(window_id: int) -> None:
+    # So why am I running both of these comands here?
+    # Changing window focus sometimes means we have to change the workspace
+    # we are in. wmctrl does that effectively, but has trouble when dealing
+    # with herbstluftwm's frames. xdotool on the other hand can handle
+    # this, but it cannot handle workspaces. A combination of both is run
+    # to make sure we are effectively changing focus to the window
+    subprocess.run(["wmctrl", "-i", "-a", hex(window_id)])
+    subprocess.run(["xdotool", "windowfocus", hex(window_id)])
 
 
 def get_pwd_of_window(window_id: int) -> Optional[Path]:
