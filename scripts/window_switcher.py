@@ -21,7 +21,7 @@ def main() -> None:
     windows = XorgWindow.get_active_windows()
     fzf = Fzf(
         prompt="Switch Window: ",
-        preview=str(Path(__file__).parent / "display_window_info.py") + " {1}",
+        preview=str(Path(__file__).parent / "navi/tools/display_window_info.py") + " {1}",
         preview_window="down,7",
         preview_label="[Window Metadata]"
     )
