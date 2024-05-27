@@ -13,7 +13,7 @@ site.addsitedir(str(Path(__file__).parent))
 
 import navi.system
 from navi.logging import setup_logger
-from navi.tools.fzf import Fzf
+from navi.shell.fzf import Fzf
 from navi.xorg.window import set_window_title
 
 

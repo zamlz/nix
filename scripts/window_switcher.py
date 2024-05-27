@@ -9,7 +9,7 @@ from pathlib import Path
 site.addsitedir(str(Path(__file__).parent))
 
 from navi.logging import setup_logger
-from navi.tools.fzf import Fzf
+from navi.shell.fzf import Fzf
 from navi.xorg.window import XorgWindow, focus_window, set_window_title
 
 

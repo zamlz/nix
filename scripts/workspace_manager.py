@@ -10,7 +10,7 @@ from pathlib import Path
 site.addsitedir(str(Path(__file__).parent))
 
 from navi.logging import setup_logger
-from navi.tools.fzf import Fzf
+from navi.shell.fzf import Fzf
 from navi.xorg.window import get_last_focused_window_id, set_window_title
 from navi.xorg.workspace import (
     create_workspace,
