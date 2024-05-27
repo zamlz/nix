@@ -69,9 +69,9 @@ def lock_screen() -> None:
 def kill_window_manager() -> None:
     match get_running_wm():
         case WindowManager.HERBSTLUFTWM:
-            sudo_execute(["herbstclient", "quit"])
+            execute(["herbstclient", "quit"])
         case WindowManager.QTILE:
-            sudo_execute(["qtile", "cmd-obj", "-o", "cmd", "-f", "shutdown"])
+            execute(["qtile", "cmd-obj", "-o", "cmd", "-f", "shutdown"])
 
 
 def reboot() -> None:
