@@ -25,6 +25,9 @@ class XorgWindow:
     title: str
     pwd: Optional[Path]
 
+    def __str__(self) -> str:
+        return f"{self.window_id_hex} {self.title}"
+
     @staticmethod
     def _get_wmctrl_output() -> Iterator[str]:
         result = subprocess.run(["wmctrl", "-lxp"], capture_output=True)
@@ -35,15 +38,15 @@ class XorgWindow:
     @classmethod
     def get_active_windows(
             cls,
-            filter_on_hex: Optional[str] = None
+            filter_on_id: Optional[int] = None
     ) -> Dict[int ,XorgWindow]:
         active_windows = {}
         for row in cls._get_wmctrl_output():
             wmctrl_val = row.strip().split(maxsplit=5)
-            if filter_on_hex is not None and filter_on_hex != wmctrl_val[0]:
-                continue
             # infer the actual int value of the window id string
             window_id = int(wmctrl_val[0], 0)
+            if filter_on_id is not None and filter_on_id != window_id:
+                continue
             active_windows[window_id] = cls(
                 window_id_hex = wmctrl_val[0],
                 window_id = window_id,
@@ -56,34 +59,32 @@ class XorgWindow:
             )
         return active_windows
 
-    @classmethod
-    def get_window_from_hex(cls, window_id_hex: str) -> XorgWindow:
-        filtered_windows = cls.get_active_windows(filter_on_hex=window_id_hex)
-        if len(filtered_windows) == 0:
-            raise ValueError(f"{window_id_hex} not found among active windows")
-        return list(filtered_windows.values())[0]
 
-    def __str__(self) -> str:
-        return f"{self.window_id_hex} {self.title}"
+def display_window_info(window: XorgWindow) -> None:
+    print(
+        f"{AnsiColor.BOLD}WINDOW_ID{AnsiColor.RESET} = "
+        f"{AnsiColor.CYAN}{window.window_id}{AnsiColor.RESET}\n"
+        f"{AnsiColor.BOLD}WINDOW_ID (hex){AnsiColor.RESET} = "
+        f"{AnsiColor.CYAN}{window.window_id_hex}{AnsiColor.RESET}\n"
+        f"{AnsiColor.BOLD}WORKSPACE_ID{AnsiColor.RESET} = "
+        f"{AnsiColor.YELLOW}{window.workspace}{AnsiColor.RESET}\n"
+        f"{AnsiColor.BOLD}PROCESS_ID{AnsiColor.RESET} = "
+        f"{AnsiColor.RED}{window.process_id}{AnsiColor.RESET}\n"
+        f"{AnsiColor.BOLD}CLASS{AnsiColor.RESET} = "
+        f"{AnsiColor.MAGENTA}{window.wm_class}{AnsiColor.RESET}\n"
+        f"{AnsiColor.BOLD}TITLE{AnsiColor.RESET} = "
+        f"{AnsiColor.GREEN}{window.title}{AnsiColor.RESET}\n"
+        f"{AnsiColor.BOLD}WINDOW_PWD{AnsiColor.RESET} = "
+        f"{AnsiColor.BLUE}{window.pwd}{AnsiColor.RESET}"
+    )
 
 
-    def __repr__(self) -> str:
-        return (
-            f"{AnsiColor.BOLD}WINDOW_ID{AnsiColor.RESET} = "
-            f"{AnsiColor.CYAN}{self.window_id}{AnsiColor.RESET}\n"
-            f"{AnsiColor.BOLD}WINDOW_ID (hex){AnsiColor.RESET} = "
-            f"{AnsiColor.CYAN}{self.window_id_hex}{AnsiColor.RESET}\n"
-            f"{AnsiColor.BOLD}WORKSPACE_ID{AnsiColor.RESET} = "
-            f"{AnsiColor.YELLOW}{self.workspace}{AnsiColor.RESET}\n"
-            f"{AnsiColor.BOLD}PROCESS_ID{AnsiColor.RESET} = "
-            f"{AnsiColor.RED}{self.process_id}{AnsiColor.RESET}\n"
-            f"{AnsiColor.BOLD}CLASS{AnsiColor.RESET} = "
-            f"{AnsiColor.MAGENTA}{self.wm_class}{AnsiColor.RESET}\n"
-            f"{AnsiColor.BOLD}TITLE{AnsiColor.RESET} = "
-            f"{AnsiColor.GREEN}{self.title}{AnsiColor.RESET}\n"
-            f"{AnsiColor.BOLD}WINDOW_PWD{AnsiColor.RESET} = "
-            f"{AnsiColor.BLUE}{self.pwd}{AnsiColor.RESET}"
-        )
+def get_window_from_id(window_id: int) -> XorgWindow:
+    filtered_windows = XorgWindow.get_active_windows(filter_on_id=window_id)
+    if len(filtered_windows) == 0:
+        raise ValueError(f"{window_id} not found among active windows")
+    return list(filtered_windows.values())[0]
+
 
 def focus_window(window_id: int) -> None:
     # So why am I running both of these comands here?
