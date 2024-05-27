@@ -79,15 +79,16 @@ in {
       "@shift + Print" = "${maimScreenshot}";
       
       # Multimedia and Physical Switches
-      # "XF86MonBrightnessUp" = "";
-      # "XF86MonBrightnessDown" = "";
-      # "XF86AudioMute" = "";
-      # "XF86AudioMicMute" = "";
-      # "XF86AudioRaiseVolume" = "";
-      # "XF86AudioLowerVolume" = "";
-      # "XF86AudioPlay" = "";
-      # "XF86AudioNext" = "";
-      # "XF86AudioPrev" = "";
+      # FIXME: These tools are not ready to use yet
+      # "XF86MonBrightnessUp" = "xbacklight -inc 1 -time 10";
+      # "XF86MonBrightnessDown" = "xbacklight -dec 1 -time 10";
+      # "XF86AudioMute" = "pulsemixer --toggle-mute";
+      # "XF86AudioMicMute" = "pulsemixer --toggle-mute";
+      # "XF86AudioRaiseVolume" = "pulsemixer --change-volume +1";
+      # "XF86AudioLowerVolume" = "pulsemixer --change-volume -1";
+      # "XF86AudioPlay" = "spotify-cli toggle";
+      # "XF86AudioNext" = "spotify-cli next";
+      # "XF86AudioPrev" = "spotify-cli prev";
     };
   };
 }
