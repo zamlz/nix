@@ -46,10 +46,6 @@ in {
       "${super}-q" = "close";
 
       # Window Focus
-      "${super}-Left" = "focus left";
-      "${super}-Down" = "focus down";
-      "${super}-Up" = "focus up";
-      "${super}-Right" = "focus right";
       "${super}-h" = "focus left";
       "${super}-j" = "focus down";
       "${super}-k" = "focus up";
@@ -58,15 +54,14 @@ in {
       # defining keybindings for cycling the focused client
       #"${super}-BackSpace" = "cycle_monitor";  # FIXME: this is used already
       "${super}-Tab" = "cycle +1";
-      "${super}-Shift-Tab" = "cycle_frame +1";
-      "${super}-c" = "cycle_all +1";
+      "${super}-Shift-Tab" = "cycle -1";
+      "${super}-Control-Tab" = "cycle_frame +1";
+      "${super}-Control-Shift-Tab" = "cycle_frame -1";
+      "${super}-Control-Alt-Tab" = "cycle_all +1";
+      "${super}-Control-Alt-Shift-Tab" = "cycle_all -1";
       "${super}-i" = "jumpto urgent";
 
       # Window Movement
-      "${super}-Shift-Left" = "shift left";
-      "${super}-Shift-Down" = "shift down";
-      "${super}-Shift-Up" = "shift up";
-      "${super}-Shift-Right" = "shift right";
       "${super}-Shift-h" = "shift left";
       "${super}-Shift-j" = "shift down";
       "${super}-Shift-k" = "shift up";
@@ -76,31 +71,27 @@ in {
       "${super}-u" = "split bottom 0.5";
       "${super}-o" = "split right 0.5";
       "${super}-Control-space" = "split explode";
+      "${super}-r" = "remove";
 
       # Resizing Frames
       "${super}-Control-h" = "resize left +${resizestep}";
+      "${super}-Control-Alt-h" = "resize left -${resizestep}";
       "${super}-Control-j" = "resize down +${resizestep}";
+      "${super}-Control-Alt-j" = "resize down -${resizestep}";
       "${super}-Control-k" = "resize up +${resizestep}";
+      "${super}-Control-Alt-k" = "resize up -${resizestep}";
       "${super}-Control-l" = "resize right +${resizestep}";
-      "${super}-Control-Left" = "resize left +${resizestep}";
-      "${super}-Control-Down" = "resize down +${resizestep}";
-      "${super}-Control-Up" = "resize up +${resizestep}";
-      "${super}-Control-Right" = "resize right +${resizestep}";
+      "${super}-Control-Alt-l" = "resize right -${resizestep}";
 
       # Workspace Movement
       "${super}-grave" = "use_previous";
       "${super}-bracketright" = "use_index +1 --skip-visible";
       "${super}-bracketleft" = "use_index -1 --skip-visible";
-      # FIXME: use xdg.configFile?
-      "${super}-slash" = "spawn $HOME/.config/herbstluftwm/tag-utils.sh GOTO";
-      "${super}-Shift-slash" = "spawn $HOME/.config/herbstluftwm/tag-utils.sh MOVE";
-      "${super}-BackSpace" = "spawn $HOME/.config/herbstluftwm/tag-utils.sh REMOVE";
 
       # Layout Control
-      "${super}-r" = "remove";
-      "${super}-s" = "floating toggle";
-      "${super}-y" = "fullscreen toggle";
+      "${super}-c" = "floating toggle";
       "${super}-t" = "pseudotile toggle";
+      "${super}-y" = "fullscreen toggle";
 
       # The following cycles through the available layouts within a frame, but skips
       # layouts, if the layout change wouldn't affect the actual window positions.
