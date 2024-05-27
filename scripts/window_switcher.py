@@ -33,7 +33,7 @@ def main() -> None:
     if window_id not in windows.keys():
         logger.warning("{window_id} is not an active window. Aborting!")
         return
-    windows.get(window_id).focus()
+    windows[window_id].focus()
     logger.info(f"Changed window focus to {window_id}")
 
 

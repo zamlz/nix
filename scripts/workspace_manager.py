@@ -39,8 +39,6 @@ def main() -> None:
     elif args.move_window:
         prompt = "Move Window to"
         window_id = get_last_focused_window_id()
-        if window_id is None:
-            raise ValueError("No last focused window id!")
     elif args.delete:
         prompt = "Delete"
     else:
@@ -54,7 +52,8 @@ def main() -> None:
         preview_label="[Window List]",
         print_query=True
     )
-    workspace_name = fzf.prompt(workspaces)[0]
+    workspace_names = [str(w) for w in workspaces.values()]
+    workspace_name = fzf.prompt(workspace_names)[0]
 
     if workspace_name == '':
         logger.warning("No workspace selected. Aborting!")
@@ -69,6 +68,8 @@ def main() -> None:
         if args.jump:
             jump_to_workspace(workspace)
         elif args.move_window:
+            if window_id is None:
+                raise ValueError("No last focused window id!")
             move_window_to_workspace(window_id, workspace)
 
 

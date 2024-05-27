@@ -71,7 +71,7 @@ def main() -> None:
             show_hidden = not show_hidden
 
         elif selection == SPAWN_TERMINAL_ACTION:
-            navi.system.open_dir(fs_ptr)
+            navi.system.open_directory(fs_ptr)
             return
 
         elif fs_ptr_with_selection.is_file():

@@ -149,7 +149,7 @@ def open_file(file_path: Path, line_num: int = 0, column_num: int = 0) -> None:
         return
     nohup([
         "alacritty",
-        "--working-directory", file_path.parent,
+        "--working-directory", str(file_path.parent),
         # So why do we not run the editor command directly?
         # Well it would work in starting the editor, but zsh startup
         # runs all the hooks for saving the window details.
@@ -165,7 +165,7 @@ def open_directory(dir_path: Path) -> None:
     if not dir_path.is_dir():
         logger.warning(f"{dir_path} is not a directory!")
         return
-    nohup(["alacritty", "--working-directory", dir_path])
+    nohup(["alacritty", "--working-directory", str(dir_path)])
 
 
 def open_items(items: List[Path]) -> None:
