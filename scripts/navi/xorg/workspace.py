@@ -22,7 +22,7 @@ class XorgWorkspace:
     def __str__(self) -> str:
         if self.active:
             return (
-                f"{AnsiColor.BOLD}{AnsiColor.MAGENTA}"
+                f"{AnsiColor.BOLD}{AnsiColor.RED}"
                 f"{self.title}{AnsiColor.RESET}"
             )
         return self.title
@@ -71,3 +71,10 @@ def create_workspace(name: str) -> XorgWorkspace:
             result = subprocess.run(["herbstclient", "add", name])
             result.check_returncode()
     return list_workspaces()[name]
+
+
+def delete_workspace(name: str) -> None:
+    match get_running_wm():
+        case WindowManager.HERBSTLUFTWM:
+            result = subprocess.run(["herbstclient", "merge_tag", name])
+            result.check_returncode()

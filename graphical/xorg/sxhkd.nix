@@ -54,6 +54,7 @@ in {
       "super + w" = "${WindowSwitcher}";
       "super + slash" = "${WorkspaceManager} --jump";
       "super + shift + slash" = "${WorkspaceManager} --move-window";
+      "super + BackSpace" = "${WorkspaceManager} --delete";
 
       # Filesystem
       "super + a" = "${FileSystemExplorer}";

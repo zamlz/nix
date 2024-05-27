@@ -14,6 +14,7 @@ from navi.tools.fzf import Fzf
 from navi.xorg.window import get_last_focused_window_id, set_window_title
 from navi.xorg.workspace import (
     create_workspace,
+    delete_workspace,
     jump_to_workspace,
     list_workspaces,
     move_window_to_workspace
@@ -53,7 +54,8 @@ def main() -> None:
         print_query=True
     )
     workspace_names = [str(w) for w in workspaces.values()]
-    workspace_name = fzf.prompt(workspace_names)[0]
+    # selecting the last item of this is necessary to not use queries
+    workspace_name = fzf.prompt(workspace_names)[-1]
 
     if workspace_name == '':
         logger.warning("No workspace selected. Aborting!")
@@ -71,6 +73,15 @@ def main() -> None:
             if window_id is None:
                 raise ValueError("No last focused window id!")
             move_window_to_workspace(window_id, workspace)
+
+    elif args.delete:
+        if workspace_name not in workspaces.keys():
+            logger.warning(f"Workspace ({workspace_name}) does not exist!")
+            return
+        elif workspace_name == 'λ':
+            logger.warning(f"Cannot delete default workspace (λ)")
+            return
+        delete_workspace(workspace_name)
 
 
 if __name__ == "__main__":
