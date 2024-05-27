@@ -117,7 +117,7 @@ def save_active_window_id() -> None:
         result.check_returncode()
 
 
-def get_last_focused_window_id() -> Optional[int]:
+def get_last_active_window_id() -> Optional[int]:
     if not LAST_SAVED_ACTIVE_WINDOW_ID_FILE.exists():
         return None
     with open(LAST_SAVED_ACTIVE_WINDOW_ID_FILE, 'r') as f:

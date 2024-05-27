@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Dict, List, Optional
 
 from navi.xorg.window_manager import WindowManager, get_running_wm
-from navi.xorg.window import get_last_focused_window_id, get_pwd_of_window
+from navi.xorg.window import get_last_active_window_id, get_pwd_of_window
 
 
 logger = logging.getLogger(__name__)
@@ -93,7 +93,7 @@ def get_filesystem_pointer(
 ) -> Path:
     if global_search_mode:
         return Path.home()
-    last_focused_window_id = get_last_focused_window_id()
+    last_focused_window_id = get_last_active_window_id()
     if last_focused_window_id is None:
         return Path.home()
     window_pwd = get_pwd_of_window(last_focused_window_id)

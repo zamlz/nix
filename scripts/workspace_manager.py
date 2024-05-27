@@ -11,7 +11,7 @@ site.addsitedir(str(Path(__file__).parent))
 
 from navi.logging import setup_logger
 from navi.shell.fzf import Fzf
-from navi.xorg.window import get_last_focused_window_id, set_window_title
+from navi.xorg.window import get_last_active_window_id, set_window_title
 from navi.xorg.workspace import (
     create_workspace,
     delete_workspace,
@@ -39,7 +39,7 @@ def main() -> None:
         prompt = "Jump to"
     elif args.move_window:
         prompt = "Move Window to"
-        window_id = get_last_focused_window_id()
+        window_id = get_last_active_window_id()
     elif args.delete:
         prompt = "Delete"
     else:
