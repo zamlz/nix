@@ -16,6 +16,9 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
+  # make sure to enable man pages for all things home-manager installs
+  programs.man.generateCaches = true;
+
   home = {
     # This determines the Home Manager release that your configuration is
     # compatible with. DO NOT CHANGE

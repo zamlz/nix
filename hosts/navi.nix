@@ -123,6 +123,20 @@
     displayManager.startx.enable = true;
   };
 
+  # This enables documentation at a system level, but we still need to
+  # apply the same settings in home-manager
+  documentation = {
+    enable = true;
+    dev.enable = true;
+    doc.enable = true;
+    man = {
+      enable = true;
+      generateCaches = true;
+      man-db.enable = true;
+    };
+    nixos.enable = true;
+  };
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
