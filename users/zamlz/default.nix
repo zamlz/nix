@@ -56,7 +56,7 @@
       swww
       waypaper
       # Misc Experiments
-      qtile
+      (python3.withPackages (ps: with ps; [ipython]))
     ];
   };
 
