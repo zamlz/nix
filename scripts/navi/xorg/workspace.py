@@ -20,12 +20,10 @@ class XorgWorkspace:
     title: str
 
     def __str__(self) -> str:
+        title = self.title
         if self.active:
-            return (
-                f"{AnsiColor.BOLD}{AnsiColor.RED}"
-                f"{self.title}{AnsiColor.RESET}"
-            )
-        return self.title
+            return f"{AnsiColor.BLUE}{title}{AnsiColor.RESET}"
+        return title
 
 
 def list_workspaces() -> Dict[str, XorgWorkspace]:

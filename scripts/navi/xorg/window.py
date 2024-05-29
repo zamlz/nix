@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Dict, Iterator, Optional
 
 from navi.shell.colors import AnsiColor
+from navi.xorg.workspace import XorgWorkspace, list_workspaces
 
 
 WINDOW_ID_ENV_DIR = Path("/tmp/.wid")
@@ -18,15 +19,19 @@ WINDOW_PWD_REGEX = re.compile("^WINDOW_PWD='(.+)'$")
 class XorgWindow:
     window_id_hex: str
     window_id: int
-    workspace: int
+    workspace: XorgWorkspace
     process_id: int
     wm_class: str
     hostname: str
     title: str
+    active: bool
     pwd: Optional[Path]
 
     def __str__(self) -> str:
-        return f"{self.window_id_hex} {self.title}"
+        title = f"{self.window_id_hex} {self.title}"
+        if self.active:
+            return f"{AnsiColor.BLUE}{title}{AnsiColor.RESET}"
+        return title
 
     @staticmethod
     def _get_wmctrl_output() -> Iterator[str]:
@@ -41,6 +46,8 @@ class XorgWindow:
             filter_on_id: Optional[int] = None
     ) -> Dict[int ,XorgWindow]:
         active_windows = {}
+        last_active_window_id = get_last_active_window_id()
+        workspaces = {w.desktop_num: w for w in list_workspaces().values()}
         for row in cls._get_wmctrl_output():
             wmctrl_val = row.strip().split(maxsplit=5)
             # infer the actual int value of the window id string
@@ -50,24 +57,27 @@ class XorgWindow:
             active_windows[window_id] = cls(
                 window_id_hex = wmctrl_val[0],
                 window_id = window_id,
-                workspace = int(wmctrl_val[1]),
+                workspace = workspaces[int(wmctrl_val[1])],
                 process_id = int(wmctrl_val[2]),
                 wm_class = wmctrl_val[3],
                 hostname = wmctrl_val[4],
                 title = wmctrl_val[5],
+                active = last_active_window_id == window_id,
                 pwd = get_pwd_of_window(window_id)
             )
         return active_windows
 
 
 def display_window_info(window: XorgWindow) -> None:
+    active_wksp = " (active)" if window.workspace.active else ""
+    wksp_title = window.workspace.title
     print(
         f"{AnsiColor.BOLD}WINDOW_ID{AnsiColor.RESET} = "
         f"{AnsiColor.CYAN}{window.window_id}{AnsiColor.RESET}\n"
         f"{AnsiColor.BOLD}WINDOW_ID (hex){AnsiColor.RESET} = "
         f"{AnsiColor.CYAN}{window.window_id_hex}{AnsiColor.RESET}\n"
-        f"{AnsiColor.BOLD}WORKSPACE_ID{AnsiColor.RESET} = "
-        f"{AnsiColor.YELLOW}{window.workspace}{AnsiColor.RESET}\n"
+        f"{AnsiColor.BOLD}WORKSPACE{AnsiColor.RESET} = "
+        f"{AnsiColor.YELLOW}{wksp_title}{active_wksp}{AnsiColor.RESET}\n"
         f"{AnsiColor.BOLD}PROCESS_ID{AnsiColor.RESET} = "
         f"{AnsiColor.RED}{window.process_id}{AnsiColor.RESET}\n"
         f"{AnsiColor.BOLD}CLASS{AnsiColor.RESET} = "
