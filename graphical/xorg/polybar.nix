@@ -6,11 +6,15 @@ in {
     source = ./scripts/polybar-kernel-info.sh;
     executable = true;
   };
+  xdg.configFile."polybar/wpctl-info.sh" = {
+    source = ./scripts/polybar-wpctl-info.sh;
+    executable = true;
+  };
 
   services.polybar = {
     enable = true;
-    # FIXME: What does this option even do?
-    script = "polybar &";
+    # Do not let polybar start itself. Let the autostart script deal with it
+    script = "";
     config = let
       barConfig = placement: left: center: right: {
         width = "100%";
@@ -152,8 +156,22 @@ in {
         enable-scroll = true;
       };
 
+      volumeConfig = {
+        type = "custom/script";
+        # FIXME: can I get this to use xdg.configFile in the future?
+        exec = "~/.config/polybar/wpctl-info.sh";
+        interval = "0.1";
+        format = "<label>";
+        format-fail = "<label-fail>";
+        label-foreground = "${colorScheme.foreground}";
+        label-fail-foreground = "${colorScheme.red}";
+        click-left = "wpctl set-mute @DEFAULT_SINK@ toggle";
+        scroll-up = "wpctl set-volume @DEFAULT_SINK@ 0.01+";
+        scroll-down = "wpctl set-volume @DEFAULT_SINK@ 0.01-";
+      };
+
     in {
-      "bar/top" = barConfig "top" "kernel" "date" "backlight battery1 battery0 wired wireless";
+      "bar/top" = barConfig "top" "kernel" "date" "volume backlight battery1 battery0 wired wireless";
       "bar/bot" = barConfig "bottom" "workspace" "" "cpu memory window";
 
       "module/battery0" = batteryConfig "BAT0";
@@ -163,11 +181,11 @@ in {
       "module/backlight" = backlightConfig;
       "module/wired" = wiredConfig;
       "module/wireless" = wirelessConfig;
-
       "module/date" = dateConfig;
       "module/kernel" = systemInfoConfig;
       "module/workspace" = workspaceConfig;
       "module/window" = windowConfig;
+      "module/volume" = volumeConfig;
     };
   };
 }
