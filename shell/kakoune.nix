@@ -5,7 +5,9 @@
 in {
   programs.kakoune = {
     config = {
+      autoReload = "yes";
       colorScheme = "navi";  # defined below
+      indentWidth = 4;
       numberLines = {
         enable = true;
         highlightCursor = true;
@@ -23,6 +25,9 @@ in {
     };
     defaultEditor = true;
     enable = true;
+    plugins = [
+      pkgs.kakounePlugins.kak-ansi
+    ];
   };
 
   xdg.configFile."kak/colors/navi.kak".text = with colorScheme; ''
