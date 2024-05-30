@@ -39,6 +39,18 @@ def reload_gpg_agent() -> None:
     ).check_returncode()
 
 
+def get_man_pages() -> List[str]:
+    result = subprocess.run(["man", "-k", "."], capture_output=True)
+    result.check_returncode()
+    return str(result.stdout, encoding="utf-8").strip().split("\n")
+
+
+def open_man_page(man_page: str) -> None:
+    man_page_name, man_page_index, _ = man_page.split(maxsplit=2)
+    logger.debug(f"opening man page: {man_page_name}({man_page_index})")
+    nohup(["alacritty", "--command", "man", man_page_index, man_page_name])
+
+
 def get_wallpaper() -> Path:
     with open(Path.home() / ".fehbg", 'r') as f:
         return Path(f.readlines()[-1].strip().split(' ')[-1].replace("'", ''))
