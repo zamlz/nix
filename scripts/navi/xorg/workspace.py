@@ -26,6 +26,10 @@ class XorgWorkspace:
         return title
 
 
+def display_workspace_info(workspace: XorgWorkspace) -> None:
+    ...
+
+
 def list_workspaces() -> Dict[str, XorgWorkspace]:
     result = subprocess.run(["wmctrl", "-d"], capture_output=True)
     result.check_returncode()
@@ -42,6 +46,13 @@ def list_workspaces() -> Dict[str, XorgWorkspace]:
             title=workspace_name
         )
     return workspaces
+
+
+def get_workspace_from_name(workspace_name: str) -> XorgWorkspace:
+    try:
+        return list_workspaces()[workspace_name]
+    except KeyError:
+        raise ValueError(f"{workspace_name} not found in active workspaces")
 
 
 def jump_to_workspace(workspace: XorgWorkspace) -> None:

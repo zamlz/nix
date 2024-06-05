@@ -19,6 +19,7 @@ from navi.xorg.window import (
 
 
 logger = logging.getLogger(__name__)
+INFO_SCRIPT = Path(__file__).parent / "navi/tools/display_window_info.py"
 
 
 def main() -> None:
@@ -26,7 +27,7 @@ def main() -> None:
     windows = get_active_windows()
     fzf = Fzf(
         prompt="Switch Window: ",
-        preview=str(Path(__file__).parent / "navi/tools/display_window_info.py") + " {1}",
+        preview=f"{INFO_SCRIPT} {{1}}",
         preview_window="down,7",
         preview_label="[Window Metadata]"
     )

@@ -22,6 +22,7 @@ from navi.xorg.workspace import (
 
 
 logger = logging.getLogger(__name__)
+INFO_SCRIPT = Path(__file__).parent / "navi/tools/display_workspace_info.py"
 
 
 def main() -> None:
@@ -48,7 +49,7 @@ def main() -> None:
     set_window_title("FZF: Workspace Manager")
     fzf = Fzf(
         prompt=f"{prompt} workspace: ",
-        preview=str(Path(__file__).parent / "display_workspace_info.py") + " {2}",
+        preview=f"{INFO_SCRIPT} {{1}}",
         preview_window="right,80",
         preview_label="[Window List]",
         print_query=True

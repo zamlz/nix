@@ -10,19 +10,19 @@ from pathlib import Path
 site.addsitedir(str(Path(__file__).parent.parent.parent))
 
 from navi.logging import setup_logger
-from navi.xorg.window import display_window_info, get_window_from_id
+from navi.xorg.workspace import display_workspace_info, get_workspace_from_name
 
 
 logger = logging.getLogger(__name__)
 
 
 def main() -> None:
-    logger.info("Getting window id hex")
+    logger.info("Getting desktop name")
     parser = argparse.ArgumentParser()
-    parser.add_argument("window_id", type=str)
+    parser.add_argument("workspace_name", type=str)
     args = parser.parse_args()
-    window = get_window_from_id(int(args.window_id, 0))
-    display_window_info(window)
+    workspace = get_workspace_from_name(args.workspace_name)
+    display_workspace_info(workspace)
 
 
 if __name__ == "__main__":
