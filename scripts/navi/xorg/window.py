@@ -33,40 +33,6 @@ class XorgWindow:
             return f"{AnsiColor.BLUE}{title}{AnsiColor.RESET}"
         return title
 
-    @staticmethod
-    def _get_wmctrl_output() -> Iterator[str]:
-        result = subprocess.run(["wmctrl", "-lxp"], capture_output=True)
-        result.check_returncode()
-        for line in str(result.stdout, encoding="utf-8").strip().split("\n"):
-            yield line
-
-    @classmethod
-    def get_active_windows(
-            cls,
-            filter_on_id: Optional[int] = None
-    ) -> Dict[int ,XorgWindow]:
-        active_windows = {}
-        last_active_window_id = get_last_active_window_id()
-        workspaces = {w.desktop_num: w for w in list_workspaces().values()}
-        for row in cls._get_wmctrl_output():
-            wmctrl_val = row.strip().split(maxsplit=5)
-            # infer the actual int value of the window id string
-            window_id = int(wmctrl_val[0], 0)
-            if filter_on_id is not None and filter_on_id != window_id:
-                continue
-            active_windows[window_id] = cls(
-                window_id_hex = wmctrl_val[0],
-                window_id = window_id,
-                workspace = workspaces[int(wmctrl_val[1])],
-                process_id = int(wmctrl_val[2]),
-                wm_class = wmctrl_val[3],
-                hostname = wmctrl_val[4],
-                title = wmctrl_val[5],
-                active = last_active_window_id == window_id,
-                pwd = get_pwd_of_window(window_id)
-            )
-        return active_windows
-
 
 def display_window_info(window: XorgWindow) -> None:
     active_wksp = " (active)" if window.workspace.active else ""
@@ -89,8 +55,34 @@ def display_window_info(window: XorgWindow) -> None:
     )
 
 
+def get_active_windows(filter_on_id: Optional[int] = None) -> Dict[int ,XorgWindow]:
+    active_windows = {}
+    last_active_window_id = get_last_active_window_id()
+    workspaces = {w.desktop_num: w for w in list_workspaces().values()}
+    result = subprocess.run(["wmctrl", "-lxp"], capture_output=True)
+    result.check_returncode()
+    for line in str(result.stdout, encoding="utf-8").strip().split("\n"):
+        wmctrl_val = line.strip().split(maxsplit=5)
+        # infer the actual int value of the window id string
+        window_id = int(wmctrl_val[0], 0)
+        if filter_on_id is not None and filter_on_id != window_id:
+            continue
+        active_windows[window_id] = XorgWindow(
+            window_id_hex = wmctrl_val[0],
+            window_id = window_id,
+            workspace = workspaces[int(wmctrl_val[1])],
+            process_id = int(wmctrl_val[2]),
+            wm_class = wmctrl_val[3],
+            hostname = wmctrl_val[4],
+            title = wmctrl_val[5],
+            active = last_active_window_id == window_id,
+            pwd = get_pwd_of_window(window_id)
+        )
+    return active_windows
+
+
 def get_window_from_id(window_id: int) -> XorgWindow:
-    filtered_windows = XorgWindow.get_active_windows(filter_on_id=window_id)
+    filtered_windows = get_active_windows(filter_on_id=window_id)
     if len(filtered_windows) == 0:
         raise ValueError(f"{window_id} not found among active windows")
     return list(filtered_windows.values())[0]

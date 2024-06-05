@@ -10,7 +10,12 @@ site.addsitedir(str(Path(__file__).parent))
 
 from navi.logging import setup_logger
 from navi.shell.fzf import Fzf
-from navi.xorg.window import XorgWindow, focus_window, set_window_title
+from navi.xorg.window import (
+    XorgWindow,
+    get_active_windows,
+    focus_window,
+    set_window_title
+)
 
 
 logger = logging.getLogger(__name__)
@@ -18,7 +23,7 @@ logger = logging.getLogger(__name__)
 
 def main() -> None:
     set_window_title("FZF: Window Switcher")
-    windows = XorgWindow.get_active_windows()
+    windows = get_active_windows()
     fzf = Fzf(
         prompt="Switch Window: ",
         preview=str(Path(__file__).parent / "navi/tools/display_window_info.py") + " {1}",
