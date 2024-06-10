@@ -20,6 +20,7 @@
   FileSystemExplorer = termPromptLauncher "$HOME/.config/sxhkd/file_system_explorer.py" 35 164 8;
   FileSystemOpen = termPromptLauncher "$HOME/.config/sxhkd/file_system_open.py" 35 164 8;
   ManPageOpen = termPromptLauncher "$HOME/.config/sxhkd/man_open.py" 35 164 8;
+  NotesManager = termPromptLauncher "$HOME/.config/sxhkd/notes_manager.py" 35 164 8;
   RipGrep = termPromptLauncher "$HOME/.config/sxhkd/ripgrep.py" 35 164 8;
   LazyGit = termPromptLauncher "$HOME/.config/sxhkd/launch_lazygit.py" 35 164 8;
   maimScreenshot = "$HOME/.config/sxhkd/maim-screenshot.sh";
@@ -37,6 +38,7 @@ in {
   xdg.configFile."sxhkd/system_manager.py".source = ../../scripts/system_manager.py;
   xdg.configFile."sxhkd/window_switcher.py".source = ../../scripts/window_switcher.py;
   xdg.configFile."sxhkd/workspace_manager.py".source = ../../scripts/workspace_manager.py;
+  xdg.configFile."sxhkd/notes_manager.py".source = ../../scripts/notes_manager.py;
   xdg.configFile."sxhkd/navi".source = ../../scripts/navi;
   xdg.configFile."sxhkd/navi".recursive = true;
   xdg.configFile."sxhkd/nohup.sh".source = ../../scripts/nohup.sh;
@@ -65,6 +67,9 @@ in {
       "super + shift + d" = "${FileSystemOpen} --directory --global-search";
       "super + s" = "${RipGrep}";
       "super + shift + s" = "${RipGrep} --global-search";
+
+      # Notes
+      "super + n" = "${NotesManager}";
 
       # External Tools
       "super + g" = "${LazyGit}";
