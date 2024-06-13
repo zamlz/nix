@@ -3,6 +3,7 @@
     ./fzf.nix
     ./git.nix
     ./gpg.nix
+    ./helix.nix
     ./kakoune.nix
     ./lazygit.nix
     ./neofetch.nix
