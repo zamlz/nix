@@ -25,10 +25,6 @@ TOGGLE_HIDDEN_ACTION = "__TOGGLE_HIDDEN_ACTION__"
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser()
-    args = parser.parse_args()
-
-
     set_window_title("FZF: Open notes")
     fzf = Fzf(
         prompt="Open notes: ",
