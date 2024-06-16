@@ -169,7 +169,7 @@ def open_file(file_path: Path, line_num: int = 0, column_num: int = 0) -> None:
         # In other words, in order for every terminal window to have
         # a window_id file generated, we must start zsh
         "--command", "zsh", "-c",
-        f"{os.getenv('EDITOR')} {escaped_file_path} +{line_num}:{column_num}"
+        f"{os.getenv('EDITOR')} {escaped_file_path} +{line_num}"
     ])
 
 

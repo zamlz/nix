@@ -4,6 +4,9 @@ in {
   programs.helix = {
     enable = true;
     defaultEditor = true;
+    extraPackages = with pkgs; [
+      python311Packages.python-lsp-server
+    ];
     settings = {
       theme = "navi";
       editor = {
@@ -14,7 +17,6 @@ in {
         line-number = "relative";
         cursorline = false;
         cursorcolumn = false;
-        gutters = ["diagnostics" "spacer" "line-numbers" "spacer" "diff"];
         auto-completion = true;
         auto-format = false;
         auto-save = true;
@@ -27,7 +29,7 @@ in {
         true-color = false;
         undercurl = false;
         rulers = [80 128];
-        bufferline = "never";
+        bufferline = "multiple";
         color-modes = true;
         text-width = 80;
         workspace-lsp-roots = [];
@@ -42,14 +44,18 @@ in {
           select = "block";
         };
       };
+      editor.gutters = {
+          layout = ["diff" "line-numbers" "diagnostics"];
+          line-numbers.min-width = 1;
+      };
     };
     themes = {
       navi = {
         "ui.background" = { };
         "ui.background.separator" = { fg = "red"; };
         "ui.bufferline" = { };
-        "ui.bufferline.active" = { };
-        "ui.bufferline.background" = { };
+        "ui.bufferline.active" = { fg = "white"; };
+        "ui.bufferline.background" = { fg = "gray"; };
         "ui.cursor" = { fg = "light-gray"; modifiers = ["reversed" "slow_blink"]; };
         "ui.cursor.normal" = { fg = "light-gray"; modifiers = ["reversed"]; };
         "ui.cursor.insert" = { fg = "light-gray"; modifiers = ["reversed"]; };
