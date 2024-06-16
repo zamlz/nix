@@ -36,6 +36,11 @@ in {
         popup-border = "all";
         indent-heuristic = "hybrid";
         jump-label-alphabet = "fjdkslatyrueiwoqpvbcnxmz";
+        cursor-shape = {
+          insert = "block";
+          normal = "block";
+          select = "block";
+        };
       };
     };
     themes = {
@@ -45,15 +50,15 @@ in {
         "ui.bufferline" = { };
         "ui.bufferline.active" = { };
         "ui.bufferline.background" = { };
-        "ui.cursor" = { fg = "light-gray"; modifiers = ["reversed" "rapid_blink"]; };
+        "ui.cursor" = { fg = "light-gray"; modifiers = ["reversed" "slow_blink"]; };
         "ui.cursor.normal" = { fg = "light-gray"; modifiers = ["reversed"]; };
         "ui.cursor.insert" = { fg = "light-gray"; modifiers = ["reversed"]; };
         "ui.cursor.select" = { fg = "light-gray"; modifiers = ["reversed"]; };
-        "ui.cursor.match" = { fg = "light-yellow"; modifiers = ["reversed"]; };
+        "ui.cursor.match" = { fg = "magenta"; modifiers = ["reversed"]; };
         "ui.cursor.primary" = { fg = "light-gray"; modifiers = ["reversed"]; };
-        "ui.cursor.primary.normal" = { fg = "light-gray"; modifiers = ["reversed"]; };
-        "ui.cursor.primary.insert" = { fg = "light-gray"; modifiers = ["reversed"]; };
-        "ui.cursor.primary.select" = { fg = "light-gray"; modifiers = ["reversed"]; };
+        "ui.cursor.primary.normal" = { fg = "blue"; modifiers = ["reversed" "rapid_blink"]; };
+        "ui.cursor.primary.insert" = { fg = "red"; modifiers = ["reversed" "rapid_blink"]; };
+        "ui.cursor.primary.select" = { fg = "green"; modifiers = ["reversed" "rapid_blink"]; };
         "ui.cursor.secondary" = { fg = "gray"; modifiers = ["reversed"]; };
         "ui.cursorline.primary" = { bg = "black"; };
         "ui.cursorline.secondary" = { bg = "black"; };
@@ -73,7 +78,7 @@ in {
         "ui.menu.scroll" = { fg = "light-blue"; };
         "ui.popup" = { fg = "gray"; modifiers = ["italic"]; };
         "ui.popup.info" = { fg = "gray"; modifiers = ["italic"]; };
-        "ui.selection" = { bg = "black"; };
+        "ui.selection" = { bg = "#282828"; };
         "ui.statusline" = { };
         "ui.statusline.inactive" = { fg = "gray"; };
         "ui.statusline.normal" = { fg = "blue"; };
