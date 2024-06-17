@@ -15,11 +15,10 @@
     systemPackages = with pkgs; [ curl git vim ];
   };
 
-  hardware = {
-    opengl = {
-      enable = true;
-      driSupport = true;
-    };
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+    driSupport32Bit = true;
   };
 
   programs.zsh.enable = true;
