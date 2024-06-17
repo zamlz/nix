@@ -21,13 +21,6 @@ hostname to associate hardware.
 sudo nixos-rebuild switch --flake .#${hostname}
 ```
 
-
-Install the home-manager configuration
-
-```shell
-home-manager switch --flake .#zamlz
-```
-
 ## New Installation Guide
 
 First, install a minimal installation of NixOS.
