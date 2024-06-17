@@ -26,7 +26,12 @@
     nixosConfigurations = {
       NAVI-CoplandOS = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
-        modules = [ ./hosts/navi-copland-os.nix ];
+        modules = [
+          ./hosts/navi-copland-os.nix
+          # makes home manager a module of nixos so it will be deployed with
+          # nixos-rebuild switch
+          home-manager.nixosModules.home-manager
+        ];
       };
     };
 
