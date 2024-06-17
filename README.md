@@ -2,6 +2,22 @@
 
 A (WIP) NixOS Configuration repo for all my systems.
 
+## Usage
+
+Install the nixos system. Note this command is hardware dependent. We use the
+hostname to associate hardware.
+
+```shell
+sudo nixos-rebuild switch --flake .#${hostname}
+```
+
+
+Install the home-manager configuration
+
+```shell
+home-manager switch --flake .#zamlz
+```
+
 ## TODOs
 
 ### NixOS
@@ -12,6 +28,3 @@ A (WIP) NixOS Configuration repo for all my systems.
 - [ ] Disk Wipe on Reboot
 - [ ] Full Disk Encryption
 - [ ] Use `deploy-rs`
-
-### Desktop Environment
-- [x] Implement FS Explorer script
