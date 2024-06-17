@@ -7,7 +7,7 @@
     ./kakoune.nix
     ./lazygit.nix
     ./neofetch.nix
-    ./neovim.nix
+    #./neovim.nix
     ./password-store.nix
     ./ranger.nix
     ./ssh.nix
