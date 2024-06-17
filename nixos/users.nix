@@ -10,4 +10,6 @@
     ];
     shell = pkgs.zsh;
   };
+
+  services.getty.autologinUser = "zamlz";
 }
