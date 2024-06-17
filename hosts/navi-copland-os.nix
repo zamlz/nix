@@ -7,38 +7,12 @@
   imports = [
     # Import your generated (nixos-generate-config) hardware configuration
     ../hardware/thinkpad-p14s.nix
+    ../nixos
   ];
 
-  nixpkgs = {
-    config.allowUnfree = true;
-  };
+  networking.hostName = "NAVI-CoplandOS";
 
-  nix = {
-    # This will add each flake input as a registry
-    # to make nix3 commands consistent with your flake
-    registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
-
-    # This will additionally add your inputs to the system's legacy channels
-    nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
-
-    settings = {
-      experimental-features = [ "nix-command" "flakes" ];
-      auto-optimise-store = true;
-    };
-
-    gc = {
-      automatic = true;
-      persistent = true;
-      dates = "weekly";
-      options = "--delete-older-than 120d";
-    };
-  };
-
-  boot.loader = {
-    systemd-boot.enable = true;
-    efi.canTouchEfiVariables = true;
-  };
-
+  # NOTE: This is for LUKS for SWAP.
   boot.initrd = {
     secrets = {
       "/crypto_keyfile.bin" = null;
@@ -47,94 +21,6 @@
       device = "/dev/disk/by-uuid/0224b369-12c1-4ea0-a732-6ee6ec2e1192";
       keyFile = "/crypto_keyfile.bin";
     };
-  };
-
-  networking = {
-    hostName = "NAVI-CoplandOS";
-    networkmanager.enable = true;
-    firewall = {
-      enable = true;
-      allowedTCPPorts = [ 22 ];
-      #allowedUDPPorts = [ ... ];
-    };
-  };
-
-  time.timeZone = "America/Los_Angeles";
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  console = {
-    earlySetup = true;
-    #font = "${pkgs.terminus_font}/share/consolefonts/ter-128n.psf.gz";
-    font = "${pkgs.terminus_font}/share/consolefonts/ter-118n.psf.gz";
-    packages = with pkgs; [ terminus_font ];
-    keyMap = "us";
-  };
-
-  environment = {
-    systemPackages = with pkgs; [ curl git vim ];
-  };
-
-  hardware = {
-    opengl = {
-      enable = true;
-      driSupport = true;
-    };
-  };
-
-  programs.zsh.enable = true;
-
-  # User Accounts
-  # -------------
-  # (Don't forget to set a password with ‘passwd’!)
-  users.users.zamlz = {
-    isNormalUser = true;
-    description = "Amlesh Sivanantham";
-    initialPassword = "pleasechangeme";
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-    ];
-    shell = pkgs.zsh;
-  };
-
-  services.openssh = {
-    enable = true;
-    settings = {
-      PermitRootLogin = "no";
-      PasswordAuthentication = false;
-    };
-  };
-
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    jack.enable = true;
-  };
-
-  services.libinput.enable = true;
-
-  services.xserver = {
-    enable = true;
-    autoRepeatDelay = 400;
-    autoRepeatInterval = 50;
-    displayManager.startx.enable = true;
-  };
-
-  # This enables documentation at a system level, but we still need to
-  # apply the same settings in home-manager
-  documentation = {
-    enable = true;
-    dev.enable = true;
-    doc.enable = true;
-    man = {
-      enable = true;
-      generateCaches = true;
-      man-db.enable = true;
-    };
-    nixos.enable = true;
   };
 
   # This value determines the NixOS release from which the default
