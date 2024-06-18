@@ -9,16 +9,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # FIXME: Maybe use this if I really need to use home-manager in arch
     # nixgl.url = "github:nix-community/nixGL";
   };
 
-  outputs = { self, nixpkgs, home-manager, nixvim }@inputs: {
+  outputs = { self, nixpkgs, home-manager }@inputs: {
 
     # NixOS Configuration Entrypoint
     # ( available through `nixos-rebuild switch --flake .#${hostname}` )
