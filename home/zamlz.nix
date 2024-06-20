@@ -48,7 +48,6 @@
       neofetch
       pciutils
       pstree
-      ranger
       ripgrep
       tree
       # Fun CLI Tools
@@ -71,9 +70,6 @@
       # GUI Apps
       firefox
       qutebrowser
-      # wayland tools
-      swww
-      waypaper
       # Misc Experiments
       (python3.withPackages (ps: with ps; [ipython]))
     ];
