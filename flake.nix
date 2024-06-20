@@ -29,7 +29,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = { inherit inputs; };
-            home-manager.users.zamlz = import ./users/zamlz;
+            home-manager.users.zamlz = import ./home/zamlz.nix;
           }
         ];
       };
@@ -44,7 +44,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = { inherit inputs; };
-            home-manager.users.zamlz = import ./users/zamlz;
+            home-manager.users.zamlz = import ./home/zamlz.nix;
           }
         ];
       };
