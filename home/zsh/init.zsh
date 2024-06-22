@@ -1,4 +1,4 @@
-# We do not need #! here. NixOS may prefix/postfix this script as needed.
+#!/usr/bin/env zsh
 
 # This file should contain anything we would normally put in `.zshrc`
 

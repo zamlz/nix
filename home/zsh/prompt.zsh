@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 
 # Setup Prompt
 # There are basically two ways to set prompts. My old prompt was dynamic and

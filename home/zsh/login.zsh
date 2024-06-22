@@ -1,5 +1,4 @@
-# We do not need #! here. NixOS may prefix this script as needed.
-# Hopefully, it does not postfix it as we are using `exec` commands here.
+#!/usr/bin/env zsh
 
 # This file should contain anything we would normally put in `.zlogin`
 
