@@ -1,5 +1,8 @@
-{ inputs, lib, config, pkgs, ... }: {
-  xdg.configFile."zsh/prompt.zsh".source = ./prompt.zsh;
+{ inputs, lib, config, pkgs, ... }: let
+  readFileList = files:
+    builtins.concatStringsSep "\n"
+      (map (f: builtins.readFile f) files);
+in {
   programs.zsh = {
     enable = true;
     dotDir = ".config/zsh";
@@ -38,6 +41,10 @@
     };
     loginExtra = builtins.readFile ./login.zsh;
     envExtra = builtins.readFile ./environment.zsh;
-    initExtra = builtins.readFile ./init.zsh;
+    initExtra = readFileList [
+      ./init/prompt.zsh
+      ./init/hooks.zsh
+      ./init/jobs.zsh
+    ];
   };
 }

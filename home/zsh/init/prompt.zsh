@@ -1,26 +1,25 @@
 #!/usr/bin/env zsh
 
-# Setup Prompt
-# There are basically two ways to set prompts. My old prompt was dynamic and
-# required a function to run everytime it generated so we used the precmd code
-# to generate it. However it introduces some problems with sh if you want to
-# run it through zsh. Luckily, if you wish to run sh from zsh for whatever
-# reason, one can simply override the hook before the command is run.
-# I however, am currently not using this setup, but I should configure it such
-# that if I am in a pure terminal environment that I do in fact use my more
-# /verbose/ prompt. In my gui environment however, that level of information is
-# overkill.
-
+# SIMPLE_PROMPT
+#
 # ~ λ
-export PROMPT="%F{blue}%~%f %B%(?.%F{green}.%F{red})λ%f%b "
+
+function generate_simple_prompt() {
+    echo -ne "%F{blue}%~%f %B%(?.%F{green}.%F{red})λ%f%b "
+}
 
 
-
-#.-|ssh|-(zamlz@andromeda)-[arch::~]-<dotfiles.main>-{env:alchemy}
-#`--[λ]->
+# COMPLEX_PROMPT
+#
+# ┌─[zamlz@NAVI-CoplandOS]─/nixos::~/nix/
+# ├─<nix.main>
+# ├─{aws:test}
+# └─(λ)─>
+#
 #    https://symbl.cc/en/unicode/blocks/box-drawing/
 #    https://unix.stackexchange.com/questions/124407/what-color-codes-can-i-use-in-my-bash-ps1-prompt/124409#124409
-function prompt_generate() {
+
+function generate_complex_prompt() {
     EXIT_CODE=$1
 
     echo -ne "\n\r%B%F{cyan}┌─"
