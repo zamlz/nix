@@ -15,7 +15,7 @@ in {
     # Do not let polybar start itself. Let the autostart script deal with it
     script = "";
     config = let
-      barConfig = placement: left: center: right: {
+      barConfig = {placement, left-modules, center-modules, right-modules}: {
         width = "100%";
         height = "3%";
         radius = 0;
@@ -28,9 +28,9 @@ in {
         border-size = 0;
         border-color = "${colorScheme.foreground}";
         bottom = placement == "bottom";
-        modules-left = left;
-        modules-center= center;
-        modules-right = right;
+        modules-left = left-modules;
+        modules-center= center-modules;
+        modules-right = right-modules;
       };
 
       batteryConfig = battery: {
@@ -170,8 +170,19 @@ in {
       };
 
     in {
-      "bar/top" = barConfig "top" "kernel" "date" "volume backlight battery1 battery0 wired wireless";
-      "bar/bot" = barConfig "bottom" "workspace" "" "cpu memory window";
+      "bar/top" = barConfig {
+        placement = "top";
+        left-modules = "kernel";
+        center-modules = "date";
+        right-modules = "volume backlight battery1 battery0 wired wireless";
+      };
+
+      "bar/bot" = barConfig {
+        placement = "bottom";
+        left-modules = "workspace";
+        center-modules = "";
+        right-modules = "cpu memory window";
+      };
 
       "module/battery0" = batteryConfig "BAT0";
       "module/battery1" = batteryConfig "BAT1";
