@@ -13,8 +13,9 @@
       extended = true;
       ignoreSpace = true;
       ignorePatterns = [
-        "rm *"
         "pkill *"
+        "rm *"
+        "rmdir *"
       ];
       save = 100000;
     };
@@ -41,9 +42,8 @@
       gb = "git branch -av";
       gr = "git rev-parse --show-toplevel";
       grr = "git rev-parse --show-toplevel | xargs";
-      # make all vi/vim point to neovim
+      # the vi command is a hard habit to break
       vi = "$EDITOR";
-      vim = "nvim";
       # aliasing these guys to make them safer
       rm = "rm -I --preserve-root";
       mv = "mv -i";
@@ -52,15 +52,7 @@
       please = "sudo";
       weather = "curl wttr.in";
     };
-    loginExtra = ''
-      if [ -z "$DISPLAY" ] && [ "$(fgconsole 2>/dev/null)" -eq 1 ]; then
-          exec startx $HOME/.config/xinit/rc.sh "herbstluftwm"
-      elif [ -z "$DISPLAY" ] && [ "$(fgconsole 2>/dev/null)" -eq 2 ]; then
-          exec startx $HOME/.config/xinit/rc.sh "qtile start --backend x11"
-      elif [ -z "$DISPLAY" ] && [ "$(fgconsole 2>/dev/null)" -eq 3 ]; then
-          exec qtile start --backend wayland
-      fi
-    '';
+    loginExtra = (builtins.readFile ./login.zsh);
     envExtra = ''
       export LESS="-R --no-init --quit-if-one-screen"
       # no longer creates __pycache__ folders in the same folder as *.py files
