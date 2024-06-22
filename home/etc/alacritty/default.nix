@@ -1,5 +1,5 @@
 { inputs, lib, config, pkgs, ... }: let
-  colorScheme = (import ../colorscheme).defaultColorScheme;
+  colorScheme = (import ../../lib/colorscheme).defaultColorScheme;
 in {
   programs.alacritty = {
     enable = true;
