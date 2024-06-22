@@ -23,7 +23,7 @@ in {
         statusLine = "bottom";
       };
     };
-    defaultEditor = true;
+    defaultEditor = false;
     enable = true;
     plugins = [
       pkgs.kakounePlugins.kak-ansi
