@@ -3,6 +3,7 @@
     enable = true;
     defaultEditor = true;
     extraPackages = with pkgs; [
+      marksman
       python311Packages.python-lsp-server
     ];
     settings = {
@@ -40,6 +41,29 @@
           insert = "block";
           normal = "block";
           select = "block";
+        };
+        statusline = {
+          left = [
+            "mode"
+            "spinner"
+            "file-absolute-path"
+            "read-only-indicator"
+            "file-modification-indicator"
+            "version-control"
+          ];
+          center = [];
+          right = [
+            "diagnostics"
+            "selections"
+            "register"
+            "position"
+            "file-encoding"
+          ];
+          mode = {
+            normal = "NORMAL";
+            insert = "INSERT";
+            select = "SELECT";
+          };
         };
       };
       editor.gutters = {
