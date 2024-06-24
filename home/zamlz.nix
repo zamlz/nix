@@ -24,13 +24,8 @@
     homeDirectory = "/home/zamlz";
     packages = with pkgs; [
       # System CLI Tools
-      htop
-      less
       neofetch
-      pciutils
-      pstree
       ripgrep
-      tree
       # Fun CLI Tools
       cmatrix
       figlet

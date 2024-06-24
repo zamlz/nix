@@ -12,7 +12,17 @@
   };
 
   environment = {
-    systemPackages = with pkgs; [ curl git vim ];
+    systemPackages = with pkgs; [
+      curl
+      git
+      htop
+      less
+      pciutils
+      pstree
+      tree
+      usbutils
+      vim
+    ];
   };
 
   hardware.graphics.enable = true;
