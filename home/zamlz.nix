@@ -44,6 +44,7 @@
       qrencode
       i3lock
       maim  # needed by sxhkd (screenshot script)
+      pavucontrol
       wmctrl
       xclip # needed by sxhkd (screenshot script)
       xdotool
