@@ -1,9 +1,0 @@
-alias grep="grep --color=always"
-
-# Sudo improvements...
-if [ $UID -ne 0 ]; then
-    alias fuck='eval "sudo $(fc -ln -1)"'
-fi
-
-# Config Overrides
-alias tmux="tmux -f ~/etc/tmux/config"
