@@ -7,6 +7,7 @@
     extraGroups = [
       "networkmanager"
       "wheel"
+      "audio"
     ];
     shell = pkgs.zsh;
     openssh.authorizedKeys.keys = [
