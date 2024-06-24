@@ -10,17 +10,30 @@ in {
     defaultKeymap = "viins";
     enableCompletion = true;
     autosuggestion.enable= true;
-    syntaxHighlighting.enable = true;
+    syntaxHighlighting = {
+      enable = true;
+      patterns = {
+        "rm -rf *" = "fg=white,bold,bg=red";
+      };
+    };
     enableVteIntegration = true;
+    historySubstringSearch = {
+      enable = true;
+      #searchDownKey = ["j"];
+      #searchUpKey = ["k"];
+    };
     history = {
       extended = true;
+      expireDuplicatesFirst = true;
       ignoreSpace = true;
+      share = true;
       ignorePatterns = [
         "pkill *"
         "rm *"
         "rmdir *"
       ];
       save = 100000;
+      size = 100000;
     };
     # NOTE: Application specific aliases (ex: git) can be found in their
     # respective nixos configuration file
