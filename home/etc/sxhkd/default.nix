@@ -88,10 +88,11 @@ in {
       "@shift + Print" = "${maimScreenshot}";
       
       # Multimedia and Physical Switches
-      "XF86AudioMute" = "wpctl set-mute @DEFAULT_SINK@ toggle";
-      "XF86AudioMicMute" = "wpctl set-mute @DEFAULT_SOURCE@ toggle";
-      "XF86AudioRaiseVolume" = "wpctl set-volume @DEFAULT_SINK@ 0.01+";
-      "XF86AudioLowerVolume" = "wpctl set-volume @DEFAULT_SINK@ 0.01-";
+      "XF86AudioMute" = "pactl set-sink-mute @DEFAULT_SINK@ toggle";
+      "XF86AudioMicMute" = "pactl set-source-mute @DEFAULT_SOURCE@ toggle";
+      "XF86AudioRaiseVolume" = "pactl set-sink-volume @DEFAULT_SINK@ +1%";
+      "XF86AudioLowerVolume" = "pactl set-sink-volume @DEFAULT_SINK@ -1%";
+
       # FIXME: These tools are not ready to use yet
       # "XF86MonBrightnessUp" = "xbacklight -inc 1 -time 10";
       # "XF86MonBrightnessDown" = "xbacklight -dec 1 -time 10";

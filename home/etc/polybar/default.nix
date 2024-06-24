@@ -12,6 +12,9 @@ in {
 
   services.polybar = {
     enable = true;
+    package = pkgs.polybar.override {
+      pulseSupport = true;
+    };
     # Do not let polybar start itself. Let the autostart script deal with it
     script = "";
     config = let
@@ -155,7 +158,8 @@ in {
         enable-scroll = true;
       };
 
-      volumeConfig = {
+      # NOTE: Currently not in use
+      pipewireVolumeConfig = {
         type = "custom/script";
         # FIXME: can I get this to use xdg.configFile in the future?
         exec = "~/.config/polybar/wpctl_info.sh";
@@ -167,6 +171,17 @@ in {
         click-left = "wpctl set-mute @DEFAULT_SINK@ toggle";
         scroll-up = "wpctl set-volume @DEFAULT_SINK@ 0.01+";
         scroll-down = "wpctl set-volume @DEFAULT_SINK@ 0.01-";
+      };
+
+      pulseaudioVolumeConfig = {
+        type = "internal/pulseaudio";
+        interval = 5;
+        format-volume = "<label-volume>";
+        format-muted = "<label-muted>";
+        label-volume = "[%decibels% dB]";
+        label-volume-foreground = "${colorScheme.foreground}";
+        label-muted = "[MUTED %decibels% dB]";
+        label-muted-foreground = "${colorScheme.red}";
       };
 
     in {
@@ -195,7 +210,7 @@ in {
       "module/kernel" = systemInfoConfig;
       "module/workspace" = workspaceConfig;
       "module/window" = windowConfig;
-      "module/volume" = volumeConfig;
+      "module/volume" = pulseaudioVolumeConfig;
     };
   };
 }
