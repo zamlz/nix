@@ -22,6 +22,7 @@
   ManPageOpen = termPromptLauncher "$HOME/.config/sxhkd/man_open.py" 35 164 8;
   NotesManager = termPromptLauncher "$HOME/.config/sxhkd/notes_manager.py" 35 164 8;
   RipGrep = termPromptLauncher "$HOME/.config/sxhkd/ripgrep.py" 35 164 8;
+  Calculator = termPromptLauncher "$HOME/.config/sxhkd/calculator.py" 12 64 12;
   LazyGit = termPromptLauncher "$HOME/.config/sxhkd/launch_lazygit.py" 35 164 8;
   maimScreenshot = "$HOME/.config/sxhkd/maim-screenshot.sh";
 in {
@@ -32,6 +33,7 @@ in {
   xdg.configFile."sxhkd/fzf-password-store.sh".source = ../../../scripts/fzf-password-store.sh;
   xdg.configFile."sxhkd/fzf-program-launcher.sh".source = ../../../scripts/fzf-program-launcher.sh;
   xdg.configFile."sxhkd/ripgrep.py".source = ../../../scripts/ripgrep.py;
+  xdg.configFile."sxhkd/calculator.py".source = ../../../scripts/calculator.py;
   xdg.configFile."sxhkd/man_open.py".source = ../../../scripts/man_open.py;
   xdg.configFile."sxhkd/launch_lazygit.py".source = ../../../scripts/launch_lazygit.py;
   xdg.configFile."sxhkd/maim-screenshot.sh".source = ./maim-screenshot.sh;
@@ -74,6 +76,7 @@ in {
       # External Tools
       "super + g" = "${LazyGit}";
       "super + m" = "${ManPageOpen}";
+      "super + v" = "${Calculator}";
 
       # FIXME: This configuration should somehow be owned by password-store?
       "super + p"         = "${PasswordStore}";
