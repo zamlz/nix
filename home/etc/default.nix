@@ -10,7 +10,6 @@
     ./lazygit
     ./neofetch
     ./password-store
-    ./picom
     ./polybar
     ./qtile
     ./ssh
