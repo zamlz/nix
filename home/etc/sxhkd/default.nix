@@ -1,9 +1,9 @@
-{ inputs, lib, config, pkgs, ... }: let
+{ inputs, lib, config, pkgs, systemConfig, ... }: let
   terminal = "${pkgs.alacritty}/bin/alacritty";
   termPromptLauncher = script: lineNum: columnNum: fontSize:
     let
       saveWindowId = "$HOME/.config/sxhkd/navi/tools/save_active_window_id.py";
-      fontOption = "--option 'font.size=${builtins.toString fontSize}'";
+      fontOption = "--option 'font.size=${builtins.toString (systemConfig.fontScale * fontSize)}'";
       lineOption = "--option 'window.dimensions.lines=${builtins.toString lineNum}'";
       columnOption = "--option 'window.dimensions.columns=${builtins.toString columnNum}'";
       termClass = "--class 'termprompt,termprompt'";
@@ -22,7 +22,7 @@
   ManPageOpen = termPromptLauncher "$HOME/.config/sxhkd/man_open.py" 35 164 8;
   NotesManager = termPromptLauncher "$HOME/.config/sxhkd/notes_manager.py" 35 164 8;
   RipGrep = termPromptLauncher "$HOME/.config/sxhkd/ripgrep.py" 35 164 8;
-  Calculator = termPromptLauncher "$HOME/.config/sxhkd/calculator.py" 12 64 12;
+  Calculator = termPromptLauncher "$HOME/.config/sxhkd/calculator.py" 12 96 12;
   LazyGit = termPromptLauncher "$HOME/.config/sxhkd/launch_lazygit.py" 35 164 8;
   maimScreenshot = "$HOME/.config/sxhkd/maim-screenshot.sh";
 in {
