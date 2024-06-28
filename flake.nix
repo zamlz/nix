@@ -28,7 +28,12 @@
           home-manager.nixosModules.home-manager {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = { inherit inputs; };
+            home-manager.extraSpecialArgs = {
+              inherit inputs;
+              systemConfig = {
+                fontScale = 1.0;
+              };
+            };
             home-manager.users.zamlz = import ./home/zamlz.nix;
           }
         ];
@@ -36,14 +41,19 @@
 
       NAVI-SolarisOS = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
-	modules = [
+        modules = [
          ./hosts/navi-solaris-os.nix
           # makes home manager a module of nixos so it will be deployed with
           # nixos-rebuild switch
           home-manager.nixosModules.home-manager {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = { inherit inputs; };
+            home-manager.extraSpecialArgs = {
+              inherit inputs;
+              systemConfig = {
+                fontScale = 1.75;
+              };
+            };
             home-manager.users.zamlz = import ./home/zamlz.nix;
           }
         ];

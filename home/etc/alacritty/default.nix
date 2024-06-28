@@ -1,4 +1,4 @@
-{ inputs, lib, config, pkgs, ... }: let
+{ inputs, lib, config, pkgs, systemConfig, ... }: let
   colorScheme = (import ../../lib/colorscheme).defaultColorScheme;
 in {
   programs.alacritty = {
@@ -47,7 +47,7 @@ in {
       };
 
       font = {
-        size = 8.0;
+        size = 8.0 * systemConfig.fontScale;
         glyph_offset = {
           x = 0;
           y = 0;
