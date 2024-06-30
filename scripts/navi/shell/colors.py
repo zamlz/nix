@@ -4,7 +4,7 @@ from enum import StrEnum
 # https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797
 
 
-class AnsiColor:
+class AnsiColor(StrEnum):
     BLACK = "\033[0;30m"
     RED = "\033[0;31m"
     GREEN = "\033[0;32m"
