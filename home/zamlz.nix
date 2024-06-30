@@ -46,6 +46,7 @@
       firefox
       qutebrowser
       # Misc Experiments
+      pipenv
       (python3.withPackages (ps: with ps; [ipython]))
     ];
   };
