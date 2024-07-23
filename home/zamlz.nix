@@ -45,6 +45,8 @@
       # GUI Apps
       firefox
       qutebrowser
+      mpv
+      spotify
       # Misc Experiments
       pipenv
       (python3.withPackages (ps: with ps; [ipython]))
