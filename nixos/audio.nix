@@ -2,7 +2,6 @@
 
   environment.systemPackages = with pkgs; [ pavucontrol ];
 
-  sound.enable = lib.mkForce false;  # this is really just ALSA
   hardware.pulseaudio.enable = true;
   hardware.pulseaudio.support32Bit = true;
 
