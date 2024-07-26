@@ -31,6 +31,7 @@
       figlet
       lolcat
       bat
+      yt-dlp
       # Fonts
       iosevka
       # Desktop Environment Utilities
