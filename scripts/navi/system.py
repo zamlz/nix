@@ -165,7 +165,7 @@ def open_file(file_path: Path, line_num: int = 0, column_num: int = 0) -> None:
     if not file_path.is_file():
         logger.warning(f"{file_path} is not a file!")
         return
-    escaped_file_path = str(file_path).replace(' ', '\ ')
+    escaped_file_path = str(file_path).replace(' ', '\\ ')
     nohup([
         "alacritty",
         "--working-directory", str(file_path.parent),
