@@ -3,9 +3,11 @@
 import argparse
 import logging
 import site
+import subprocess
 import sys
 from datetime import datetime
 from pathlib import Path
+from typing import List
 
 # FIXME: I have utils that are not installed as python packages yet.
 # Eventually, I should consolidate this and create a mechanism in nix to do so.
@@ -13,7 +15,6 @@ site.addsitedir(str(Path(__file__).parent))
 
 import navi.system
 from navi.logging import setup_logger
-from navi.notes import NOTES_DIR, create_new_note, get_notes_files
 from navi.shell.fzf import Fzf
 from navi.xorg.window import set_window_title
 
@@ -21,7 +22,25 @@ from navi.xorg.window import set_window_title
 logger = logging.getLogger(__name__)
 
 
-TOGGLE_HIDDEN_ACTION = "__TOGGLE_HIDDEN_ACTION__"
+NOTES_DIR = Path.home() / 'usr/notes'
+
+
+def get_notes_files() -> List[str]:
+    result = subprocess.run(
+        [f"{NOTES_DIR}/bin/notes_manager.py"],
+        capture_output=True
+    )
+    result.check_returncode()
+    return str(result.stdout, encoding="utf-8").strip().split('\n')
+
+
+def create_new_note(note_name: str) -> Path:
+    result = subprocess.run(
+        [f"{NOTES_DIR}/bin/notes_manager.py", "create", note_name],
+        capture_output=True
+    )
+    result.check_returncode()
+    return Path(str(result.stdout, encoding="utf-8").strip())
 
 
 def main() -> None:
@@ -50,7 +69,7 @@ def main() -> None:
         navi.system.open_file(selected_note_file)
     elif command == '__CREATE__':
         new_note_file = create_new_note(note_name)
-        navi.system.open_file(new_note_file.path)
+        navi.system.open_file(new_note_file)
     return
 
 
