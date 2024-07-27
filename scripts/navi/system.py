@@ -132,12 +132,18 @@ class SearchMode(StrEnum):
 def get_dir_items(
         root_dir: Path,
         mode: SearchMode,
-        show_hidden: bool
+        show_hidden: bool,
+        pattern: Optional[str] = None
 ) -> List[str]:
+    if pattern is not None:
+        pattern_cmd = ["-name", pattern]
+    else:
+        pattern_cmd = []
+
     # This is way faster than globbing from pathlib objects.
     # like extremely faster
     result = subprocess.run(
-        ["find", str(root_dir), "-type", mode],
+        ["find", str(root_dir), "-type", mode] + pattern_cmd,
         capture_output=True
     )
     result.check_returncode()
