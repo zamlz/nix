@@ -195,3 +195,12 @@ def open_items(items: List[Path]) -> None:
             open_directory(item)
         else:
             logger.warning(f"{item} is not a file or a directory")
+
+
+def git_status(directory: Path) -> str:
+    result = subprocess.run(
+        ["git", "-C", str(directory), "status", "--porcelain"],
+        capture_output=True
+    )
+    result.check_returncode()
+    return str(result.stdout, encoding="utf-8").strip()

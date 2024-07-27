@@ -41,7 +41,7 @@ def main() -> None:
     set_window_title(f"FZF: Open {fs_object} (from {fs_ptr})")
 
     fzf = Fzf(
-        prompt=f"Open {fs_object}:",
+        prompt=f"Open {fs_object}: ",
         header=f"(Currently in {fs_ptr})",
         multi=True,
         preview=(

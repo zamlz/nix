@@ -23,7 +23,7 @@
   NotesManager = termPromptLauncher "$HOME/.config/sxhkd/notes_manager.py" 35 164 8;
   RipGrep = termPromptLauncher "$HOME/.config/sxhkd/ripgrep.py" 35 164 8;
   Calculator = termPromptLauncher "$HOME/.config/sxhkd/calculator.py" 12 96 12;
-  LazyGit = termPromptLauncher "$HOME/.config/sxhkd/launch_lazygit.py" 35 164 8;
+  GitManager = termPromptLauncher "$HOME/.config/sxhkd/git_manager.py" 35 164 8;
   maimScreenshot = "$HOME/.config/sxhkd/maim-screenshot.sh";
 in {
   xdg.configFile."sxhkd/file_preview.sh".source = ../../../scripts/file_preview.sh;
@@ -35,7 +35,7 @@ in {
   xdg.configFile."sxhkd/ripgrep.py".source = ../../../scripts/ripgrep.py;
   xdg.configFile."sxhkd/calculator.py".source = ../../../scripts/calculator.py;
   xdg.configFile."sxhkd/man_open.py".source = ../../../scripts/man_open.py;
-  xdg.configFile."sxhkd/launch_lazygit.py".source = ../../../scripts/launch_lazygit.py;
+  xdg.configFile."sxhkd/git_manager.py".source = ../../../scripts/git_manager.py;
   xdg.configFile."sxhkd/maim-screenshot.sh".source = ./maim-screenshot.sh;
   xdg.configFile."sxhkd/system_manager.py".source = ../../../scripts/system_manager.py;
   xdg.configFile."sxhkd/window_switcher.py".source = ../../../scripts/window_switcher.py;
@@ -74,7 +74,8 @@ in {
       "super + n" = "${NotesManager}";
 
       # External Tools
-      "super + g" = "${LazyGit}";
+      "super + g" = "${GitManager}";
+      "super + shift + g" = "${GitManager} --open-dir";
       "super + m" = "${ManPageOpen}";
       "super + v" = "${Calculator}";
 
