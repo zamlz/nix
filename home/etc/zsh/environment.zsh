@@ -3,7 +3,8 @@
 # This file should contain anything we would normally put in `.zshenv`
 
 # Make our pager a little more intelligent
-export LESS="-R --no-init --quit-if-one-screen"
+export LESS="-M -R -i --use-color --mouse -Dd+b -Du+c -DHkC -j5"
+export MANROFFOPT="-c"
 
 # no longer creates __pycache__ folders in the same folder as *.py files
 export PYTHONPYCACHEPREFIX="$HOME/.cache/__pycache__"
