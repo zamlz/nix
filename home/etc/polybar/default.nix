@@ -199,6 +199,10 @@ in {
         right-modules = "cpu memory window";
       };
 
+      "settings" = {
+        pseudo-transparency = true;
+      };
+
       "module/battery0" = batteryConfig "BAT0";
       "module/battery1" = batteryConfig "BAT1";
       "module/cpu" = cpuConfig;
@@ -212,5 +216,6 @@ in {
       "module/window" = windowConfig;
       "module/volume" = pulseaudioVolumeConfig;
     };
+
   };
 }
