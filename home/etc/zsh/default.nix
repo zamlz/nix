@@ -58,6 +58,7 @@ in {
       ./init/prompt.zsh
       ./init/hooks.zsh
       ./init/jobs.zsh
+      ./init/python-venv.zsh
     ];
   };
 }
