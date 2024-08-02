@@ -1,5 +1,6 @@
 { inputs, lib, config, pkgs, ... }: {
   imports = [
+    ./docker.nix
     ./nix.nix
     ./users.nix
     ./core.nix
