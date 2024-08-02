@@ -1,4 +1,5 @@
 { inputs, lib, config, pkgs, ... }: {
+  users.extraGroups.audio.members = [ "zamlz" ];
 
   environment.systemPackages = with pkgs; [ pavucontrol ];
 

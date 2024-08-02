@@ -4,11 +4,7 @@
     isNormalUser = true;
     description = "Amlesh Sivanantham";
     initialPassword = "pleasechangeme";
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-      "audio"
-    ];
+    extraGroups = [ "wheel" ];
     shell = pkgs.zsh;
     openssh.authorizedKeys.keys = [
       # generated using: gpg --export-ssh-key <key-id>
