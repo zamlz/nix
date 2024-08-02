@@ -34,7 +34,7 @@ def main() -> None:
     match action:
         case SystemActions.LOCK_SCREEN:
             navi.system.reload_gpg_agent()
-            navi.system.lock_screen()
+            navi.system.lock_screen(blur_screen=False)
         case SystemActions.QUIT_WINDOW_MANAGER:
             navi.system.kill_window_manager()
         case SystemActions.POWER_OFF:

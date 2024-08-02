@@ -68,11 +68,11 @@ def blur_image(image: Path) -> Path:
     return blurred_image
 
 
-def lock_screen() -> None:
+def lock_screen(blur_screen: bool) -> None:
     wallpaper = get_wallpaper()
     if wallpaper.exists():
-        blurred_wallpaper = blur_image(wallpaper)
-        execute(["i3lock", "-tnefi", str(blurred_wallpaper)])
+        lock_screen_image = blur_image(wallpaper) if blur_screen else wallpaper
+        execute(["i3lock", "-tnefi", str(lock_screen_image)])
     else:
         execute(["i3lock", "-nef", "--color=000000"])
 
