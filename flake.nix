@@ -51,7 +51,7 @@
             home-manager.extraSpecialArgs = {
               inherit inputs;
               systemConfig = {
-                fontScale = 1.75;
+                fontScale = 2.0;
               };
             };
             home-manager.users.zamlz = import ./home/zamlz.nix;
