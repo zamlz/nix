@@ -2,16 +2,6 @@
 
 A (WIP) NixOS Configuration repo for all my systems.
 
-## TODOs
-
-- [x] Use `flake.nix` 
-- [ ] Control backlight with keyboard buttons
-- [x] Control Volume with keyboard buttons
-- [ ] Investigate pipewire
-- [ ] Disk Wipe on Reboot
-- [ ] Full Disk Encryption
-- [ ] Use `deploy-rs`
-
 ## Basic Usage
 
 Install the nixos system. Note this command is hardware dependent. We use the
