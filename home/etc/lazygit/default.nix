@@ -8,7 +8,6 @@
         selectedRangeBgColor = [ "black" ];
       };
       git = {
-        paging.useConfig = true;
         mainBranches = [ "main" "master" "develop" ];
         overrideGpg = false;
       };
