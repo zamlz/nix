@@ -26,6 +26,8 @@
       # System CLI Tools
       neofetch
       ripgrep
+      zip
+      unzip
       # Fun CLI Tools
       cmatrix
       figlet
