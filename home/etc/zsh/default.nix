@@ -60,6 +60,7 @@ in {
       ./init/jobs.zsh
       ./init/substring-search.zsh
       ./init/python-venv.zsh
+      ./init/gpg.zsh
     ];
   };
 }
