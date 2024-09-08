@@ -19,7 +19,15 @@ NOHUP_SCRIPT = Path(__file__).parent.parent / "nohup.sh"
 
 
 # Let the `xdg-open` command handle opening of the following file types.
-XDG_OPEN_EXTENSIONS = ["mp3", "mp4", "pdf"]
+XDG_OPEN_EXTENSIONS = [
+    "gif",
+    "mp3",
+    "mp4",
+    "jpeg",
+    "jpg",
+    "pdf",
+    "png",
+]
 
 
 def execute(command: List[str]) -> None:
