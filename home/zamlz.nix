@@ -28,6 +28,7 @@
       ripgrep
       zip
       unzip
+      qpdf
       # Fun CLI Tools
       cmatrix
       figlet
