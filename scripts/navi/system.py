@@ -18,6 +18,10 @@ logger = logging.getLogger(__name__)
 NOHUP_SCRIPT = Path(__file__).parent.parent / "nohup.sh"
 
 
+# Let the `xdg-open` command handle opening of the following file types.
+XDG_OPEN_EXTENSIONS = ["mp3", "mp4", "pdf"]
+
+
 def execute(command: List[str]) -> None:
     os.execlp(command[0], *command)
 
@@ -166,17 +170,21 @@ def open_file(file_path: Path, line_num: int = 0, column_num: int = 0) -> None:
         logger.warning(f"{file_path} is not a file!")
         return
     escaped_file_path = str(file_path).replace(' ', '\\ ')
-    nohup([
-        "alacritty",
-        "--working-directory", str(file_path.parent),
-        # So why do we not run the editor command directly?
-        # Well it would work in starting the editor, but zsh startup
-        # runs all the hooks for saving the window details.
-        # In other words, in order for every terminal window to have
-        # a window_id file generated, we must start zsh
-        "--command", "zsh", "-c",
-        f"{os.getenv('EDITOR')} {escaped_file_path} +{line_num}"
-    ])
+    # TODO: Study xdg-open to see if there is a better way of doing this
+    if any([str(file_path).endswith(ext) for ext in XDG_OPEN_EXTENSIONS]):
+        nohup(["xdg-open", str(file_path)])
+    else:
+        nohup([
+            "alacritty",
+            "--working-directory", str(file_path.parent),
+            # So why do we not run the editor command directly?
+            # Well it would work in starting the editor, but zsh startup
+            # runs all the hooks for saving the window details.
+            # In other words, in order for every terminal window to have
+            # a window_id file generated, we must start zsh
+            "--command", "zsh", "-c",
+            f"{os.getenv('EDITOR')} {escaped_file_path} +{line_num}"
+        ])
 
 
 def open_directory(dir_path: Path) -> None:
