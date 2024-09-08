@@ -24,6 +24,7 @@
     homeDirectory = "/home/zamlz";
     packages = with pkgs; [
       # System CLI Tools
+      nvd
       neofetch
       ripgrep
       zip
