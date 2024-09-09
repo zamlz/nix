@@ -62,13 +62,13 @@ in {
       "super + BackSpace" = "${WorkspaceManager} --delete";
 
       # Filesystem
-      "super + a" = "${FileSystemExplorer}";
-      "super + f" = "${FileSystemOpen} --file";
-      "super + d" = "${FileSystemOpen} --directory";
-      "super + shift + f" = "${FileSystemOpen} --file --global-search";
-      "super + shift + d" = "${FileSystemOpen} --directory --global-search";
-      "super + s" = "${RipGrep}";
-      "super + shift + s" = "${RipGrep} --global-search";
+      "super + x; x" = "${FileSystemExplorer}";
+      "super + x; f" = "${FileSystemOpen} --file";
+      "super + x; d" = "${FileSystemOpen} --directory";
+      "super + x; shift + f" = "${FileSystemOpen} --file --global-search";
+      "super + x; shift + d" = "${FileSystemOpen} --directory --global-search";
+      "super + x; s" = "${RipGrep}";
+      "super + x; shift + s" = "${RipGrep} --global-search";
 
       # Notes
       "super + n" = "${NotesManager}";
@@ -77,7 +77,7 @@ in {
       "super + g" = "${GitManager}";
       "super + shift + g" = "${GitManager} --open-dir";
       "super + m" = "${ManPageOpen}";
-      "super + v" = "${Calculator}";
+      "super + z" = "${Calculator}";
 
       # FIXME: This configuration should somehow be owned by password-store?
       "super + p"         = "${PasswordStore}";

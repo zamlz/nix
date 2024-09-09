@@ -85,9 +85,9 @@ in {
       "${super}-bracketleft" = "use_index -1 --skip-visible";
 
       # Layout Control
-      "${super}-c" = "floating toggle";
+      "${super}-s" = "floating toggle";
       "${super}-t" = "pseudotile toggle";
-      "${super}-y" = "fullscreen toggle";
+      "${super}-f" = "fullscreen toggle";
 
       # The following cycles through the available layouts within a frame, but skips
       # layouts, if the layout change wouldn't affect the actual window positions.
@@ -127,6 +127,9 @@ in {
       "${super}-Button2" = "zoom";
       "${super}-Button3" = "resize";
     };
+    # We have a rule here that makes `termprompt` type windows automatically
+    # float. This is used for the custom fzf-alacritty scripts spawned by
+    # sxhkd.
     rules = [
       "focus=on"
       "class~'termprompt' floating=on floatplacement=center"
