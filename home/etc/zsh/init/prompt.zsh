@@ -20,7 +20,7 @@ function generate_simple_prompt() {
 #    https://unix.stackexchange.com/questions/124407/what-color-codes-can-i-use-in-my-bash-ps1-prompt/124409#124409
 
 function generate_complex_prompt() {
-    EXIT_CODE=$1
+    local exit_code=$1
 
     echo -ne "\n\r%B%F{cyan}┌─"
 
@@ -104,10 +104,10 @@ function generate_complex_prompt() {
 
     # λ : exit_code
     echo -ne "%B%F{white}("
-    if [ ${EXIT_CODE} -eq 0 ]; then
+    if [ ${exit_code} -eq 0 ]; then
         echo -ne "%B%F{green}λ"
     else
-        echo -ne "%B%F{red}λ:${EXIT_CODE}"
+        echo -ne "%B%F{red}λ:${exit_code}"
     fi
     echo -ne "%B%F{white})"
 

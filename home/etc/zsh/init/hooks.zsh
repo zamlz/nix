@@ -8,10 +8,13 @@
 # register hooks to run before the user is given the oppurtunity to enter a
 # command. The order of these operations matter!!
 precmd() {
+    # we must save the last known exit code first, otherwise, subsequent
+    # operations will override it.
+    local exit_code=$?
     # load terminal window info if it exists
     load_window_info > /dev/null 2>&1
     # set my PS1
-    export PROMPT=$(generate_complex_prompt $?)
+    export PROMPT=$(generate_complex_prompt ${exit_code})
     # save terminal window info (creates id file)
     save_window_info > /dev/null 2>&1
     # update the terminal title
