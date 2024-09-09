@@ -69,11 +69,16 @@ function generate_complex_prompt() {
     fi
 
     # Environment Variables
-    if [ -n "${AWS_PROFILE}${ENV_NAME}${PIPENV_ACTIVE}${VIRTUAL_ENV}" ]; then
+    if [ -n "${IN_NIX_SHELL}${AWS_PROFILE}${ENV_NAME}${PIPENV_ACTIVE}${VIRTUAL_ENV}" ]; then
 
         echo -ne "\n%B%F{cyan}├─%F{white}{%b%F{202}"
         SEPERATOR=""
-	ALT_SEPERATOR="%F{white}, %F{202}"
+        ALT_SEPERATOR="%F{white}, %F{202}"
+
+        if [ -n "$IN_NIX_SHELL" ]; then
+            echo -ne "${SEPERATOR}nix:$IN_NIX_SHELL"
+            SEPERATOR=$ALT_SEPERATOR
+        fi
 
         if [ -n "$AWS_PROFILE" ]; then
             echo -ne "${SEPERATOR}aws:$AWS_PROFILE"
