@@ -2,6 +2,7 @@
 
 import logging
 import site
+import sys
 from argparse import ArgumentParser
 from pathlib import Path
 
@@ -10,6 +11,7 @@ from pathlib import Path
 site.addsitedir(str(Path(__file__).parent))
 
 from navi.logging import setup_logger
+from navi.shell.colors import AnsiColor
 from navi.shell.fzf import Fzf
 from navi.xorg.window import get_last_active_window_id, set_window_title
 from navi.xorg.workspace import (
@@ -25,6 +27,12 @@ logger = logging.getLogger(__name__)
 INFO_SCRIPT = Path(__file__).parent / "navi/tools/display_workspace_info.py"
 
 
+def _quit_with_warning(message: str) -> None:
+    logger.warning(message)
+    input(f"{AnsiColor.RED}ERROR: {AnsiColor.RESET}" + message)
+    sys.exit(2)
+
+
 def main() -> None:
     parser = ArgumentParser()
     parser.add_argument("-j", "--jump",action="store_true")
@@ -32,9 +40,10 @@ def main() -> None:
     parser.add_argument("-d", "--delete",action="store_true")
     args = parser.parse_args()
 
-    workspaces = list_workspaces()
     prompt = ""
     window_id = None
+    workspaces = list_workspaces()
+    workspace_names = [str(w) for w in workspaces.values() if not w.active]
 
     if args.jump:
         prompt = "Jump to"
@@ -54,7 +63,6 @@ def main() -> None:
         preview_label="[Window List]",
         print_query=True
     )
-    workspace_names = [str(w) for w in workspaces.values()]
     # selecting the last item of this is necessary to not use queries
     workspace_name = fzf.prompt(workspace_names)[-1]
 
@@ -77,11 +85,9 @@ def main() -> None:
 
     elif args.delete:
         if workspace_name not in workspaces.keys():
-            logger.warning(f"Workspace ({workspace_name}) does not exist!")
-            return
+            _quit_with_warning(f"Workspace ({workspace_name}) does not exist!")
         elif workspace_name == 'λ':
-            logger.warning(f"Cannot delete default workspace (λ)")
-            return
+            _quit_with_warning(f"Cannot delete default workspace (λ)")
         delete_workspace(workspace_name)
 
 
