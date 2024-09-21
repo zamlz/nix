@@ -6,13 +6,7 @@
   hardware.pulseaudio.enable = true;
   hardware.pulseaudio.support32Bit = true;
 
-  # FIXME: Get pipewire working on of these days
-  # security.rtkit.enable = true;
-  # services.pipewire = {
-  #   enable = true;
-  #   alsa.enable = true;
-  #   alsa.support32Bit = true;
-  #   pulse.enable = true;
-  #   jack.enable = true;
-  # };
+  # FIXME: Get pipewire working on of these days.
+  # We also need to force it off because "something" is trying to use it
+  services.pipewire.enable = false;
 }
