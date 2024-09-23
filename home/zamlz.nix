@@ -52,6 +52,11 @@
       qutebrowser
       mpv
       spotify
+      # DAW Software & derivatives
+      puredata
+      plugdata
+      bitwig-studio
+      vital
       # Misc Experiments
       pipenv
       (python3.withPackages (ps: with ps; [ipython]))
