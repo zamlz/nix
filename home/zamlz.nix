@@ -34,6 +34,7 @@
       cmatrix
       figlet
       lolcat
+      kittysay
       bat
       yt-dlp
       # Fonts

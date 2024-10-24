@@ -7,6 +7,7 @@
     ./helix
     ./herbstluftwm
     ./kakoune
+    ./kitty
     ./lazygit
     ./neofetch
     ./password-store
