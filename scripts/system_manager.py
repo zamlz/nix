@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 
 class SystemActions(StrEnum):
     LOCK_SCREEN = "Lock Screen"
-    QUIT_WINDOW_MANAGER = "Quit Window Manager"
+    RESTART_WINDOW_MANAGER = "Restart Window Manager"
     POWER_OFF = "Power Off"
     REBOOT = "Reboot"
 
@@ -35,7 +35,9 @@ def main() -> None:
         case SystemActions.LOCK_SCREEN:
             navi.system.reload_gpg_agent()
             navi.system.lock_screen(blur_screen=False)
-        case SystemActions.QUIT_WINDOW_MANAGER:
+        case SystemActions.RESTART_WINDOW_MANAGER:
+            # because my nixos system will auto-login, kill the windw
+            # manager is sufficient to restart it
             navi.system.kill_window_manager()
         case SystemActions.POWER_OFF:
             navi.system.power_off()
