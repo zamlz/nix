@@ -13,7 +13,7 @@ in {
 
     config = {
       autoComplete = ["insert" "prompt"];
-      autoInfo = ["command" "onkey" "normal"];
+      autoInfo = ["command" "onkey"];
       autoReload = "yes";
       colorScheme = "navi";  # defined below
       indentWidth = 4;
