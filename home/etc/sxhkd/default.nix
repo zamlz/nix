@@ -53,6 +53,7 @@ in {
       
       # Core Utils
       "super + Return" = "${terminal}";
+      "super + shift + Return" = "kitty";
       "super + e" = "${ProgramLauncher}";
 
       # Desktop Environment
