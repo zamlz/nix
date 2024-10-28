@@ -23,8 +23,10 @@
     username = "zamlz";
     homeDirectory = "/home/zamlz";
     packages = with pkgs; [
-      # System CLI Tools
+      # NixOS specific tools
       nvd
+      nix-search-cli
+      # System CLI Tools
       neofetch
       ripgrep
       zip
