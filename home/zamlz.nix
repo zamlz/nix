@@ -60,6 +60,7 @@
       plugdata
       bitwig-studio
       vital
+      mixxx
       # Misc Experiments
       pipenv
       (python3.withPackages (ps: with ps; [ipython]))
