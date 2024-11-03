@@ -4,7 +4,7 @@
     (import ../../lib/colorscheme).defaultColorScheme;
 in {
   programs.kakoune = {
-    defaultEditor = true;
+    defaultEditor = false;
     enable = true;
 
     plugins = [
