@@ -4,8 +4,9 @@ in {
   programs.alacritty = {
     enable = true;
     settings = {
-      live_config_reload = true;
-
+      general = {
+        live_config_reload = true;
+      };
       colors = with colorScheme; {
         draw_bold_text_with_bright_colors = false;
         primary = {
