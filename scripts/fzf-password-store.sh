@@ -1,5 +1,8 @@
 #!/usr/bin/env zsh
 
+# FIXME: migrate to the python version of this script. It's already made
+# and in the same folder, but it's doesn't appear to work through sxhkd
+
 # Depends on:
 # - feh
 # - imagemagick
