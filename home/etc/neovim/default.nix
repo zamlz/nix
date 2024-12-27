@@ -59,7 +59,6 @@ in {
           pyright.enable = true;
         };
       };
-      neogit.enable = true;
       treesitter = {
         enable = true;
         settings = {
