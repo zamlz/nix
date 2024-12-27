@@ -33,3 +33,12 @@ Make sure to update the channels to unstable as well.
 nix-channel --add https://nixos.org/channels/nixos-unstable nixos
 nixos-rebuild switch --upgrade
 ```
+
+
+## Misc
+
+Refer to this for neovim
+```
+https://github.com/zamlz/nix/blob/007d7ffa9c244af4d539fa7b32e8cb2a76ae4d91/shell/neovim.nix
+```
+`

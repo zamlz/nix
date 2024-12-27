@@ -10,6 +10,7 @@
     ./kitty
     ./lazygit
     ./neofetch
+    ./neovim
     ./password-store
     ./polybar
     ./qtile

@@ -9,11 +9,16 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # FIXME: Maybe use this if I really need to use home-manager in arch
     # nixgl.url = "github:nix-community/nixGL";
   };
 
-  outputs = { self, nixpkgs, home-manager }@inputs: {
+  outputs = { self, nixpkgs, home-manager, nixvim }@inputs: {
 
     # NixOS Configuration Entrypoint
     # ( available through `nixos-rebuild switch --flake .#${hostname}` )
@@ -34,6 +39,7 @@
                 fontScale = 1.0;
               };
             };
+            home-manager.sharedModules = [nixvim.homeManagerModules.nixvim];
             home-manager.users.zamlz = import ./home/zamlz.nix;
           }
         ];
@@ -54,6 +60,7 @@
                 fontScale = 2.0;
               };
             };
+            home-manager.sharedModules = [nixvim.homeManagerModules.nixvim];
             home-manager.users.zamlz = import ./home/zamlz.nix;
           }
         ];
