@@ -31,7 +31,7 @@ in {
       softtabstop = 4;    # number of spaces to insert for a tab
       shiftwidth  = 4;    # number of spaces used for each autoindent step
       # code concealing
-      conceallevel = 2;
+      conceallevel = 0;
       #concealcursor = 'nc';
       # code folding
       foldenable     = false;
@@ -52,6 +52,20 @@ in {
     plugins = {
       gitsigns.enable = true;
       lightline.enable = true;
+      lsp = {
+        enable = true;
+        servers = {
+          marksman.enable = true;
+          pyright.enable = true;
+        };
+      };
+      neogit.enable = true;
+      treesitter = {
+        enable = true;
+        settings = {
+          highlight.enable = false;
+        };
+      };
     };
   };
 
