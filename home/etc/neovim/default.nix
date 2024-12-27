@@ -65,72 +65,55 @@ in {
 
     let colors_name = "zamlz"
 
-    hi Normal guibg=${background} guifg=${foreground}
+    " UI and Interface Highlights
+    highlight Normal        guibg=${background} guifg=${foreground}
+    highlight Cursor        guifg=${background} guibg=${foreground}
+    highlight StatusLine    guifg=${foreground} guibg=${background} gui=bold
+    highlight StatusLineNC  guibg=${blackAlt} gui=bold
+    highlight DiffAdd       guifg=${green}
+    highlight DiffChange    guifg=${greenAlt}
+    highlight DiffDelete    guifg=${red}
+    highlight DiffText      guifg=${green}
+    highlight Directory     guifg=${blue}
+    highlight ErrorMsg      guifg=${white} guibg=${red} gui=bold
+    highlight FoldColumn    guifg=${blueAlt} guibg=${white}
+    highlight Folded        guifg=${black} guibg=${white}
+    highlight lCursor       guifg=${background} guibg=${foreground}
+    highlight LineNr        guifg=${yellow}
+    highlight LineNrAbove   guifg=#282828
+    highlight LineNrBelow   guifg=#282828
+    highlight CursorLineNr  guifg=${yellow}
+    highlight ModeMsg       gui=bold
+    highlight MoreMsg       guifg=${green}
+    highlight NonText       guifg=${blue} gui=bold
+    highlight Question      guifg=${green}
+    highlight SpecialKey    guifg=${blue}
+    highlight Title         guifg=${magenta} gui=bold
+    highlight VertSplit     guifg=${black} guibg=${background} gui=bold
+    highlight Visual        gui=reverse
+    highlight WildMenu      guifg=${black} guibg=${yellow}
 
-    hi SpecialKey term=bold ctermfg=4 guifg=Blue
-    hi NonText term=bold cterm=bold ctermfg=4 gui=bold guifg=Blue
-    hi Directory term=bold ctermfg=4 guifg=Blue
-    hi ErrorMsg term=standout cterm=bold ctermfg=7 ctermbg=1 gui=bold guifg=White guibg=Red
-    hi IncSearch term=reverse cterm=reverse gui=reverse
-    hi Search term=reverse ctermbg=3 guibg=Gold2
-    hi MoreMsg term=bold ctermfg=2 gui=bold guifg=SeaGreen
-    hi ModeMsg term=bold cterm=bold gui=bold
-    hi LineNr term=underline ctermfg=3 guifg=Red3
-    hi Question term=standout ctermfg=2 gui=bold guifg=SeaGreen
-    hi StatusLine term=bold,reverse cterm=bold,reverse gui=bold guifg=White guibg=Black
-    hi StatusLineNC term=reverse cterm=reverse gui=bold guifg=PeachPuff guibg=Gray45
-    hi VertSplit term=reverse cterm=reverse gui=bold guifg=White guibg=Gray45
-    hi Title term=bold ctermfg=5 gui=bold guifg=DeepPink3
-    hi Visual term=reverse cterm=reverse gui=reverse guifg=Grey80 guibg=fg
-    hi WarningMsg term=standout ctermfg=1 gui=bold guifg=Red
-    hi WildMenu term=standout ctermfg=0 ctermbg=3 guifg=Black guibg=Yellow
-    hi Folded term=standout ctermfg=4 ctermbg=7 guifg=Black guibg=#e3c1a5
-    hi FoldColumn term=standout ctermfg=4 ctermbg=7 guifg=DarkBlue guibg=Gray80
-    hi DiffAdd term=bold ctermfg=green ctermbg=None
-    hi DiffChange term=bold ctermfg=green ctermbg=None
-    hi DiffDelete term=bold ctermfg=red ctermbg=None
-    hi DiffText term=bold ctermfg=green ctermbg=None
-    hi Cursor guifg=bg guibg=fg
-    hi lCursor guifg=bg guibg=fg
+    " Error and Warning Highlights
+    highlight ErrorMsg      guifg=${foreground} guibg=${red}
+    highlight WarningMsg    guifg=${red} gui=bold
+    highlight InfoMsg       guifg=${blue} gui=bold
+    highlight MoreMsg       guifg=${cyan}
+    highlight Search        gui=reverse
+    highlight IncSearch     gui=reverse
 
     " Colors for syntax highlighting
-    hi Comment term=bold ctermfg=4 guifg=#406090
-    hi Constant term=underline ctermfg=1 guifg=#c00058
-    hi Special term=bold ctermfg=5 guifg=SlateBlue
-    hi Identifier term=underline ctermfg=6 guifg=DarkCyan
-    hi Statement term=bold ctermfg=3 gui=bold guifg=Brown
-    hi PreProc term=underline ctermfg=5 guifg=Magenta3
-    hi Type term=underline ctermfg=2 gui=bold guifg=SeaGreen
-    hi Ignore cterm=bold ctermfg=7 guifg=bg
-    hi Error term=reverse cterm=bold ctermfg=7 ctermbg=1 gui=bold guifg=White guibg=Red
-    hi Todo term=standout ctermfg=0 ctermbg=3 guifg=Blue guibg=Yellow
-
-    " Peachpuff Overrides
-    " -------------------
-
-    " Color of the Columns
-    highlight ColorColumn ctermbg=black
-    highlight CursorColumn ctermbg=black
-    highlight VertSplit ctermfg=black
-
-    " Change the default coloring of line numbers
-    highlight LineNr ctermfg=darkgrey
-
-    " Change colorscheme of Pmenus
-    highlight Pmenu ctermfg=darkgrey ctermbg=black
-
-    " Set background color of folded blocks
-    highlight Folded ctermbg=black
-
-    " Some syntax highlighting changes
-    highlight Function ctermfg=darkblue
-    highlight String ctermfg=darkgreen
-    highlight Comment ctermfg=darkgrey
-    highlight Exception ctermfg=darkred
-
-    " Fix colors on gitsign background
-    highlight SignColumn ctermbg=None
-
-    highlight Conceal ctermbg=None ctermfg=darkblue
+    highlight Comment       guifg=${blackAlt}
+    highlight Constant      guifg=${redAlt}
+    highlight Error         guifg=${white} guibg=${red}
+    highlight Exception     guifg=${redAlt}
+    highlight Function      guifg=${blue}
+    highlight Identifier    guifg=${cyan}
+    highlight Ignore        guifg=${background} guibg=${foreground}
+    highlight PreProc       guifg=${magenta}
+    highlight Special       guifg=${cyan}
+    highlight Statement     guifg=${yellow}
+    highlight String        guifg=${green}
+    highlight Todo          guifg=${white} guibg=${red}
+    highlight Type          guifg=${green}
   '';
 }
