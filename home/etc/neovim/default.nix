@@ -50,8 +50,12 @@ in {
     };
 
     plugins = {
+
+      # ui plugins
       gitsigns.enable = true;
       lightline.enable = true;
+
+      # software development plugins
       lsp = {
         enable = true;
         servers = {
@@ -59,12 +63,51 @@ in {
           pyright.enable = true;
         };
       };
+      nix.enable = true;
       treesitter = {
         enable = true;
         settings = {
           highlight.enable = false;
         };
       };
+
+      # notetaking plugins
+      telekasten = {
+        enable = true;
+        settings = {
+          # directories
+          home = { __raw = "vim.fn.expand(\"~/usr/notes\")"; };
+          dailies = { __raw = "vim.fn.expand(\"~/usr/notes/journal/day\")"; };
+          weeklies = { __raw = "vim.fn.expand(\"~/usr/notes/journal/week\")"; };
+          templates = { __raw = "vim.fn.expand(\"~/usr/notes/templates\")"; };
+          image_subdir= { __raw = "vim.fn.expand(\"~/usr/notes/data\")"; };
+          # templates
+          template_new_note = {
+            __raw = "vim.fn.expand(\"~/usr/notes/templates/default.md\")";
+          };
+          template_new_daily = {
+            __raw = "vim.fn.expand(\"~/usr/notes/templates/daily.md\")";
+          };
+          template_new_weekly = {
+            __raw = "vim.fn.expand(\"~/usr/notes/templates/weekly.md\")";
+          };
+          # auto creation
+          follow_creates_nonexisting = true;
+          dailies_creates_nonexisting = true;
+          weeklies_creates_nonexisting = true;
+          journal_auto_open = true;
+          # misc
+          image_link_style = "markdown";
+          sort = "filename";
+          install_syntax = true;
+          tag_notation = "yaml-bare";
+          subdirs_in_links = true;
+          command_palette_theme = "dropdown";
+          show_tags_theme = "dropdown";
+        };
+      };
+      telescope.enable = true;
+      web-devicons.enable = true;
     };
   };
 
