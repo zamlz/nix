@@ -3,8 +3,8 @@
 
   environment.systemPackages = with pkgs; [ pavucontrol ];
 
-  hardware.pulseaudio.enable = true;
-  hardware.pulseaudio.support32Bit = true;
+  services.pulseaudio.enable = true;
+  services.pulseaudio.support32Bit = true;
 
   # FIXME: Get pipewire working on of these days.
   # We also need to force it off because "something" is trying to use it
