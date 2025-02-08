@@ -3,7 +3,6 @@
 import argparse
 import logging
 import site
-import sys
 from pathlib import Path
 
 # FIXME: I have utils that are not installed as python packages yet.

@@ -4,7 +4,6 @@ import argparse
 import logging
 import site
 import subprocess
-import sys
 from pathlib import Path
 
 # FIXME: I have utils that are not installed as python packages yet.
@@ -56,7 +55,10 @@ def fzf_file_explorer_prompt(fs_ptr: Path, show_hidden: bool) -> str:
 
 
 def main() -> None:
-    fs_ptr = navi.system.get_filesystem_pointer(False, find_git_root=False)
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-g", "--global-search", action="store_true")
+    args = parser.parse_args()
+    fs_ptr = navi.system.get_filesystem_pointer(args.global_search, find_git_root=False)
     show_hidden = False
 
     while fs_ptr.is_dir():

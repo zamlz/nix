@@ -65,13 +65,14 @@ in {
       "super + BackSpace"           = "${WorkspaceManager} --delete";
 
       # Filesystem
-      "super + x"                   = "${FileSystemExplorer}";
-      "super + period"              = "${FileSystemOpen} --file";
-      "super + comma"               = "${FileSystemOpen} --directory";
-      "super + shift + period"      = "${FileSystemOpen} --file --global-search";
-      "super + shift + comma"       = "${FileSystemOpen} --directory --global-search";
-      "super + y"                   = "${RipGrep}";
-      "super + shift + y"           = "${RipGrep} --global-search";
+      "super + x; a"                = "${FileSystemExplorer}";
+      "super + x; s"                = "${RipGrep}";
+      "super + x; d"                = "${FileSystemOpen} --directory";
+      "super + x; f"                = "${FileSystemOpen} --file";
+      "super + x; shift + a"        = "${FileSystemExplorer} --global-search";
+      "super + x; shift + s"        = "${RipGrep} --global-search";
+      "super + x; shift + d"        = "${FileSystemOpen} --directory --global-search";
+      "super + x; shift + f"        = "${FileSystemOpen} --file --global-search";
 
       # Notes
       "super + n"                   = "${NvimTelekasten}";
