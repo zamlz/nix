@@ -48,7 +48,7 @@ in {
       };
 
       font = {
-        size = 8.0 * systemConfig.fontScale;
+        size = 6.0 * systemConfig.fontScale;
         glyph_offset = {
           x = 0;
           y = 0;
