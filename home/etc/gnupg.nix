@@ -7,7 +7,21 @@
     publicKeys = [{ source = ../lib/public.key; trust = 5; }];
     settings = {
       default-key = "0FA6 FF80 89E9 C767 0A22  54C7 9731 7FD0 FC2D B3CC";
+      fixed-list-mode = true;
       keyid-format = "0xlong";
+      with-fingerprint = true;
+      personal-digest-preferences = [
+          "SHA512" "SHA384" "SHA256" "SHA224"
+      ];
+      default-preference-list = [
+          "SHA512" "SHA384" "SHA256" "SHA224" "AES256" "AES192"
+          "AES" "CAST5" "BZIP2" "ZLIB" "ZIP" "Uncompressed"
+      ];
+      use-agent = true;
+      verify-options = "show-uid-validity";
+      list-options = "show-uid-validity";
+      cert-digest-algo = "SHA256";
+      no-emit-version = true;
     };
   };
 
@@ -18,19 +32,6 @@
     enableZshIntegration = true;
     defaultCacheTtl = 600;
     defaultCacheTtlSsh = 600;
-    # FIXME: Why does this not work?
-    # extraConfig = ''
-    # fixed-list-mode
-    # keyid-format 0xlong
-    # with-fingerprint
-    # personal-digest-preferences SHA512 SHA384 SHA256 SHA224
-    # default-preference-list SHA512 SHA384 SHA256 SHA224 AES256 AES192 AES CAST5 BZIP2 ZLIB ZIP Uncompressed
-    # use-agent
-    # verify-options show-uid-validity
-    # list-options show-uid-validity
-    # cert-digest-algo SHA256
-    # no-emit-version
-    # '';
     maxCacheTtl = 7200;
     maxCacheTtlSsh = 7200;
     pinentryPackage =  pkgs.pinentry-curses;
