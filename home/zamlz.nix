@@ -10,7 +10,6 @@
       ./etc/kakoune.nix
       ./etc/kitty.nix  # [unused]
       ./etc/lazygit.nix
-      ./etc/neofetch
       ./etc/neovim  # [unused]
       ./etc/password-store.nix
       ./etc/polybar
@@ -47,18 +46,18 @@
       nvd
       nix-search-cli
       # System CLI Tools
-      neofetch
+      microfetch
       ripgrep
       zip
+      bat
       unzip
       qpdf
+      yt-dlp
       # Fun CLI Tools
       cmatrix
       figlet
       lolcat
       kittysay
-      bat
-      yt-dlp
       # Fonts
       iosevka
       # Desktop Environment Utilities
