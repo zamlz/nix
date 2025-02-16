@@ -15,7 +15,7 @@
     "${saveWindowId}; ${terminal} ${termClass} ${fontOption} ${lineOption} ${columnOption} --command ${script}";
   ProgramLauncher = termPromptLauncher "$HOME/.config/sxhkd/fzf-program-launcher.sh" 16 80 9;
   WindowSwitcher = termPromptLauncher "$HOME/.config/sxhkd/window_switcher.py" 20 128 9;
-  PasswordStore = termPromptLauncher "$HOME/.config/sxhkd/fzf-password-store.sh" 14 100 9;
+  PasswordStore = termPromptLauncher "$HOME/.config/sxhkd/password-store.py" 14 100 9;
   SystemManager = termPromptLauncher "$HOME/.config/sxhkd/system_manager.py" 6 40 12;
   WorkspaceManager = termPromptLauncher "$HOME/.config/sxhkd/workspace_manager.py" 10 120 9;
   FileSystemExplorer = termPromptLauncher "$HOME/.config/sxhkd/file_system_explorer.py" 35 164 8;
@@ -33,7 +33,7 @@ in {
   xdg.configFile."sxhkd/man_preview.sh".source = ../../../scripts/man_preview.sh;
   xdg.configFile."sxhkd/file_system_explorer.py".source = ../../../scripts/file_system_explorer.py;
   xdg.configFile."sxhkd/file_system_open.py".source = ../../../scripts/file_system_open.py;
-  xdg.configFile."sxhkd/fzf-password-store.sh".source = ../../../scripts/fzf-password-store.sh;
+  xdg.configFile."sxhkd/password-store.py".source = ../../../scripts/password_store.py;
   xdg.configFile."sxhkd/fzf-program-launcher.sh".source = ../../../scripts/fzf-program-launcher.sh;
   xdg.configFile."sxhkd/ripgrep.py".source = ../../../scripts/ripgrep.py;
   xdg.configFile."sxhkd/calculator.py".source = ../../../scripts/calculator.py;

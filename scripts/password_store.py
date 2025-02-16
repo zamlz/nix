@@ -27,7 +27,16 @@ logger = logging.getLogger(__name__)
 
 
 def get_password_data(password_entry: str) -> list[str]:
-    result = subprocess.run(["pass", password_entry], capture_output=True)
+    new_environ = dict(os.environ)
+    result = subprocess.run(["tty"], capture_output=True)
+    result.check_returncode()
+    # This is necessary so that GPG uses this terminal for pinentry
+    gpg_tty_environ['GPG_TTY'] = str(result.stdout, encoding="utf-8")
+    result = subprocess.run(
+        ["pass", password_entry],
+        capture_output=True,
+        env=gpg_tty_environ
+    )
     result.check_returncode()
     return str(result.stdout, encoding="utf-8").split()
 
@@ -51,7 +60,7 @@ def main() -> None:
 
     fzf = Fzf(
         prompt=f"Password Store{extra_prompt}: ",
-        header=f"(alt+w to open url if available)",
+        header=f"(alt+w:open-url alt+u:get-username alt+e:edit-password)",
         binds=[
             "alt-w:become(echo get-url {1})",
             "alt-u:become(echo get-username {1})",
