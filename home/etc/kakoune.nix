@@ -1,7 +1,7 @@
 { inputs, lib, config, pkgs, ... }: let
   colorScheme = lib.attrsets.mapAttrs
     (name: value: builtins.replaceStrings ["#"]  ["rgb:"] value)
-    (import ../../lib/colorscheme).defaultColorScheme;
+    (import ./colorschemes.nix).defaultColorScheme;
 in {
   programs.kakoune = {
     defaultEditor = true;

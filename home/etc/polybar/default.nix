@@ -1,5 +1,5 @@
 { inputs, lib, config, pkgs, ... }: let
-  colorScheme = (import ../../lib/colorscheme).defaultColorScheme;
+  colorScheme = (import ../colorschemes.nix).defaultColorScheme;
 in {
   xdg.configFile."polybar/kernel_info.sh" = {
     source = ./kernel_info.sh;

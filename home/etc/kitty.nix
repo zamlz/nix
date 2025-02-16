@@ -1,5 +1,5 @@
 { inputs, lib, config, pkgs, systemConfig, ... }: let
-  colorScheme = (import ../../lib/colorscheme).defaultColorScheme;
+  colorScheme = (import ./colorschemes.nix).defaultColorScheme;
 in {
   programs.kitty = {
     # TODO: explore kitty remote-control featuers and cloning

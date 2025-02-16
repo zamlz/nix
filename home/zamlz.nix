@@ -1,6 +1,26 @@
 { inputs, lib, config, pkgs, ... }: {
 
-  imports = [ ./etc ];
+  imports = [
+      ./etc/alacritty.nix
+      ./etc/fzf.nix
+      ./etc/git.nix
+      ./etc/gnupg
+      ./etc/helix.nix  # [unused]
+      ./etc/herbstluftwm.nix
+      ./etc/kakoune.nix
+      ./etc/kitty.nix  # [unused]
+      ./etc/lazygit.nix
+      ./etc/neofetch
+      ./etc/neovim  # [unused]
+      ./etc/password-store.nix
+      ./etc/polybar
+      ./etc/qtile
+      ./etc/ssh.nix
+      ./etc/sxhkd
+      ./etc/tmux.nix
+      ./etc/xinit
+      ./etc/zsh
+  ];
 
   nixpkgs = {
     config = {
