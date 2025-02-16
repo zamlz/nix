@@ -4,7 +4,7 @@
       ./etc/alacritty.nix
       ./etc/fzf.nix
       ./etc/git.nix
-      ./etc/gnupg
+      ./etc/gnupg.nix
       ./etc/helix.nix  # [unused]
       ./etc/herbstluftwm.nix
       ./etc/kakoune.nix
