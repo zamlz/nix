@@ -13,7 +13,6 @@
       ./etc/neovim  # [unused]
       ./etc/password-store.nix
       ./etc/polybar
-      ./etc/qtile
       ./etc/ssh.nix
       ./etc/sxhkd
       ./etc/tmux.nix
