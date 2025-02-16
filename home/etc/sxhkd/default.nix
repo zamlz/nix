@@ -14,7 +14,7 @@
     # all of them thanks to this function
     "${saveWindowId}; ${terminal} ${termClass} ${fontOption} ${lineOption} ${columnOption} --command ${script}";
   ProgramLauncher = termPromptLauncher "$HOME/.config/sxhkd/fzf-program-launcher.sh" 16 80 9;
-  WindowSwitcher = termPromptLauncher "$HOME/.config/sxhkd/window_switcher.py" 20 100 9;
+  WindowSwitcher = termPromptLauncher "$HOME/.config/sxhkd/window_switcher.py" 20 128 9;
   PasswordStore = termPromptLauncher "$HOME/.config/sxhkd/fzf-password-store.sh" 14 100 9;
   SystemManager = termPromptLauncher "$HOME/.config/sxhkd/system_manager.py" 6 40 12;
   WorkspaceManager = termPromptLauncher "$HOME/.config/sxhkd/workspace_manager.py" 10 120 9;
