@@ -30,7 +30,7 @@ RG_COMMAND=' '.join([
 def main() -> None:
     fs_ptr = navi.system.get_filesystem_pointer(False)
     os.chdir(fs_ptr)
-    set_window_title(f"FZF: Interactive RipGrep in {fs_ptr}")
+    set_window_title(f"FZF: Interactive RipGrep ({fs_ptr})")
     fzf = Fzf(
         prompt="Ripgrep: ",
         header=f"(Currently in {fs_ptr})",

@@ -62,7 +62,7 @@ def main() -> None:
     show_hidden = False
 
     while fs_ptr.is_dir():
-        set_window_title(f"FZF: File System Explorer (in {fs_ptr})")
+        set_window_title(f"FZF: File System Explorer ({fs_ptr})")
         selection = fzf_file_explorer_prompt(fs_ptr, show_hidden)
         fs_ptr_with_selection = fs_ptr / selection
 
