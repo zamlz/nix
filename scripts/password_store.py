@@ -116,5 +116,5 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-        setup_logger()
-        main()
+    setup_logger()
+    main()
