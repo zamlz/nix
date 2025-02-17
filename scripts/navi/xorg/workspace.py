@@ -27,7 +27,9 @@ class XorgWorkspace:
 
 
 def display_workspace_info(workspace: XorgWorkspace) -> None:
-    ...
+    raise NotImplementedError(
+        f'Unable to get metadata for {workspace}'
+    )
 
 
 def list_workspaces() -> Dict[str, XorgWorkspace]:

@@ -1,11 +1,9 @@
-import logging
 import os
 from pathlib import Path
 from tempfile import NamedTemporaryFile
 from typing import List, Optional
 
-
-logger = logging.getLogger(__name__)
+from loguru import logger
 
 
 class Fzf:

@@ -1,26 +1,25 @@
 #!/usr/bin/env python3
 
 import argparse
-import logging
 import site
 from pathlib import Path
+
+from loguru import logger
 
 # FIXME: I have utils that are not installed as python packages yet.
 # Eventually, I should consolidate this and create a mechanism in nix to do so.
 site.addsitedir(str(Path(__file__).parent))
 
 import navi.system
-from navi.logging import setup_logger
+from navi.logging import setup_main_logging
 from navi.shell.fzf import Fzf
 from navi.xorg.window import set_window_title
-
-
-logger = logging.getLogger(__name__)
 
 
 TOGGLE_HIDDEN_ACTION = "__TOGGLE_HIDDEN_ACTION__"
 
 
+@setup_main_logging
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("-f", "--file", action="store_true")
@@ -66,5 +65,4 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    setup_logger()
     main()

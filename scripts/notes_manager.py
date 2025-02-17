@@ -1,25 +1,22 @@
 #!/usr/bin/env python3
 
 import argparse
-import logging
 import site
 import subprocess
 import sys
 from datetime import datetime
 from pathlib import Path
 from typing import List
+from loguru import logger
 
 # FIXME: I have utils that are not installed as python packages yet.
 # Eventually, I should consolidate this and create a mechanism in nix to do so.
 site.addsitedir(str(Path(__file__).parent))
 
 import navi.system
-from navi.logging import setup_logger
+from navi.logging import setup_main_logging
 from navi.shell.fzf import Fzf
 from navi.xorg.window import set_window_title
-
-
-logger = logging.getLogger(__name__)
 
 
 NOTES_DIR = Path.home() / 'usr/notes'
@@ -43,6 +40,7 @@ def create_new_note(note_name: str) -> Path:
     return Path(str(result.stdout, encoding="utf-8").strip())
 
 
+@setup_main_logging
 def main() -> None:
     set_window_title("FZF: Open notes")
     fzf = Fzf(
@@ -74,5 +72,4 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    setup_logger()
     main()

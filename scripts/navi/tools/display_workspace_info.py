@@ -1,21 +1,20 @@
 #!/usr/bin/env python3
 
 import argparse
-import logging
 import site
 from pathlib import Path
+
+from loguru import logger
 
 # FIXME: I have utils that are not installed as python packages yet.
 # Eventually, I should consolidate this and create a mechanism in nix to do so.
 site.addsitedir(str(Path(__file__).parent.parent.parent))
 
-from navi.logging import setup_logger
+from navi.logging import setup_main_logging
 from navi.xorg.workspace import display_workspace_info, get_workspace_from_name
 
 
-logger = logging.getLogger(__name__)
-
-
+@setup_main_logging
 def main() -> None:
     logger.info("Getting desktop name")
     parser = argparse.ArgumentParser()
@@ -26,5 +25,4 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    setup_logger()
     main()

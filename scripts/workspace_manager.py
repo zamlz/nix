@@ -1,16 +1,17 @@
 #!/usr/bin/env python3
 
-import logging
 import site
 import sys
 from argparse import ArgumentParser
 from pathlib import Path
 
+from loguru import logger
+
 # FIXME: I have utils that are not installed as python packages yet.
 # Eventually, I should consolidate this and create a mechanism in nix to do so.
 site.addsitedir(str(Path(__file__).parent))
 
-from navi.logging import setup_logger
+from navi.logging import setup_main_logging
 from navi.shell.colors import AnsiColor
 from navi.shell.fzf import Fzf
 from navi.xorg.window import get_last_active_window_id, set_window_title
@@ -23,7 +24,6 @@ from navi.xorg.workspace import (
 )
 
 
-logger = logging.getLogger(__name__)
 INFO_SCRIPT = Path(__file__).parent / "navi/tools/display_workspace_info.py"
 
 
@@ -33,6 +33,7 @@ def _quit_with_warning(message: str) -> None:
     sys.exit(2)
 
 
+@setup_main_logging
 def main() -> None:
     parser = ArgumentParser()
     parser.add_argument("-j", "--jump",action="store_true")
@@ -58,7 +59,7 @@ def main() -> None:
     set_window_title("FZF: Workspace Manager")
     fzf = Fzf(
         prompt=f"{prompt} workspace: ",
-        preview=f"{INFO_SCRIPT} {{1}}",
+        preview=f"{INFO_SCRIPT} {{1}} 2>/dev/null",
         preview_window="right,80",
         preview_label="[Window List]",
         print_query=True
@@ -92,5 +93,4 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    setup_logger()
     main()

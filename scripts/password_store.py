@@ -4,7 +4,6 @@
 # works just fine as a standalone?
 
 import argparse
-import logging
 import os
 import site
 import subprocess
@@ -12,18 +11,16 @@ import sys
 from pathlib import Path
 from tempfile import NamedTemporaryFile
 
+from loguru import logger
+
 # FIXME: I have utils that are not installed as python packages yet.
 # Eventually, I should consolidate this and create a mechanism in nix to do so.
 site.addsitedir(str(Path(__file__).parent))
 
 import navi.system
-from navi.logging import setup_logger
+from navi.logging import setup_main_logging
 from navi.shell.fzf import Fzf
 from navi.xorg.window import set_window_title
-
-
-PW_FILE = Path("/tmp/.pws")
-logger = logging.getLogger(__name__)
 
 
 def get_gpg_tty_environ() -> dict[str, str]:
@@ -48,6 +45,7 @@ def get_password_data(
     return str(result.stdout, encoding="utf-8").split()
 
 
+@setup_main_logging
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("-q", "--qrcode", action="store_true")
@@ -76,7 +74,6 @@ def main() -> None:
         ],
     )
     selection = fzf.prompt(passwords)
-    print(selection)
     if selection == [""]:
         return
 
@@ -92,10 +89,14 @@ def main() -> None:
                 )
             case "get-username":
                 logger.info(f"Getting username for {password_entry}")
-                raise NotImplementedError
+                raise NotImplementedError(
+                    f'Unable to get username for {password_entry}'
+                )
             case "get-url":
                 logger.info(f"Getting login url for {password_entry}")
-                raise NotImplementedError
+                raise NotImplementedError(
+                    f'Unable to get login url for {password_entry}'
+                )
             case _:
                 logger.error(f"Invalid action provided: {possible_action}")
                 raise ValueError
@@ -104,12 +105,14 @@ def main() -> None:
     password_data = get_password_data(password_entry, gpg_tty_environ)
 
     if not args.qrcode:
+        logger.info(f"Copying {password_entry} to clipboard")
         with NamedTemporaryFile() as ntf:
             with open(ntf.name, 'w') as f:
                 f.write(password_data[0])
             navi.system.nohup(f"xclip -selection clipboard {ntf.name}".split())
             return
     else:
+        logger.info(f"Creating QR code for {password_entry}")
         qrcode_img_data = None
         with NamedTemporaryFile() as ntf:
             with open(ntf.name, 'w') as f:
@@ -132,5 +135,4 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    setup_logger()
     main()

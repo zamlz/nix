@@ -1,4 +1,3 @@
-import logging
 import os
 import re
 import subprocess
@@ -7,11 +6,10 @@ from enum import StrEnum
 from pathlib import Path
 from typing import Dict, List, Optional
 
+from loguru import logger
+
 from navi.xorg.window_manager import WindowManager, get_running_wm
 from navi.xorg.window import get_last_active_window_id, get_pwd_of_window
-
-
-logger = logging.getLogger(__name__)
 
 
 # FIXME: I really don't like this sort of path referencing...

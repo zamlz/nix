@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-import logging
 import os
 import site
 import sys
@@ -8,18 +7,17 @@ from argparse import ArgumentParser
 from pathlib import Path
 from typing import List
 
+from loguru import logger
+
 # FIXME: I have utils that are not installed as python packages yet.
 # Eventually, I should consolidate this and create a mechanism in nix to do so.
 site.addsitedir(str(Path(__file__).parent))
 
 import navi.system
-from navi.logging import setup_logger
+from navi.logging import setup_main_logging
 from navi.shell.colors import AnsiColor
 from navi.shell.fzf import Fzf
 from navi.xorg.window import set_window_title
-
-
-logger = logging.getLogger(__name__)
 
 
 def launch_lazygit(directory: Path) -> None:
@@ -60,6 +58,7 @@ def get_git_directories() -> List[Path]:
     return [Path(g) for g in selection]
 
 
+@setup_main_logging
 def main() -> None:
     parser = ArgumentParser()
     parser.add_argument("--open-dir", action="store_true")
@@ -75,5 +74,4 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    setup_logger()
     main()

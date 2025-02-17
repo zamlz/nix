@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import argparse
-import logging
 import site
 import sys
 from pathlib import Path
@@ -11,14 +10,12 @@ from pathlib import Path
 site.addsitedir(str(Path(__file__).parent))
 
 import navi.system
-from navi.logging import setup_logger
+from navi.logging import setup_main_logging
 from navi.shell.fzf import Fzf
 from navi.xorg.window import set_window_title
 
 
-logger = logging.getLogger(__name__)
-
-
+@setup_main_logging
 def main() -> None:
     set_window_title(f"FZF: Open ManPages")
     man_pages = navi.system.get_man_pages()
@@ -34,5 +31,4 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    setup_logger()
     main()
