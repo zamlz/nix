@@ -42,7 +42,7 @@
     homeDirectory = "/home/zamlz";
     packages = with pkgs; [
       # NixOS specific tools
-      nvd
+      nh
       nix-search-cli
       # System CLI Tools
       microfetch
