@@ -107,8 +107,8 @@ def main() -> None:
         with NamedTemporaryFile() as ntf:
             with open(ntf.name, 'w') as f:
                 f.write(password_data[0])
-                subprocess.run(f"xclip -selection clipboard {ntf.name}".split())
-                return
+            navi.system.nohup(f"xclip -selection clipboard {ntf.name}".split())
+            return
     else:
         qrcode_img_data = None
         with NamedTemporaryFile() as ntf:
@@ -122,6 +122,8 @@ def main() -> None:
             )
             with open(ntf.name, 'rb') as f:
                 qrcode_image_data= f.read()
+        # FIXME: It would be great to nohup this, but have to passthrough
+        # the image data
         subprocess.run(
             f"feh -x --title feh:pass:{password_entry}".split() +
             f"-g +200+200 -".split(),
