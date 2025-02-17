@@ -8,13 +8,7 @@ Install the nixos system. Note this command is hardware dependent. We use the
 hostname to associate hardware.
 
 ```shell
-sudo nixos-rebuild switch --flake ".#$(hostname)"
-```
-
-Install the home manager configuration associated with the hostname as well.
-
-```shell
-home-manager switch --flake ".#$(hostname)"
+sudo nixos-rebuild switch --flake .#${hostname}
 ```
 
 ## New Installation Guide

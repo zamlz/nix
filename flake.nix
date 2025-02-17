@@ -28,7 +28,20 @@
         specialArgs = { inherit inputs; };
         modules = [
           ./hosts/navi-copland-os.nix
-          home-manager.nixosModules.home-manager
+          # makes home manager a module of nixos so it will be deployed with
+          # nixos-rebuild switch
+          home-manager.nixosModules.home-manager {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = {
+              inherit inputs;
+              systemConfig = {
+                fontScale = 1.0;
+              };
+            };
+            home-manager.sharedModules = [nixvim.homeManagerModules.nixvim];
+            home-manager.users.zamlz = import ./home/zamlz.nix;
+          }
         ];
       };
 
@@ -36,39 +49,20 @@
         specialArgs = { inherit inputs; };
         modules = [
          ./hosts/navi-solaris-os.nix
-          home-manager.nixosModules.home-manager
-        ];
-      };
-    };
-
-    # HomeManager Configuration Entrypoint
-    # ( available through `home-manager switch --flake .#${username}` )
-    homeConfigurations = {
-      NAVI-CoplandOS = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        extraSpecialArgs = {
-          inherit inputs;
-          systemConfig = {
-            fontScale = 1.0;
-          };
-        };
-        modules = [
-          ./home/zamlz.nix
-          nixvim.homeManagerModules.nixvim
-        ];
-      };
-
-      NAVI-SolarisOS = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        extraSpecialArgs = {
-          inherit inputs;
-          systemConfig = {
-            fontScale = 2.0;
-          };
-        };
-        modules = [
-          ./home/zamlz.nix
-          nixvim.homeManagerModules.nixvim
+          # makes home manager a module of nixos so it will be deployed with
+          # nixos-rebuild switch
+          home-manager.nixosModules.home-manager {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = {
+              inherit inputs;
+              systemConfig = {
+                fontScale = 2.0;
+              };
+            };
+            home-manager.sharedModules = [nixvim.homeManagerModules.nixvim];
+            home-manager.users.zamlz = import ./home/zamlz.nix;
+          }
         ];
       };
     };
