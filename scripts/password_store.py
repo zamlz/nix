@@ -26,12 +26,19 @@ PW_FILE = Path("/tmp/.pws")
 logger = logging.getLogger(__name__)
 
 
-def get_password_data(password_entry: str) -> list[str]:
-    new_environ = dict(os.environ)
+def get_gpg_tty_environ() -> dict[str, str]:
+    gpg_tty_environ = dict(os.environ)
     result = subprocess.run(["tty"], capture_output=True)
     result.check_returncode()
     # This is necessary so that GPG uses this terminal for pinentry
     gpg_tty_environ['GPG_TTY'] = str(result.stdout, encoding="utf-8")
+    return gpg_tty_environ
+
+
+def get_password_data(
+        password_entry: str,
+        gpg_tty_environ: dict[str, str]
+) -> list[str]:
     result = subprocess.run(
         ["pass", password_entry],
         capture_output=True,
@@ -57,6 +64,7 @@ def main() -> None:
     )
     # remove the "./" from the beginning and ".gpg" from the end
     passwords = [str(item)[2:-4] for item in dir_items]
+    gpg_tty_environ = get_gpg_tty_environ()
 
     fzf = Fzf(
         prompt=f"Password Store{extra_prompt}: ",
@@ -74,20 +82,26 @@ def main() -> None:
 
     if len(selection[0].split()) == 2:
         possible_action, password_entry = selection[0].split()
-        password_data = get_password_data(password_entry)
+        password_data = get_password_data(password_entry, gpg_tty_environ)
         match possible_action:
             case "edit":
                 logger.info(f"Editing password {password_entry}")
-                navi.system.execute(f"pass edit {password_entry}".split())
+                navi.system.execute(
+                    f"pass edit {password_entry}".split(),
+                    environ=gpg_tty_environ
+                )
             case "get-username":
                 logger.info(f"Getting username for {password_entry}")
                 raise NotImplementedError
             case "get-url":
                 logger.info(f"Getting login url for {password_entry}")
                 raise NotImplementedError
+            case _:
+                logger.error(f"Invalid action provided: {possible_action}")
+                raise ValueError
 
     password_entry = selection[0]
-    password_data = get_password_data(password_entry)
+    password_data = get_password_data(password_entry, gpg_tty_environ)
 
     if not args.qrcode:
         with NamedTemporaryFile() as ntf:

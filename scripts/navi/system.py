@@ -30,8 +30,8 @@ XDG_OPEN_EXTENSIONS = [
 ]
 
 
-def execute(command: List[str]) -> None:
-    os.execlp(command[0], *command)
+def execute(command: List[str], environ: dict[str, str] = os.environ) -> None:
+    os.execlpe(command[0], *command, environ)
 
 
 def sudo_execute(command: List[str]) -> None:
