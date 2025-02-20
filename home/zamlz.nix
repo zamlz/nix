@@ -2,6 +2,8 @@
 
   imports = [
       ./etc/alacritty.nix
+      ./etc/fd.nix
+      ./etc/feh.nix
       ./etc/fzf.nix
       ./etc/git.nix
       ./etc/gnupg.nix
@@ -60,7 +62,6 @@
       # Fonts
       iosevka
       # Desktop Environment Utilities
-      feh
       imagemagick
       qrencode
       i3lock
