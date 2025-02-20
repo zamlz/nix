@@ -51,7 +51,11 @@ def main() -> None:
 
     show_hidden = False
     while True:
-        dir_items = navi.system.get_dir_items(fs_ptr, search_mode, show_hidden)
+        dir_items = navi.system.get_dir_items(
+            root_dir=fs_ptr,
+            mode=search_mode,
+            show_hidden=show_hidden
+        )
         selections = fzf.prompt(dir_items)
         if selections == [TOGGLE_HIDDEN_ACTION]:
             show_hidden = not show_hidden

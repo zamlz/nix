@@ -142,32 +142,29 @@ class SearchMode(StrEnum):
 def get_dir_items(
         root_dir: Path,
         mode: SearchMode,
-        show_hidden: bool,
-        pattern: Optional[str] = None
+        show_hidden: bool = False,
+        pattern: str = "",
+        extension: Optional[str] = None
 ) -> List[str]:
-    if pattern is not None:
-        pattern_cmd = ["-name", pattern]
-    else:
-        pattern_cmd = []
-
-    # This is way faster than globbing from pathlib objects.
-    # like extremely faster
-    result = subprocess.run(
-        ["find", str(root_dir), "-type", mode] + pattern_cmd,
-        capture_output=True
-    )
-    result.check_returncode()
-    paths = str(result.stdout, encoding="utf-8").strip().split('\n')
-    paths = sorted([
-        p.replace(str(root_dir), '.', 1)
-        for p in paths
-    ])
+    fd_cmd = [
+        "fd", pattern,
+        "--base-directory", str(root_dir),
+        "--color", "always"
+    ]
     if show_hidden:
-        return paths
-    # A not so smart hidden path check
-    # note, that this filtering should be done after removing the
-    # root_dir name
-    return [p for p in paths if "/." not in p]
+        fd_cmd.append("-H")
+    if extension is not None:
+        fd_cmd.extend(["--extension", extension])
+    match mode:
+        case SearchMode.FILE:
+            fd_cmd.extend(["--type", "file"])
+        case SearchMode.DIRECTORY:
+            fd_cmd.extend(["--type", "dir"])
+        case _:
+            raise ValueError(f'Invalid Search mode provided ({mode})')
+    result = subprocess.run(fd_cmd, capture_output=True)
+    result.check_returncode()
+    return str(result.stdout, encoding="utf-8").strip().split("\n")
 
 
 def open_file(file_path: Path, line_num: int = 0, column_num: int = 0) -> None:

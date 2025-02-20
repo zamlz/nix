@@ -55,13 +55,13 @@ def main() -> None:
     extra_prompt = " [QrCode]" if args.qrcode else ""
     password_store_dir = Path(os.environ['PASSWORD_STORE_DIR'])
     dir_items = navi.system.get_dir_items(
-        password_store_dir,
-        navi.system.SearchMode.FILE,
-        False,
-        "*.gpg"
+        root_dir=password_store_dir,
+        mode=navi.system.SearchMode.FILE,
+        show_hidden=False,
+        extension="gpg"
     )
     # remove the "./" from the beginning and ".gpg" from the end
-    passwords = [str(item)[2:-4] for item in dir_items]
+    passwords = [str(item)[:-4] for item in dir_items]
     gpg_tty_environ = get_gpg_tty_environ()
 
     fzf = Fzf(
