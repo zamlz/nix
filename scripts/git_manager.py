@@ -35,9 +35,13 @@ def git_color_if_modified(directory_str: str) -> str:
     directory_str_clean = remove_ansi_codes(directory_str)
     directory = Path(directory_str_clean)
     git_status = navi.system.git_status(Path.home() / directory)
-    if git_status == '':
+    git_ahead_count = navi.system.git_ahead_count(Path.home() / directory)
+    if git_status == '' and git_ahead_count == 0:
         return directory_str
-    return f"{AnsiColor.BOLD}{AnsiColor.RED}{directory_str_clean}{AnsiColor.RESET}"
+    elif git_ahead_count > 0:
+        return f"{AnsiColor.BOLD}{AnsiColor.GREEN}{directory_str_clean}{AnsiColor.RESET}"
+    else:
+        return f"{AnsiColor.BOLD}{AnsiColor.RED}{directory_str_clean}{AnsiColor.RESET}"
 
 
 def get_git_directories() -> List[Path]:
@@ -60,7 +64,6 @@ def get_git_directories() -> List[Path]:
     git_dir_list = [g.replace('.git\x1b[0m\x1b[1;34m/', '') for g in git_dir_list]
     git_dir_list = [git_color_if_modified(g) for g in git_dir_list]
     selection = fzf.prompt(git_dir_list)
-    print(selection)
     if selection[0] == '':
         sys.exit(0)
     return [Path(g) for g in selection]

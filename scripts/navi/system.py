@@ -218,3 +218,12 @@ def git_status(directory: Path) -> str:
     )
     result.check_returncode()
     return str(result.stdout, encoding="utf-8").strip()
+
+
+def git_ahead_count(directory: Path) -> int:
+    result = subprocess.run(
+        ["git", "-C", str(directory), "rev-list", "--count", "@{u}..HEAD"],
+        capture_output=True
+    )
+    result.check_returncode()
+    return int(str(result.stdout, encoding="utf-8").strip())
