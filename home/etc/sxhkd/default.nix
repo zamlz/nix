@@ -13,6 +13,9 @@
     # this window id saved before the terminal instance is spawed. To be safe, we simply do it for
     # all of them thanks to this function
     "${saveWindowId}; ${terminal} ${termClass} ${fontOption} ${lineOption} ${columnOption} --command ${script}";
+  IdenticalTerminalLauncher = let
+      saveWindowId = "$HOME/.config/sxhkd/navi/tools/save_active_window_id.py";
+  in "${saveWindowId}; ${terminal} -e $HOME/.config/sxhkd/spawn_identical_shell.py";
   ProgramLauncher = termPromptLauncher "$HOME/.config/sxhkd/fzf-program-launcher.sh" 16 80 9;
   WindowSwitcher = termPromptLauncher "$HOME/.config/sxhkd/window_switcher.py" 20 128 9;
   PasswordStore = termPromptLauncher "$HOME/.config/sxhkd/password-store.py" 14 100 9;
@@ -43,6 +46,7 @@ in {
   xdg.configFile."sxhkd/system_manager.py".source = ../../../scripts/system_manager.py;
   xdg.configFile."sxhkd/window_switcher.py".source = ../../../scripts/window_switcher.py;
   xdg.configFile."sxhkd/workspace_manager.py".source = ../../../scripts/workspace_manager.py;
+  xdg.configFile."sxhkd/spawn_identical_shell.py".source = ../../../scripts/spawn_identical_shell.py;
   xdg.configFile."sxhkd/navi".source = ../../../scripts/navi;
   xdg.configFile."sxhkd/navi".recursive = true;
   xdg.configFile."sxhkd/nohup.sh".source = ../../../scripts/nohup.sh;
@@ -56,6 +60,7 @@ in {
       
       # Core Utils
       "super + Return"              = "${terminal}";
+      "super + shift + Return"      = "${IdenticalTerminalLauncher}";
       "super + e"                   = "${ProgramLauncher}";
 
       # Desktop Environment
