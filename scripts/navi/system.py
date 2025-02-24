@@ -143,6 +143,7 @@ def get_dir_items(
         root_dir: Path,
         mode: SearchMode,
         show_hidden: bool = False,
+        show_unrestricted: bool = False,
         pattern: str = "",
         extension: Optional[str] = None
 ) -> List[str]:
@@ -152,7 +153,9 @@ def get_dir_items(
         "--color", "always"
     ]
     if show_hidden:
-        fd_cmd.append("-H")
+        fd_cmd.append("--hidden")
+    if show_unrestricted:
+        fd_cmd.append("--unrestricted")
     if extension is not None:
         fd_cmd.extend(["--extension", extension])
     match mode:

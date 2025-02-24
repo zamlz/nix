@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import os
+import re
 import site
 import sys
 from argparse import ArgumentParser
@@ -26,10 +27,17 @@ def launch_lazygit(directory: Path) -> None:
     navi.system.execute(["lazygit"])
 
 
-def git_color_if_modified(directory: Path) -> str:
-    if navi.system.git_status(directory) == '':
-        return str(directory)
-    return f"{AnsiColor.RED}{directory}{AnsiColor.RESET}"
+def remove_ansi_codes(text: str) -> str:
+    return re.sub(r'\x1b\[.*?m', '', text)
+
+
+def git_color_if_modified(directory_str: str) -> str:
+    directory_str_clean = remove_ansi_codes(directory_str)
+    directory = Path(directory_str_clean)
+    git_status = navi.system.git_status(Path.home() / directory)
+    if git_status == '':
+        return directory_str
+    return f"{AnsiColor.BOLD}{AnsiColor.RED}{directory_str_clean}{AnsiColor.RESET}"
 
 
 def get_git_directories() -> List[Path]:
@@ -37,8 +45,8 @@ def get_git_directories() -> List[Path]:
     fzf = Fzf(
         prompt="Git Directory: ",
         preview=(
-            "git -c color.ui=always -C {} status && "
-            "PAGER=cat git -c color.ui=always -C {} diff"
+            "git -c color.ui=always -C ~/{} status && "
+            "PAGER=cat git -c color.ui=always -C ~/{} diff"
         ),
         ansi=True,
         multi=True
@@ -46,10 +54,10 @@ def get_git_directories() -> List[Path]:
     git_dir_list = navi.system.get_dir_items(
         root_dir=Path.home(),
         mode=navi.system.SearchMode.DIRECTORY,
-        show_hidden=True,
-        pattern=".git",
+        show_unrestricted=True,
+        pattern=r"\.git$",
     )
-    git_dir_list = [(Path.home() / g).parent for g in git_dir_list]
+    git_dir_list = [g.replace('.git\x1b[0m\x1b[1;34m/', '') for g in git_dir_list]
     git_dir_list = [git_color_if_modified(g) for g in git_dir_list]
     selection = fzf.prompt(git_dir_list)
     print(selection)
