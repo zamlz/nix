@@ -1,6 +1,6 @@
 { inputs, lib, config, pkgs, ... }: {
   programs.helix = {
-    enable = true;
+    enable = false;
     defaultEditor = false;
     extraPackages = with pkgs; [
       marksman

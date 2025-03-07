@@ -2,7 +2,7 @@
   colorScheme = (import ../colorschemes.nix).defaultColorScheme;
 in {
   programs.nixvim = {
-    enable = true;
+    enable = false;
     enableMan = true;
     defaultEditor = false;
     colorscheme = "zamlz";
