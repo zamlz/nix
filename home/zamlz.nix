@@ -22,14 +22,6 @@
       ./etc/zsh
   ];
 
-  nixpkgs = {
-    config = {
-      allowUnfree = true;
-      # bugfix github issue #2942
-      allowUnfreePredicate = (_: true);
-    };
-  };
-  
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
