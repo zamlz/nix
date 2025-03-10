@@ -19,6 +19,7 @@
       ./etc/sxhkd
       ./etc/tmux.nix
       ./etc/xinit
+      ./etc/zk.nix
       ./etc/zsh
   ];
 
