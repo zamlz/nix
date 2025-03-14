@@ -45,10 +45,10 @@
         ];
       };
 
-      NAVI-SolarisOS = nixpkgs.lib.nixosSystem {
+      solaris = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
         modules = [
-         ./hosts/navi-solaris-os.nix
+         ./hosts/solaris.nix
           # makes home manager a module of nixos so it will be deployed with
           # nixos-rebuild switch
           home-manager.nixosModules.home-manager {

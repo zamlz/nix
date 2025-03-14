@@ -6,11 +6,11 @@
 
   imports = [
     # Import your generated (nixos-generate-config) hardware configuration
-    ../hardware/andromeda.nix
+    ../hardware/solaris.nix
     ../nixos
   ];
 
-  networking.hostName = "NAVI-SolarisOS";
+  networking.hostName = "solaris";
 
   # NOTE: This is for LUKS for SWAP.
   boot.initrd = {
