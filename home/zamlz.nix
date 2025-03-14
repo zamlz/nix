@@ -12,6 +12,7 @@
       ./etc/kakoune.nix
       ./etc/kitty.nix  # [unused]
       ./etc/lazygit.nix
+      ./etc/mpv.nix
       ./etc/neovim  # [unused]
       ./etc/password-store.nix
       ./etc/polybar
@@ -65,7 +66,6 @@
       # GUI Apps
       firefox
       qutebrowser
-      mpv
       spotify
       # DAW Software & derivatives
       puredata
