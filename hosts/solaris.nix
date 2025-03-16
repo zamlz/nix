@@ -6,7 +6,7 @@
 
   imports = [
     # Import your generated (nixos-generate-config) hardware configuration
-    ../hardware/solaris.nix
+    ../hardware/solaris-corsair-air540.nix
     ../nixos
   ];
 
