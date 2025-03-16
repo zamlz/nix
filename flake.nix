@@ -41,7 +41,7 @@
               };
             };
             home-manager.sharedModules = [nixvim.homeManagerModules.nixvim];
-            home-manager.users.zamlz = import ./home/zamlz.nix;
+            home-manager.users.amlesh = import ./home/amlesh.nix;
           }
         ];
       };

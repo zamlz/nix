@@ -1,5 +1,5 @@
 { inputs, lib, config, pkgs, ... }: {
-  users.extraGroups.docker.members = [ "zamlz" ];
+  users.extraGroups.docker.members = [ "amlesh" ];
 
   virtualisation.docker = {
     enable = true;

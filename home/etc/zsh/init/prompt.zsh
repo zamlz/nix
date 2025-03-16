@@ -11,7 +11,7 @@ function generate_simple_prompt() {
 
 # COMPLEX_PROMPT
 #
-# ┌─[zamlz@NAVI-CoplandOS]─/nixos::~/nix/
+# ┌─[amlesh@solaris]─/nixos::~/nix/
 # ├─<nix.main>
 # ├─{aws:test}
 # └─(λ)─>

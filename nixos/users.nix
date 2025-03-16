@@ -1,6 +1,6 @@
 { inputs, lib, config, pkgs, ... }: {
   # (Don't forget to set a password with ‘passwd’!)
-  users.users.zamlz = {
+  users.users.amlesh = {
     isNormalUser = true;
     description = "Amlesh Sivanantham";
     initialPassword = "pleasechangeme";
@@ -12,5 +12,5 @@
     ];
   };
 
-  services.getty.autologinUser = "zamlz";
+  services.getty.autologinUser = "amlesh";
 }

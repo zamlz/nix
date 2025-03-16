@@ -34,8 +34,8 @@
     # This determines the Home Manager release that your configuration is
     # compatible with. DO NOT CHANGE
     stateVersion = "23.05";
-    username = "zamlz";
-    homeDirectory = "/home/zamlz";
+    username = "amlesh";
+    homeDirectory = "/home/amlesh";
     packages = with pkgs; [
       # NixOS specific tools
       nh
