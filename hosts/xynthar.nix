@@ -6,11 +6,11 @@
 
   imports = [
     # Import your generated (nixos-generate-config) hardware configuration
-    ../hardware/thinkpad-p14s.nix
+    ../hardware/xynthar-thinkpad-p14s.nix
     ../nixos
   ];
 
-  networking.hostName = "NAVI-CoplandOS";
+  networking.hostName = "xynthar";
 
   # NOTE: This is for LUKS for SWAP.
   boot.initrd = {
