@@ -1,4 +1,7 @@
 {
+  # NixOS Configuration Entrypoint
+  # ( available through `nixos-rebuild switch --flake .#${hostname}` )
+
   description = "zamlz's NixOS config";
 
   inputs = {
@@ -18,16 +21,14 @@
     # nixgl.url = "github:nix-community/nixGL";
   };
 
-  outputs = { self, nixpkgs, home-manager, nixvim }@inputs: {
+  outputs = { self, nixpkgs, home-manager, nixvim }@inputs: let
 
-    # NixOS Configuration Entrypoint
-    # ( available through `nixos-rebuild switch --flake .#${hostname}` )
-
-    nixosConfigurations = {
-      xynthar = nixpkgs.lib.nixosSystem {
+    # function to build nixos systems
+    nixosSystemBuilder = { nixosHostConfigPath, graphicalFontScale }@nixosSystemConfig:
+      nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
         modules = [
-          ./hosts/xynthar.nix
+          nixosHostConfigPath
           # makes home manager a module of nixos so it will be deployed with
           # nixos-rebuild switch
           home-manager.nixosModules.home-manager {
@@ -36,7 +37,7 @@
             home-manager.extraSpecialArgs = {
               inherit inputs;
               systemConfig = {
-                fontScale = 1.0;
+                fontScale = graphicalFontScale;
               };
             };
             home-manager.sharedModules = [nixvim.homeManagerModules.nixvim];
@@ -45,25 +46,17 @@
         ];
       };
 
-      solaris = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs; };
-        modules = [
-         ./hosts/solaris.nix
-          # makes home manager a module of nixos so it will be deployed with
-          # nixos-rebuild switch
-          home-manager.nixosModules.home-manager {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {
-              inherit inputs;
-              systemConfig = {
-                fontScale = 2.0;
-              };
-            };
-            home-manager.sharedModules = [nixvim.homeManagerModules.nixvim];
-            home-manager.users.zamlz = import ./home/zamlz.nix;
-          }
-        ];
+  in {
+    nixosConfigurations = {
+      # Personal Desktop
+      solaris = nixosSystemBuilder {
+        nixosHostConfigPath = ./hosts/solaris.nix;
+        graphicalFontScale = 2.0;
+      };
+      # Personal Laptop
+      xynthar = nixosSystemBuilder {
+        nixosHostConfigPath = ./hosts/xynthar.nix;
+        graphicalFontScale = 1.0;
       };
     };
   };
