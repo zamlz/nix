@@ -34,6 +34,7 @@
     gllo = "git log --graph --pretty=oneline --abbrev-commit";
     glla = "git log --graph --pretty=oneline --abbrev-commit --all";
     gp = "git push";
+    gP = "git pull";
     gf = "git fetch";
     gm = "git merge";
     gb = "git branch -av";
