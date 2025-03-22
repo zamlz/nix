@@ -67,7 +67,7 @@ def get_wallpaper() -> Path:
 
 
 def blur_image(image: Path) -> Path:
-    blurred_image = Path("/tmp/.blurred") / str(image).replace('/', '.')
+    blurred_image = Path.home() / "tmp/.blurred" / str(image).replace('/', '.')
     if not blurred_image.exists():
         blurred_image.parent.mkdir(parents=True, exist_ok=True)
         # FIXME: Use a native blurring algorithm?

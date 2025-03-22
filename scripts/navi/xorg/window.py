@@ -6,12 +6,15 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, Iterator, Optional
 
+from loguru import logger
+
 from navi.shell.colors import AnsiColor
 from navi.xorg.workspace import XorgWorkspace, list_workspaces
 
 
-WINDOW_ID_ENV_DIR = Path("/tmp/.wid")
-LAST_SAVED_ACTIVE_WINDOW_ID_FILE= Path("/tmp/.last_active_wid")
+USER_TMP_PATH = Path.home() / "tmp"
+WINDOW_ID_ENV_DIR = USER_TMP_PATH / ".wid"
+LAST_SAVED_ACTIVE_WINDOW_ID_FILE= USER_TMP_PATH / ".last_active_wid"
 WINDOW_PWD_REGEX = re.compile("^WINDOW_PWD='(.+)'$")
 
 
@@ -102,6 +105,7 @@ def focus_window(window_id: int) -> None:
 def get_pwd_of_window(window_id: int) -> Optional[Path]:
     window_id_file = WINDOW_ID_ENV_DIR / f"{window_id}"
     if not window_id_file.exists():
+        logger.debug('no window id file found')
         return None
     with open(window_id_file, 'r') as f:
         for line in f.readlines():

@@ -10,7 +10,7 @@ export MANROFFOPT="-c"
 export PYTHONPYCACHEPREFIX="$HOME/.cache/__pycache__"
 
 # prepare the window id directory
-WINDIR=/tmp/.wid
+WINDIR="$HOME/tmp/.wid"
 mkdir -p $WINDIR
 
 # Load window info for given Target Window ID (used with pwdcfw.sh)

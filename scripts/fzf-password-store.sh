@@ -33,7 +33,7 @@ if [ "$pass_name" != "" ]; then
         echo "Password decryption failed: [ERROR CODE: ${result_status}]"
     fi
 
-    pwfile=/tmp/.pws
+    pwfile="$HOME/tmp/.pws"
     touch $pwfile
     if [ -z "$QRMODE" ]; then
         echo $PASSWORD > $pwfile

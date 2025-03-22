@@ -5,5 +5,5 @@
 # the user's clipboard.
 
 maim --hidecursor "$@" /dev/stdout \
-    | tee "/tmp/$(date +'%Y-%m-%dT%H:%M:%S%:z').png" \
+    | tee "$HOME/tmp/$(date +'%Y-%m-%dT%H:%M:%S%:z').png" \
     | xclip -selection clipboard -target image/png

@@ -18,6 +18,7 @@
       ./etc/polybar
       ./etc/ssh.nix
       ./etc/sxhkd
+      ./etc/systemd.nix
       ./etc/tmux.nix
       ./etc/xinit
       ./etc/zk.nix
