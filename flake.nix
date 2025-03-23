@@ -24,7 +24,11 @@
   outputs = { self, nixpkgs, home-manager, nixvim }@inputs: let
 
     # function to build nixos systems
-    nixosSystemBuilder = { nixosHostConfigPath, graphicalFontScale }@nixosSystemConfig:
+    nixosSystemBuilder = {
+        nixosHostConfigPath,
+        enableGraphicalUserInterface ? true,
+        graphicalFontScale ? 1.0
+    }@nixosSystemConfig:
       nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
         modules = [
@@ -38,6 +42,7 @@
               inherit inputs;
               systemConfig = {
                 fontScale = graphicalFontScale;
+                useGUI = enableGraphicalUserInterface;
               };
             };
             home-manager.sharedModules = [nixvim.homeManagerModules.nixvim];
@@ -56,7 +61,6 @@
       # Personal Laptop
       xynthar = nixosSystemBuilder {
         nixosHostConfigPath = ./hosts/xynthar.nix;
-        graphicalFontScale = 1.0;
       };
     };
   };
