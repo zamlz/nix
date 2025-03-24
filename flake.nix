@@ -69,10 +69,17 @@
 
       # Home Server
       yggdrasil = nixosSystemBuilder {
+        # FIXME: host configuration file needs to understand that GUI is not used
         hostConfigPath = ./hosts/yggdrasil.nix;
-        useGUI = false;  # NotImplemented
+        useGUI = false;
       };
 
+      # NAS
+      alexandria = nixosSystemBuilder {
+        # FIXME: host configuration file needs to understand that GUI is not used
+        hostConfigPath = ./hosts/alexandria.nix;
+        useGUI = false;
+      };
     };
   };
 }
