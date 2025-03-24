@@ -12,14 +12,20 @@
 
   networking.hostName = "xynthar";
 
-  # NOTE: This is for LUKS for SWAP.
-  boot.initrd = {
-    secrets = {
-      "/crypto_keyfile.bin" = null;
+  boot = {
+    # NOTE: This is for LUKS for SWAP.
+    initrd = {
+      secrets = {
+        "/crypto_keyfile.bin" = null;
+      };
+      luks.devices."luks-0224b369-12c1-4ea0-a732-6ee6ec2e1192" = {
+        device = "/dev/disk/by-uuid/0224b369-12c1-4ea0-a732-6ee6ec2e1192";
+        keyFile = "/crypto_keyfile.bin";
+      };
     };
-    luks.devices."luks-0224b369-12c1-4ea0-a732-6ee6ec2e1192" = {
-      device = "/dev/disk/by-uuid/0224b369-12c1-4ea0-a732-6ee6ec2e1192";
-      keyFile = "/crypto_keyfile.bin";
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
     };
   };
 

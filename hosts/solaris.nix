@@ -12,14 +12,20 @@
 
   networking.hostName = "solaris";
 
-  # NOTE: This is for LUKS for SWAP.
-  boot.initrd = {
-    secrets = {
-      "/crypto_keyfile.bin" = null;
+  boot = {
+    # NOTE: This is for LUKS for SWAP.
+    initrd = {
+      secrets = {
+        "/crypto_keyfile.bin" = null;
+      };
+      luks.devices."luks-e547a75b-449e-4704-bc89-61587ce72de7" = {
+        device = "/dev/disk/by-uuid/e547a75b-449e-4704-bc89-61587ce72de7";
+        keyFile = "/crypto_keyfile.bin";
+      };
     };
-    luks.devices."luks-e547a75b-449e-4704-bc89-61587ce72de7" = {
-      device = "/dev/disk/by-uuid/e547a75b-449e-4704-bc89-61587ce72de7";
-      keyFile = "/crypto_keyfile.bin";
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
     };
   };
 

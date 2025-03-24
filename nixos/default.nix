@@ -1,7 +1,6 @@
 { inputs, lib, config, pkgs, ... }: {
   imports = [
     ./audio.nix
-    ./boot.nix
     ./core.nix
     ./docker.nix
     ./gui.nix
