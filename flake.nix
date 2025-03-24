@@ -25,14 +25,19 @@
 
     # function to build nixos systems
     nixosSystemBuilder = {
-        nixosHostConfigPath,
-        enableGraphicalUserInterface ? true,
-        graphicalFontScale ? 1.0
-    }@nixosSystemConfig:
+        hostConfigPath,
+        useGUI ? true,
+        fontScale ? 1.0
+    }@nixosSystemConfig: let
+        systemConfig = {
+          useGUI = useGUI;
+          fontScale = fontScale;
+        };
+      in
       nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs; };
+        specialArgs = { inherit inputs; systemConfig = systemConfig; };
         modules = [
-          nixosHostConfigPath
+          hostConfigPath
           # makes home manager a module of nixos so it will be deployed with
           # nixos-rebuild switch
           home-manager.nixosModules.home-manager {
@@ -40,10 +45,7 @@
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = {
               inherit inputs;
-              systemConfig = {
-                fontScale = graphicalFontScale;
-                useGUI = enableGraphicalUserInterface;
-              };
+              systemConfig = systemConfig;
             };
             home-manager.sharedModules = [nixvim.homeManagerModules.nixvim];
             home-manager.users.amlesh = import ./home/amlesh.nix;
@@ -55,12 +57,12 @@
     nixosConfigurations = {
       # Personal Desktop
       solaris = nixosSystemBuilder {
-        nixosHostConfigPath = ./hosts/solaris.nix;
-        graphicalFontScale = 2.0;
+        hostConfigPath = ./hosts/solaris.nix;
+        fontScale = 2.0;
       };
       # Personal Laptop
       xynthar = nixosSystemBuilder {
-        nixosHostConfigPath = ./hosts/xynthar.nix;
+        hostConfigPath = ./hosts/xynthar.nix;
       };
     };
   };

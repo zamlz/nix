@@ -1,5 +1,7 @@
 { inputs, lib, config, pkgs, ... }: {
-  
+
+  hardware.graphics.enable = true;
+
   services.libinput.enable = true;
 
   services.xserver = {

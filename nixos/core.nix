@@ -3,6 +3,7 @@
   time.timeZone = "America/Los_Angeles";
   i18n.defaultLocale = "en_US.UTF-8";
 
+  # default console font is ugly
   console = {
     earlySetup = true;
     #font = "${pkgs.terminus_font}/share/consolefonts/ter-128n.psf.gz";
@@ -25,8 +26,7 @@
     ];
   };
 
-  hardware.graphics.enable = true;
-
+  # every machine needs to have a shell
   programs.zsh.enable = true;
 
   # This enables documentation at a system level, but we still need to
