@@ -55,15 +55,24 @@
 
   in {
     nixosConfigurations = {
+
       # Personal Desktop
       solaris = nixosSystemBuilder {
         hostConfigPath = ./hosts/solaris.nix;
         fontScale = 2.0;
       };
+
       # Personal Laptop
       xynthar = nixosSystemBuilder {
         hostConfigPath = ./hosts/xynthar.nix;
       };
+
+      # Home Server
+      yggdrasil = nixosSystemBuilder {
+        hostConfigPath = ./hosts/yggdrasil.nix;
+        useGUI = false;  # NotImplemented
+      };
+
     };
   };
 }
