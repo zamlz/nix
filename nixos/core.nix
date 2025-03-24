@@ -12,6 +12,15 @@
     keyMap = "us";
   };
 
+  environment.etc."issue".text = ''
+
+    ███    ██ ██ ██   ██  ██████  ███████ Hostname: \n
+    ████   ██ ██  ██ ██  ██    ██ ██      Kernel: \s \r (\m)
+    ██ ██  ██ ██   ███   ██    ██ ███████ Build: \v
+    ██  ██ ██ ██  ██ ██  ██    ██      ██ Date: \d \t
+    ██   ████ ██ ██   ██  ██████  ███████ TTY: \l
+  '';
+
   environment = {
     systemPackages = with pkgs; [
       curl
