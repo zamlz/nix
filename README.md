@@ -11,6 +11,12 @@ hostname to associate hardware.
 sudo nixos-rebuild switch --flake .#${hostname}
 ```
 
+If `nh` is availabe on the system, you can simply do
+
+```shell
+nh os switch .
+```
+
 ## New Installation Guide
 
 First, install a minimal installation of NixOS.
@@ -18,6 +24,8 @@ First, install a minimal installation of NixOS.
 Next, once you get into the system. Create a new entry for the system in the
 `nixosConfigurations`. This will require copying the
 `hardware-configuration.nix` file into the config as well.
+Be sure to also go through the `configuration.nix` and set the relevent parameters
+to build the same system.
 
 Enable flakes on the original system. Add the following to the
 `/etc/nixos/configuration.nix` file.
