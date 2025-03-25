@@ -12,13 +12,20 @@
     keyMap = "us";
   };
 
-  environment.etc."issue".text = ''
+  environment.etc."issue".text = let
+    # FIXME: Get this value :(
+    # name = users.users.amlesh.description;
+    name = "Amlesh Sivanantham (zamlz)";
+  in ''
 
-    ███    ██ ██ ██   ██  ██████  ███████ Hostname: \n
-    ████   ██ ██  ██ ██  ██    ██ ██      Kernel: \s \r (\m)
-    ██ ██  ██ ██   ███   ██    ██ ███████ Build: \v
-    ██  ██ ██ ██  ██ ██  ██    ██      ██ Date: \d \t
-    ██   ████ ██ ██   ██  ██████  ███████ TTY: \l
+      ███    ██ ██ ██   ██  ██████  ███████   Hostname: \n
+      ████   ██ ██  ██ ██  ██    ██ ██        Kernel: \s \r (\m)
+      ██ ██  ██ ██   ███   ██    ██ ███████   Build: \v
+      ██  ██ ██ ██  ██ ██  ██    ██      ██   Date: \d \t
+      ██   ████ ██ ██   ██  ██████  ███████   TTY: \l
+
+    Welcome ${name}!
+
   '';
 
   environment = {
