@@ -11,6 +11,7 @@
   ];
 
   networking.hostName = "alexandria";
+  networking.hostId = "2cbf9c15";
 
   boot.loader.grub = {
     enable = true;

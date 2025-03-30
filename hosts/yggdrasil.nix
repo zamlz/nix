@@ -11,6 +11,7 @@
   ];
 
   networking.hostName = "yggdrasil";
+  networking.hostId = "6e9d6c6c";
 
   boot.loader = {
     systemd-boot.enable = true;

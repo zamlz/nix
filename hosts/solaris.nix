@@ -11,6 +11,7 @@
   ];
 
   networking.hostName = "solaris";
+  networking.hostId = "03f96989";
 
   boot = {
     # NOTE: This is for LUKS for SWAP.
