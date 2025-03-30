@@ -4,11 +4,18 @@
   users.extraGroups.networkmanager.members = [ "amlesh" ];
 
   networking = {
-    networkmanager.enable = true;
+    extraHosts = ''
+      10.69.8.0 solaris
+      10.69.8.1 xynthar.enp
+      10.69.8.2 xynthar.wlp xynthar
+      10.69.8.3 yggdrasil
+      10.69.8.4 alexandria
+    '';
     firewall = {
       enable = true;
       allowedTCPPorts = [ 22 ];
     };
+    networkmanager.enable = true;
   };
   
   services.openssh = {
