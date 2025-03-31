@@ -16,17 +16,12 @@
     ./etc/zsh
   ];
   cliPackages = with pkgs; [
-    # NixOS specific tools
-    nh
-    nix-search-cli
     # System CLI Tools
     bat
     microfetch
     qpdf
     ripgrep
-    unzip
     yt-dlp
-    zip
     # Fun CLI Tools
     cmatrix
     figlet

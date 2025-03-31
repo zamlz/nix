@@ -30,15 +30,21 @@
 
   environment = {
     systemPackages = with pkgs; [
-      curl
-      git
-      htop
-      less
+      # NixOS tools
+      nh
+      # Hardware utils
       pciutils
-      pstree
-      tree
       usbutils
-      vim
+      # process utils
+      htop
+      pstree
+      # Software utils
+      curl
+      less
+      kakoune
+      tree
+      zip
+      unzip
     ];
   };
 
