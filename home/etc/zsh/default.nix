@@ -1,4 +1,4 @@
-{ inputs, lib, config, pkgs, ... }: let
+{ inputs, lib, config, pkgs, systemConfig, ... }: let
   readFileList = files:
     builtins.concatStringsSep "\n"
       (map (f: builtins.readFile f) files);
@@ -52,7 +52,12 @@ in {
       please = "sudo";
       weather = "curl wttr.in";
     };
-    loginExtra = builtins.readFile ./login.zsh;
+    loginExtra = (
+      if systemConfig.useGUI then
+        builtins.readFile ./login.zsh
+      else
+        ""
+    );
     envExtra = builtins.readFile ./environment.zsh;
     initExtra = readFileList [
       ./init/prompt.zsh
