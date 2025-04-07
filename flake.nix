@@ -62,7 +62,12 @@
         fontScale = 2.0;
       };
 
-      # Personal Laptop
+      # Personal Laptop (thinkpad-25a)
+      xanadu = nixosSystemBuilder {
+        hostConfigPath = ./hosts/xanadu.nix;
+      };
+
+      # Personal Laptop (thinkpad-p14s)
       xynthar = nixosSystemBuilder {
         hostConfigPath = ./hosts/xynthar.nix;
       };
