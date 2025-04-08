@@ -49,6 +49,7 @@
     # Fonts
     iosevka
     # Desktop Utilities
+    arandr
     imagemagick
     qrencode
     i3lock
