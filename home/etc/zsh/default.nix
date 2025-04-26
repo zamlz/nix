@@ -59,7 +59,7 @@ in {
         ""
     );
     envExtra = builtins.readFile ./environment.zsh;
-    initExtra = readFileList [
+    initContent = readFileList [
       ./init/prompt.zsh
       ./init/hooks.zsh
       ./init/jobs.zsh
