@@ -51,7 +51,6 @@
     # Desktop Utilities
     imagemagick
     qrencode
-    i3lock
     maim  # needed by sxhkd (screenshot script)
     wmctrl
     xclip # needed by sxhkd (screenshot script)
