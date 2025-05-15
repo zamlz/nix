@@ -50,6 +50,7 @@
     # Fonts
     iosevka
     # Desktop Utilities
+    arandr
     imagemagick
     qrencode
     maim  # needed by sxhkd (screenshot script)
