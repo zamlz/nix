@@ -1,4 +1,5 @@
 #!/bin/sh
+
 set -e
 
 HOOK_PATH=".git/hooks/"
