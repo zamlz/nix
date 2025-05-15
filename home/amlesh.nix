@@ -9,6 +9,7 @@
     ./etc/lazygit.nix
     ./etc/neovim  # [unused]
     ./etc/password-store.nix
+    ./etc/qutebrowser.nix
     ./etc/ssh.nix
     ./etc/systemd.nix
     ./etc/tmux.nix
@@ -57,7 +58,6 @@
     xdotool
     # Web
     firefox
-    qutebrowser
     # Entertainment
     spotify
     # DAW Software & derivatives
