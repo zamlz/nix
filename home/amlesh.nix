@@ -12,6 +12,7 @@
     ./etc/qutebrowser.nix
     ./etc/ssh.nix
     ./etc/systemd.nix
+    ./etc/taskwarrior.nix
     ./etc/tmux.nix
     ./etc/zsh
   ];
