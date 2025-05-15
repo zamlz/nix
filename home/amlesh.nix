@@ -13,7 +13,6 @@
     ./etc/ssh.nix
     ./etc/systemd.nix
     ./etc/tmux.nix
-    ./etc/zk.nix
     ./etc/zsh
   ];
   cliPackages = with pkgs; [
