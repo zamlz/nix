@@ -21,10 +21,7 @@
 
   # This is configuration needed to use ZFS on the NAS
   boot.supportedFilesystems = [ "zfs" ];
-  services.zfs = {
-    enable = true;
-    autoSnapshot.enable = true;
-  };
+  services.zfs.autoSnapshot.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
