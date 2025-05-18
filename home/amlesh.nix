@@ -9,7 +9,6 @@
     ./etc/lazygit.nix
     ./etc/neovim  # [unused]
     ./etc/password-store.nix
-    ./etc/qutebrowser.nix
     ./etc/ssh.nix
     ./etc/systemd.nix
     ./etc/taskwarrior.nix
@@ -43,6 +42,7 @@
     ./etc/kitty.nix  # [unused]
     ./etc/mpv.nix
     ./etc/polybar
+    ./etc/qutebrowser.nix
     ./etc/sxhkd
     ./etc/xinit
   ];

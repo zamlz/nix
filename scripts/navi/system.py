@@ -25,6 +25,7 @@ XDG_OPEN_EXTENSIONS = [
     "jpg",
     "pdf",
     "png",
+    "webm",
 ]
 
 
