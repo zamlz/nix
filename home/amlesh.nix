@@ -22,6 +22,7 @@
     qpdf
     ripgrep
     yt-dlp
+    mediainfo
     # Fun CLI Tools
     cmatrix
     figlet
