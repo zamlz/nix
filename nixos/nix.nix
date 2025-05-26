@@ -15,6 +15,7 @@
     settings = {
       experimental-features = [ "nix-command" "flakes" ];
       auto-optimise-store = true;
+      download-buffer-size = 524288000;  # 500 MB
     };
 
     gc = {
