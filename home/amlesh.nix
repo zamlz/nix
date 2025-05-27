@@ -67,7 +67,7 @@
     plugdata
     bitwig-studio
     vital
-    # mixxx  # FIXME: build failing?
+    mixxx
   ];
 in {
 
