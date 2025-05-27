@@ -17,14 +17,28 @@ precmd() {
     export PROMPT=$(generate_complex_prompt ${exit_code})
     # save terminal window info (creates id file)
     save_window_info > /dev/null 2>&1
+    # get ssh info for window title
+    # FIXME: Only works if remote client is using my shell configuration
+    if [ -n "$SSH_TTY" ]; then
+        prefix="$(whoami)@$(hostname): "
+    else
+        prefix=""
+    fi
     # update the terminal title
     # FIXME: maybe incorporate previously run command if exists?
-    print -Pn "\e]0;zsh %(1j,%j job%(2j|s|); ,)%~\a"
+    print -Pn "\e]0;${prefix}zsh %(1j,%j job%(2j|s|); ,)%~\a"
 }
 
 # register hooks to run after accepting a command but before executing it
 preexec() {
+    # get ssh info for window title
+    # FIXME: Only works if remote client is using my shell configuration
+    if [ -n "$SSH_TTY" ]; then
+        prefix="$(whoami)@$(hostname): "
+    else
+        prefix=""
+    fi
     # writes the command and it's arguments to the title
     # FIXME: does not work with fg well
-    printf "\033]0;%s\a" "$1"
+    printf "\033]0;%s\a" "${prefix}${1}"
 }
