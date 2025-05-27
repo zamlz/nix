@@ -42,6 +42,10 @@ in {
           selected.odd.fg = "${colorScheme.foreground}";
         };
       };
+      tabs = {
+        tabs_are_windows = true;
+        show = "multiple";
+      };
       downloads.location.directory = "~/tmp";
       fonts = {
         default_size = "14pt";
