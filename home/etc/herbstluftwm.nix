@@ -1,6 +1,5 @@
 { inputs, lib, config, pkgs, systemConfig, ... }: let
   colorScheme = (import ./colorschemes.nix).defaultColorScheme;
-  fontSize =  builtins.toString (7.0 * systemConfig.fontScale);
 in {
   xsession.windowManager.herbstluftwm =
   {
@@ -14,7 +13,7 @@ in {
       herbstclient attr theme.background_color "#141414"
       herbstclient attr theme.title_height 26
       herbstclient attr theme.title_depth 6
-      herbstclient attr theme.title_font Iosevka:size=${fontSize}
+      herbstclient attr theme.title_font Iosevka:size=12.0
 
       herbstclient attr theme.normal.color "${colorScheme.black}"
       herbstclient attr theme.normal.title_color "${colorScheme.white}"
