@@ -1,25 +1,42 @@
-{ inputs, lib, config, pkgs, ... }: let
+{ inputs, lib, config, pkgs, systemConfig, ... }: let
   colorScheme = (import ./colorschemes.nix).defaultColorScheme;
+  fontSize =  builtins.toString (7.0 * systemConfig.fontScale);
 in {
   xsession.windowManager.herbstluftwm =
   {
     enable = true;
     extraConfig = ''
-      herbstclient attr theme.active.outer_color "${colorScheme.background}"
-      herbstclient attr theme.active.inner_color "${colorScheme.background}"
-      herbstclient attr theme.normal.color "${colorScheme.black}"
-      herbstclient attr theme.active.color "${colorScheme.foreground}"
-      herbstclient attr theme.urgent.color orange
       herbstclient attr theme.border_width 9
       herbstclient attr theme.inner_width 3
       herbstclient attr theme.outer_width 4
       herbstclient attr theme.inner_color "${colorScheme.background}"
       herbstclient attr theme.outer_color "${colorScheme.background}"
+      herbstclient attr theme.background_color "#141414"
+      herbstclient attr theme.title_height 26
+      herbstclient attr theme.title_depth 6
+      herbstclient attr theme.title_font Iosevka:size=${fontSize}
+
+      herbstclient attr theme.normal.color "${colorScheme.black}"
+      herbstclient attr theme.normal.title_color "${colorScheme.white}"
+      herbstclient attr theme.normal.tab_title_color "${colorScheme.white}"
+
+
+      herbstclient attr theme.active.color "#383838"
+      herbstclient attr theme.active.outer_color "${colorScheme.background}"
+      herbstclient attr theme.active.inner_color "${colorScheme.background}"
+      herbstclient attr theme.active.title_color "${colorScheme.foreground}"
+      herbstclient attr theme.active.tab_title_color "${colorScheme.white}"
+
+
+      herbstclient attr theme.urgent.color orange
+
       herbstclient attr theme.floating.border_width 9
       herbstclient attr theme.floating.inner_width 3
       herbstclient attr theme.floating.outer_width 4
       herbstclient attr theme.floating.outer_color "${colorScheme.background}"
-      herbstclient attr theme.background_color "#141414"
+      herbstclient attr theme.floating.title_height 0
+      herbstclient attr theme.floating.active.color "${colorScheme.foreground}"
+
 
       herbstclient emit_hook reload
       herbstclient detect_monitors
