@@ -18,6 +18,13 @@
       fsType = "ext4";
     };
 
+  # NOTE: Uncomment this to allow for automounting
+  # fileSystems."/mnt/nas/media" = {
+  #   device = "nas/media";
+  #   fsType = "zfs";
+  #   options = [ "zfsutil" ];
+  # };
+
   swapDevices =
     [ { device = "/dev/disk/by-uuid/d00836c2-3443-4e86-b327-f6d76a483461"; }
     ];
