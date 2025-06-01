@@ -13,7 +13,10 @@
     '';
     firewall = {
       enable = true;
-      allowedTCPPorts = [ 22 ];
+      allowedTCPPorts = [
+        22    # ssh
+        2049  # nfs
+      ];
     };
     networkmanager.enable = true;
   };

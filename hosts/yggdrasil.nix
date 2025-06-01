@@ -18,6 +18,17 @@
     efi.canTouchEfiVariables = true;
   };
 
+  # Mount my nas running on alexandria
+  # FIXME: remove this duplication found on all my hosts
+  fileSystems."/mnt/media" = {
+    device = "10.69.8.4:/media";
+    fsType = "nfs";
+    # enable lazy mounting for this share
+    options = [ "x-systemd.automount" "noauto"];
+  };
+  # optional, but ensures rpc-statsd is running for on demand mounting
+  boot.supportedFilesystems = [ "nfs" ];
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
