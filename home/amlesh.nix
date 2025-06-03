@@ -2,6 +2,7 @@
   cliImports = [
     ./etc/fd.nix
     ./etc/fzf.nix
+    ./etc/eza.nix
     ./etc/git.nix
     ./etc/gnupg.nix
     ./etc/helix.nix  # [unused]

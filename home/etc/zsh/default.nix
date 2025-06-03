@@ -38,10 +38,6 @@ in {
     # NOTE: Application specific aliases (ex: git) can be found in their
     # respective nixos configuration file
     shellAliases = {
-      # Shortcuts for ls
-      ls = "LC_COLLATE=C ls -F --color=always";
-      ll = "ls -oh";
-      la = "ls -lah";
       # the vi command is a hard habit to break
       vi = "$EDITOR";
       # aliasing these guys to make them safer
