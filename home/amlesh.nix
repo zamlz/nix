@@ -1,8 +1,9 @@
 { inputs, lib, config, pkgs, systemConfig, ... }: let
   cliImports = [
+    ./etc/eza.nix
+    ./etc/fastfetch.nix
     ./etc/fd.nix
     ./etc/fzf.nix
-    ./etc/eza.nix
     ./etc/git.nix
     ./etc/gnupg.nix
     ./etc/helix.nix  # [unused]
@@ -19,7 +20,6 @@
   cliPackages = with pkgs; [
     # System CLI Tools
     bat
-    microfetch
     qpdf
     ripgrep
     yt-dlp
