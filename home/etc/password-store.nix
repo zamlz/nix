@@ -3,7 +3,7 @@
     enable = true;
     package = pkgs.pass.withExtensions (exts: [ exts.pass-update ]);
     settings = {
-      PASSWORD_STORE_DIR = "$HOME/sys/passwords";
+      PASSWORD_STORE_DIR = "${config.xdg.configHome}/password-store";
     };
   };
 }
