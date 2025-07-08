@@ -1,7 +1,7 @@
 { inputs, lib, config, pkgs, ... }: {
   programs.helix = {
-    enable = false;
-    defaultEditor = false;
+    enable = true;
+    defaultEditor = true;
     extraPackages = with pkgs; [
       marksman
       python311Packages.python-lsp-server
@@ -131,7 +131,7 @@
         "comment" = { fg = "light-gray"; modifiers = ["italic" "dim"]; };
         
         "attribute" = "light-yellow";
-        "constant" = { fg = "light-yellow"; modifiers = ["bold" "dim"]; };
+        "constant" = { fg = "light-red"; modifiers = ["bold" "dim"]; };
         "constant.numeric" = "light-yellow";
         "constant.character.escape" = "light-cyan";
         "constructor" = "light-blue";

@@ -41,7 +41,6 @@
       # Software utils
       curl
       less
-      kakoune
       tree
       zip
       unzip

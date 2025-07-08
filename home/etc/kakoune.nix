@@ -4,8 +4,8 @@
     (import ./colorschemes.nix).defaultColorScheme;
 in {
   programs.kakoune = {
-    defaultEditor = true;
-    enable = true;
+    defaultEditor = false;
+    enable = false;
 
     plugins = [
       pkgs.kakounePlugins.kak-ansi
