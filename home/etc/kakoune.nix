@@ -4,18 +4,21 @@
     (import ./colorschemes.nix).defaultColorScheme;
 in {
   programs.kakoune = {
-    defaultEditor = false;
-    enable = false;
+    defaultEditor = true;
+    enable = true;
 
     plugins = [
       pkgs.kakounePlugins.kak-ansi
     ];
 
     config = {
+      alignWithTabs = false;
       autoComplete = ["insert" "prompt"];
       autoInfo = ["command" "onkey"];
       autoReload = "yes";
       colorScheme = "navi";  # defined below
+      hooks = [];
+      incrementalSearch = true;
       indentWidth = 4;
       numberLines = {
         enable = true;
