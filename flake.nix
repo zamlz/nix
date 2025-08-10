@@ -47,7 +47,7 @@
               inherit inputs;
               systemConfig = systemConfig;
             };
-            home-manager.sharedModules = [nixvim.homeManagerModules.nixvim];
+            home-manager.sharedModules = [nixvim.homeModules.nixvim];
             home-manager.users.amlesh = import ./home/amlesh.nix;
           }
         ];
