@@ -1,6 +1,7 @@
 { inputs, lib, config, pkgs, ... }: {
   programs.ssh = {
     enable = true;
+    enableDefaultConfig = false;
     matchBlocks = {
       # Since we are using GnuPG's GPG Agent as the SSH agent, when in a terminal,
       # ssh agent doesn't know that it has to change terminals (a bug in openssh). So
@@ -10,8 +11,21 @@
       # command in the prior terminal, it will use the new terminal instead creating
       # the exact inverse of the problem. Therefore we attempt to fix this by running
       # this command before every SSH command.
-      gpgAgentFix.match = "host * exec \"gpg-connect-agent --no-autostart UPDATESTARTUPTTY /bye\"";
+      gpgAgentFix = {
+        match = "host * exec \"gpg-connect-agent --no-autostart UPDATESTARTUPTTY /bye\"";
+      };
+      "*" = {
+        addKeysToAgent = "no";
+        compression = false;
+        controlMaster = "no";
+        controlPath = "~/.ssh/master-%r@%n:%p";
+        controlPersist = "no";
+        forwardAgent = false;
+        hashKnownHosts = false;
+        serverAliveInterval = 0;
+        serverAliveCountMax = 3;
+        userKnownHostsFile = "~/.ssh/known_hosts";
+      };
     };
   };
-
 }
