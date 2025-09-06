@@ -47,6 +47,10 @@ jobs:
     - name: Validate flake structure
       run: nix flake check --impure
 
+    # Checks the flake for common issues and best practices
+    - name: Check Nix flake Nixpkgs inputs
+      uses: DeterminateSystems/flake-checker-action@main
+
     # FIXME: Fix issues reported by deadnix
     # Scans for unused variables, imports, and dead code in Nix files
     # Helps maintain clean codebase by failing CI if unused code is found
@@ -58,7 +62,3 @@ jobs:
     # This compiles all configurations and dependencies to ensure everything works
     # - name: Build configuration
     #   run: nix build
-
-    # Checks the flake for common issues and best practices
-    - name: Flake checker
-      run: nix run "github:DeterminateSystems/flake-checker"
