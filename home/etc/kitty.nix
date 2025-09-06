@@ -1,4 +1,11 @@
-{ inputs, lib, config, pkgs, systemConfig, ... }: let
+{
+  inputs,
+  lib,
+  config,
+  pkgs,
+  systemConfig,
+  ...
+}: let
   colorScheme = (import ./colorschemes.nix).defaultColorScheme;
 in {
   programs.kitty = {

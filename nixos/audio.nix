@@ -1,7 +1,13 @@
-{ inputs, lib, config, pkgs, ... }: {
-  users.extraGroups.audio.members = [ "amlesh" ];
+{
+  inputs,
+  lib,
+  config,
+  pkgs,
+  ...
+}: {
+  users.extraGroups.audio.members = ["amlesh"];
 
-  environment.systemPackages = with pkgs; [ pavucontrol ];
+  environment.systemPackages = with pkgs; [pavucontrol];
 
   services.pulseaudio.enable = true;
   services.pulseaudio.support32Bit = true;

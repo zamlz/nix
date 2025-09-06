@@ -1,6 +1,12 @@
-{ inputs, lib, config, pkgs, ... }: {
+{
+  inputs,
+  lib,
+  config,
+  pkgs,
+  ...
+}: {
   programs.mpv = {
     enable = true;
-    scripts = [ pkgs.mpvScripts.mpv-cheatsheet ];
+    scripts = [pkgs.mpvScripts.mpv-cheatsheet];
   };
 }

@@ -1,7 +1,14 @@
-{ inputs, lib, config, pkgs, systemConfig, ... }: let
+{
+  inputs,
+  lib,
+  config,
+  pkgs,
+  systemConfig,
+  ...
+}: let
   readFileList = files:
     builtins.concatStringsSep "\n"
-      (map (f: builtins.readFile f) files);
+    (map (f: builtins.readFile f) files);
 in {
   programs.zsh = {
     enable = true;
@@ -9,7 +16,7 @@ in {
     autocd = true;
     defaultKeymap = "viins";
     enableCompletion = true;
-    autosuggestion.enable= true;
+    autosuggestion.enable = true;
     syntaxHighlighting = {
       enable = true;
       patterns = {
@@ -49,10 +56,9 @@ in {
       weather = "curl wttr.in";
     };
     loginExtra = (
-      if systemConfig.useGUI then
-        builtins.readFile ./login.zsh
-      else
-        ""
+      if systemConfig.useGUI
+      then builtins.readFile ./login.zsh
+      else ""
     );
     envExtra = builtins.readFile ./environment.zsh;
     initContent = readFileList [

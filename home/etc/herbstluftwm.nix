@@ -1,8 +1,14 @@
-{ inputs, lib, config, pkgs, systemConfig, ... }: let
+{
+  inputs,
+  lib,
+  config,
+  pkgs,
+  systemConfig,
+  ...
+}: let
   colorScheme = (import ./colorschemes.nix).defaultColorScheme;
 in {
-  xsession.windowManager.herbstluftwm =
-  {
+  xsession.windowManager.herbstluftwm = {
     enable = true;
     extraConfig = ''
       herbstclient attr theme.border_width 9
@@ -171,6 +177,6 @@ in {
       "mouse_recenter_gap" = 0;
       "tree_style" = "╾│ ├└╼─┐";
     };
-    tags = [ "λ" ];
+    tags = ["λ"];
   };
 }

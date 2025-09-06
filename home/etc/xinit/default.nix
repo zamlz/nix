@@ -1,4 +1,10 @@
-{ inputs, lib, config, pkgs, ... }: {
+{
+  inputs,
+  lib,
+  config,
+  pkgs,
+  ...
+}: {
   xdg.configFile."xinit/rc.sh".source = ./rc.sh;
   xdg.configFile."xinit/autostart.sh" = {
     source = ./autostart.sh;

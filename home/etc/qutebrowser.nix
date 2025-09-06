@@ -1,4 +1,10 @@
-{ inputs, lib, config, pkgs, ... }: let
+{
+  inputs,
+  lib,
+  config,
+  pkgs,
+  ...
+}: let
   colorScheme = (import ./colorschemes.nix).defaultColorScheme;
 in {
   programs.qutebrowser = {

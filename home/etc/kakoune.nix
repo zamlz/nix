@@ -1,6 +1,13 @@
-{ inputs, lib, config, pkgs, ... }: let
-  colorScheme = lib.attrsets.mapAttrs
-    (name: value: builtins.replaceStrings ["#"]  ["rgb:"] value)
+{
+  inputs,
+  lib,
+  config,
+  pkgs,
+  ...
+}: let
+  colorScheme =
+    lib.attrsets.mapAttrs
+    (name: value: builtins.replaceStrings ["#"] ["rgb:"] value)
     (import ./colorschemes.nix).defaultColorScheme;
 in {
   programs.kakoune = {
@@ -16,7 +23,7 @@ in {
       autoComplete = ["insert" "prompt"];
       autoInfo = ["command" "onkey"];
       autoReload = "yes";
-      colorScheme = "navi";  # defined below
+      colorScheme = "navi"; # defined below
       hooks = [];
       incrementalSearch = true;
       indentWidth = 4;
@@ -38,19 +45,19 @@ in {
 
     # Extra configuration hooks to manually configure the modeline
     extraConfig = ''
-    declare-option -docstring "name of the directory the file is in" \
-        str buffile_directory_path
+      declare-option -docstring "name of the directory the file is in" \
+          str buffile_directory_path
 
-    hook global WinCreate .* %{
-        hook window NormalIdle .* %{ evaluate-commands %sh{
-            bufdir=$(dirname "''${kak_buffile}" | sed "s|^$HOME|~|")
-            printf 'set window buffile_directory_path %%{%s}' "''${bufdir}"
-        } }
-    }
+      hook global WinCreate .* %{
+          hook window NormalIdle .* %{ evaluate-commands %sh{
+              bufdir=$(dirname "''${kak_buffile}" | sed "s|^$HOME|~|")
+              printf 'set window buffile_directory_path %%{%s}' "''${bufdir}"
+          } }
+      }
 
-    hook global WinCreate .* %{ evaluate-commands %sh{
-        printf 'set-option window modelinefmt %%{%s}' "%opt{buffile_directory_path}/''${kak_opt_modelinefmt}"
-    }}
+      hook global WinCreate .* %{ evaluate-commands %sh{
+          printf 'set-option window modelinefmt %%{%s}' "%opt{buffile_directory_path}/''${kak_opt_modelinefmt}"
+      }}
     '';
   };
 
@@ -69,7 +76,7 @@ in {
     face global documentation comment
     face global meta ${magenta}
     face global builtin default+b
-    
+
     # For markup
     face global title ${blue}
     face global header ${cyan}
@@ -78,7 +85,7 @@ in {
     face global link ${cyan}
     face global bullet ${cyan}
     face global list ${yellow}
-    
+
     # builtin faces
     face global Default default,default
     face global PrimarySelection white,${black}+fg
@@ -107,4 +114,3 @@ in {
     face global BufferPadding blue,default
   '';
 }
-

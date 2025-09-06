@@ -21,26 +21,34 @@
     # nixgl.url = "github:nix-community/nixGL";
   };
 
-  outputs = { self, nixpkgs, home-manager, nixvim }@inputs: let
-
+  outputs = {
+    self,
+    nixpkgs,
+    home-manager,
+    nixvim,
+  } @ inputs: let
     # function to build nixos systems
     nixosSystemBuilder = {
-        hostConfigPath,
-        useGUI ? true,
-        fontScale ? 1.0
-    }@nixosSystemConfig: let
-        systemConfig = {
-          useGUI = useGUI;
-          fontScale = fontScale;
-        };
-      in
+      hostConfigPath,
+      useGUI ? true,
+      fontScale ? 1.0,
+    } @ nixosSystemConfig: let
+      systemConfig = {
+        useGUI = useGUI;
+        fontScale = fontScale;
+      };
+    in
       nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs; systemConfig = systemConfig; };
+        specialArgs = {
+          inherit inputs;
+          systemConfig = systemConfig;
+        };
         modules = [
           hostConfigPath
           # makes home manager a module of nixos so it will be deployed with
           # nixos-rebuild switch
-          home-manager.nixosModules.home-manager {
+          home-manager.nixosModules.home-manager
+          {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = {
@@ -52,10 +60,8 @@
           }
         ];
       };
-
   in {
     nixosConfigurations = {
-
       # Personal Desktop
       solaris = nixosSystemBuilder {
         hostConfigPath = ./hosts/solaris.nix;

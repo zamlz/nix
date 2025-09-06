@@ -1,4 +1,11 @@
-{ inputs, lib, config, pkgs, systemConfig, ... }: let
+{
+  inputs,
+  lib,
+  config,
+  pkgs,
+  systemConfig,
+  ...
+}: let
   cliImports = [
     ./etc/eza.nix
     ./etc/fastfetch.nix
@@ -6,10 +13,10 @@
     ./etc/fzf.nix
     ./etc/git.nix
     ./etc/gnupg.nix
-    ./etc/helix.nix  # [unused]
+    ./etc/helix.nix # [unused]
     ./etc/kakoune.nix
     ./etc/lazygit.nix
-    ./etc/neovim  # [unused]
+    ./etc/neovim # [unused]
     ./etc/password-store.nix
     ./etc/ssh.nix
     ./etc/systemd.nix
@@ -30,18 +37,20 @@
     kittysay
     lolcat
     # Misc Experiments
+    alejandra
     pipenv
-    (python3.withPackages (ps: with ps; [
+    (python3.withPackages (ps:
+      with ps; [
         ipdb
         ipython
-        loguru  # FIXME: navi dependencies should be tracked seperately
-    ]))
+        loguru # FIXME: navi dependencies should be tracked seperately
+      ]))
   ];
   guiImports = [
     ./etc/alacritty.nix
     ./etc/feh.nix
     ./etc/herbstluftwm.nix
-    ./etc/kitty.nix  # [unused]
+    ./etc/kitty.nix # [unused]
     ./etc/mpv.nix
     ./etc/polybar
     ./etc/qutebrowser.nix
@@ -55,7 +64,7 @@
     arandr
     imagemagick
     qrencode
-    maim  # needed by sxhkd (screenshot script)
+    maim # needed by sxhkd (screenshot script)
     wmctrl
     xclip # needed by sxhkd (screenshot script)
     xdotool
@@ -71,13 +80,11 @@
     mixxx
   ];
 in {
-
   # choose imports based on graphical or server environment
   imports = (
-    if systemConfig.useGUI then
-      cliImports ++ guiImports
-    else
-      cliImports
+    if systemConfig.useGUI
+    then cliImports ++ guiImports
+    else cliImports
   );
 
   # Let Home Manager install and manage itself.
@@ -93,10 +100,9 @@ in {
     username = "amlesh";
     homeDirectory = "/home/amlesh";
     packages = (
-      if systemConfig.useGUI then
-        cliPackages ++ guiPackages
-      else
-        cliPackages
+      if systemConfig.useGUI
+      then cliPackages ++ guiPackages
+      else cliPackages
     );
   };
 

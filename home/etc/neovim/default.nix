@@ -1,4 +1,10 @@
-{ inputs, lib, config, pkgs, ... }: let 
+{
+  inputs,
+  lib,
+  config,
+  pkgs,
+  ...
+}: let
   colorScheme = (import ../colorschemes.nix).defaultColorScheme;
 in {
   programs.nixvim = {
@@ -16,41 +22,40 @@ in {
       # set window title
       title = true;
       # fringe line numbers
-      number         = true;
+      number = true;
       relativenumber = true;
       # cursor crosshair and soft-thresholds
-      ruler        = true;
-      cursorline   = false;
+      ruler = true;
+      cursorline = false;
       cursorcolumn = false;
       #colorcolumn  = [ 80 128 ];
       # text display
       wrap = false;
       # put and end to this tab vs. spaces war
-      tabstop     = 4;    # visual spaces per tab character
-      expandtab   = true; # expand <TAB> key to spaces in insert mode
-      softtabstop = 4;    # number of spaces to insert for a tab
-      shiftwidth  = 4;    # number of spaces used for each autoindent step
+      tabstop = 4; # visual spaces per tab character
+      expandtab = true; # expand <TAB> key to spaces in insert mode
+      softtabstop = 4; # number of spaces to insert for a tab
+      shiftwidth = 4; # number of spaces used for each autoindent step
       # code concealing
       conceallevel = 0;
       #concealcursor = 'nc';
       # code folding
-      foldenable     = false;
-      foldmethod     = "expr";
-      foldexpr       = "nvim_treesitter#foldexpr()";
+      foldenable = false;
+      foldmethod = "expr";
+      foldexpr = "nvim_treesitter#foldexpr()";
       foldlevelstart = 10;
-      foldnestmax    = 10;
+      foldnestmax = 10;
       # dynamic configuration via source files
       modeline = true;
       # let's use the mouse scrolling cause we can
       mouse = "a";
       # rice out neovim
-      syntax     = "on";
+      syntax = "on";
       lazyredraw = true;
-      showmode   = false;
+      showmode = false;
     };
 
     plugins = {
-
       # ui plugins
       gitsigns.enable = true;
       lightline.enable = true;
@@ -76,11 +81,11 @@ in {
         enable = true;
         settings = {
           # directories
-          home = { __raw = "vim.fn.expand(\"~/usr/notes\")"; };
-          dailies = { __raw = "vim.fn.expand(\"~/usr/notes/journal/day\")"; };
-          weeklies = { __raw = "vim.fn.expand(\"~/usr/notes/journal/week\")"; };
-          templates = { __raw = "vim.fn.expand(\"~/usr/notes/templates\")"; };
-          image_subdir= { __raw = "vim.fn.expand(\"~/usr/notes/data\")"; };
+          home = {__raw = "vim.fn.expand(\"~/usr/notes\")";};
+          dailies = {__raw = "vim.fn.expand(\"~/usr/notes/journal/day\")";};
+          weeklies = {__raw = "vim.fn.expand(\"~/usr/notes/journal/week\")";};
+          templates = {__raw = "vim.fn.expand(\"~/usr/notes/templates\")";};
+          image_subdir = {__raw = "vim.fn.expand(\"~/usr/notes/data\")";};
           # templates
           template_new_note = {
             __raw = "vim.fn.expand(\"~/usr/notes/templates/default.md\")";

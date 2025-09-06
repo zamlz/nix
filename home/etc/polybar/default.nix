@@ -1,4 +1,10 @@
-{ inputs, lib, config, pkgs, ... }: let
+{
+  inputs,
+  lib,
+  config,
+  pkgs,
+  ...
+}: let
   colorScheme = (import ../colorschemes.nix).defaultColorScheme;
 in {
   xdg.configFile."polybar/kernel_info.sh" = {
@@ -18,7 +24,12 @@ in {
     # Do not let polybar start itself. Let the autostart script deal with it
     script = "";
     config = let
-      barConfig = {placement, left-modules, center-modules, right-modules}: {
+      barConfig = {
+        placement,
+        left-modules,
+        center-modules,
+        right-modules,
+      }: {
         width = "100%";
         height = "3%";
         radius = 0;
@@ -32,7 +43,7 @@ in {
         border-color = "${colorScheme.foreground}";
         bottom = placement == "bottom";
         modules-left = left-modules;
-        modules-center= center-modules;
+        modules-center = center-modules;
         modules-right = right-modules;
       };
 
@@ -128,7 +139,7 @@ in {
         label-warn = "mem:%percentage_used%%(%percentage_swap_used%%)";
         label-warn-foreground = "${colorScheme.red}";
       };
-      
+
       wiredConfig = {
         type = "internal/network";
         interface-type = "wired";
@@ -142,7 +153,7 @@ in {
         label-connected = "%ifname%: %essid% (%local_ip%)";
         label-connected-foreground = "${colorScheme.cyan}";
       };
-      
+
       windowConfig = {
         type = "internal/xwindow";
         format = "<label>";
@@ -183,7 +194,6 @@ in {
         label-muted = "[MUTED %decibels% dB]";
         label-muted-foreground = "${colorScheme.red}";
       };
-
     in {
       "bar/top" = barConfig {
         placement = "top";
@@ -216,6 +226,5 @@ in {
       "module/window" = windowConfig;
       "module/volume" = pulseaudioVolumeConfig;
     };
-
   };
 }

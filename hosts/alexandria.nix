@@ -1,9 +1,13 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ inputs, lib, config, pkgs, ... }: {
-
+{
+  inputs,
+  lib,
+  config,
+  pkgs,
+  ...
+}: {
   imports = [
     # Import your generated (nixos-generate-config) hardware configuration
     ../hardware/alexandria-qnap.nix
@@ -20,7 +24,7 @@
   };
 
   # This is configuration needed to use ZFS on the NAS
-  boot.supportedFilesystems = [ "zfs" ];
+  boot.supportedFilesystems = ["zfs"];
   boot.zfs.devNodes = "/dev/disk/by-id/";
   services.zfs = {
     autoScrub.enable = true;
@@ -30,16 +34,16 @@
 
   # we bind mount the nas to the export location
   fileSystems."/export/nas/media" = {
-      device = "/mnt/nas/media";
-      options = [ "bind" ];
+    device = "/mnt/nas/media";
+    options = ["bind"];
   };
 
   services.nfs.server = {
-      enable = true;
-      exports = ''
-        /export/nas       10.69.8.0/24(rw,fsid=0,sync,no_subtree_check,root_squash)
-        /export/nas/media 10.69.8.0/24(rw,nohide,sync,no_subtree_check,root_squash)
-      '';
+    enable = true;
+    exports = ''
+      /export/nas       10.69.8.0/24(rw,fsid=0,sync,no_subtree_check,root_squash)
+      /export/nas/media 10.69.8.0/24(rw,nohide,sync,no_subtree_check,root_squash)
+    '';
   };
 
   # NOTE: Uncomment this to allow automounting this nas

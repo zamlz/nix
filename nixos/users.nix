@@ -1,10 +1,16 @@
-{ inputs, lib, config, pkgs, ... }: {
+{
+  inputs,
+  lib,
+  config,
+  pkgs,
+  ...
+}: {
   # (Don't forget to set a password with ‘passwd’!)
   users.users.amlesh = {
     isNormalUser = true;
     description = "Amlesh Sivanantham";
     initialPassword = "pleasechangeme";
-    extraGroups = [ "wheel" ];
+    extraGroups = ["wheel"];
     shell = pkgs.zsh;
     openssh.authorizedKeys.keys = [
       # generated using: gpg --export-ssh-key <key-id>

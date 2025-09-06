@@ -1,5 +1,10 @@
-{ inputs, lib, config, pkgs, ... }: {
-
+{
+  inputs,
+  lib,
+  config,
+  pkgs,
+  ...
+}: {
   programs.git = {
     enable = true;
     userName = "Amlesh Sivanantham (zamlz)";

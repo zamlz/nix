@@ -1,4 +1,11 @@
-{ inputs, lib, config, pkgs, systemConfig, ... }: let
+{
+  inputs,
+  lib,
+  config,
+  pkgs,
+  systemConfig,
+  ...
+}: let
   colorScheme = (import ./colorschemes.nix).defaultColorScheme;
 in {
   programs.alacritty = {
@@ -65,7 +72,7 @@ in {
           family = "Iosevka";
           style = "Bold";
         };
-        
+
         bold_italic = {
           family = "Iosevka";
           style = "Bold Italic";

@@ -1,4 +1,11 @@
-{ inputs, lib, config, pkgs, systemConfig, ... }: {
+{
+  inputs,
+  lib,
+  config,
+  pkgs,
+  systemConfig,
+  ...
+}: {
   programs.taskwarrior = {
     enable = true;
     package = pkgs.taskwarrior3;

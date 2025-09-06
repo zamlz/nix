@@ -1,4 +1,10 @@
-{ inputs, lib, config, pkgs, ... }: {
+{
+  inputs,
+  lib,
+  config,
+  pkgs,
+  ...
+}: {
   programs.eza = {
     enable = true;
     enableZshIntegration = true;
@@ -15,10 +21,19 @@
     # https://github.com/eza-community/eza-themes/blob/main/themes/default.yml
     theme = {
       users = {
-        user_you = { foreground = "Blue"; is_bold = false; };
-        group_yours = {foreground = "Magenta"; is_bold = false; };
+        user_you = {
+          foreground = "Blue";
+          is_bold = false;
+        };
+        group_yours = {
+          foreground = "Magenta";
+          is_bold = false;
+        };
       };
-      date = { foreground = "Cyan"; is_dimmed = true; };
+      date = {
+        foreground = "Cyan";
+        is_dimmed = true;
+      };
     };
   };
 

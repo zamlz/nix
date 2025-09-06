@@ -1,20 +1,26 @@
-{ inputs, lib, config, pkgs, systemConfig, ... }: let
+{
+  inputs,
+  lib,
+  config,
+  pkgs,
+  systemConfig,
+  ...
+}: let
   terminal = "${pkgs.alacritty}/bin/alacritty";
   # FIXME: Consolidate this to a script so it is easier to generalize
-  termPromptLauncher = script: lineNum: columnNum: fontSize:
-    let
-      saveWindowId = "$HOME/.config/sxhkd/navi/tools/save_active_window_id.py";
-      fontOption = "--option 'font.size=${builtins.toString (systemConfig.fontScale * fontSize)}'";
-      lineOption = "--option 'window.dimensions.lines=${builtins.toString lineNum}'";
-      columnOption = "--option 'window.dimensions.columns=${builtins.toString columnNum}'";
-      termClass = "--class 'termprompt,termprompt'";
-    in
+  termPromptLauncher = script: lineNum: columnNum: fontSize: let
+    saveWindowId = "$HOME/.config/sxhkd/navi/tools/save_active_window_id.py";
+    fontOption = "--option 'font.size=${builtins.toString (systemConfig.fontScale * fontSize)}'";
+    lineOption = "--option 'window.dimensions.lines=${builtins.toString lineNum}'";
+    columnOption = "--option 'window.dimensions.columns=${builtins.toString columnNum}'";
+    termClass = "--class 'termprompt,termprompt'";
+  in
     # To be clear, not all commands need the saveWindowId script. But some commands do need to have
     # this window id saved before the terminal instance is spawed. To be safe, we simply do it for
     # all of them thanks to this function
     "${saveWindowId}; ${terminal} ${termClass} ${fontOption} ${lineOption} ${columnOption} --command ${script}";
   IdenticalTerminalLauncher = let
-      saveWindowId = "$HOME/.config/sxhkd/navi/tools/save_active_window_id.py";
+    saveWindowId = "$HOME/.config/sxhkd/navi/tools/save_active_window_id.py";
   in "${saveWindowId}; ${terminal} -e $HOME/.config/sxhkd/spawn_identical_shell.py";
   ProgramLauncher = termPromptLauncher "$HOME/.config/sxhkd/fzf-program-launcher.sh" 16 80 9;
   WindowSwitcher = termPromptLauncher "$HOME/.config/sxhkd/window_switcher.py" 20 128 9;
@@ -57,49 +63,49 @@ in {
     keybindings = {
       # System Controls
       "super + ctrl + alt + Escape" = "${SystemManager}";
-      
+
       # Core Utils
-      "super + Return"              = "${terminal}";
-      "super + shift + Return"      = "${IdenticalTerminalLauncher}";
-      "super + e"                   = "${ProgramLauncher}";
+      "super + Return" = "${terminal}";
+      "super + shift + Return" = "${IdenticalTerminalLauncher}";
+      "super + e" = "${ProgramLauncher}";
 
       # Desktop Environment
-      "super + w"                   = "${WindowSwitcher}";
-      "super + slash"               = "${WorkspaceManager} --jump";
-      "super + shift + slash"       = "${WorkspaceManager} --move-window";
-      "super + BackSpace"           = "${WorkspaceManager} --delete";
+      "super + w" = "${WindowSwitcher}";
+      "super + slash" = "${WorkspaceManager} --jump";
+      "super + shift + slash" = "${WorkspaceManager} --move-window";
+      "super + BackSpace" = "${WorkspaceManager} --delete";
 
       # Filesystem
-      "super + x; a"                = "${FileSystemExplorer}";
-      "super + x; s"                = "${RipGrep}";
-      "super + x; d"                = "${FileSystemOpen} --directory";
-      "super + x; f"                = "${FileSystemOpen} --file";
-      "super + x; shift + a"        = "${FileSystemExplorer} --global-search";
-      "super + x; shift + s"        = "${RipGrep} --global-search";
-      "super + x; shift + d"        = "${FileSystemOpen} --directory --global-search";
-      "super + x; shift + f"        = "${FileSystemOpen} --file --global-search";
+      "super + x; a" = "${FileSystemExplorer}";
+      "super + x; s" = "${RipGrep}";
+      "super + x; d" = "${FileSystemOpen} --directory";
+      "super + x; f" = "${FileSystemOpen} --file";
+      "super + x; shift + a" = "${FileSystemExplorer} --global-search";
+      "super + x; shift + s" = "${RipGrep} --global-search";
+      "super + x; shift + d" = "${FileSystemOpen} --directory --global-search";
+      "super + x; shift + f" = "${FileSystemOpen} --file --global-search";
 
       # Notes
-      "super + n"                   = "${NvimTelekasten}";
+      "super + n" = "${NvimTelekasten}";
 
       # External Tools
-      "super + g"                   = "${GitManager}";
-      "super + shift + g"           = "${GitManager} --open-dir";
-      "super + m"                   = "${ManPageOpen}";
-      "super + z"                   = "${Calculator}";
+      "super + g" = "${GitManager}";
+      "super + shift + g" = "${GitManager} --open-dir";
+      "super + m" = "${ManPageOpen}";
+      "super + z" = "${Calculator}";
 
       # FIXME: This configuration should somehow be owned by password-store?
-      "super + p"                   = "${PasswordStore}";
-      "super + shift + p"           = "${PasswordStore} --qrcode";
+      "super + p" = "${PasswordStore}";
+      "super + shift + p" = "${PasswordStore} --qrcode";
       # Screenshot tool:
       #   Interactively select a window or rectangle with the mouse to take a screen
       #   shot of it. It's important that these keybindings are prefaces with the =@=
       #   token as it implies that the command should be executed on key release as
       #   opposed to key press. Scrot and xclip here will not work properly unless they
       #   are on key release.
-      "@Print"                      = "${maimScreenshot} -s";
-      "@shift + Print"              = "${maimScreenshot}";
-      
+      "@Print" = "${maimScreenshot} -s";
+      "@shift + Print" = "${maimScreenshot}";
+
       # Multimedia and Physical Switches
       "XF86AudioMute" = "pactl set-sink-mute @DEFAULT_SINK@ toggle";
       "XF86AudioMicMute" = "pactl set-source-mute @DEFAULT_SOURCE@ toggle";
