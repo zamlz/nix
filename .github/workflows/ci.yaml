@@ -15,12 +15,12 @@ jobs:
     # Downloads the repository code to the GitHub Actions runner
     # This makes all project files available for the subsequent steps
     - name: Checkout code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
 
     # Installs the Nix package manager with flakes support enabled
     # Required to run any nix commands and build the configuration
     - name: Install Nix
-      uses: cachix/install-nix-action@v27
+      uses: cachix/install-nix-action@v31
       with:
         extra_nix_config: |
           experimental-features = nix-command flakes
@@ -46,3 +46,17 @@ jobs:
     # Ensures inputs are reachable and outputs are properly configured
     - name: Validate flake structure
       run: nix flake check --impure
+
+    # Scans for unused variables, imports, and dead code in Nix files
+    # Helps maintain clean codebase by failing CI if unused code is found
+    # - name: Remove dead code check
+    #   run: nix run nixpkgs#deadnix -- --fail .
+
+    # Builds the complete home-manager configuration into an activation package
+    # This compiles all configurations and dependencies to ensure everything works
+    - name: Build configuration
+      run: nix build
+
+    # Checks the flake for common issues and best practices
+    - name: Flake checker
+      run: nix run "github:DeterminateSystems/flake-checker"

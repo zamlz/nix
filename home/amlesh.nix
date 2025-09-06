@@ -36,9 +36,11 @@
     figlet
     kittysay
     lolcat
-    # Misc Experiments
+    # Nix Dev Tools
     alejandra
+    deadnix
     statix
+    # Misc Experiments
     pipenv
     (python3.withPackages (ps:
       with ps; [
