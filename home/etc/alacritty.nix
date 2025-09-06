@@ -17,32 +17,32 @@ in {
       colors = with colorScheme; {
         draw_bold_text_with_bright_colors = false;
         primary = {
-          background = background;
-          foreground = foreground;
+          inherit background;
+          inherit foreground;
         };
         cursor = {
           cursor = foreground;
           text = "CellForeground";
         };
         normal = {
-          black = black;
-          red = red;
-          green = green;
-          yellow = yellow;
-          blue = blue;
-          magenta = magenta;
-          cyan = cyan;
-          white = white;
+          inherit black;
+          inherit red;
+          inherit green;
+          inherit yellow;
+          inherit blue;
+          inherit magenta;
+          inherit cyan;
+          inherit white;
         };
         bright = {
-          black = blackAlt;
-          red = redAlt;
-          green = greenAlt;
-          yellow = yellowAlt;
-          blue = blueAlt;
-          magenta = magentaAlt;
-          cyan = cyanAlt;
-          white = whiteAlt;
+          inherit black;
+          inherit red;
+          inherit green;
+          inherit yellow;
+          inherit blue;
+          inherit magenta;
+          inherit cyan;
+          inherit white;
         };
       };
 

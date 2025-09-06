@@ -51,7 +51,7 @@ in {
         type = "internal/battery";
         full-at = 99;
         low-at = 10;
-        battery = battery;
+        inherit battery;
         adapter = "";
         poll-interval = 5;
         time-format = "%H:%M";

@@ -55,11 +55,10 @@ in {
       please = "sudo";
       weather = "curl wttr.in";
     };
-    loginExtra = (
+    loginExtra =
       if systemConfig.useGUI
       then builtins.readFile ./login.zsh
-      else ""
-    );
+      else "";
     envExtra = builtins.readFile ./environment.zsh;
     initContent = readFileList [
       ./init/prompt.zsh

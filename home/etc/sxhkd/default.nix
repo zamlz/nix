@@ -38,24 +38,26 @@
   # This means that things like working directory should be set
   NvimTelekasten = "alacritty --command nvim +Telekasten";
 in {
-  xdg.configFile."sxhkd/file_preview.sh".source = ../../../scripts/file_preview.sh;
-  xdg.configFile."sxhkd/man_preview.sh".source = ../../../scripts/man_preview.sh;
-  xdg.configFile."sxhkd/file_system_explorer.py".source = ../../../scripts/file_system_explorer.py;
-  xdg.configFile."sxhkd/file_system_open.py".source = ../../../scripts/file_system_open.py;
-  xdg.configFile."sxhkd/password-store.py".source = ../../../scripts/password_store.py;
-  xdg.configFile."sxhkd/fzf-program-launcher.sh".source = ../../../scripts/fzf-program-launcher.sh;
-  xdg.configFile."sxhkd/ripgrep.py".source = ../../../scripts/ripgrep.py;
-  xdg.configFile."sxhkd/calculator.py".source = ../../../scripts/calculator.py;
-  xdg.configFile."sxhkd/man_open.py".source = ../../../scripts/man_open.py;
-  xdg.configFile."sxhkd/git_manager.py".source = ../../../scripts/git_manager.py;
-  xdg.configFile."sxhkd/maim-screenshot.sh".source = ./maim-screenshot.sh;
-  xdg.configFile."sxhkd/system_manager.py".source = ../../../scripts/system_manager.py;
-  xdg.configFile."sxhkd/window_switcher.py".source = ../../../scripts/window_switcher.py;
-  xdg.configFile."sxhkd/workspace_manager.py".source = ../../../scripts/workspace_manager.py;
-  xdg.configFile."sxhkd/spawn_identical_shell.py".source = ../../../scripts/spawn_identical_shell.py;
-  xdg.configFile."sxhkd/navi".source = ../../../scripts/navi;
-  xdg.configFile."sxhkd/navi".recursive = true;
-  xdg.configFile."sxhkd/nohup.sh".source = ../../../scripts/nohup.sh;
+  xdg.configFile = {
+    "sxhkd/file_preview.sh".source = ../../../scripts/file_preview.sh;
+    "sxhkd/man_preview.sh".source = ../../../scripts/man_preview.sh;
+    "sxhkd/file_system_explorer.py".source = ../../../scripts/file_system_explorer.py;
+    "sxhkd/file_system_open.py".source = ../../../scripts/file_system_open.py;
+    "sxhkd/password-store.py".source = ../../../scripts/password_store.py;
+    "sxhkd/fzf-program-launcher.sh".source = ../../../scripts/fzf-program-launcher.sh;
+    "sxhkd/ripgrep.py".source = ../../../scripts/ripgrep.py;
+    "sxhkd/calculator.py".source = ../../../scripts/calculator.py;
+    "sxhkd/man_open.py".source = ../../../scripts/man_open.py;
+    "sxhkd/git_manager.py".source = ../../../scripts/git_manager.py;
+    "sxhkd/maim-screenshot.sh".source = ./maim-screenshot.sh;
+    "sxhkd/system_manager.py".source = ../../../scripts/system_manager.py;
+    "sxhkd/window_switcher.py".source = ../../../scripts/window_switcher.py;
+    "sxhkd/workspace_manager.py".source = ../../../scripts/workspace_manager.py;
+    "sxhkd/spawn_identical_shell.py".source = ../../../scripts/spawn_identical_shell.py;
+    "sxhkd/navi".source = ../../../scripts/navi;
+    "sxhkd/navi".recursive = true;
+    "sxhkd/nohup.sh".source = ../../../scripts/nohup.sh;
+  };
 
   services.sxhkd = {
     enable = true;

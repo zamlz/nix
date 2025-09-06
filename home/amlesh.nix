@@ -82,11 +82,10 @@
   ];
 in {
   # choose imports based on graphical or server environment
-  imports = (
+  imports =
     if systemConfig.useGUI
     then cliImports ++ guiImports
-    else cliImports
-  );
+    else cliImports;
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
@@ -100,11 +99,10 @@ in {
     stateVersion = "23.05";
     username = "amlesh";
     homeDirectory = "/home/amlesh";
-    packages = (
+    packages =
       if systemConfig.useGUI
       then cliPackages ++ guiPackages
-      else cliPackages
-    );
+      else cliPackages;
   };
 
   # FIXME: What is this?

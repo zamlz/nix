@@ -42,10 +42,12 @@ in {
           even.fg = "${colorScheme.foreground}";
           odd.bg = "${colorScheme.background}";
           odd.fg = "${colorScheme.foreground}";
-          selected.even.bg = "#383838";
-          selected.even.fg = "${colorScheme.foreground}";
-          selected.odd.bg = "#383838";
-          selected.odd.fg = "${colorScheme.foreground}";
+          selected = {
+            even.bg = "#383838";
+            even.fg = "${colorScheme.foreground}";
+            odd.bg = "#383838";
+            odd.fg = "${colorScheme.foreground}";
+          };
         };
       };
       tabs = {

@@ -44,9 +44,11 @@ in {
       mouse_hide_wait = -1.0;
     };
 
-    shellIntegration.enableBashIntegration = true;
-    shellIntegration.enableFishIntegration = true;
-    shellIntegration.enableZshIntegration = true;
+    shellIntegration = {
+      enableBashIntegration = true;
+      enableFishIntegration = true;
+      enableZshIntegration = true;
+    };
 
     extraConfig = with colorScheme; ''
       foreground ${foreground}

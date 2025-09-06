@@ -17,15 +17,18 @@
   networking.hostName = "alexandria";
   networking.hostId = "2cbf9c15";
 
-  boot.loader.grub = {
-    enable = true;
-    device = "/dev/nvme0n1";
-    useOSProber = true;
+  boot = {
+    loader.grub = {
+      enable = true;
+      device = "/dev/nvme0n1";
+      useOSProber = true;
+    };
+
+    # This is configuration needed to use ZFS on the NAS
+    supportedFilesystems = ["zfs"];
+    zfs.devNodes = "/dev/disk/by-id/";
   };
 
-  # This is configuration needed to use ZFS on the NAS
-  boot.supportedFilesystems = ["zfs"];
-  boot.zfs.devNodes = "/dev/disk/by-id/";
   services.zfs = {
     autoScrub.enable = true;
     autoSnapshot.enable = true;

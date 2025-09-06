@@ -34,14 +34,14 @@
       fontScale ? 1.0,
     } @ nixosSystemConfig: let
       systemConfig = {
-        useGUI = useGUI;
-        fontScale = fontScale;
+        inherit useGUI;
+        inherit fontScale;
       };
     in
       nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs;
-          systemConfig = systemConfig;
+          inherit systemConfig;
         };
         modules = [
           hostConfigPath
@@ -49,14 +49,16 @@
           # nixos-rebuild switch
           home-manager.nixosModules.home-manager
           {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {
-              inherit inputs;
-              systemConfig = systemConfig;
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              extraSpecialArgs = {
+                inherit inputs;
+                inherit systemConfig;
+              };
+              sharedModules = [nixvim.homeModules.nixvim];
+              users.amlesh = import ./home/amlesh.nix;
             };
-            home-manager.sharedModules = [nixvim.homeModules.nixvim];
-            home-manager.users.amlesh = import ./home/amlesh.nix;
           }
         ];
       };
