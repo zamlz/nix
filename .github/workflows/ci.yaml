@@ -1,0 +1,34 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  check:
+    name: Check & Build
+    runs-on: ubuntu-latest
+
+    steps:
+    # Downloads the repository code to the GitHub Actions runner
+    # This makes all project files available for the subsequent steps
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    # Installs the Nix package manager with flakes support enabled
+    # Required to run any nix commands and build the configuration
+    - name: Install Nix
+      uses: cachix/install-nix-action@v27
+      with:
+        extra_nix_config: |
+          experimental-features = nix-command flakes
+
+    # Setup Cachix binary cache for faster builds
+    # Uses the public nix-community cache to avoid rebuilding common packages
+    - name: Setup Cachix
+      uses: cachix/cachix-action@v15
+      with:
+        name: nix-community
+        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
