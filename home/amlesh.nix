@@ -38,6 +38,7 @@
     lolcat
     # Misc Experiments
     alejandra
+    statix
     pipenv
     (python3.withPackages (ps:
       with ps; [
