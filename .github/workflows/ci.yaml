@@ -37,3 +37,12 @@ jobs:
     # Uses alejandra formatter to ensure code style consistency across the project
     - name: Check code formatting
       run: nix run nixpkgs#alejandra -- --check .
+
+    #Check that all Nix code adheres to best practices and style guidelines
+    - name: Run statix linter
+      run: nix run nixpkgs#statix check
+
+    # Validates the overall flake structure and all defined outputs
+    # Ensures inputs are reachable and outputs are properly configured
+    - name: Validate flake structure
+      run: nix flake check --impure
