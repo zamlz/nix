@@ -14,4 +14,5 @@
       dates = "weekly";
     };
   };
+  virtualisation.oci-containers.backend = "docker";
 }

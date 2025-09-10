@@ -12,6 +12,7 @@
     # Import your generated (nixos-generate-config) hardware configuration
     ../hardware/yggdrasil-cincoze-ds1201.nix
     ../nixos
+    ./services/kavita.nix
   ];
 
   networking.hostName = "yggdrasil";
