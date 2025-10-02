@@ -7,6 +7,7 @@
   ...
 }: let
   cliImports = [
+    ./etc/claude.nix
     ./etc/eza.nix
     ./etc/fastfetch.nix
     ./etc/fd.nix
