@@ -14,7 +14,7 @@
     ./etc/git.nix
     ./etc/gnupg.nix
     ./etc/helix.nix # [unused]
-    ./etc/kakoune.nix
+    ./etc/kakoune
     ./etc/lazygit.nix
     ./etc/neovim # [unused]
     ./etc/password-store.nix

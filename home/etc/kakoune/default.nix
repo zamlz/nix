@@ -8,14 +8,15 @@
   colorScheme =
     lib.attrsets.mapAttrs
     (name: value: builtins.replaceStrings ["#"] ["rgb:"] value)
-    (import ./colorschemes.nix).defaultColorScheme;
+    (import ../colorschemes.nix).defaultColorScheme;
 in {
   programs.kakoune = {
     defaultEditor = true;
     enable = true;
 
-    plugins = [
-      pkgs.kakounePlugins.kak-ansi
+    plugins = with pkgs.kakounePlugins; [
+      kak-ansi
+      kakoune-registers
     ];
 
     config = {
@@ -43,22 +44,7 @@ in {
       };
     };
 
-    # Extra configuration hooks to manually configure the modeline
-    extraConfig = ''
-      declare-option -docstring "name of the directory the file is in" \
-          str buffile_directory_path
-
-      hook global WinCreate .* %{
-          hook window NormalIdle .* %{ evaluate-commands %sh{
-              bufdir=$(dirname "''${kak_buffile}" | sed "s|^$HOME|~|")
-              printf 'set window buffile_directory_path %%{%s}' "''${bufdir}"
-          } }
-      }
-
-      hook global WinCreate .* %{ evaluate-commands %sh{
-          printf 'set-option window modelinefmt %%{%s}' "%opt{buffile_directory_path}/''${kak_opt_modelinefmt}"
-      }}
-    '';
+    extraConfig = builtins.readFile ./extra-config.kak;
   };
 
   xdg.configFile."kak/colors/navi.kak".text = with colorScheme; ''
