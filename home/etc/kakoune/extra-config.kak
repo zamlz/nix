@@ -1,3 +1,12 @@
+hook global ModuleLoaded smarttab %{
+    set-option global softtabstop 4
+    hook global WinSetOption filetype=(rust|markdown|kak|lisp|scheme|sh|perl) expandtab
+    hook global WinSetOption filetype=(makefile|gas) noexpandtab
+    hook global WinSetOption filetype=(c|cpp) smarttab
+}
+hook global BufOpenFile .* expandtab
+hook global BufNewFile  .* expandtab
+
 declare-option -docstring "name of the directory the file is in" \
     str buffile_directory_path
 

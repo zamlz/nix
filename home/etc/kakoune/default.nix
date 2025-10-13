@@ -17,6 +17,7 @@ in {
     plugins = with pkgs.kakounePlugins; [
       kak-ansi
       kakoune-registers
+      smarttab-kak
     ];
 
     config = {
