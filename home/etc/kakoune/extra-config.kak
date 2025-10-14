@@ -1,3 +1,5 @@
+require-module "byline"
+
 hook global ModuleLoaded smarttab %{
     set-option global softtabstop 4
     hook global WinSetOption filetype=(rust|markdown|kak|lisp|scheme|sh|perl) expandtab

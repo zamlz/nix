@@ -15,6 +15,7 @@ in {
     enable = true;
 
     plugins = with pkgs.kakounePlugins; [
+      byline-kak
       kak-ansi
       kakoune-registers
       smarttab-kak
