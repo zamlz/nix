@@ -7,22 +7,24 @@
 }: {
   programs.git = {
     enable = true;
-    userName = "Amlesh Sivanantham (zamlz)";
-    userEmail = "zamlz@pm.me";
-    signing = {
-      signByDefault = true;
-      key = "0x882C395C3B28902C";
-    };
-    aliases = {
-      root = "rev-parse --show-toplevel";
-    };
-    extraConfig = {
+    settings = {
+      alias = {
+        root = "rev-parse --show-toplevel";
+      };
       init = {
         defaultBranch = "main";
       };
       pull = {
         ff = "only";
       };
+      user = {
+        name = "Amlesh Sivanantham (zamlz)";
+        email = "zamlz@pm.me";
+      };
+    };
+    signing = {
+      signByDefault = true;
+      key = "0x882C395C3B28902C";
     };
   };
 

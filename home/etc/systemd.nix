@@ -9,8 +9,14 @@
     enable = true;
 
     # Systemd task to clean out my tmp directory if a file gets over a week old
-    tmpfiles.rules = [
-      "D /home/amlesh/tmp 0700 amlesh users"
-    ];
+    tmpfiles.settings.tempDownloadDir.rules = {
+      "/home/amlesh/tmp" = {
+        "D" = {
+          mode = "0700";
+          user = "amlesh";
+          group = "users";
+        };
+      };
+    };
   };
 }
