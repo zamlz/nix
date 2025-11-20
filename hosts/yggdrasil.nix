@@ -13,6 +13,7 @@
     ../hardware/yggdrasil-cincoze-ds1201.nix
     ../nixos
     ./services/kavita.nix
+    ./services/netdata.nix
   ];
 
   networking.hostName = "yggdrasil";

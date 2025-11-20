@@ -12,6 +12,7 @@
     # Import your generated (nixos-generate-config) hardware configuration
     ../hardware/alexandria-qnap.nix
     ../nixos
+    ./services/netdata.nix
   ];
 
   networking.hostName = "alexandria";
