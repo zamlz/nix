@@ -6,6 +6,8 @@
   systemConfig,
   ...
 }: let
+  # FIXME: All alacritty launches (regardless of termprompt) should be generalized
+  # This means that things like working directory should be set
   terminal = "${pkgs.alacritty}/bin/alacritty";
   # FIXME: Consolidate this to a script so it is easier to generalize
   termPromptLauncher = script: lineNum: columnNum: fontSize: let
@@ -22,21 +24,19 @@
   IdenticalTerminalLauncher = let
     saveWindowId = "$HOME/.config/sxhkd/navi/tools/save_active_window_id.py";
   in "${saveWindowId}; ${terminal} -e $HOME/.config/sxhkd/spawn_identical_shell.py";
-  ProgramLauncher = termPromptLauncher "$HOME/.config/sxhkd/fzf-program-launcher.sh" 16 80 9;
-  WindowSwitcher = termPromptLauncher "$HOME/.config/sxhkd/window_switcher.py" 20 128 9;
-  PasswordStore = termPromptLauncher "$HOME/.config/sxhkd/password-store.py" 14 100 9;
-  SystemManager = termPromptLauncher "$HOME/.config/sxhkd/system_manager.py" 6 40 12;
-  WorkspaceManager = termPromptLauncher "$HOME/.config/sxhkd/workspace_manager.py" 10 120 9;
+  Calculator = termPromptLauncher "$HOME/.config/sxhkd/calculator.py" 12 96 12;
   FileSystemExplorer = termPromptLauncher "$HOME/.config/sxhkd/file_system_explorer.py" 35 164 8;
   FileSystemOpen = termPromptLauncher "$HOME/.config/sxhkd/file_system_open.py" 35 164 8;
-  ManPageOpen = termPromptLauncher "$HOME/.config/sxhkd/man_open.py" 35 164 8;
-  RipGrep = termPromptLauncher "$HOME/.config/sxhkd/ripgrep.py" 35 164 8;
-  Calculator = termPromptLauncher "$HOME/.config/sxhkd/calculator.py" 12 96 12;
   GitManager = termPromptLauncher "$HOME/.config/sxhkd/git_manager.py" 35 164 8;
+  LogJournalEntry = termPromptLauncher "$HOME/usr/notes/bin/notes log" 20 128 9;
   maimScreenshot = "$HOME/.config/sxhkd/maim-screenshot.sh";
-  # FIXME: All alacritty launches (regardless of termprompt) should be generalized
-  # This means that things like working directory should be set
-  NvimTelekasten = "alacritty --command nvim +Telekasten";
+  ManPageOpen = termPromptLauncher "$HOME/.config/sxhkd/man_open.py" 35 164 8;
+  PasswordStore = termPromptLauncher "$HOME/.config/sxhkd/password-store.py" 14 100 9;
+  ProgramLauncher = termPromptLauncher "$HOME/.config/sxhkd/fzf-program-launcher.sh" 16 80 9;
+  RipGrep = termPromptLauncher "$HOME/.config/sxhkd/ripgrep.py" 35 164 8;
+  SystemManager = termPromptLauncher "$HOME/.config/sxhkd/system_manager.py" 6 40 12;
+  WindowSwitcher = termPromptLauncher "$HOME/.config/sxhkd/window_switcher.py" 20 128 9;
+  WorkspaceManager = termPromptLauncher "$HOME/.config/sxhkd/workspace_manager.py" 10 120 9;
 in {
   xdg.configFile = {
     "sxhkd/file_preview.sh".source = ../../../scripts/file_preview.sh;
@@ -88,7 +88,7 @@ in {
       "super + x; shift + f" = "${FileSystemOpen} --file --global-search";
 
       # Notes
-      "super + n" = "${NvimTelekasten}";
+      "super + n" = "${LogJournalEntry}";
 
       # External Tools
       "super + g" = "${GitManager}";
