@@ -18,6 +18,6 @@
   };
 
   networking.firewall.allowedTCPPorts = [
-    19999  # netdata default port # FIXME: programmatically obtain this value
+    19999 # netdata default port # FIXME: programmatically obtain this value
   ];
 }
