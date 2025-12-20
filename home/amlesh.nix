@@ -7,6 +7,7 @@
   ...
 }: let
   cliImports = [
+    ./etc/bat.nix
     ./etc/claude.nix
     ./etc/eza.nix
     ./etc/fastfetch.nix
@@ -29,7 +30,6 @@
   ];
   cliPackages = with pkgs; [
     # System CLI Tools
-    bat
     mediainfo
     pv
     qpdf
