@@ -67,6 +67,7 @@ in {
       ./init/substring-search.zsh
       ./init/python-venv.zsh
       ./init/encryption.zsh
+      ./init/usb-utils.zsh
     ];
   };
 }

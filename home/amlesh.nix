@@ -32,6 +32,7 @@
     ripgrep
     yt-dlp
     mediainfo
+    pv
     # Fun CLI Tools
     cmatrix
     figlet
