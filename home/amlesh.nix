@@ -24,6 +24,7 @@
     ./etc/taskwarrior.nix
     ./etc/tmux.nix
     ./etc/trash-cli.nix
+    ./etc/yt-dlp.nix
     ./etc/zsh
   ];
   cliPackages = with pkgs; [
