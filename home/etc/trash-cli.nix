@@ -5,13 +5,13 @@
   pkgs,
   ...
 }: {
-  home.packages = with pkgs; [ trash-cli ];
+  home.packages = with pkgs; [trash-cli];
 
   # Cleanup files that are older than 30 days from the trash can
   systemd.user = let
     unitInfo = {
       Description = "Empty old trash (> 30 days) for trash-cli";
-      Documentation = [ "man:trash-empty(1)" ];
+      Documentation = ["man:trash-empty(1)"];
     };
   in {
     enable = true;
@@ -25,7 +25,7 @@
           StandardError = "journal";
         };
         Install = {
-          WantedBy = [ "timers.target" ];
+          WantedBy = ["timers.target"];
         };
       };
     };
