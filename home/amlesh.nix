@@ -23,16 +23,18 @@
     ./etc/systemd.nix
     ./etc/taskwarrior.nix
     ./etc/tmux.nix
+    ./etc/trash-cli.nix
     ./etc/zsh
   ];
   cliPackages = with pkgs; [
     # System CLI Tools
     bat
-    qpdf
-    ripgrep
-    yt-dlp
     mediainfo
     pv
+    qpdf
+    ripgrep
+    rsync
+    yt-dlp
     # Fun CLI Tools
     cmatrix
     figlet
