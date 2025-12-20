@@ -40,10 +40,7 @@ def main() -> None:
             f"start:reload:{RG_COMMAND} \"\"",
             f"change:reload:{RG_COMMAND} {{q}} || true",
         ],
-        preview=(
-            "bat --color=always --style=numbers --theme=ansi "
-            "{1} --highlight-line {2}"
-        ),
+        preview="bat {1} --highlight-line {2}",
         preview_window="down,60%,border-top,+{2}+3/3",
         preview_label="[File Preview]"
     )

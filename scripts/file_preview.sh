@@ -7,7 +7,7 @@ elif [ -f $1 ]; then
     # it errors on binary files, then display media-info instead
     if [ $? -eq 0 ]; then
         # FIXME: One day i will figure out how to use the exact colors my editor uses
-        bat --color=always --style=numbers --line-range=:500 --theme=ansi $1
+        bat --line-range=:500 $1
     else
         mediainfo $1
     fi
