@@ -5,7 +5,7 @@
   pkgs,
   ...
 }: let
-  colorScheme = (import ../colorschemes.nix).defaultColorScheme;
+  colorScheme = (import ../../config/colorschemes.nix).defaultColorScheme;
 in {
   xdg.configFile."polybar/kernel_info.sh" = {
     source = ./kernel_info.sh;

@@ -8,7 +8,7 @@
   colorScheme =
     lib.attrsets.mapAttrs
     (name: value: builtins.replaceStrings ["#"] ["rgb:"] value)
-    (import ./colorschemes.nix).defaultColorScheme;
+    (import ../config/colorschemes.nix).defaultColorScheme;
 in {
   programs.kakoune = {
     defaultEditor = true;

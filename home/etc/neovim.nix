@@ -5,7 +5,7 @@
   pkgs,
   ...
 }: let
-  colorScheme = (import ./colorschemes.nix).defaultColorScheme;
+  colorScheme = (import ../config/colorschemes.nix).defaultColorScheme;
 in {
   programs.nixvim = {
     enable = false;

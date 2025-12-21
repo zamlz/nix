@@ -6,7 +6,7 @@
   systemConfig,
   ...
 }: let
-  colorScheme = (import ./colorschemes.nix).defaultColorScheme;
+  colorScheme = (import ../config/colorschemes.nix).defaultColorScheme;
 in {
   programs.kitty = {
     # TODO: explore kitty remote-control featuers and cloning
