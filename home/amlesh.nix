@@ -54,17 +54,6 @@
         loguru # FIXME: navi dependencies should be tracked seperately
       ]))
   ];
-  guiImports = [
-    ./etc/alacritty.nix
-    ./etc/feh.nix
-    ./etc/herbstluftwm.nix
-    ./etc/kitty.nix # [unused]
-    ./etc/mpv.nix
-    ./etc/polybar
-    ./etc/qutebrowser.nix
-    ./etc/sxhkd
-    ./etc/xinit
-  ];
   guiPackages = with pkgs; [
     # Fonts
     iosevka
@@ -91,7 +80,7 @@ in {
   # choose imports based on graphical or server environment
   imports =
     if systemConfig.useGUI
-    then cliImports ++ guiImports
+    then cliImports ++ [ ./gui ]
     else cliImports;
 
   # Let Home Manager install and manage itself.
