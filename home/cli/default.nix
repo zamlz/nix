@@ -45,8 +45,8 @@
     kittysay
     lolcat
     # Nix Dev Tools
-    alejandra
     deadnix
+    nixfmt
     statix
     # Misc Experiments
     pipenv

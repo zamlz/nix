@@ -34,9 +34,9 @@ jobs:
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
 
     # Verifies that all Nix code follows consistent formatting rules
-    # Uses alejandra formatter to ensure code style consistency across the project
+    # Uses nixfmt formatter to ensure code style consistency across the project
     - name: Check code formatting
-      run: nix run nixpkgs#alejandra -- --check .
+      run: nix run nixpkgs#nixfmt -- --check .
 
     #Check that all Nix code adheres to best practices and style guidelines
     - name: Run statix linter
