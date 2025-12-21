@@ -55,11 +55,83 @@ nix-channel --add https://nixos.org/channels/nixos-unstable nixos
 nixos-rebuild switch --upgrade
 ```
 
+## Directory Structure
+
+The following directory stores my `home-manager` configurations. They
+are sorted into their respective tools, `cli` and `desktop`. A `common`
+folder is kept for useful shared data.
+
+```
+home/
+  amlesh.nix
+  common/
+    colorschemes.nix
+    ...
+  cli/
+    default.nix
+    git.nix
+    kakoune.nix
+    ...
+  desktop/
+    default.nix
+    alacritty.nix
+    herbstluftwm.nix
+    ...
+```
+
+Every machine I use has their own `home.nix` config. Some machines
+are not NixOS so they do not need the `configuration.nix` or the
+`hardware-configuration.nix`
+
+Currently, if a `home.nix` is not present, it means it's using the
+default one found in `home/amlesh.nix`
+
+```
+hosts/
+  solaris/
+    configuration.nix
+    hardware-configuration.nix
+    home.nix
+  alexandria/
+    services/
+      ...
+    configuration.nix
+    hardware-configuration.nix
+    home.nix
+  eorzea/
+    home.nix
+```
+
+All NixOS system level configurations
+```
+nixos/
+  audio.nix
+  security.nix
+  nix.nix
+  ...
+```
+
+For customize packages that I'd like to use (in the future), I will
+store their definitions here.
+
+```
+pkgs/
+  ...
+```
+
+For various templates that are "nix" related, I store them here
+
+```
+templates/
+  python.nix
+  rust.nix
+```
 
 ## Misc
 
-Refer to this for neovim
-```
-https://github.com/zamlz/nix/blob/007d7ffa9c244af4d539fa7b32e8cb2a76ae4d91/shell/neovim.nix
-```
+Refer to this for neovim configuration reference
+- <https://github.com/zamlz/nix/blob/007d7ffa9c244af4d539fa7b32e8cb2a76ae4d91/shell/neovim.nix>
+
+Usefule configs to take a look at:
+- <https://github.com/kaleocheng/nix-dots/tree/master>
 `
