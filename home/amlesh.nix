@@ -8,9 +8,6 @@
 }: {
   imports = if systemConfig.useGUI then [ ./cli ./gui ] else [ ./cli ];
 
-  # make sure to enable man pages for all things home-manager installs
-  programs.man.generateCaches = true;
-
   home = {
     username = "amlesh";
     homeDirectory = "/home/amlesh";
