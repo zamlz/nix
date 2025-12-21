@@ -18,7 +18,7 @@
     ./etc/helix.nix # [unused]
     ./etc/kakoune.nix
     ./etc/lazygit.nix
-    ./etc/neovim # [unused]
+    ./etc/neovim.nix # [unused]
     ./etc/password-store.nix
     ./etc/ssh.nix
     ./etc/systemd.nix
