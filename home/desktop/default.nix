@@ -5,7 +5,8 @@
   pkgs,
   systemConfig,
   ...
-}: {
+}:
+{
   imports = [
     ./alacritty.nix
     ./feh.nix

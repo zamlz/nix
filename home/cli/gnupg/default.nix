@@ -4,7 +4,8 @@
   config,
   pkgs,
   ...
-}: {
+}:
+{
   programs.gpg = {
     enable = true;
     homedir = "${config.xdg.configHome}/gnupg";
@@ -59,6 +60,6 @@
     maxCacheTtl = 7200;
     maxCacheTtlSsh = 7200;
     pinentry.package = pkgs.pinentry-curses;
-    sshKeys = ["FA508B6D901BA2A59DE2B7E521EBE58F4CDD6C0D"];
+    sshKeys = [ "FA508B6D901BA2A59DE2B7E521EBE58F4CDD6C0D" ];
   };
 }

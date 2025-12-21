@@ -4,8 +4,9 @@
   config,
   pkgs,
   ...
-}: {
-  users.extraGroups.docker.members = ["amlesh"];
+}:
+{
+  users.extraGroups.docker.members = [ "amlesh" ];
 
   virtualisation.docker = {
     enable = true;

@@ -4,7 +4,8 @@
   config,
   pkgs,
   ...
-}: {
+}:
+{
   services.printing.enable = true;
 
   # enable autodiscovery of network printers

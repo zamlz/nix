@@ -5,9 +5,11 @@
   pkgs,
   systemConfig,
   ...
-}: let
+}:
+let
   colorScheme = (import ../common/colorschemes.nix).defaultColorScheme;
-in {
+in
+{
   programs.alacritty = {
     enable = true;
     settings = {

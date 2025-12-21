@@ -5,25 +5,30 @@
   pkgs,
   systemConfig,
   ...
-}: let
+}:
+let
   # FIXME: All alacritty launches (regardless of termprompt) should be generalized
   # This means that things like working directory should be set
   terminal = "${pkgs.alacritty}/bin/alacritty";
   # FIXME: Consolidate this to a script so it is easier to generalize
-  termPromptLauncher = script: lineNum: columnNum: fontSize: let
-    saveWindowId = "$HOME/.config/sxhkd/navi/tools/save_active_window_id.py";
-    fontOption = "--option 'font.size=${builtins.toString (systemConfig.fontScale * fontSize)}'";
-    lineOption = "--option 'window.dimensions.lines=${builtins.toString lineNum}'";
-    columnOption = "--option 'window.dimensions.columns=${builtins.toString columnNum}'";
-    termClass = "--class 'termprompt,termprompt'";
-  in
+  termPromptLauncher =
+    script: lineNum: columnNum: fontSize:
+    let
+      saveWindowId = "$HOME/.config/sxhkd/navi/tools/save_active_window_id.py";
+      fontOption = "--option 'font.size=${builtins.toString (systemConfig.fontScale * fontSize)}'";
+      lineOption = "--option 'window.dimensions.lines=${builtins.toString lineNum}'";
+      columnOption = "--option 'window.dimensions.columns=${builtins.toString columnNum}'";
+      termClass = "--class 'termprompt,termprompt'";
+    in
     # To be clear, not all commands need the saveWindowId script. But some commands do need to have
     # this window id saved before the terminal instance is spawed. To be safe, we simply do it for
     # all of them thanks to this function
     "${saveWindowId}; ${terminal} ${termClass} ${fontOption} ${lineOption} ${columnOption} --command ${script}";
-  IdenticalTerminalLauncher = let
-    saveWindowId = "$HOME/.config/sxhkd/navi/tools/save_active_window_id.py";
-  in "${saveWindowId}; ${terminal} -e $HOME/.config/sxhkd/spawn_identical_shell.py";
+  IdenticalTerminalLauncher =
+    let
+      saveWindowId = "$HOME/.config/sxhkd/navi/tools/save_active_window_id.py";
+    in
+    "${saveWindowId}; ${terminal} -e $HOME/.config/sxhkd/spawn_identical_shell.py";
   Calculator = termPromptLauncher "$HOME/.config/sxhkd/calculator.py" 12 96 12;
   FileSystemExplorer = termPromptLauncher "$HOME/.config/sxhkd/file_system_explorer.py" 35 164 8;
   FileSystemOpen = termPromptLauncher "$HOME/.config/sxhkd/file_system_open.py" 35 164 8;
@@ -37,7 +42,8 @@
   SystemManager = termPromptLauncher "$HOME/.config/sxhkd/system_manager.py" 6 40 12;
   WindowSwitcher = termPromptLauncher "$HOME/.config/sxhkd/window_switcher.py" 20 128 9;
   WorkspaceManager = termPromptLauncher "$HOME/.config/sxhkd/workspace_manager.py" 10 120 9;
-in {
+in
+{
   xdg.configFile = {
     "sxhkd/file_preview.sh".source = ../../../scripts/file_preview.sh;
     "sxhkd/man_preview.sh".source = ../../../scripts/man_preview.sh;

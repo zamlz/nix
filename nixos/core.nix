@@ -4,7 +4,8 @@
   config,
   pkgs,
   ...
-}: {
+}:
+{
   time.timeZone = "America/Los_Angeles";
   i18n.defaultLocale = "en_US.UTF-8";
 
@@ -13,25 +14,27 @@
     earlySetup = true;
     #font = "${pkgs.terminus_font}/share/consolefonts/ter-128n.psf.gz";
     font = "${pkgs.terminus_font}/share/consolefonts/ter-118n.psf.gz";
-    packages = with pkgs; [terminus_font];
+    packages = with pkgs; [ terminus_font ];
     keyMap = "us";
   };
 
-  environment.etc."issue".text = let
-    # FIXME: Get this value :(
-    # name = users.users.amlesh.description;
-    name = "Amlesh Sivanantham (zamlz)";
-  in ''
+  environment.etc."issue".text =
+    let
+      # FIXME: Get this value :(
+      # name = users.users.amlesh.description;
+      name = "Amlesh Sivanantham (zamlz)";
+    in
+    ''
 
-      ███    ██ ██ ██   ██  ██████  ███████   Hostname: \n
-      ████   ██ ██  ██ ██  ██    ██ ██        Kernel: \s \r (\m)
-      ██ ██  ██ ██   ███   ██    ██ ███████   Build: \v
-      ██  ██ ██ ██  ██ ██  ██    ██      ██   Date: \d \t
-      ██   ████ ██ ██   ██  ██████  ███████   TTY: \l
+        ███    ██ ██ ██   ██  ██████  ███████   Hostname: \n
+        ████   ██ ██  ██ ██  ██    ██ ██        Kernel: \s \r (\m)
+        ██ ██  ██ ██   ███   ██    ██ ███████   Build: \v
+        ██  ██ ██ ██  ██ ██  ██    ██      ██   Date: \d \t
+        ██   ████ ██ ██   ██  ██████  ███████   TTY: \l
 
-    Welcome ${name}!
+      Welcome ${name}!
 
-  '';
+    '';
 
   environment = {
     systemPackages = with pkgs; [

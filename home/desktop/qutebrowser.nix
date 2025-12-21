@@ -4,9 +4,11 @@
   config,
   pkgs,
   ...
-}: let
+}:
+let
   colorScheme = (import ../common/colorschemes.nix).defaultColorScheme;
-in {
+in
+{
   programs.qutebrowser = {
     enable = true;
     loadAutoconfig = false;
@@ -57,7 +59,7 @@ in {
       downloads.location.directory = "~/tmp";
       fonts = {
         default_size = "14pt";
-        default_family = ["Iosevka"];
+        default_family = [ "Iosevka" ];
       };
     };
   };

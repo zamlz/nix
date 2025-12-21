@@ -7,7 +7,8 @@
   config,
   pkgs,
   ...
-}: {
+}:
+{
   imports = [
     # Import your generated (nixos-generate-config) hardware configuration
     ./hardware-configuration.nix
@@ -43,7 +44,7 @@
         y = 1440;
       }
     ];
-    videoDrivers = ["nvidia"];
+    videoDrivers = [ "nvidia" ];
   };
   hardware.nvidia = {
     modesetting.enable = true;
@@ -60,10 +61,13 @@
     device = "10.69.8.4:/media";
     fsType = "nfs";
     # enable lazy mounting for this share
-    options = ["x-systemd.automount" "noauto"];
+    options = [
+      "x-systemd.automount"
+      "noauto"
+    ];
   };
   # optional, but ensures rpc-statsd is running for on demand mounting
-  boot.supportedFilesystems = ["nfs"];
+  boot.supportedFilesystems = [ "nfs" ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

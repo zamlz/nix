@@ -5,9 +5,11 @@
   pkgs,
   systemConfig,
   ...
-}: let
+}:
+let
   colorScheme = (import ../common/colorschemes.nix).defaultColorScheme;
-in {
+in
+{
   xsession.windowManager.herbstluftwm = {
     enable = true;
     extraConfig = ''
@@ -51,104 +53,108 @@ in {
     '';
     # mod4 is SUPER
     # You can use xev to identify X11 keys very easily!
-    keybinds = let
-      super = "Mod4";
-      resizestep = "0.01";
-    in {
-      # This is a backup quit option in case sxhkd fails
-      "${super}-Ctrl-Alt-Shift-Escape" = "quit";
+    keybinds =
+      let
+        super = "Mod4";
+        resizestep = "0.01";
+      in
+      {
+        # This is a backup quit option in case sxhkd fails
+        "${super}-Ctrl-Alt-Shift-Escape" = "quit";
 
-      # Reload WM and Close Window
-      "${super}-Ctrl-Alt-r" = "chain , spawn $HOME/etc/xorg/refresh.sh , reload";
-      "${super}-Ctrl-r" = "reload";
-      "${super}-q" = "close";
+        # Reload WM and Close Window
+        "${super}-Ctrl-Alt-r" = "chain , spawn $HOME/etc/xorg/refresh.sh , reload";
+        "${super}-Ctrl-r" = "reload";
+        "${super}-q" = "close";
 
-      # Window Focus
-      "${super}-h" = "focus left";
-      "${super}-j" = "focus down";
-      "${super}-k" = "focus up";
-      "${super}-l" = "focus right";
+        # Window Focus
+        "${super}-h" = "focus left";
+        "${super}-j" = "focus down";
+        "${super}-k" = "focus up";
+        "${super}-l" = "focus right";
 
-      # defining keybindings for cycling the focused client
-      #"${super}-BackSpace" = "cycle_monitor";  # FIXME: this is used already
-      "${super}-Tab" = "cycle +1";
-      "${super}-Shift-Tab" = "cycle -1";
-      "${super}-Control-Tab" = "cycle_frame +1";
-      "${super}-Control-Shift-Tab" = "cycle_frame -1";
-      "${super}-Control-Alt-Tab" = "cycle_all +1";
-      "${super}-Control-Alt-Shift-Tab" = "cycle_all -1";
-      "${super}-i" = "jumpto urgent";
+        # defining keybindings for cycling the focused client
+        #"${super}-BackSpace" = "cycle_monitor";  # FIXME: this is used already
+        "${super}-Tab" = "cycle +1";
+        "${super}-Shift-Tab" = "cycle -1";
+        "${super}-Control-Tab" = "cycle_frame +1";
+        "${super}-Control-Shift-Tab" = "cycle_frame -1";
+        "${super}-Control-Alt-Tab" = "cycle_all +1";
+        "${super}-Control-Alt-Shift-Tab" = "cycle_all -1";
+        "${super}-i" = "jumpto urgent";
 
-      # Window Movement
-      "${super}-Shift-h" = "shift left";
-      "${super}-Shift-j" = "shift down";
-      "${super}-Shift-k" = "shift up";
-      "${super}-Shift-l" = "shift right";
+        # Window Movement
+        "${super}-Shift-h" = "shift left";
+        "${super}-Shift-j" = "shift down";
+        "${super}-Shift-k" = "shift up";
+        "${super}-Shift-l" = "shift right";
 
-      # Splitting Frames
-      "${super}-u" = "split bottom 0.5";
-      "${super}-o" = "split right 0.5";
-      "${super}-Control-space" = "split explode";
-      "${super}-r" = "remove";
+        # Splitting Frames
+        "${super}-u" = "split bottom 0.5";
+        "${super}-o" = "split right 0.5";
+        "${super}-Control-space" = "split explode";
+        "${super}-r" = "remove";
 
-      # Resizing Frames
-      "${super}-Control-h" = "resize left +${resizestep}";
-      "${super}-Control-Alt-h" = "resize left -${resizestep}";
-      "${super}-Control-j" = "resize down +${resizestep}";
-      "${super}-Control-Alt-j" = "resize down -${resizestep}";
-      "${super}-Control-k" = "resize up +${resizestep}";
-      "${super}-Control-Alt-k" = "resize up -${resizestep}";
-      "${super}-Control-l" = "resize right +${resizestep}";
-      "${super}-Control-Alt-l" = "resize right -${resizestep}";
+        # Resizing Frames
+        "${super}-Control-h" = "resize left +${resizestep}";
+        "${super}-Control-Alt-h" = "resize left -${resizestep}";
+        "${super}-Control-j" = "resize down +${resizestep}";
+        "${super}-Control-Alt-j" = "resize down -${resizestep}";
+        "${super}-Control-k" = "resize up +${resizestep}";
+        "${super}-Control-Alt-k" = "resize up -${resizestep}";
+        "${super}-Control-l" = "resize right +${resizestep}";
+        "${super}-Control-Alt-l" = "resize right -${resizestep}";
 
-      # Workspace Movement
-      "${super}-grave" = "use_previous";
-      "${super}-bracketright" = "use_index +1 --skip-visible";
-      "${super}-bracketleft" = "use_index -1 --skip-visible";
+        # Workspace Movement
+        "${super}-grave" = "use_previous";
+        "${super}-bracketright" = "use_index +1 --skip-visible";
+        "${super}-bracketleft" = "use_index -1 --skip-visible";
 
-      # Layout Control
-      "${super}-s" = "floating toggle";
-      "${super}-t" = "pseudotile toggle";
-      "${super}-f" = "fullscreen toggle";
+        # Layout Control
+        "${super}-s" = "floating toggle";
+        "${super}-t" = "pseudotile toggle";
+        "${super}-f" = "fullscreen toggle";
 
-      # The following cycles through the available layouts within a frame, but skips
-      # layouts, if the layout change wouldn't affect the actual window positions.
-      # (I.e. if there are two windows within a frame, the grid layout is skipped.)
-      "${super}-space" = ''
-        or , and . compare tags.focus.curframe_wcount = 2 \
-                 . cycle_layout +1 vertical horizontal max vertical grid \
-           , cycle_layout +1
-      '';
+        # The following cycles through the available layouts within a frame, but skips
+        # layouts, if the layout change wouldn't affect the actual window positions.
+        # (I.e. if there are two windows within a frame, the grid layout is skipped.)
+        "${super}-space" = ''
+          or , and . compare tags.focus.curframe_wcount = 2 \
+                   . cycle_layout +1 vertical horizontal max vertical grid \
+             , cycle_layout +1
+        '';
 
-      # Tag Definitions (workspaces)
-      "${super}-1" = "use_index 0";
-      "${super}-2" = "use_index 1";
-      "${super}-3" = "use_index 2";
-      "${super}-4" = "use_index 3";
-      "${super}-5" = "use_index 4";
-      "${super}-6" = "use_index 5";
-      "${super}-7" = "use_index 6";
-      "${super}-8" = "use_index 7";
-      "${super}-9" = "use_index 8";
-      "${super}-0" = "use_index 9";
-      "${super}-Shift-1" = "move_index 0";
-      "${super}-Shift-2" = "move_index 1";
-      "${super}-Shift-3" = "move_index 2";
-      "${super}-Shift-4" = "move_index 3";
-      "${super}-Shift-5" = "move_index 4";
-      "${super}-Shift-6" = "move_index 5";
-      "${super}-Shift-7" = "move_index 6";
-      "${super}-Shift-8" = "move_index 7";
-      "${super}-Shift-9" = "move_index 8";
-      "${super}-Shift-0" = "move_index 9";
-    };
-    mousebinds = let
-      super = "Mod4";
-    in {
-      "${super}-Button1" = "move";
-      "${super}-Button2" = "zoom";
-      "${super}-Button3" = "resize";
-    };
+        # Tag Definitions (workspaces)
+        "${super}-1" = "use_index 0";
+        "${super}-2" = "use_index 1";
+        "${super}-3" = "use_index 2";
+        "${super}-4" = "use_index 3";
+        "${super}-5" = "use_index 4";
+        "${super}-6" = "use_index 5";
+        "${super}-7" = "use_index 6";
+        "${super}-8" = "use_index 7";
+        "${super}-9" = "use_index 8";
+        "${super}-0" = "use_index 9";
+        "${super}-Shift-1" = "move_index 0";
+        "${super}-Shift-2" = "move_index 1";
+        "${super}-Shift-3" = "move_index 2";
+        "${super}-Shift-4" = "move_index 3";
+        "${super}-Shift-5" = "move_index 4";
+        "${super}-Shift-6" = "move_index 5";
+        "${super}-Shift-7" = "move_index 6";
+        "${super}-Shift-8" = "move_index 7";
+        "${super}-Shift-9" = "move_index 8";
+        "${super}-Shift-0" = "move_index 9";
+      };
+    mousebinds =
+      let
+        super = "Mod4";
+      in
+      {
+        "${super}-Button1" = "move";
+        "${super}-Button2" = "zoom";
+        "${super}-Button3" = "resize";
+      };
     # We have a rule here that makes `termprompt` type windows automatically
     # float. This is used for the custom fzf-alacritty scripts spawned by
     # sxhkd.
@@ -177,6 +183,6 @@ in {
       "mouse_recenter_gap" = 0;
       "tree_style" = "╾│ ├└╼─┐";
     };
-    tags = ["λ"];
+    tags = [ "λ" ];
   };
 }

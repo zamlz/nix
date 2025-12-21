@@ -5,11 +5,11 @@
   pkgs,
   systemConfig,
   ...
-}: let
-  readFileList = files:
-    builtins.concatStringsSep "\n"
-    (map (f: builtins.readFile f) files);
-in {
+}:
+let
+  readFileList = files: builtins.concatStringsSep "\n" (map (f: builtins.readFile f) files);
+in
+{
   programs.zsh = {
     enable = true;
     dotDir = "${config.xdg.configHome}/zsh";
@@ -55,10 +55,7 @@ in {
       please = "sudo";
       weather = "curl wttr.in";
     };
-    loginExtra =
-      if systemConfig.useGUI
-      then builtins.readFile ./login.zsh
-      else "";
+    loginExtra = if systemConfig.useGUI then builtins.readFile ./login.zsh else "";
     envExtra = builtins.readFile ./environment.zsh;
     initContent = readFileList [
       ./init/prompt.zsh

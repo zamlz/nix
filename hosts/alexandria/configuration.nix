@@ -7,7 +7,8 @@
   config,
   pkgs,
   ...
-}: {
+}:
+{
   imports = [
     ./hardware-configuration.nix
     ../../nixos
@@ -24,7 +25,7 @@
     };
 
     # This is configuration needed to use ZFS on the NAS
-    supportedFilesystems = ["zfs"];
+    supportedFilesystems = [ "zfs" ];
     zfs.devNodes = "/dev/disk/by-id/";
   };
 
@@ -37,7 +38,7 @@
   # we bind mount the nas to the export location
   fileSystems."/export/nas/media" = {
     device = "/mnt/nas/media";
-    options = ["bind"];
+    options = [ "bind" ];
   };
 
   services.nfs.server = {

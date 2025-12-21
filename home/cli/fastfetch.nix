@@ -4,7 +4,8 @@
   config,
   pkgs,
   ...
-}: {
+}:
+{
   # A simple, fast and user-friendly alternative to 'find'
   programs.fastfetch = {
     enable = true;

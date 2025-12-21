@@ -5,11 +5,16 @@
   pkgs,
   systemConfig,
   ...
-}: {
+}:
+{
   imports =
-    if systemConfig.useGUI
-    then [./cli ./desktop]
-    else [./cli];
+    if systemConfig.useGUI then
+      [
+        ./cli
+        ./desktop
+      ]
+    else
+      [ ./cli ];
 
   # DO NOT CHANGE: home.stateVersion
   # This determines the home manager release that your configuration is

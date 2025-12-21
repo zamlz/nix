@@ -47,6 +47,7 @@ let
     cyanAlt = "#00eff0";
     whiteAlt = "#989898";
   };
-in {
+in
+{
   defaultColorScheme = gruvboxBlack;
 }

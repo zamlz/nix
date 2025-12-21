@@ -4,12 +4,13 @@
   config,
   pkgs,
   ...
-}: let
-  colorScheme =
-    lib.attrsets.mapAttrs
-    (name: value: builtins.replaceStrings ["#"] ["rgb:"] value)
-    (import ../../common/colorschemes.nix).defaultColorScheme;
-in {
+}:
+let
+  colorScheme = lib.attrsets.mapAttrs (
+    name: value: builtins.replaceStrings [ "#" ] [ "rgb:" ] value
+  ) (import ../../common/colorschemes.nix).defaultColorScheme;
+in
+{
   programs.kakoune = {
     defaultEditor = true;
     enable = true;
@@ -23,11 +24,17 @@ in {
 
     config = {
       alignWithTabs = false;
-      autoComplete = ["insert" "prompt"];
-      autoInfo = ["command" "onkey"];
+      autoComplete = [
+        "insert"
+        "prompt"
+      ];
+      autoInfo = [
+        "command"
+        "onkey"
+      ];
       autoReload = "yes";
       colorScheme = "navi"; # defined below
-      hooks = [];
+      hooks = [ ];
       incrementalSearch = true;
       indentWidth = 4;
       numberLines = {

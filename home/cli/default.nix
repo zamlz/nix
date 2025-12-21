@@ -5,7 +5,8 @@
   pkgs,
   systemConfig,
   ...
-}: {
+}:
+{
   imports = [
     ./bat.nix
     ./claude.nix
@@ -50,11 +51,12 @@
     statix
     # Misc Experiments
     pipenv
-    (python3.withPackages (ps:
-      with ps; [
+    (python3.withPackages (
+      ps: with ps; [
         ipdb
         ipython
         loguru # FIXME: navi dependencies should be tracked seperately
-      ]))
+      ]
+    ))
   ];
 }

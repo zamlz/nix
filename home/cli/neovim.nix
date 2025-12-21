@@ -4,9 +4,11 @@
   config,
   pkgs,
   ...
-}: let
+}:
+let
   colorScheme = (import ../common/colorschemes.nix).defaultColorScheme;
-in {
+in
+{
   programs.nixvim = {
     enable = false;
     enableMan = true;
@@ -81,11 +83,21 @@ in {
         enable = true;
         settings = {
           # directories
-          home = {__raw = "vim.fn.expand(\"~/usr/notes\")";};
-          dailies = {__raw = "vim.fn.expand(\"~/usr/notes/journal/day\")";};
-          weeklies = {__raw = "vim.fn.expand(\"~/usr/notes/journal/week\")";};
-          templates = {__raw = "vim.fn.expand(\"~/usr/notes/templates\")";};
-          image_subdir = {__raw = "vim.fn.expand(\"~/usr/notes/data\")";};
+          home = {
+            __raw = "vim.fn.expand(\"~/usr/notes\")";
+          };
+          dailies = {
+            __raw = "vim.fn.expand(\"~/usr/notes/journal/day\")";
+          };
+          weeklies = {
+            __raw = "vim.fn.expand(\"~/usr/notes/journal/week\")";
+          };
+          templates = {
+            __raw = "vim.fn.expand(\"~/usr/notes/templates\")";
+          };
+          image_subdir = {
+            __raw = "vim.fn.expand(\"~/usr/notes/data\")";
+          };
           # templates
           template_new_note = {
             __raw = "vim.fn.expand(\"~/usr/notes/templates/default.md\")";

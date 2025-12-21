@@ -4,10 +4,11 @@
   config,
   pkgs,
   ...
-}: {
+}:
+{
   # NOTE: hostname will be defined in the `/host` specific file!
 
-  users.extraGroups.networkmanager.members = ["amlesh"];
+  users.extraGroups.networkmanager.members = [ "amlesh" ];
 
   networking = {
     extraHosts = ''

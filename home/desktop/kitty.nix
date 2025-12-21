@@ -5,9 +5,11 @@
   pkgs,
   systemConfig,
   ...
-}: let
+}:
+let
   colorScheme = (import ../common/colorschemes.nix).defaultColorScheme;
-in {
+in
+{
   programs.kitty = {
     # TODO: explore kitty remote-control featuers and cloning
     enable = true;

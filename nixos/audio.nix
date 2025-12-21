@@ -4,10 +4,11 @@
   config,
   pkgs,
   ...
-}: {
-  users.extraGroups.audio.members = ["amlesh"];
+}:
+{
+  users.extraGroups.audio.members = [ "amlesh" ];
 
-  environment.systemPackages = with pkgs; [pavucontrol];
+  environment.systemPackages = with pkgs; [ pavucontrol ];
 
   services = {
     pulseaudio = {
