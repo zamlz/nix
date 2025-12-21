@@ -11,11 +11,12 @@
     then [./cli ./desktop]
     else [./cli];
 
+  # DO NOT CHANGE: home.stateVersion
+  # This determines the home manager release that your configuration is
+  # compatible with
   home = {
     username = "amlesh";
     homeDirectory = "/home/amlesh";
-    # This determines the Home Manager release that your configuration is
-    # compatible with. DO NOT CHANGE
     stateVersion = "23.05";
   };
 
