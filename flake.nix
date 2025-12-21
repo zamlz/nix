@@ -89,5 +89,16 @@
         useGUI = false;
       };
     };
+
+    # Standalone home manager setup for non-NixOS installations
+    # FIXME: Need to inherit the systemConfig attribute set somehow
+    homeConfigurations."amlesh" = home-manager.lib.homeManagerConfiguration {
+      pkgs = import nixpkgs {
+        config.allowUnfree = true;
+      };
+      modules = [
+        ./home/amlesh.nix
+      ];
+    };
   };
 }

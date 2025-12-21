@@ -2,7 +2,7 @@
 
 A (WIP) NixOS Configuration repo for all my systems.
 
-## Basic Usage
+## Usage (NixOS)
 
 Install the nixos system. Note this command is hardware dependent. We use the
 hostname to associate hardware.
@@ -16,6 +16,19 @@ If `nh` is availabe on the system, you can simply do
 ```shell
 nh os switch .
 ```
+
+## Usage (Other Linux or Mac)
+
+Since the external linux system is managing the system software, we use
+nix to manage the user software. This will need to have home-manager
+installed in standalone mode.
+
+```shell
+home-manager switch --flake .#{username}
+```
+
+*Note, while it is typical to use `username` here, it is not
+necessary. Refer to the `flake.nix` for the real name*
 
 ## New Installation Guide
 
