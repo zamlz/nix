@@ -11,9 +11,6 @@
     if systemConfig.useGUI
     then [ ./cli ./gui ] else [ ./cli ];
 
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
-
   # make sure to enable man pages for all things home-manager installs
   programs.man.generateCaches = true;
 

@@ -16,6 +16,7 @@
     ./git.nix
     ./gnupg.nix
     ./helix.nix # [unused]
+    ./home-manager.nix
     ./kakoune.nix
     ./lazygit.nix
     ./neovim.nix # [unused]
