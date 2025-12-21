@@ -10,8 +10,8 @@
 }: {
   imports = [
     # Import your generated (nixos-generate-config) hardware configuration
-    ../hardware/xynthar-thinkpad-p14s.nix
-    ../nixos
+    ../../hardware/xynthar-thinkpad-p14s.nix
+    ../../nixos
   ];
 
   networking.hostName = "xynthar";

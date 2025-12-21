@@ -10,18 +10,48 @@
 }: {
   imports = [
     # Import your generated (nixos-generate-config) hardware configuration
-    ../hardware/yggdrasil-cincoze-ds1201.nix
-    ../nixos
-    ./services/kavita.nix
-    ./services/netdata.nix
+    ../../hardware/solaris-corsair-air540.nix
+    ../../nixos
   ];
 
-  networking.hostName = "yggdrasil";
-  networking.hostId = "6e9d6c6c";
+  networking.hostName = "solaris";
+  networking.hostId = "03f96989";
 
-  boot.loader = {
-    systemd-boot.enable = true;
-    efi.canTouchEfiVariables = true;
+  boot = {
+    # NOTE: This is for LUKS for SWAP.
+    initrd = {
+      secrets = {
+        "/crypto_keyfile.bin" = null;
+      };
+      luks.devices."luks-e547a75b-449e-4704-bc89-61587ce72de7" = {
+        device = "/dev/disk/by-uuid/e547a75b-449e-4704-bc89-61587ce72de7";
+        keyFile = "/crypto_keyfile.bin";
+      };
+    };
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
+  };
+
+  # NOTE: Typically, this would be in gui.nix but we don't want this to apply
+  # to all devices.
+  services.xserver = {
+    resolutions = [
+      {
+        x = 5120;
+        y = 1440;
+      }
+    ];
+    videoDrivers = ["nvidia"];
+  };
+  hardware.nvidia = {
+    modesetting.enable = true;
+    powerManagement.enable = false; # experimental and unstable!
+    powerManagement.finegrained = false; # experimental and unstable!
+    open = false;
+    nvidiaSettings = true;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
   # Mount my nas running on alexandria

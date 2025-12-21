@@ -66,26 +66,26 @@
     nixosConfigurations = {
       # Personal Desktop
       solaris = nixosSystemBuilder {
-        hostConfigPath = ./hosts/solaris.nix;
+        hostConfigPath = ./hosts/solaris/configuration.nix;
         fontScale = 2.0;
       };
 
       # Personal Laptop (thinkpad-p14s)
       xynthar = nixosSystemBuilder {
-        hostConfigPath = ./hosts/xynthar.nix;
+        hostConfigPath = ./hosts/xynthar/configuration.nix;
       };
 
       # Home Server
       yggdrasil = nixosSystemBuilder {
         # FIXME: host configuration file needs to understand that GUI is not used
-        hostConfigPath = ./hosts/yggdrasil.nix;
+        hostConfigPath = ./hosts/yggdrasil/configuration.nix;
         useGUI = false;
       };
 
       # NAS
       alexandria = nixosSystemBuilder {
         # FIXME: host configuration file needs to understand that GUI is not used
-        hostConfigPath = ./hosts/alexandria.nix;
+        hostConfigPath = ./hosts/alexandria/configuration.nix;
         useGUI = false;
       };
     };
