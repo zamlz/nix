@@ -9,7 +9,7 @@
   ...
 }: {
   imports = [
-    ../../hardware/alexandria-qnap.nix
+    ./hardware-configuration.nix
     ../../nixos
   ];
 

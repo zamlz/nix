@@ -10,7 +10,7 @@
 }: {
   imports = [
     # Import your generated (nixos-generate-config) hardware configuration
-    ../../hardware/xynthar-thinkpad-p14s.nix
+    ./hardware-configuration.nix
     ../../nixos
   ];
 
