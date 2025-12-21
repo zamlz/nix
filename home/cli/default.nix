@@ -14,10 +14,10 @@
     ./fd.nix
     ./fzf.nix
     ./git.nix
-    ./gnupg.nix
+    ./gnupg
     ./helix.nix # [unused]
     ./home-manager.nix
-    ./kakoune.nix
+    ./kakoune
     ./lazygit.nix
     ./man.nix
     ./neovim.nix # [unused]
