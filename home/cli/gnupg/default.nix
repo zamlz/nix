@@ -12,7 +12,7 @@
     mutableTrust = false;
     publicKeys = [
       {
-        source = ../common/gnupg/public.key;
+        source = ./public.key;
         trust = 5;
       }
     ];
