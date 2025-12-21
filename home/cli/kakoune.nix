@@ -8,7 +8,7 @@
   colorScheme =
     lib.attrsets.mapAttrs
     (name: value: builtins.replaceStrings ["#"] ["rgb:"] value)
-    (import ../config/colorschemes.nix).defaultColorScheme;
+    (import ../common/colorschemes.nix).defaultColorScheme;
 in {
   programs.kakoune = {
     defaultEditor = true;
@@ -46,7 +46,7 @@ in {
       };
     };
 
-    extraConfig = builtins.readFile ../config/kakoune/extra-config.kak;
+    extraConfig = builtins.readFile ../common/kakoune/extra-config.kak;
   };
 
   xdg.configFile."kak/colors/navi.kak".text = with colorScheme; ''

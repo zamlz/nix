@@ -6,7 +6,7 @@
   systemConfig,
   ...
 }: let
-  colorScheme = (import ../config/colorschemes.nix).defaultColorScheme;
+  colorScheme = (import ../common/colorschemes.nix).defaultColorScheme;
 in {
   xsession.windowManager.herbstluftwm = {
     enable = true;

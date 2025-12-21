@@ -5,7 +5,7 @@
   pkgs,
   ...
 }: let
-  colorScheme = (import ../config/colorschemes.nix).defaultColorScheme;
+  colorScheme = (import ../common/colorschemes.nix).defaultColorScheme;
 in {
   programs.qutebrowser = {
     enable = true;
