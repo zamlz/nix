@@ -11,10 +11,6 @@ in {
     source = ./kernel_info.sh;
     executable = true;
   };
-  xdg.configFile."polybar/wpctl_info.sh" = {
-    source = ./wpctl_info.sh;
-    executable = true;
-  };
 
   services.polybar = {
     enable = true;
@@ -167,21 +163,6 @@ in {
         label = "%percentage%%";
         label-foreground = "${colorScheme.foreground}";
         enable-scroll = true;
-      };
-
-      # NOTE: Currently not in use
-      pipewireVolumeConfig = {
-        type = "custom/script";
-        # FIXME: can I get this to use xdg.configFile in the future?
-        exec = "~/.config/polybar/wpctl_info.sh";
-        interval = "0.1";
-        format = "<label>";
-        format-fail = "<label-fail>";
-        label-foreground = "${colorScheme.foreground}";
-        label-fail-foreground = "${colorScheme.red}";
-        click-left = "wpctl set-mute @DEFAULT_SINK@ toggle";
-        scroll-up = "wpctl set-volume @DEFAULT_SINK@ 0.01+";
-        scroll-down = "wpctl set-volume @DEFAULT_SINK@ 0.01-";
       };
 
       pulseaudioVolumeConfig = {
