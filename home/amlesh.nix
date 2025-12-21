@@ -6,7 +6,10 @@
   systemConfig,
   ...
 }: {
-  imports = if systemConfig.useGUI then [ ./cli ./desktop ] else [ ./cli ];
+  imports =
+    if systemConfig.useGUI
+    then [./cli ./desktop]
+    else [./cli];
 
   home = {
     username = "amlesh";
