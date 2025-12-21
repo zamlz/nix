@@ -50,4 +50,8 @@ let
 in
 {
   defaultColorScheme = gruvboxBlack;
+  allColorSchemes = {
+    "gruvboxBlack" = gruvboxBlack;
+    "modusVivendi" = modusVivendi;
+  };
 }
