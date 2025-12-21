@@ -28,4 +28,31 @@
     ./yt-dlp.nix
     ./zsh
   ];
+
+  home.packages = with pkgs; [
+    # System CLI Tools
+    mediainfo
+    pv
+    qpdf
+    ripgrep
+    rsync
+    yt-dlp
+    # Fun CLI Tools
+    cmatrix
+    figlet
+    kittysay
+    lolcat
+    # Nix Dev Tools
+    alejandra
+    deadnix
+    statix
+    # Misc Experiments
+    pipenv
+    (python3.withPackages (ps:
+      with ps; [
+        ipdb
+        ipython
+        loguru # FIXME: navi dependencies should be tracked seperately
+      ]))
+  ];
 }
