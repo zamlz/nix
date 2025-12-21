@@ -6,10 +6,7 @@
   systemConfig,
   ...
 }: {
-  # choose imports based on graphical or server environment
-  imports =
-    if systemConfig.useGUI
-    then [ ./cli ./gui ] else [ ./cli ];
+  imports = if systemConfig.useGUI then [ ./cli ./gui ] else [ ./cli ];
 
   # make sure to enable man pages for all things home-manager installs
   programs.man.generateCaches = true;
