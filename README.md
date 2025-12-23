@@ -2,44 +2,9 @@
 
 A (WIP) NixOS Configuration repo for all my systems.
 
-## Usage (NixOS)
-
-Install the nixos system. Note this command is hardware dependent. We use the
-hostname to associate hardware.
-
-```shell
-sudo nixos-rebuild switch --flake .#${hostname}
-```
-
-If `nh` is availabe on the system, you can simply do
-
-```shell
-nh os switch .
-```
-
-## Usage (Other Linux or Mac)
-
-Since the external linux system is managing the system software, we use
-nix to manage the user software. This will need to have home-manager
-installed in standalone mode.
-
-Use the following for the first time install (since home-manager is not
-present in an environment yet).
-
-```shell
-nix run github:nix-community/home-manager -- switch --flake .#{username}
-```
-
-All future invocations in the environment should have home-manager present.
-
-```shell
-home-manager switch --flake .#{username}
-```
-
-*Note, while it is typical to use `username` here, it is not
-necessary. Refer to the `flake.nix` for the real name*
-
 ## New Installation Guide
+
+### NixOS
 
 First, install a minimal installation of NixOS.
 
@@ -63,6 +28,73 @@ Make sure to update the channels to unstable as well.
 nix-channel --add https://nixos.org/channels/nixos-unstable nixos
 nixos-rebuild switch --upgrade
 ```
+
+### Other Linux Distros and Mac
+
+Since the external linux system is managing the system software, we use
+nix to manage the user software. Once the software has been installed,
+things may not work as expected. This is because some user-level software
+needs to talk to system software and with nix not managing that software
+anymore there is a disconnect. You have to manually configure the host
+system to properly integrate with nix. Look at the subsections for
+further details on what worked on.
+
+Use the following for the first time install (since home-manager is
+not present in an environment yet). It uses home manager from github to
+bootsrap the installation.
+
+```shell
+nix run github:nix-community/home-manager -- switch --flake .#{username}
+```
+
+#### Fedora
+
+I had to disable the following services/sockets and reboot my system.
+
+```shell
+sudo systemctl stop pcscd.service
+sudo systemctl stop pcscd.socket
+sudo systemctl disable pcscd.service
+sudo systemctl disable pcscd.socket
+
+systemctl --user stop gcr-ssh-agent.service
+systemctl --user stop gcr-ssh-agent.socket
+systemctl --user disable gcr-ssh-agent.service
+systemctl --user disable gcr-ssh-agent.socket
+systemctl --user mask gcr-ssh-agent.service
+systemctl --user mask gcr-ssh-agent.socket
+```
+
+This will break any other programs that want to use smartcards through
+Fedora. I don't have any other uses I think. It also disables support
+for the gnome keyring for ssh but that is also fine for me.
+
+## Basic Usage
+
+### NixOS
+
+Install the nixos system. Note this command is hardware dependent. We use the
+hostname to associate hardware.
+
+```shell
+sudo nixos-rebuild switch --flake .#${hostname}
+```
+
+If `nh` is availabe on the system, you can simply do
+
+```shell
+nh os switch .
+```
+
+### Other Linux Distros and Mac
+All future invocations in the environment should have home-manager present.
+
+```shell
+home-manager switch --flake .#{username}
+```
+
+*Note, while it is typical to use `username` here, it is not
+necessary. Refer to the `flake.nix` for the real name*
 
 ## Directory Structure
 
