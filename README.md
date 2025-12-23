@@ -23,6 +23,15 @@ Since the external linux system is managing the system software, we use
 nix to manage the user software. This will need to have home-manager
 installed in standalone mode.
 
+Use the following for the first time install (since home-manager is not
+present in an environment yet).
+
+```shell
+nix run github:nix-community/home-manager -- switch --flake .#{username}
+```
+
+All future invocations in the environment should have home-manager present.
+
 ```shell
 home-manager switch --flake .#{username}
 ```

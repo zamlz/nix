@@ -97,13 +97,25 @@
 
       # Standalone home manager setup for non-NixOS installations
       # FIXME: Need to inherit the systemConfig attribute set somehow
-      homeConfigurations."amlesh" = home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs {
-          config.allowUnfree = true;
+      homeConfigurations."generic-linux" =
+        let
+          systemConfig = {
+            useGUI = false;
+          };
+        in
+        home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+            config.allowUnfree = true;
+          };
+          modules = [
+            ./hosts/generic-linux/home.nix
+            nixvim.homeModules.nixvim
+          ];
+          extraSpecialArgs = {
+            inherit inputs;
+            inherit systemConfig;
+          };
         };
-        modules = [
-          ./home/amlesh.nix
-        ];
-      };
     };
 }
