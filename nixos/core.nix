@@ -1,5 +1,6 @@
 {
   pkgs,
+  config,
   ...
 }:
 {
@@ -17,9 +18,7 @@
 
   environment.etc."issue".text =
     let
-      # FIXME: Get this value :(
-      # name = users.users.amlesh.description;
-      name = "Amlesh Sivanantham (zamlz)";
+      name = config.users.users.amlesh.description;
     in
     ''
 

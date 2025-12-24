@@ -6,7 +6,7 @@
   # (Don't forget to set a password with ‘passwd’!)
   users.users.amlesh = {
     isNormalUser = true;
-    description = "Amlesh Sivanantham";
+    description = "Amlesh Sivanantham (zamlz)";
     initialPassword = "pleasechangeme";
     extraGroups = [ "wheel" ];
     shell = pkgs.zsh;
