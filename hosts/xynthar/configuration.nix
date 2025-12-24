@@ -13,7 +13,7 @@
   ];
 
   networking.hostName = "xynthar";
-  # FIXME: add networking.hostId value here
+  networking.hostId = "f820da9f";
 
   boot = {
     # NOTE: This is for LUKS for SWAP.
