@@ -1,7 +1,4 @@
 {
-  # NixOS Configuration Entrypoint
-  # ( available through `nixos-rebuild switch --flake .#${hostname}` )
-
   description = "zamlz's NixOS config";
 
   inputs = {
@@ -30,48 +27,16 @@
       nixvim,
     }@inputs:
     let
-      # Import constants used across all configurations
       constants = import ./lib/constants.nix;
+      builders = import ./lib/builders.nix {
+        inherit nixpkgs;
+        inherit home-manager;
+        inherit nixvim;
+        inherit inputs;
+        inherit constants;
+      };
 
-      # function to build nixos systems
-      nixosSystemBuilder =
-        {
-          hostConfigPath,
-          useGUI ? true,
-          fontScale ? 1.0,
-        }:
-        let
-          systemConfig = {
-            inherit useGUI;
-            inherit fontScale;
-          };
-        in
-        nixpkgs.lib.nixosSystem {
-          specialArgs = {
-            inherit inputs;
-            inherit systemConfig;
-            inherit constants;
-          };
-          modules = [
-            hostConfigPath
-            # makes home manager a module of nixos so it will be deployed with
-            # nixos-rebuild switch
-            home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                extraSpecialArgs = {
-                  inherit inputs;
-                  inherit systemConfig;
-                  inherit constants;
-                };
-                sharedModules = [ nixvim.homeModules.nixvim ];
-                users.amlesh = import ./home/amlesh.nix;
-              };
-            }
-          ];
-        };
+      inherit (builders) nixosSystemBuilder homeManagerBuilder;
     in
     {
       nixosConfigurations = {
@@ -102,27 +67,9 @@
       };
 
       # Standalone home manager setup for non-NixOS installations
-      # FIXME: Need to inherit the systemConfig attribute set somehow
-      homeConfigurations."generic-linux" =
-        let
-          systemConfig = {
-            useGUI = false;
-          };
-        in
-        home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs {
-            system = "x86_64-linux";
-            config.allowUnfree = true;
-          };
-          modules = [
-            ./hosts/generic-linux/home.nix
-            nixvim.homeModules.nixvim
-          ];
-          extraSpecialArgs = {
-            inherit inputs;
-            inherit systemConfig;
-            inherit constants;
-          };
-        };
+      homeConfigurations."generic-linux" = homeManagerBuilder {
+        homeConfigPath = ./hosts/generic-linux/home.nix;
+        useGUI = false;
+      };
     };
 }
