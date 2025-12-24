@@ -8,10 +8,10 @@ A (WIP) NixOS Configuration repo for all my systems.
 
 First, install a minimal installation of NixOS.
 
-Next, once you get into the system. Create a new entry for the system in the
-`nixosConfigurations`. This will require copying the
-`hardware-configuration.nix` file into the config as well.
-Be sure to also go through the `configuration.nix` and set the relevent parameters
+Next, once you get into the system. Create a new entry for the
+system in the `nixosConfigurations`. This will require copying the
+`hardware-configuration.nix` file into the config as well.  Be sure to
+also go through the `configuration.nix` and set the relevent parameters
 to build the same system.
 
 Enable flakes on the original system. Add the following to the
@@ -41,10 +41,10 @@ further details on what worked on.
 
 Use the following for the first time install (since home-manager is
 not present in an environment yet). It uses home manager from github to
-bootsrap the installation.
+bootstrap the installation.
 
 ```shell
-nix run github:nix-community/home-manager -- switch --flake .#{username}
+nix run github:nix-community/home-manager -- switch --flake .#generic-linux
 ```
 
 #### Fedora
@@ -90,11 +90,8 @@ nh os switch .
 All future invocations in the environment should have home-manager present.
 
 ```shell
-home-manager switch --flake .#{username}
+home-manager switch --flake .#generic-linux
 ```
-
-*Note, while it is typical to use `username` here, it is not
-necessary. Refer to the `flake.nix` for the real name*
 
 ## Directory Structure
 
@@ -116,26 +113,28 @@ home/
     ...
 ```
 
-Every machine I use has their own `home.nix` config. Some machines
-are not NixOS so they do not need the `configuration.nix` or the
-`hardware-configuration.nix`
+Every machine has its own directory. NixOS machines have `configuration.nix`
+and `hardware-configuration.nix`. Non-NixOS machines only have `home.nix`.
 
-Currently, if a `home.nix` is not present, it means it's using the
-default one found in `home/amlesh.nix`
+Most hosts use the default home-manager configuration from `home/amlesh.nix`.
 
 ```
 hosts/
   solaris/
     configuration.nix
     hardware-configuration.nix
-    home.nix
-  alexandria/
-    services/
-      ...
+  xynthar/
     configuration.nix
     hardware-configuration.nix
-    home.nix
-  eorzea/
+  yggdrasil/
+    configuration.nix
+    hardware-configuration.nix
+    services/
+      kavita.nix
+  alexandria/
+    configuration.nix
+    hardware-configuration.nix
+  generic-linux/
     home.nix
 ```
 
@@ -155,19 +154,10 @@ lib/
   colorschemes.nix
 ```
 
-For customize packages that I'd like to use (in the future), I will
-store their definitions here.
-
-```
-pkgs/
-  ...
-```
-
-For various templates that are "nix" related, I store them here
-
+Development environment templates
 ```
 templates/
-  python.nix
+  python312.nix
   rust.nix
 ```
 
