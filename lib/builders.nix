@@ -25,6 +25,7 @@ in
   nixosSystemBuilder =
     {
       hostConfigPath,
+      homeConfigPath ? ../home/amlesh.nix,
       useGUI ? true,
       fontScale ? 1.0,
     }:
@@ -42,7 +43,7 @@ in
             useUserPackages = true;
             extraSpecialArgs = mkExtraSpecialArgs systemConfig;
             sharedModules = [ nixvim.homeModules.nixvim ];
-            users.amlesh = import ../home/amlesh.nix;
+            users.amlesh = import homeConfigPath;
           };
         }
       ];
