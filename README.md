@@ -173,6 +173,6 @@ templates/
 Refer to this for neovim configuration reference
 - <https://github.com/zamlz/nix/blob/007d7ffa9c244af4d539fa7b32e8cb2a76ae4d91/shell/neovim.nix>
 
-Usefule configs to take a look at:
+Useful configs to take a look at:
 - <https://github.com/kaleocheng/nix-dots/tree/master>
 `
