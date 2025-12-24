@@ -1,13 +1,11 @@
 {
-  inputs,
   lib,
-  config,
   pkgs,
   ...
 }:
 let
   colorScheme = lib.attrsets.mapAttrs (
-    name: value: builtins.replaceStrings [ "#" ] [ "rgb:" ] value
+    _name: value: builtins.replaceStrings [ "#" ] [ "rgb:" ] value
   ) (import ../../../lib/colorschemes.nix).defaultColorScheme;
 in
 {

@@ -23,6 +23,7 @@
 
   outputs =
     {
+      # deadnix: skip
       self,
       nixpkgs,
       home-manager,
@@ -38,7 +39,7 @@
           hostConfigPath,
           useGUI ? true,
           fontScale ? 1.0,
-        }@nixosSystemConfig:
+        }:
         let
           systemConfig = {
             inherit useGUI;

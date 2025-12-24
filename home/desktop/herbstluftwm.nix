@@ -1,9 +1,4 @@
 {
-  inputs,
-  lib,
-  config,
-  pkgs,
-  systemConfig,
   ...
 }:
 let
