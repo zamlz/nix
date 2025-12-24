@@ -1,4 +1,4 @@
-# NixOS Configuration
+# NixOS Configuration ❄
 
 A (WIP) NixOS Configuration repo for all my systems.
 
