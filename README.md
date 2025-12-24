@@ -99,15 +99,11 @@ necessary. Refer to the `flake.nix` for the real name*
 ## Directory Structure
 
 The following directory stores my `home-manager` configurations. They
-are sorted into their respective tools, `cli` and `desktop`. A `common`
-folder is kept for useful shared data.
+are sorted into their respective tools, `cli` and `desktop`.
 
 ```
 home/
   amlesh.nix
-  common/
-    colorschemes.nix
-    ...
   cli/
     default.nix
     git.nix
@@ -152,6 +148,13 @@ nixos/
   ...
 ```
 
+Shared library code used across configurations
+```
+lib/
+  constants.nix
+  colorschemes.nix
+```
+
 For customize packages that I'd like to use (in the future), I will
 store their definitions here.
 
@@ -166,6 +169,54 @@ For various templates that are "nix" related, I store them here
 templates/
   python.nix
   rust.nix
+```
+
+## Troubleshooting
+
+### Inspecting Configuration Attributes
+
+To inspect what attributes your system configuration is resolving to:
+
+```shell
+# Inspect a specific attribute from your NixOS configuration
+nix eval .#nixosConfigurations.solaris.config.system.stateVersion
+
+# Inspect custom attributes like systemConfig
+nix eval .#nixosConfigurations.solaris.config.home-manager.extraSpecialArgs.systemConfig
+
+# See all available options for a configuration
+nix eval .#nixosConfigurations.solaris.options --apply builtins.attrNames
+
+# Inspect a home-manager attribute
+nix eval .#homeConfigurations.generic-linux.config.home.stateVersion
+```
+
+### Checking What Will Change
+
+Before applying changes, see what will be rebuilt:
+
+```shell
+# For NixOS systems - dry run to see what changes
+nixos-rebuild dry-build --flake .#solaris
+
+# Show differences between current and new configuration
+nixos-rebuild build --flake .#solaris
+nix store diff-closures /run/current-system ./result
+
+# For home-manager
+home-manager build --flake .#generic-linux
+nix store diff-closures ~/.local/state/home-manager/gcroots/current-home ./result
+```
+
+### Common Issues
+
+**Flake evaluation errors:**
+```shell
+# Show detailed trace for debugging
+nix flake check --show-trace
+
+# Validate flake structure
+nix flake metadata
 ```
 
 ## Misc
