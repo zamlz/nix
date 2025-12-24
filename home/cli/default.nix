@@ -35,7 +35,6 @@
     qpdf
     ripgrep
     rsync
-    yt-dlp
     # Fun CLI Tools
     cmatrix
     figlet
