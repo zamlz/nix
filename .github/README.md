@@ -161,6 +161,14 @@ templates/
   rust.nix
 ```
 
+## Development
+
+For basic development testing, run the following command to test.
+
+```shell
+nix develop --command test
+```
+
 ## Troubleshooting
 
 ### Inspecting Configuration Attributes

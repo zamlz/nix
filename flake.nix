@@ -36,6 +36,13 @@
           ;
       };
       inherit (builders) nixosSystemBuilder homeManagerBuilder;
+
+      forAllSystems = nixpkgs.lib.genAttrs [
+        "x86_64-linux"
+        "aarch64-linux"
+        "x86_64-darwin"
+        "aarch64-darwin"
+      ];
     in
     {
       nixosConfigurations = {
@@ -68,5 +75,36 @@
         homeConfigPath = ./hosts/generic-linux/home.nix;
         useGUI = false;
       };
+
+      devShells = forAllSystems (
+        system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+        in
+        {
+          default = pkgs.mkShell {
+            packages = with pkgs; [
+              # nix rebuild wrapper
+              nh
+              # Nix formatting and linting
+              nixfmt-rfc-style
+              statix
+              deadnix
+              # Custom test function
+              (writeShellScriptBin "test" ''
+                echo "Running nixfmt..."
+                nixfmt --check ./**/*.nix
+                echo "Running statix..."
+                statix check
+                echo "Running deadnix..."
+                deadnix
+                echo "Checking the flake"
+                nix flake check --show-trace
+                echo "✓ All checks complete!"
+              '')
+            ];
+          };
+        }
+      );
     };
 }

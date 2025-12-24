@@ -40,10 +40,6 @@
     figlet
     kittysay
     lolcat
-    # Nix Dev Tools
-    deadnix
-    nixfmt
-    statix
     # Misc Experiments
     pipenv
     (python3.withPackages (
