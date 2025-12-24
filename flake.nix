@@ -49,23 +49,27 @@
         # Personal Desktop
         solaris = nixosSystemBuilder {
           hostConfigPath = ./hosts/solaris/configuration.nix;
+          homeConfigPath = ./hosts/solaris/home.nix;
           fontScale = 2.0;
         };
 
         # Personal Laptop (thinkpad-p14s)
         xynthar = nixosSystemBuilder {
           hostConfigPath = ./hosts/xynthar/configuration.nix;
+          homeConfigPath = ./hosts/xynthar/home.nix;
         };
 
         # Home Server
         yggdrasil = nixosSystemBuilder {
           hostConfigPath = ./hosts/yggdrasil/configuration.nix;
+          homeConfigPath = ./hosts/yggdrasil/home.nix;
           useGUI = false;
         };
 
         # NAS
         alexandria = nixosSystemBuilder {
           hostConfigPath = ./hosts/alexandria/configuration.nix;
+          homeConfigPath = ./hosts/alexandria/home.nix;
           useGUI = false;
         };
       };

@@ -25,7 +25,7 @@ in
   nixosSystemBuilder =
     {
       hostConfigPath,
-      homeConfigPath ? ../home/amlesh.nix,
+      homeConfigPath,
       useGUI ? true,
       fontScale ? 1.0,
     }:

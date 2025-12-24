@@ -1,17 +1,9 @@
 {
-  systemConfig,
   constants,
   ...
 }:
 {
-  imports =
-    if systemConfig.useGUI then
-      [
-        ./cli
-        ./desktop
-      ]
-    else
-      [ ./cli ];
+  imports = [ ../../home/cli ];
 
   home = {
     username = "amlesh";
