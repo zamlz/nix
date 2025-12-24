@@ -1,5 +1,4 @@
-_:
-{
+_: {
   services.printing.enable = true;
 
   # enable autodiscovery of network printers

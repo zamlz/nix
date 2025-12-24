@@ -1,5 +1,4 @@
-_:
-{
+_: {
   users.extraGroups.docker.members = [ "amlesh" ];
 
   virtualisation.docker = {

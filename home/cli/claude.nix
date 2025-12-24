@@ -1,4 +1,3 @@
-_:
-{
+_: {
   programs.claude-code.enable = true;
 }

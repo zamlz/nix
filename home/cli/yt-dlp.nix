@@ -1,5 +1,4 @@
-_:
-{
+_: {
   programs.yt-dlp = {
     enable = true;
   };

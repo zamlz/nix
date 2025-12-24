@@ -1,5 +1,4 @@
-_:
-{
+_: {
   systemd.user = {
     enable = true;
     startServices = "sd-switch";

@@ -1,5 +1,4 @@
-_:
-{
+_: {
   # NOTE: hostname will be defined in the `/host` specific file!
 
   users.extraGroups.networkmanager.members = [ "amlesh" ];
