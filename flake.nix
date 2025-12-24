@@ -80,9 +80,6 @@
         useGUI = false;
       };
 
-      devShells = forAllSystems (
-        system:
-        mkDevShell { pkgs = nixpkgs.legacyPackages.${system}; }
-      );
+      devShells = forAllSystems (system: mkDevShell { pkgs = nixpkgs.legacyPackages.${system}; });
     };
 }
