@@ -10,8 +10,9 @@
       deadnix
       # Custom test function
       (writeShellScriptBin "test" ''
+        set -e
         echo "Running nixfmt..."
-        nixfmt --check ./**/*.nix
+        nixfmt --check $(find . -type f -name "**.nix")
         echo "Running statix..."
         statix check
         echo "Running deadnix..."
