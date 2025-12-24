@@ -3,10 +3,25 @@
   home-manager,
   nixvim,
   inputs,
-  constants,
 }:
+let
+  constants = import ./constants.nix;
+  mkSystemConfig =
+    {
+      useGUI,
+      fontScale,
+    }:
+    {
+      inherit useGUI;
+      inherit fontScale;
+    };
+  mkExtraSpecialArgs = systemConfig: {
+    inherit inputs;
+    inherit systemConfig;
+    inherit constants;
+  };
+in
 {
-  # Function to build NixOS systems with home-manager integrated
   nixosSystemBuilder =
     {
       hostConfigPath,
@@ -14,17 +29,10 @@
       fontScale ? 1.0,
     }:
     let
-      systemConfig = {
-        inherit useGUI;
-        inherit fontScale;
-      };
+      systemConfig = mkSystemConfig { inherit useGUI fontScale; };
     in
     nixpkgs.lib.nixosSystem {
-      specialArgs = {
-        inherit inputs;
-        inherit systemConfig;
-        inherit constants;
-      };
+      specialArgs = mkExtraSpecialArgs systemConfig;
       modules = [
         hostConfigPath
         # makes home manager a module of nixos so it will be deployed with
@@ -34,31 +42,22 @@
           home-manager = {
             useGlobalPkgs = true;
             useUserPackages = true;
-            extraSpecialArgs = {
-              inherit inputs;
-              inherit systemConfig;
-              inherit constants;
-            };
+            extraSpecialArgs = mkExtraSpecialArgs systemConfig;
             sharedModules = [ nixvim.homeModules.nixvim ];
             users.amlesh = import ../home/amlesh.nix;
           };
         }
       ];
     };
-
-  # Function to build standalone home-manager configurations (for non-NixOS systems)
   homeManagerBuilder =
     {
       homeConfigPath,
-      useGUI ? true,
+      useGUI ? false,
       fontScale ? 1.0,
       system ? "x86_64-linux",
     }:
     let
-      systemConfig = {
-        inherit useGUI;
-        inherit fontScale;
-      };
+      systemConfig = mkSystemConfig { inherit useGUI fontScale; };
     in
     home-manager.lib.homeManagerConfiguration {
       pkgs = import nixpkgs {
@@ -69,10 +68,6 @@
         homeConfigPath
         nixvim.homeModules.nixvim
       ];
-      extraSpecialArgs = {
-        inherit inputs;
-        inherit systemConfig;
-        inherit constants;
-      };
+      extraSpecialArgs = mkExtraSpecialArgs systemConfig;
     };
 }

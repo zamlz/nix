@@ -27,15 +27,14 @@
       nixvim,
     }@inputs:
     let
-      constants = import ./lib/constants.nix;
       builders = import ./lib/builders.nix {
-        inherit nixpkgs;
-        inherit home-manager;
-        inherit nixvim;
-        inherit inputs;
-        inherit constants;
+        inherit
+          nixpkgs
+          home-manager
+          nixvim
+          inputs
+          ;
       };
-
       inherit (builders) nixosSystemBuilder homeManagerBuilder;
     in
     {
