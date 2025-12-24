@@ -1,6 +1,4 @@
-{
-  ...
-}:
+_:
 {
   # ClamAV is an antivirus software
   services.clamav = {

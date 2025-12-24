@@ -1,6 +1,4 @@
-{
-  ...
-}:
+_:
 {
   users.extraGroups.docker.members = [ "amlesh" ];
 

@@ -1,6 +1,4 @@
-{
-  ...
-}:
+_:
 {
   systemd.user = {
     enable = true;

@@ -1,6 +1,4 @@
-{
-  ...
-}:
+_:
 {
   # NOTE: hostname will be defined in the `/host` specific file!
 

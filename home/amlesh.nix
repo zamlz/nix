@@ -17,6 +17,6 @@
     username = "amlesh";
     homeDirectory = "/home/amlesh";
     # WARNING: Read comment in lib/constants.nix file!
-    stateVersion = constants.stateVersion;
+    inherit (constants) stateVersion;
   };
 }

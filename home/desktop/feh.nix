@@ -1,6 +1,4 @@
-{
-  ...
-}:
+_:
 {
   # feh is a light-weight, configurable and versatile image viewer. It is
   # aimed at command line users, but can also be started from graphical file

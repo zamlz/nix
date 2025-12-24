@@ -1,6 +1,4 @@
-{
-  ...
-}:
+_:
 let
   colorScheme = (import ../../lib/colorschemes.nix).defaultColorScheme;
 in
