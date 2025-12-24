@@ -29,6 +29,9 @@
       nixvim,
     }@inputs:
     let
+      # Import constants used across all configurations
+      constants = import ./lib/constants.nix;
+
       # function to build nixos systems
       nixosSystemBuilder =
         {
@@ -46,6 +49,7 @@
           specialArgs = {
             inherit inputs;
             inherit systemConfig;
+            inherit constants;
           };
           modules = [
             hostConfigPath
@@ -59,6 +63,7 @@
                 extraSpecialArgs = {
                   inherit inputs;
                   inherit systemConfig;
+                  inherit constants;
                 };
                 sharedModules = [ nixvim.homeModules.nixvim ];
                 users.amlesh = import ./home/amlesh.nix;
@@ -115,6 +120,7 @@
           extraSpecialArgs = {
             inherit inputs;
             inherit systemConfig;
+            inherit constants;
           };
         };
     };
