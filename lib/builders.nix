@@ -35,8 +35,6 @@ in
       specialArgs = mkExtraSpecialArgs systemConfig;
       modules = [
         hostConfigPath
-        # makes home manager a module of nixos so it will be deployed with
-        # nixos-rebuild switch
         home-manager.nixosModules.home-manager
         {
           home-manager = {
@@ -49,6 +47,7 @@ in
         }
       ];
     };
+
   homeManagerBuilder =
     {
       homeConfigPath,
