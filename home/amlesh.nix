@@ -19,7 +19,4 @@
     # WARNING: Read comment in lib/constants.nix file!
     stateVersion = constants.stateVersion;
   };
-
-  # FIXME: What is this?
-  systemd.user.startServices = "sd-switch";
 }
