@@ -1,8 +1,6 @@
 _: {
   # NOTE: hostname will be defined in the `/host` specific file!
 
-  users.extraGroups.networkmanager.members = [ "amlesh" ];
-
   networking = {
     extraHosts = ''
       10.69.8.0 solaris

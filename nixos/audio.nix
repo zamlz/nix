@@ -3,8 +3,6 @@
   ...
 }:
 {
-  users.extraGroups.audio.members = [ "amlesh" ];
-
   environment.systemPackages = with pkgs; [ pavucontrol ];
 
   services = {

@@ -8,7 +8,12 @@
     isNormalUser = true;
     description = "Amlesh Sivanantham (zamlz)";
     initialPassword = "pleasechangeme";
-    extraGroups = [ "wheel" ];
+    extraGroups = [
+      "wheel"
+      "docker"
+      "audio"
+      "networkmanager"
+    ];
     shell = pkgs.zsh;
     openssh.authorizedKeys.keys = [
       # generated using: gpg --export-ssh-key <key-id>
