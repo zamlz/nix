@@ -6,7 +6,7 @@
   ...
 }:
 let
-  colorScheme = (import ../common/colorschemes.nix).defaultColorScheme;
+  colorScheme = (import ../../lib/colorschemes.nix).defaultColorScheme;
 in
 {
   programs.nixvim = {

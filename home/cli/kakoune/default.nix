@@ -8,7 +8,7 @@
 let
   colorScheme = lib.attrsets.mapAttrs (
     name: value: builtins.replaceStrings [ "#" ] [ "rgb:" ] value
-  ) (import ../../common/colorschemes.nix).defaultColorScheme;
+  ) (import ../../../lib/colorschemes.nix).defaultColorScheme;
 in
 {
   programs.kakoune = {
