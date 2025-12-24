@@ -99,7 +99,7 @@
                 echo "Running deadnix..."
                 deadnix
                 echo "Checking the flake"
-                nix flake check --show-trace
+                nix flake check --show-trace --all-systems
                 echo "✓ All checks complete!"
               '')
             ];
