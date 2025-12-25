@@ -29,14 +29,8 @@ jobs:
         name: nix-community
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
 
-    - name: Run all checks for flake.nix
-      run: nix flake check --all-systems
-
     - name: Check Nix flake health
       uses: DeterminateSystems/flake-checker-action@main
 
-    # FIXME: nix build fails in the CI pipeline for some reason
-    # Builds the complete home-manager configuration into an activation package
-    # This compiles all configurations and dependencies to ensure everything works
-    # - name: Build configuration
-    #   run: nix build
+    - name: Run all checks for flake.nix
+      run: nix flake check --all-systems
