@@ -1,5 +1,6 @@
 {
   pkgs,
+  inputs,
   ...
 }:
 {
@@ -28,26 +29,31 @@
     ./zsh
   ];
 
-  home.packages = with pkgs; [
-    # System CLI Tools
-    mediainfo
-    pv
-    qpdf
-    ripgrep
-    rsync
-    # Fun CLI Tools
-    cmatrix
-    figlet
-    kittysay
-    lolcat
-    # Misc Experiments
-    pipenv
-    (python3.withPackages (
-      ps: with ps; [
-        ipdb
-        ipython
-        loguru # FIXME: navi dependencies should be tracked separately
-      ]
-    ))
-  ];
+  home.packages =
+    (with pkgs; [
+      # System CLI Tools
+      mediainfo
+      pv
+      qpdf
+      ripgrep
+      rsync
+      # Fun CLI Tools
+      cmatrix
+      figlet
+      kittysay
+      lolcat
+      # Misc Experiments
+      pipenv
+      (python3.withPackages (
+        ps: with ps; [
+          ipdb
+          ipython
+          loguru # FIXME: navi dependencies should be tracked separately
+        ]
+      ))
+    ])
+    ++ [
+      # Custom packages from flake inputs
+      inputs.mdutils.packages.${pkgs.system}.default
+    ];
 }

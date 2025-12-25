@@ -14,6 +14,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    mdutils = {
+      url = "github:zamlz/mdutils";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # FIXME: Maybe use this if I really need to use home-manager in arch
     # nixgl.url = "github:nix-community/nixGL";
   };
@@ -25,6 +30,7 @@
       nixpkgs,
       home-manager,
       nixvim,
+      ...
     }@inputs:
     let
       builders = import ./lib/builders.nix {
