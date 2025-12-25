@@ -169,6 +169,14 @@ For basic development testing, run the following command to test.
 nix develop --command test
 ```
 
+You can run the testing and linting functions directly with
+
+```shell
+nix build .#checks.x86_64-linux.nixfmt
+nix build .#checks.x86_64-linux.statix
+nix build .#checks.x86_64-linux.deadnix
+```
+
 ## Troubleshooting
 
 ### Inspecting Configuration Attributes

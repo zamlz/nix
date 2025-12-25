@@ -37,6 +37,7 @@
       };
       inherit (builders) nixosSystemBuilder homeManagerBuilder;
       mkDevShell = import ./lib/devshell.nix;
+      mkChecks = import ./lib/checks.nix;
       forAllSystems = nixpkgs.lib.genAttrs [
         "x86_64-linux"
         "aarch64-linux"
@@ -45,6 +46,28 @@
       ];
     in
     {
+      checks = forAllSystems (
+        system:
+        mkChecks {
+          inherit self;
+          pkgs = nixpkgs.legacyPackages.${system};
+        }
+      );
+
+      devShells = forAllSystems (
+        system:
+        mkDevShell {
+          pkgs = nixpkgs.legacyPackages.${system};
+        }
+      );
+
+      formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt-rfc-style);
+
+      homeConfigurations."generic-linux" = homeManagerBuilder {
+        homeConfigPath = ./hosts/generic-linux/home.nix;
+        useGUI = false;
+      };
+
       nixosConfigurations = {
         # Personal Desktop
         solaris = nixosSystemBuilder {
@@ -73,13 +96,5 @@
           useGUI = false;
         };
       };
-
-      # Standalone home manager setup for non-NixOS installations
-      homeConfigurations."generic-linux" = homeManagerBuilder {
-        homeConfigPath = ./hosts/generic-linux/home.nix;
-        useGUI = false;
-      };
-
-      devShells = forAllSystems (system: mkDevShell { pkgs = nixpkgs.legacyPackages.${system}; });
     };
 }
