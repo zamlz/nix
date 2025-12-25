@@ -30,7 +30,7 @@ jobs:
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
 
     - name: Run all checks for flake.nix
-      run: nix flake check -v
+      run: nix flake check --all-systems
 
     - name: Check Nix flake health
       uses: DeterminateSystems/flake-checker-action@main
