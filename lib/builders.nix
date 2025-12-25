@@ -70,4 +70,31 @@ in
       ];
       extraSpecialArgs = mkExtraSpecialArgs systemConfig;
     };
+
+  isoBuilder =
+    {
+      hostConfigPath,
+      homeConfigPath,
+      useGUI ? true,
+      fontScale ? 1.0,
+    }:
+    let
+      systemConfig = mkSystemConfig { inherit useGUI fontScale; };
+    in
+    nixpkgs.lib.nixosSystem {
+      specialArgs = mkExtraSpecialArgs systemConfig;
+      modules = [
+        hostConfigPath
+        home-manager.nixosModules.home-manager
+        {
+          home-manager = {
+            useGlobalPkgs = true;
+            useUserPackages = true;
+            extraSpecialArgs = mkExtraSpecialArgs systemConfig;
+            sharedModules = [ nixvim.homeModules.nixvim ];
+            users.amlesh = import homeConfigPath;
+          };
+        }
+      ];
+    };
 }

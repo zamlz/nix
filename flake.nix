@@ -35,7 +35,7 @@
           inputs
           ;
       };
-      inherit (builders) nixosSystemBuilder homeManagerBuilder;
+      inherit (builders) nixosSystemBuilder homeManagerBuilder isoBuilder;
       mkDevShell = import ./lib/devshell.nix;
       mkChecks = import ./lib/checks.nix;
       forAllSystems = nixpkgs.lib.genAttrs [
@@ -95,6 +95,21 @@
           homeConfigPath = ./hosts/alexandria/home.nix;
           useGUI = false;
         };
+
+        # Live ISO
+        liveiso = isoBuilder {
+          hostConfigPath = ./hosts/liveiso/configuration.nix;
+          homeConfigPath = ./hosts/liveiso/home.nix;
+          useGUI = true;
+          fontScale = 1.0;
+        };
       };
+
+      packages = forAllSystems (
+        # deadnix: skip
+        system: {
+          iso = self.nixosConfigurations.liveiso.config.system.build.isoImage;
+        }
+      );
     };
 }
