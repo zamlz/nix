@@ -19,6 +19,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # FIXME: Maybe use this if I really need to use home-manager in arch
     # nixgl.url = "github:nix-community/nixGL";
   };
@@ -30,6 +35,7 @@
       nixpkgs,
       home-manager,
       nixvim,
+      nixos-generators,
       ...
     }@inputs:
     let
@@ -41,7 +47,7 @@
           inputs
           ;
       };
-      inherit (builders) nixosSystemBuilder homeManagerBuilder isoBuilder;
+      inherit (builders) nixosSystemBuilder homeManagerBuilder;
       mkDevShell = import ./lib/devshell.nix;
       mkChecks = import ./lib/checks.nix;
       forAllSystems = nixpkgs.lib.genAttrs [
@@ -101,20 +107,43 @@
           homeConfigPath = ./hosts/alexandria/home.nix;
           useGUI = false;
         };
-
-        # Live ISO
-        liveiso = isoBuilder {
-          hostConfigPath = ./hosts/liveiso/configuration.nix;
-          homeConfigPath = ./hosts/liveiso/home.nix;
-          useGUI = true;
-          fontScale = 1.0;
-        };
       };
 
       packages = forAllSystems (
         # deadnix: skip
         system: {
-          iso = self.nixosConfigurations.liveiso.config.system.build.isoImage;
+          iso = nixos-generators.nixosGenerate {
+            inherit system;
+            format = "iso";
+            modules = [
+              ./hosts/liveiso/configuration.nix
+              home-manager.nixosModules.home-manager
+              {
+                home-manager = {
+                  useGlobalPkgs = true;
+                  useUserPackages = true;
+                  extraSpecialArgs = {
+                    inherit inputs;
+                    systemConfig = {
+                      useGUI = true;
+                      fontScale = 1.0;
+                    };
+                    constants = import ./lib/constants.nix;
+                  };
+                  sharedModules = [ nixvim.homeModules.nixvim ];
+                  users.amlesh = import ./hosts/liveiso/home.nix;
+                };
+              }
+            ];
+            specialArgs = {
+              inherit inputs;
+              systemConfig = {
+                useGUI = true;
+                fontScale = 1.0;
+              };
+              constants = import ./lib/constants.nix;
+            };
+          };
         }
       );
     };
