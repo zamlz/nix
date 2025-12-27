@@ -9,10 +9,11 @@
     description = "Amlesh Sivanantham (zamlz)";
     initialPassword = "pleasechangeme";
     extraGroups = [
-      "wheel"
-      "docker"
       "audio"
+      "docker"
+      "kvm"
       "networkmanager"
+      "wheel"
     ];
     shell = pkgs.zsh;
     openssh.authorizedKeys.keys = [

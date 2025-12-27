@@ -10,7 +10,8 @@
     ./networking.nix
     ./nix.nix
     ./printing.nix
-    ./users.nix
+    ./qemu.nix
     ./security.nix
+    ./users.nix
   ];
 }
