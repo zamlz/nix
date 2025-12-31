@@ -73,11 +73,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1766804514,
-        "narHash": "sha256-uC+9tmkOHLlj4oPMSkS6xhCIX+Sf5ZLHRWE782pLFYo=",
+        "lastModified": 1767150378,
+        "narHash": "sha256-Hgu72J5HCtCy7aU0XqxMhYkD766xwCEaFJgoqQDsaP8=",
         "owner": "zamlz",
         "repo": "mdutils",
-        "rev": "38ca7a2c59648dd604bf79d81e3273cafa108482",
+        "rev": "3d6ce546dd025c0c76d5c67810c406d35c602dcf",
         "type": "github"
       },
       "original": {
