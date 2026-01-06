@@ -10,7 +10,7 @@ let
 in
 {
   programs.kakoune = {
-    defaultEditor = true;
+    defaultEditor = false;
     enable = true;
 
     plugins = with pkgs.kakounePlugins; [

@@ -5,7 +5,7 @@
 {
   programs.helix = {
     enable = true;
-    defaultEditor = false;
+    defaultEditor = true;
     extraPackages = with pkgs; [
       marksman
       python311Packages.python-lsp-server
