@@ -5,6 +5,7 @@
 }:
 {
   imports = [
+    ./awscli.nix
     ./bat.nix
     ./claude.nix
     ./eza.nix
