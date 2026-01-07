@@ -1,4 +1,8 @@
-_: {
+{
+  pkgs,
+  ...
+}:
+{
   programs.git = {
     enable = true;
     settings = {
@@ -12,8 +16,8 @@ _: {
         ff = "only";
       };
       user = {
-        name = "Amlesh Sivanantham (zamlz)";
-        email = "zamlz@pm.me";
+        name = pkgs.lib.mkDefault "Amlesh Sivanantham (zamlz)";
+        email = pkgs.lib.mkDefault "zamlz@pm.me";
       };
     };
     signing = {
