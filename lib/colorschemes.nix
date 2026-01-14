@@ -47,11 +47,37 @@ let
     cyanAlt = "#00eff0";
     whiteAlt = "#989898";
   };
+  #  _____    _            _  _ _      _   _     ___ _
+  # |_   _|__| |___  _ ___| \| (_)__ _| |_| |_  / __| |_ ___ _ _ _ __
+  #   | |/ _ \ / / || / _ \ .` | / _` | ' \  _| \__ \  _/ _ \ '_| '  \
+  #   |_|\___/_\_\\_, \___/_|\_|_\__, |_||_\__| |___/\__\___/_| |_|_|_|
+  #               |__/           |___/
+  tokyoNightStorm= {
+    background = "#24283b";
+    foreground = "#c0caf5";
+    black = "#1d202f";
+    red = "#f7768e";
+    green = "#9ece6a";
+    yellow = "#e0af68";
+    blue = "#7aa2f7";
+    magenta = "#bb9af7";
+    cyan = "#7dcfff";
+    white = "#a9b1d6";
+    blackAlt = "#414868";
+    redAlt = "#ff899d";
+    greenAlt = "#9fe044";
+    yellowAlt = "#faba4a";
+    blueAlt = "#8db0ff";
+    magentaAlt = "#c7a9ff";
+    cyanAlt = "#a4daff";
+    whiteAlt = "#c0caf5";
+  };
 in
 {
   defaultColorScheme = gruvboxBlack;
   allColorSchemes = {
     "gruvboxBlack" = gruvboxBlack;
     "modusVivendi" = modusVivendi;
+    "tokyoNightStorm" = tokyoNightStorm;
   };
 }
