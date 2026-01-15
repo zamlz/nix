@@ -44,10 +44,11 @@
           nixpkgs
           home-manager
           nixvim
+          nixos-generators
           inputs
           ;
       };
-      inherit (builders) nixosSystemBuilder homeManagerBuilder;
+      inherit (builders) nixosSystemBuilder homeManagerBuilder nixosGeneratorBuilder;
       mkDevShell = import ./lib/devshell.nix;
       mkChecks = import ./lib/checks.nix;
       forAllSystems = nixpkgs.lib.genAttrs [
@@ -109,42 +110,12 @@
         };
       };
 
-      packages = forAllSystems (
-        # deadnix: skip
-        system: {
-          iso = nixos-generators.nixosGenerate {
-            inherit system;
-            format = "iso";
-            modules = [
-              ./hosts/liveiso/configuration.nix
-              home-manager.nixosModules.home-manager
-              {
-                home-manager = {
-                  useGlobalPkgs = true;
-                  useUserPackages = true;
-                  extraSpecialArgs = {
-                    inherit inputs;
-                    systemConfig = {
-                      useGUI = true;
-                      fontScale = 1.0;
-                    };
-                    constants = import ./lib/constants.nix;
-                  };
-                  sharedModules = [ nixvim.homeModules.nixvim ];
-                  users.amlesh = import ./hosts/liveiso/home.nix;
-                };
-              }
-            ];
-            specialArgs = {
-              inherit inputs;
-              systemConfig = {
-                useGUI = true;
-                fontScale = 1.0;
-              };
-              constants = import ./lib/constants.nix;
-            };
-          };
-        }
-      );
+      packages = forAllSystems (system: {
+        iso = nixosGeneratorBuilder {
+          inherit system;
+          hostConfigPath = ./hosts/liveiso/configuration.nix;
+          homeConfigPath = ./hosts/liveiso/home.nix;
+        };
+      });
     };
 }
