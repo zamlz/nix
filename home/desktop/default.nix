@@ -10,6 +10,7 @@
     ./kitty.nix # [unused]
     ./mpv.nix
     ./polybar
+    ./niri
     ./qutebrowser.nix
     ./sxhkd
     ./xinit
