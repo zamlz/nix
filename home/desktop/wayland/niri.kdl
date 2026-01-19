@@ -47,6 +47,8 @@ prefer-no-csd
 
 spawn-at-startup "waybar"
 
+spawn-sh-at-startup "hyprlax ~/.config/wallpaper"
+
 screenshot-path "~/tmp/screenshot-%Y-%m-%d-%H-%M-%S.png"
 
 window-rule {
