@@ -7,12 +7,12 @@
   xdg.configFile."niri/config.kdl".source = ./niri.kdl;
 
   home.packages = with pkgs; [
-    hyprlax  # potential wallpaper engine?
+    hyprlax # potential wallpaper engine?
     # noctalia-shell # not in current flake revision
   ];
 
   # FIXME: Need configuration
-  programs.waybar= {
+  programs.waybar = {
     enable = true;
   };
 
@@ -20,9 +20,15 @@
   programs.anyrun = {
     enable = true;
     config = {
-      x = { fraction = 0.5; };
-      y = { fraction = 0.3; };
-      width = { fraction = 0.3; };
+      x = {
+        fraction = 0.5;
+      };
+      y = {
+        fraction = 0.3;
+      };
+      width = {
+        fraction = 0.3;
+      };
       hideIcons = false;
       ignoreExclusiveZones = false;
       layer = "overlay";
