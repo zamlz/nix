@@ -29,7 +29,6 @@ in
       ignore-empty-password = true;
       show-failed-attempts = true;
       image = "~/.config/wallpaper";
-      scaling = "tile";
       hide-keyboard-layout = true;
       disable-caps-lock-text = true;
       bs-hl-color = magenta;

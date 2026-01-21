@@ -15,6 +15,7 @@ input {
 
 layout {
     gaps 16
+    background-color "#00000000"
     center-focused-column "never"
     preset-column-widths {
         proportion 0.33333
@@ -36,18 +37,18 @@ layout {
         urgent-color "#9b0000"
     }
     struts {
-        left 64
-        right 64
-        top 64
-        bottom 64
+        left 0
+        right 0
+        top 0
+        bottom 0
     }
 }
 
 prefer-no-csd
 
-spawn-at-startup "waybar"
-
-spawn-sh-at-startup "swaybg --mode tile --image ~/.config/wallpaper"
+// If NIRI has a systemd target, then we should retarget this service
+spawn-sh-at-startup "systemctl --user restart waybar.service"
+spawn-sh-at-startup "swaybg --image ~/.config/wallpaper"
 
 screenshot-path "~/tmp/screenshot-%Y-%m-%d-%H-%M-%S.png"
 
@@ -60,6 +61,16 @@ window-rule {
     match app-id=r#"^org\.keepassxc\.KeePassXC$"#
     match app-id=r#"^org\.gnome\.World\.Secrets$"#
     block-out-from "screen-capture"
+}
+
+layer-rule {
+    match namespace="^waybar$"
+    place-within-backdrop false
+}
+
+layer-rule {
+    match namespace="^wallpaper$"
+    place-within-backdrop true
 }
 
 binds {
