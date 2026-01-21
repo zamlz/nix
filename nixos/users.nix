@@ -13,6 +13,7 @@
       "docker"
       "kvm"
       "networkmanager"
+      "seat" # needed for wayland
       "wheel"
     ];
     shell = pkgs.zsh;
