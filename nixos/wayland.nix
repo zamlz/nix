@@ -4,6 +4,7 @@
   ...
 }:
 {
+  services.displayManager.ly.enable = systemConfig.useGUI;
   programs.niri.enable = systemConfig.useGUI;
 
   # FIXME: Move to home-manager?
