@@ -17,24 +17,32 @@ layout {
     gaps 16
     background-color "#00000000"
     center-focused-column "never"
+    always-center-single-column
     preset-column-widths {
-        proportion 0.33333
+        // FIXME: don't hardcode the float here
+        proportion 0.3333333333
         proportion 0.5
-        proportion 0.66667
+        proportion 0.6666666666
     }
     default-column-width {
-        proportion 0.33333
+        proportion 0.6666666666
+    }
+    preset-window-heights {
+        // FIXME: don't hardcode the float here
+        proportion 0.3333333333
+        proportion 0.5
+        proportion 0.6666666666
+        proportion 1.0
     }
     focus-ring {
-        width 4
-        active-color "#7fc8ff"
-        inactive-color "#505050"
+        off
     }
     border {
-        width 4
-        active-color "#ffc87f"
-        inactive-color "#505050"
-        urgent-color "#9b0000"
+        width 6
+        // active-color "#888888"
+        active-gradient from="#f00a" to="#0f0a" angle=45 in="oklch longer hue"
+        inactive-color "#282828"
+        urgent-color "#880000"
     }
     struts {
         left 16
