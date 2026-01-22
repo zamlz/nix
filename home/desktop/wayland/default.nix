@@ -3,7 +3,7 @@
   ...
 }:
 let
-  removeHash = str: builtins.replaceStrings ["#"] [""] str;
+  removeHash = str: builtins.replaceStrings [ "#" ] [ "" ] str;
   colorScheme = (import ../../../lib/colorschemes.nix).defaultColorScheme;
   noHashColorScheme = builtins.mapAttrs (name: value: removeHash value) colorScheme;
 in
@@ -30,8 +30,8 @@ in
         class = "top";
         layer = "top";
         position = "top";
-        height = 32;  # 3% of 1080p
-        modules-left = [ "custom/system-info"];
+        height = 32; # 3% of 1080p
+        modules-left = [ "custom/system-info" ];
         modules-center = [ "clock" ];
         "custom/system-info" = {
           format = "{}";
