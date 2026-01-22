@@ -4,7 +4,14 @@
   ...
 }:
 {
-  services.displayManager.ly.enable = systemConfig.useGUI;
+  services.displayManager.ly = {
+    enable = systemConfig.useGUI;
+    settings = {
+      animation = "colormix";
+      battery_id = "BAT0";
+      bigclock = true;
+    };
+  };
   programs.niri.enable = systemConfig.useGUI;
 
   # FIXME: Move to home-manager?
