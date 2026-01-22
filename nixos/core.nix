@@ -34,8 +34,6 @@
 
   environment = {
     systemPackages = with pkgs; [
-      # NixOS tools
-      nh
       # Hardware utils
       pciutils
       usbutils
