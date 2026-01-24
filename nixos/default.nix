@@ -7,6 +7,7 @@
     ./core.nix
     ./docker.nix
     ./gui.nix
+    ./ly.nix
     ./networking.nix
     ./nix.nix
     ./printing.nix

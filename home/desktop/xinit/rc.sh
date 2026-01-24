@@ -10,4 +10,4 @@ if command -v dbus-update-activation-environment >/dev/null 2>&1; then
 fi
 
 # Figure out where to place these (maybe systemd user services)
-exec $@
+exec herbstluftwm
