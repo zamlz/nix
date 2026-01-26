@@ -1,11 +1,8 @@
-{
-  pkgs,
-  ...
-}:
+_:
 let
   removeHash = str: builtins.replaceStrings [ "#" ] [ "" ] str;
   colorScheme = (import ../../../lib/colorschemes.nix).defaultColorScheme;
-  noHashColorScheme = builtins.mapAttrs (name: value: removeHash value) colorScheme;
+  noHashColorScheme = builtins.mapAttrs (_: removeHash) colorScheme;
 in
 {
   programs.swaylock = {
