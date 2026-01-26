@@ -76,7 +76,7 @@
       spawn-at-startup = [
         # If NIRI has a systemd target, then we should retarget this service
         { command = [ "systemctl" "--user" "restart" "waybar.service" ]; }
-        { command = [ "sh" "-c" "swaybg --image ~/.config/wallpaper" ]; }
+        { command = [ "sh" "-c" "swaybg --mode fill --image ~/.config/wallpaper" ]; }
       ];
 
       screenshot-path = "~/tmp/screenshot-%Y-%m-%d-%H-%M-%S.png";
