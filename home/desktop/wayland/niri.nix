@@ -75,8 +75,21 @@
 
       spawn-at-startup = [
         # If NIRI has a systemd target, then we should retarget this service
-        { command = [ "systemctl" "--user" "restart" "waybar.service" ]; }
-        { command = [ "sh" "-c" "swaybg --mode fill --image ~/.config/wallpaper" ]; }
+        {
+          command = [
+            "systemctl"
+            "--user"
+            "restart"
+            "waybar.service"
+          ];
+        }
+        {
+          command = [
+            "sh"
+            "-c"
+            "swaybg --mode fill --image ~/.config/wallpaper"
+          ];
+        }
       ];
 
       screenshot-path = "~/tmp/screenshot-%Y-%m-%d-%H-%M-%S.png";
@@ -84,7 +97,10 @@
       window-rules = [
         {
           matches = [
-            { app-id = "^firefox$"; title = "^Picture-in-Picture$"; }
+            {
+              app-id = "^firefox$";
+              title = "^Picture-in-Picture$";
+            }
           ];
           open-floating = true;
         }
@@ -258,45 +274,87 @@
 
         # Media keys
         "XF86AudioRaiseVolume" = {
-          action.spawn = [ "sh" "-c" "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0" ];
+          action.spawn = [
+            "sh"
+            "-c"
+            "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0"
+          ];
           allow-when-locked = true;
         };
         "XF86AudioLowerVolume" = {
-          action.spawn = [ "sh" "-c" "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-" ];
+          action.spawn = [
+            "sh"
+            "-c"
+            "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"
+          ];
           allow-when-locked = true;
         };
         "XF86AudioMute" = {
-          action.spawn = [ "sh" "-c" "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle" ];
+          action.spawn = [
+            "sh"
+            "-c"
+            "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+          ];
           allow-when-locked = true;
         };
         "XF86AudioMicMute" = {
-          action.spawn = [ "sh" "-c" "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle" ];
+          action.spawn = [
+            "sh"
+            "-c"
+            "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+          ];
           allow-when-locked = true;
         };
 
         "XF86AudioPlay" = {
-          action.spawn = [ "sh" "-c" "playerctl play-pause" ];
+          action.spawn = [
+            "sh"
+            "-c"
+            "playerctl play-pause"
+          ];
           allow-when-locked = true;
         };
         "XF86AudioStop" = {
-          action.spawn = [ "sh" "-c" "playerctl stop" ];
+          action.spawn = [
+            "sh"
+            "-c"
+            "playerctl stop"
+          ];
           allow-when-locked = true;
         };
         "XF86AudioPrev" = {
-          action.spawn = [ "sh" "-c" "playerctl previous" ];
+          action.spawn = [
+            "sh"
+            "-c"
+            "playerctl previous"
+          ];
           allow-when-locked = true;
         };
         "XF86AudioNext" = {
-          action.spawn = [ "sh" "-c" "playerctl next" ];
+          action.spawn = [
+            "sh"
+            "-c"
+            "playerctl next"
+          ];
           allow-when-locked = true;
         };
 
         "XF86MonBrightnessUp" = {
-          action.spawn = [ "brightnessctl" "--class=backlight" "set" "+10%" ];
+          action.spawn = [
+            "brightnessctl"
+            "--class=backlight"
+            "set"
+            "+10%"
+          ];
           allow-when-locked = true;
         };
         "XF86MonBrightnessDown" = {
-          action.spawn = [ "brightnessctl" "--class=backlight" "set" "10%-" ];
+          action.spawn = [
+            "brightnessctl"
+            "--class=backlight"
+            "set"
+            "10%-"
+          ];
           allow-when-locked = true;
         };
       };
