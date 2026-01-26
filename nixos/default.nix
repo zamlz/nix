@@ -14,6 +14,5 @@
     ./qemu.nix
     ./security.nix
     ./users.nix
-    ./wayland.nix
   ];
 }

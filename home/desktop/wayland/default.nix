@@ -15,4 +15,6 @@
     xwayland-satellite
     # noctalia-shell # not in current flake revision
   ];
+
+  services.playerctld.enable = true;
 }
