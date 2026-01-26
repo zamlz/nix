@@ -97,6 +97,21 @@
         }
       ];
 
+      layer-rules = [
+        {
+          matches = [
+            { namespace = "^wallpaper$"; }
+          ];
+          place-within-backdrop = true;
+        }
+        {
+          matches = [
+            { namespace = "^waybar$"; }
+          ];
+          place-within-backdrop = false;
+        }
+      ];
+
       binds = {
         "Mod+Ctrl+Alt+Shift+Slash".action.show-hotkey-overlay = { };
 
