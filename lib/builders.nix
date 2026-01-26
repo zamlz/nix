@@ -2,7 +2,6 @@
   nixpkgs,
   home-manager,
   nixvim,
-  nixos-generators,
   niri,
   inputs,
 }:
@@ -79,29 +78,5 @@ in
         niri.homeModules.niri
       ];
       extraSpecialArgs = mkExtraSpecialArgs systemConfig;
-    };
-
-  nixosGeneratorBuilder =
-    {
-      hostConfigPath,
-      homeConfigPath,
-      useGUI ? true,
-      fontScale ? 1.0,
-      format ? "iso",
-      system ? "x86_64-linux",
-    }:
-    let
-      systemConfig = mkSystemConfig { inherit useGUI fontScale; };
-      extraSpecialArgs = mkExtraSpecialArgs systemConfig;
-    in
-    nixos-generators.nixosGenerate {
-      inherit system format;
-      modules = [
-        { nixpkgs.overlays = [ niri.overlays.niri ]; }
-        hostConfigPath
-        home-manager.nixosModules.home-manager
-        (mkHomeManagerModule homeConfigPath extraSpecialArgs)
-      ];
-      specialArgs = extraSpecialArgs;
     };
 }

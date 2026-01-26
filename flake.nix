@@ -19,11 +19,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixos-generators = {
-      url = "github:nix-community/nixos-generators";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     niri.url = "github:sodiboo/niri-flake";
 
     # FIXME: Maybe use this if I really need to use home-manager in arch
@@ -37,7 +32,6 @@
       nixpkgs,
       home-manager,
       nixvim,
-      nixos-generators,
       niri,
       ...
     }@inputs:
@@ -47,12 +41,11 @@
           nixpkgs
           home-manager
           nixvim
-          nixos-generators
           niri
           inputs
           ;
       };
-      inherit (builders) nixosSystemBuilder homeManagerBuilder nixosGeneratorBuilder;
+      inherit (builders) nixosSystemBuilder homeManagerBuilder;
       mkDevShell = import ./lib/devshell.nix;
       mkChecks = import ./lib/checks.nix;
       forAllSystems = nixpkgs.lib.genAttrs [
@@ -113,13 +106,5 @@
           useGUI = false;
         };
       };
-
-      packages = forAllSystems (system: {
-        iso = nixosGeneratorBuilder {
-          inherit system;
-          hostConfigPath = ./hosts/liveiso/configuration.nix;
-          homeConfigPath = ./hosts/liveiso/home.nix;
-        };
-      });
     };
 }
