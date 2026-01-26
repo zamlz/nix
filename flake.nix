@@ -24,6 +24,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    niri.url = "github:sodiboo/niri-flake";
+
     # FIXME: Maybe use this if I really need to use home-manager in arch
     # nixgl.url = "github:nix-community/nixGL";
   };
@@ -36,6 +38,7 @@
       home-manager,
       nixvim,
       nixos-generators,
+      niri,
       ...
     }@inputs:
     let
@@ -45,6 +48,7 @@
           home-manager
           nixvim
           nixos-generators
+          niri
           inputs
           ;
       };

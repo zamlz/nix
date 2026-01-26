@@ -8,8 +8,9 @@ let
   noHashColorScheme = builtins.mapAttrs (name: value: removeHash value) colorScheme;
 in
 {
-  # FIXME: use niri through niri-flakes for home manager support
-  xdg.configFile."niri/config.kdl".source = ./niri.kdl;
+  imports = [
+    ./niri.nix
+  ];
 
   home.packages = with pkgs; [
     # hyprlax

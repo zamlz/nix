@@ -3,6 +3,7 @@
   home-manager,
   nixvim,
   nixos-generators,
+  niri,
   inputs,
 }:
 let
@@ -26,7 +27,10 @@ let
       useGlobalPkgs = true;
       useUserPackages = true;
       inherit extraSpecialArgs;
-      sharedModules = [ nixvim.homeModules.nixvim ];
+      sharedModules = [
+        nixvim.homeModules.nixvim
+        niri.homeModules.niri
+      ];
       users.amlesh = import homeConfigPath;
     };
   };
@@ -46,6 +50,7 @@ in
     nixpkgs.lib.nixosSystem {
       specialArgs = extraSpecialArgs;
       modules = [
+        { nixpkgs.overlays = [ niri.overlays.niri ]; }
         hostConfigPath
         home-manager.nixosModules.home-manager
         (mkHomeManagerModule homeConfigPath extraSpecialArgs)
@@ -66,10 +71,12 @@ in
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
+        overlays = [ niri.overlays.niri ];
       };
       modules = [
         homeConfigPath
         nixvim.homeModules.nixvim
+        niri.homeModules.niri
       ];
       extraSpecialArgs = mkExtraSpecialArgs systemConfig;
     };
@@ -90,6 +97,7 @@ in
     nixos-generators.nixosGenerate {
       inherit system format;
       modules = [
+        { nixpkgs.overlays = [ niri.overlays.niri ]; }
         hostConfigPath
         home-manager.nixosModules.home-manager
         (mkHomeManagerModule homeConfigPath extraSpecialArgs)
