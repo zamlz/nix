@@ -19,18 +19,23 @@ in
         layer = "top";
         position = "top";
         height = 32; # 3% of 1080p
-        modules-left = [ "custom/system-info" ];
+        modules-left = [
+          "custom/system-info"
+          "systemd-failed-units#system"
+          "systemd-failed-units#user"
+          "privacy"
+        ];
         modules-center = [ "clock" ];
-
-        "custom/system-info" = {
-          format = "{}";
-          interval = "once";
-          exec = pkgs.writeShellScript "system-info" ''
-            echo " $(whoami)@$(uname -n)"
-          '';
-          tooltip = false;
+        modules-right = [
+          "backlight"
+          "battery"
+          "network"
+        ];
+        "battery" = {
+          format = "{capacity}% {time}";
+          format-time = "{H}:{M}";
+          tooltip-format = "Power: {power}W Health: {health}";
         };
-
         "clock" = {
           interval = 1;
           format = "{:%B %d, %Y (%A) %I:%M:%S %p}";
@@ -46,13 +51,51 @@ in
             on-scroll-down = "shift_down";
           };
         };
+        "custom/system-info" = {
+          format = "{}";
+          interval = "once";
+          exec = pkgs.writeShellScript "system-info" ''
+            source /etc/os-release
+            echo "$(whoami)@$(uname -n) :: $(uname -o) $(uname -r) :: ''${NAME} ''${VERSION}"
+          '';
+          tooltip = false;
+        };
+        "network" = {
+          tooltip = false;
+          format = "{ifname}: {essid} ({ipaddr})";
+          format-disconnected = "";
+        };
+        "systemd-failed-units#system" = {
+          hide-on-ok = true;
+          system = true;
+          user = false;
+          format = "systemd: {nr_failed_system} failed units";
+          format-ok = "";
+        };
+        "systemd-failed-units#user" = {
+          hide-on-ok = true;
+          system = false;
+          user = true;
+          format = "systemd-user: {nr_failed_user} failed units";
+          format-ok = "";
+        };
       };
       botBar = {
         class = "bot";
         layer = "top";
         position = "bottom";
         height = 32;
-        modules-center = [ "niri/workspaces" ];
+        modules-left = [ "niri/workspaces" ];
+        modules-right = [
+          "niri/window"
+        ];
+        "niri/workspaces" = {
+          format = "{icon}{value}{icon}";
+          format-icons = {
+            focused = "<span color='${blue}'>=</span>";
+            default = " ";
+          };
+        };
       };
     };
     style = ''
@@ -62,10 +105,24 @@ in
         font-family: Iosevka;
         background: ${background};
         color: ${foreground};
+        padding-left: 8px;
+        padding-right: 8px;
+      }
+
+      #battery {
+        color: ${green};
       }
 
       #clock, #clock.calendar.today {
         color: ${blue};
+      }
+
+      #network {
+        color: ${cyan};
+      }
+
+      #systemd-failed-units {
+        color: ${red};
       }
     '';
   };
