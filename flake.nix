@@ -19,6 +19,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    swhkd = {
+      url = "github:waycrate/swhkd";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     niri.url = "github:sodiboo/niri-flake";
 
     # FIXME: Maybe use this if I really need to use home-manager in arch

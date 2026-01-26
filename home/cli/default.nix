@@ -54,7 +54,6 @@
       ))
     ])
     ++ [
-      # Custom packages from flake inputs
-      inputs.mdutils.packages.${pkgs.system}.default
+      inputs.mdutils.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];
 }
