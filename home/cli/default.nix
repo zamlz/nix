@@ -26,7 +26,6 @@
     ./systemd.nix
     ./taskwarrior.nix
     ./tmux.nix
-    ./trash-cli.nix
     ./yt-dlp.nix
     ./zsh
   ];
