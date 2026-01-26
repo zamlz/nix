@@ -33,14 +33,14 @@ in
           inherit white;
         };
         bright = {
-          inherit black;
-          inherit red;
-          inherit green;
-          inherit yellow;
-          inherit blue;
-          inherit magenta;
-          inherit cyan;
-          inherit white;
+          black = blackAlt;
+          red = redAlt;
+          green = greenAlt;
+          yellow = yellowAlt;
+          blue = blueAlt;
+          magenta = magentaAlt;
+          cyan = cyanAlt;
+          white = whiteAlt;
         };
       };
 
