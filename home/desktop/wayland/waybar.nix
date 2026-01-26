@@ -92,7 +92,7 @@ in
         "niri/workspaces" = {
           format = "{icon}{value}{icon}";
           format-icons = {
-            focused = "<span color='${blue}'>=</span>";
+            focused = "<span color='${blue}'>\/</span>";
             default = " ";
           };
         };
