@@ -135,7 +135,7 @@
         "Mod+Ctrl+Alt+Escape".action.quit = { };
         "Mod+Ctrl+Shift+Escape".action.power-off-monitors = { };
 
-        "Mod+Return".action.spawn = [ "alacritty" ];
+        "Mod+Return".action.spawn = [ "footclient" ];
         "Mod+E".action.spawn = [ "fuzzel" ];
 
         "Mod+Space" = {
