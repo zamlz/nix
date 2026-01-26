@@ -6,14 +6,11 @@
   imports = [
     ./alacritty.nix
     ./feh.nix
-    ./herbstluftwm.nix
     ./kitty.nix # [unused]
     ./mpv.nix
-    ./polybar
     ./wayland
+    ./x11
     ./qutebrowser.nix
-    ./sxhkd
-    ./xinit
   ];
 
   home.packages = with pkgs; [

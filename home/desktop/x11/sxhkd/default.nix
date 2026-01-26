@@ -42,24 +42,24 @@ let
 in
 {
   xdg.configFile = {
-    "sxhkd/file_preview.sh".source = ../../../scripts/file_preview.sh;
-    "sxhkd/man_preview.sh".source = ../../../scripts/man_preview.sh;
-    "sxhkd/file_system_explorer.py".source = ../../../scripts/file_system_explorer.py;
-    "sxhkd/file_system_open.py".source = ../../../scripts/file_system_open.py;
-    "sxhkd/password-store.py".source = ../../../scripts/password_store.py;
-    "sxhkd/fzf-program-launcher.sh".source = ../../../scripts/fzf-program-launcher.sh;
-    "sxhkd/ripgrep.py".source = ../../../scripts/ripgrep.py;
-    "sxhkd/calculator.py".source = ../../../scripts/calculator.py;
-    "sxhkd/man_open.py".source = ../../../scripts/man_open.py;
-    "sxhkd/git_manager.py".source = ../../../scripts/git_manager.py;
+    "sxhkd/file_preview.sh".source = ../../../../scripts/file_preview.sh;
+    "sxhkd/man_preview.sh".source = ../../../../scripts/man_preview.sh;
+    "sxhkd/file_system_explorer.py".source = ../../../../scripts/file_system_explorer.py;
+    "sxhkd/file_system_open.py".source = ../../../../scripts/file_system_open.py;
+    "sxhkd/password-store.py".source = ../../../../scripts/password_store.py;
+    "sxhkd/fzf-program-launcher.sh".source = ../../../../scripts/fzf-program-launcher.sh;
+    "sxhkd/ripgrep.py".source = ../../../../scripts/ripgrep.py;
+    "sxhkd/calculator.py".source = ../../../../scripts/calculator.py;
+    "sxhkd/man_open.py".source = ../../../../scripts/man_open.py;
+    "sxhkd/git_manager.py".source = ../../../../scripts/git_manager.py;
     "sxhkd/maim-screenshot.sh".source = ./maim-screenshot.sh;
-    "sxhkd/system_manager.py".source = ../../../scripts/system_manager.py;
-    "sxhkd/window_switcher.py".source = ../../../scripts/window_switcher.py;
-    "sxhkd/workspace_manager.py".source = ../../../scripts/workspace_manager.py;
-    "sxhkd/spawn_identical_shell.py".source = ../../../scripts/spawn_identical_shell.py;
-    "sxhkd/navi".source = ../../../scripts/navi;
+    "sxhkd/system_manager.py".source = ../../../../scripts/system_manager.py;
+    "sxhkd/window_switcher.py".source = ../../../../scripts/window_switcher.py;
+    "sxhkd/workspace_manager.py".source = ../../../../scripts/workspace_manager.py;
+    "sxhkd/spawn_identical_shell.py".source = ../../../../scripts/spawn_identical_shell.py;
+    "sxhkd/navi".source = ../../../../scripts/navi;
     "sxhkd/navi".recursive = true;
-    "sxhkd/nohup.sh".source = ../../../scripts/nohup.sh;
+    "sxhkd/nohup.sh".source = ../../../../scripts/nohup.sh;
   };
 
   services.sxhkd = {

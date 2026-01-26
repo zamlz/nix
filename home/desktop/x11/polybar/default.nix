@@ -3,7 +3,7 @@
   ...
 }:
 let
-  colorScheme = (import ../../../lib/colorschemes.nix).defaultColorScheme;
+  colorScheme = (import ../../../../lib/colorschemes.nix).defaultColorScheme;
 in
 {
   xdg.configFile."polybar/kernel_info.sh" = {

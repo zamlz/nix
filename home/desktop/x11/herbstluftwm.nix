@@ -1,6 +1,6 @@
 _:
 let
-  colorScheme = (import ../../lib/colorschemes.nix).defaultColorScheme;
+  colorScheme = (import ../../../lib/colorschemes.nix).defaultColorScheme;
 in
 {
   xsession.windowManager.herbstluftwm = {
