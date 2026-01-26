@@ -1,7 +1,7 @@
 { self, pkgs }:
 {
-  nixfmt = pkgs.runCommand "nixfmt" { buildInputs = [ pkgs.nixfmt-rfc-style ]; } ''
-    ${pkgs.nixfmt-rfc-style}/bin/nixfmt --check ${self}
+  nixfmt = pkgs.runCommand "nixfmt" { buildInputs = [ pkgs.nixfmt ]; } ''
+    ${pkgs.nixfmt}/bin/nixfmt --check ${self}
     touch $out
   '';
 

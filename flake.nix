@@ -78,7 +78,7 @@
         }
       );
 
-      formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt-rfc-style);
+      formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt);
 
       homeConfigurations."generic-linux" = homeManagerBuilder {
         homeConfigPath = ./hosts/generic-linux/home.nix;

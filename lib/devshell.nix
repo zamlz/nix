@@ -5,7 +5,7 @@
       # nix rebuild wrapper
       nh
       # Nix formatting and linting
-      nixfmt-rfc-style
+      nixfmt
       statix
       deadnix
     ];
