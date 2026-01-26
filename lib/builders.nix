@@ -50,6 +50,14 @@ in
       specialArgs = extraSpecialArgs;
       modules = [
         { nixpkgs.overlays = [ niri.overlays.niri ]; }
+        {
+          # Required for xdg-desktop-portal when using home-manager
+          # with useUserPackages = true
+          environment.pathsToLink = [
+            "/share/applications"
+            "/share/xdg-desktop-portal"
+          ];
+        }
         hostConfigPath
         home-manager.nixosModules.home-manager
         (mkHomeManagerModule homeConfigPath extraSpecialArgs)
