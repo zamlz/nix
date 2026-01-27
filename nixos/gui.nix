@@ -26,5 +26,5 @@
 
   # For same reasons as above, we need to tell PAM to allow swaylock to
   # authenticate
-  security.pam.services.swaylock = {};
+  security.pam.services.swaylock = { };
 }
