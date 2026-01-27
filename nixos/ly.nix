@@ -15,6 +15,11 @@
     };
   };
 
+  # FIXME: Kinda hacky, but this line is needed'
+  # to allow ly to see niri. My home-manager installs
+  # one too though.
+  programs.niri.enable = systemConfig.useGUI;
+
   # FIXME: Move to home-manager?
   environment.systemPackages = with pkgs; [
     brightnessctl

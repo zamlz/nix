@@ -74,22 +74,11 @@
       prefer-no-csd = true;
 
       spawn-at-startup = [
-        # If NIRI has a systemd target, then we should retarget this service
-        {
-          command = [
-            "systemctl"
-            "--user"
-            "restart"
-            "waybar.service"
-          ];
-        }
-        {
-          command = [
-            "sh"
-            "-c"
-            "swaybg --mode fill --image ~/.config/wallpaper"
-          ];
-        }
+        # FIXME: If NIRI has a systemd target, then we should retarget this service
+        { sh = "systemctl --user restart waybar.service"; }
+        { sh = "systemctl --user start foot-server.service"; }
+        # FIXME: Create a systemd unit for swaybg or find a different wallpaper service
+        { sh = "swaybg --mode fill --image ~/.config/wallpaper"; }
       ];
 
       screenshot-path = "~/tmp/screenshot-%Y-%m-%d-%H-%M-%S.png";
