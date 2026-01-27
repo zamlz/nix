@@ -11,7 +11,7 @@ let
   termPromptLauncher =
     script: lineNum: columnNum: fontSize:
     let
-      saveWindowId = "$HOME/.config/sxhkd/navi/tools/save_active_window_id.py";
+      saveWindowId = "$HOME/.config/scripts/navi/tools/save_active_window_id.py";
       fontOption = "--option 'font.size=${builtins.toString (systemConfig.fontScale * fontSize)}'";
       lineOption = "--option 'window.dimensions.lines=${builtins.toString lineNum}'";
       columnOption = "--option 'window.dimensions.columns=${builtins.toString columnNum}'";
@@ -23,45 +23,24 @@ let
     "${saveWindowId}; ${terminal} ${termClass} ${fontOption} ${lineOption} ${columnOption} --command ${script}";
   IdenticalTerminalLauncher =
     let
-      saveWindowId = "$HOME/.config/sxhkd/navi/tools/save_active_window_id.py";
+      saveWindowId = "$HOME/.config/scripts/navi/tools/save_active_window_id.py";
     in
-    "${saveWindowId}; ${terminal} -e $HOME/.config/sxhkd/spawn_identical_shell.py";
-  Calculator = termPromptLauncher "$HOME/.config/sxhkd/calculator.py" 12 96 12;
-  FileSystemExplorer = termPromptLauncher "$HOME/.config/sxhkd/file_system_explorer.py" 35 164 8;
-  FileSystemOpen = termPromptLauncher "$HOME/.config/sxhkd/file_system_open.py" 35 164 8;
-  GitManager = termPromptLauncher "$HOME/.config/sxhkd/git_manager.py" 35 164 8;
+    "${saveWindowId}; ${terminal} -e $HOME/.config/scripts/spawn_identical_shell.py";
+  Calculator = termPromptLauncher "$HOME/.config/scripts/calculator.py" 12 96 12;
+  FileSystemExplorer = termPromptLauncher "$HOME/.config/scripts/file_system_explorer.py" 35 164 8;
+  FileSystemOpen = termPromptLauncher "$HOME/.config/scripts/file_system_open.py" 35 164 8;
+  GitManager = termPromptLauncher "$HOME/.config/scripts/git_manager.py" 35 164 8;
   LogJournalEntry = termPromptLauncher "$HOME/usr/notes/bin/notes log" 20 128 9;
-  maimScreenshot = "$HOME/.config/sxhkd/maim-screenshot.sh";
-  ManPageOpen = termPromptLauncher "$HOME/.config/sxhkd/man_open.py" 35 164 8;
-  PasswordStore = termPromptLauncher "$HOME/.config/sxhkd/password-store.py" 14 100 9;
-  ProgramLauncher = termPromptLauncher "$HOME/.config/sxhkd/fzf-program-launcher.sh" 16 80 9;
-  RipGrep = termPromptLauncher "$HOME/.config/sxhkd/ripgrep.py" 35 164 8;
-  SystemManager = termPromptLauncher "$HOME/.config/sxhkd/system_manager.py" 6 40 12;
-  WindowSwitcher = termPromptLauncher "$HOME/.config/sxhkd/window_switcher.py" 20 128 9;
-  WorkspaceManager = termPromptLauncher "$HOME/.config/sxhkd/workspace_manager.py" 10 120 9;
+  maimScreenshot = "$HOME/.config/scripts/maim-screenshot.sh";
+  ManPageOpen = termPromptLauncher "$HOME/.config/scripts/man_open.py" 35 164 8;
+  PasswordStore = termPromptLauncher "$HOME/.config/scripts/password-store.py" 14 100 9;
+  ProgramLauncher = termPromptLauncher "$HOME/.config/scripts/fzf-program-launcher.sh" 16 80 9;
+  RipGrep = termPromptLauncher "$HOME/.config/scripts/ripgrep.py" 35 164 8;
+  SystemManager = termPromptLauncher "$HOME/.config/scripts/system_manager.py" 6 40 12;
+  WindowSwitcher = termPromptLauncher "$HOME/.config/scripts/window_switcher.py" 20 128 9;
+  WorkspaceManager = termPromptLauncher "$HOME/.config/scripts/workspace_manager.py" 10 120 9;
 in
 {
-  xdg.configFile = {
-    "sxhkd/file_preview.sh".source = ../../../../scripts/file_preview.sh;
-    "sxhkd/man_preview.sh".source = ../../../../scripts/man_preview.sh;
-    "sxhkd/file_system_explorer.py".source = ../../../../scripts/file_system_explorer.py;
-    "sxhkd/file_system_open.py".source = ../../../../scripts/file_system_open.py;
-    "sxhkd/password-store.py".source = ../../../../scripts/password_store.py;
-    "sxhkd/fzf-program-launcher.sh".source = ../../../../scripts/fzf-program-launcher.sh;
-    "sxhkd/ripgrep.py".source = ../../../../scripts/ripgrep.py;
-    "sxhkd/calculator.py".source = ../../../../scripts/calculator.py;
-    "sxhkd/man_open.py".source = ../../../../scripts/man_open.py;
-    "sxhkd/git_manager.py".source = ../../../../scripts/git_manager.py;
-    "sxhkd/maim-screenshot.sh".source = ./maim-screenshot.sh;
-    "sxhkd/system_manager.py".source = ../../../../scripts/system_manager.py;
-    "sxhkd/window_switcher.py".source = ../../../../scripts/window_switcher.py;
-    "sxhkd/workspace_manager.py".source = ../../../../scripts/workspace_manager.py;
-    "sxhkd/spawn_identical_shell.py".source = ../../../../scripts/spawn_identical_shell.py;
-    "sxhkd/navi".source = ../../../../scripts/navi;
-    "sxhkd/navi".recursive = true;
-    "sxhkd/nohup.sh".source = ../../../../scripts/nohup.sh;
-  };
-
   services.sxhkd = {
     enable = true;
     # You can use xev to find keysyms for X11
@@ -116,13 +95,6 @@ in
       "XF86AudioMicMute" = "pactl set-source-mute @DEFAULT_SOURCE@ toggle";
       "XF86AudioRaiseVolume" = "pactl set-sink-volume @DEFAULT_SINK@ +1%";
       "XF86AudioLowerVolume" = "pactl set-sink-volume @DEFAULT_SINK@ -1%";
-
-      # FIXME: These tools are not ready to use yet
-      # "XF86MonBrightnessUp" = "xbacklight -inc 1 -time 10";
-      # "XF86MonBrightnessDown" = "xbacklight -dec 1 -time 10";
-      # "XF86AudioPlay" = "spotify-cli toggle";
-      # "XF86AudioNext" = "spotify-cli next";
-      # "XF86AudioPrev" = "spotify-cli prev";
     };
   };
 }

@@ -11,6 +11,8 @@
     ./wayland
     ./x11
     ./qutebrowser.nix
+    # FIXME: Need to really cleanup how I manage and store scripts
+    ../../scripts
   ];
 
   home.packages = with pkgs; [
