@@ -23,4 +23,8 @@
   # Ideally, I could move everything as far into my home-manager
   # config as possible.
   programs.i3lock.enable = systemConfig.useGUI;
+
+  # For same reasons as above, we need to tell PAM to allow swaylock to
+  # authenticate
+  security.pam.services.swaylock = {};
 }
