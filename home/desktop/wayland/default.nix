@@ -15,6 +15,7 @@
     # hyprlax
     swaybg
     xwayland-satellite
+    wl-clipboard  # needed by pass
     # noctalia-shell # not in current flake revision
   ];
 
