@@ -1,5 +1,5 @@
 {
-  systemConfig,
+  config,
   ...
 }:
 let
@@ -12,7 +12,7 @@ in
     server.enable = true;
     settings = {
       main = {
-        font = "Iosevka:size=${toString (10.0 * systemConfig.fontScale)}";
+        font = "Iosevka:size=${toString (10.0 * config.my.fontScale)}";
         selection-target = "clipboard";
       };
       cursor = {

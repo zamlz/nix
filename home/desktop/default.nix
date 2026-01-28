@@ -4,6 +4,7 @@
 }:
 {
   imports = [
+    ../options.nix
     ./alacritty.nix
     ./feh.nix
     ./kitty.nix # [unused]

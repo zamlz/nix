@@ -1,6 +1,6 @@
 {
   pkgs,
-  systemConfig,
+  config,
   ...
 }:
 let
@@ -12,7 +12,7 @@ let
     script: lineNum: columnNum: fontSize:
     let
       saveWindowId = "$HOME/.config/scripts/navi/tools/save_active_window_id.py";
-      fontOption = "--option 'font.size=${builtins.toString (systemConfig.fontScale * fontSize)}'";
+      fontOption = "--option 'font.size=${builtins.toString (config.my.fontScale * fontSize)}'";
       lineOption = "--option 'window.dimensions.lines=${builtins.toString lineNum}'";
       columnOption = "--option 'window.dimensions.columns=${builtins.toString columnNum}'";
       termClass = "--class 'termprompt,termprompt'";

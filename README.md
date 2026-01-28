@@ -187,8 +187,8 @@ To inspect what attributes your system configuration is resolving to:
 # Inspect a specific attribute from your NixOS configuration
 nix eval .#nixosConfigurations.solaris.config.system.stateVersion
 
-# Inspect custom attributes like systemConfig
-nix eval .#nixosConfigurations.solaris.config.home-manager.extraSpecialArgs.systemConfig
+# Inspect custom options like fontScale
+nix eval .#nixosConfigurations.solaris.config.home-manager.users.amlesh.my.fontScale
 
 # See all available options for a configuration
 nix eval .#nixosConfigurations.solaris.options --apply builtins.attrNames

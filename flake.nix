@@ -87,7 +87,6 @@
         solaris = nixosSystemBuilder {
           hostConfigPath = ./hosts/solaris/configuration.nix;
           homeConfigPath = ./hosts/solaris/home.nix;
-          fontScale = 2.0;
         };
 
         # Personal Laptop (thinkpad-p14s)

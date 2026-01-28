@@ -7,19 +7,11 @@
 }:
 let
   constants = import ./constants.nix;
-  mkSystemConfig =
-    {
-      fontScale,
-    }:
-    {
-      inherit fontScale;
-    };
-  mkExtraSpecialArgs = systemConfig: {
+  extraSpecialArgs = {
     inherit inputs;
-    inherit systemConfig;
     inherit constants;
   };
-  mkHomeManagerModule = homeConfigPath: extraSpecialArgs: {
+  mkHomeManagerModule = homeConfigPath: {
     home-manager = {
       useGlobalPkgs = true;
       useUserPackages = true;
@@ -37,12 +29,7 @@ in
     {
       hostConfigPath,
       homeConfigPath,
-      fontScale ? 1.0,
     }:
-    let
-      systemConfig = mkSystemConfig { inherit fontScale; };
-      extraSpecialArgs = mkExtraSpecialArgs systemConfig;
-    in
     nixpkgs.lib.nixosSystem {
       specialArgs = extraSpecialArgs;
       modules = [
@@ -57,19 +44,15 @@ in
         }
         hostConfigPath
         home-manager.nixosModules.home-manager
-        (mkHomeManagerModule homeConfigPath extraSpecialArgs)
+        (mkHomeManagerModule homeConfigPath)
       ];
     };
 
   homeManagerBuilder =
     {
       homeConfigPath,
-      fontScale ? 1.0,
       system ? "x86_64-linux",
     }:
-    let
-      systemConfig = mkSystemConfig { inherit fontScale; };
-    in
     home-manager.lib.homeManagerConfiguration {
       pkgs = import nixpkgs {
         inherit system;
@@ -81,6 +64,6 @@ in
         nixvim.homeModules.nixvim
         niri.homeModules.niri
       ];
-      extraSpecialArgs = mkExtraSpecialArgs systemConfig;
+      inherit extraSpecialArgs;
     };
 }

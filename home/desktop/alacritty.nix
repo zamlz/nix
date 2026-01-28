@@ -1,5 +1,5 @@
 {
-  systemConfig,
+  config,
   ...
 }:
 let
@@ -53,7 +53,7 @@ in
       };
 
       font = {
-        size = 10.0 * systemConfig.fontScale;
+        size = 10.0 * config.my.fontScale;
         glyph_offset = {
           x = 0;
           y = 0;

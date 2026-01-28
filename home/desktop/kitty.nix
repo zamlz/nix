@@ -1,5 +1,5 @@
 {
-  systemConfig,
+  config,
   ...
 }:
 let
@@ -11,7 +11,7 @@ in
     enable = true;
     font = {
       name = "Iosevka";
-      size = 8.0 * systemConfig.fontScale;
+      size = 8.0 * config.my.fontScale;
     };
 
     settings = {
