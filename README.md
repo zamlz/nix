@@ -93,25 +93,6 @@ All future invocations in the environment should have `home-manager` present.
 home-manager switch --flake .#generic-linux
 ```
 
-### Live ISO
-
-Build a personal live USB with full desktop environment and configuration.
-
-```shell
-nix build .#packages.x86_64-linux.iso
-```
-
-The resulting ISO will be in `result/iso/`. Test the ISO in `qemu` before writing to USB:
-
-```shell
-# After building the ISO
-qemu-system-x86_64 \
-  -enable-kvm \
-  -m 4096 \
-  -cdrom result/iso/*.iso \
-  -boot d
-```
-
 ## Directory Structure
 
 The following directory stores my `home-manager` configurations. They
@@ -153,9 +134,6 @@ hosts/
   alexandria/
     configuration.nix
     hardware-configuration.nix
-  liveiso/
-    configuration.nix
-    home.nix
   generic-linux/
     home.nix
 ```
