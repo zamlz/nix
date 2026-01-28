@@ -33,11 +33,18 @@
   home.packages =
     (with pkgs; [
       # System CLI Tools
+      htop
+      pstree
       mediainfo
       pv
       qpdf
       ripgrep
       rsync
+      curl
+      less
+      tree
+      zip
+      unzip
       # Fun CLI Tools
       cmatrix
       figlet

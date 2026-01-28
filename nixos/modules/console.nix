@@ -4,9 +4,6 @@
   ...
 }:
 {
-  time.timeZone = "America/Los_Angeles";
-  i18n.defaultLocale = "en_US.UTF-8";
-
   # default console font is ugly
   console = {
     earlySetup = true;
@@ -32,20 +29,4 @@
 
     '';
 
-  environment = {
-    systemPackages = with pkgs; [
-      # Hardware utils
-      pciutils
-      usbutils
-      # process utils
-      htop
-      pstree
-      # Software utils
-      curl
-      less
-      tree
-      zip
-      unzip
-    ];
-  };
 }
