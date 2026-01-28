@@ -8,7 +8,7 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../nixos
+    ../../nixos/server.nix
   ];
 
   networking.hostName = "alexandria";

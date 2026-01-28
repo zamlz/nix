@@ -9,7 +9,7 @@
   imports = [
     # Import your generated (nixos-generate-config) hardware configuration
     ./hardware-configuration.nix
-    ../../nixos
+    ../../nixos/desktop.nix
   ];
 
   networking.hostName = "xynthar";

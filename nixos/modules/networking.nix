@@ -1,6 +1,7 @@
 _: {
   # NOTE: hostname will be defined in the `/host` specific file!
 
+  # FIXME: Hate that this is hardcoded
   networking = {
     extraHosts = ''
       10.69.8.0 solaris

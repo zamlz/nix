@@ -11,7 +11,6 @@
     extraGroups = [
       "audio"
       "docker"
-      "kvm"
       "networkmanager"
       "seat" # needed for wayland
       "wheel"
