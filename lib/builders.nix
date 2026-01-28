@@ -7,22 +7,12 @@
 }:
 let
   constants = import ./constants.nix;
-  extraSpecialArgs = {
-    inherit inputs;
-    inherit constants;
-  };
-  mkHomeManagerModule = homeConfigPath: {
-    home-manager = {
-      useGlobalPkgs = true;
-      useUserPackages = true;
-      inherit extraSpecialArgs;
-      sharedModules = [
-        nixvim.homeModules.nixvim
-        niri.homeModules.niri
-      ];
-      users.amlesh = import homeConfigPath;
-    };
-  };
+  extraSpecialArgs = { inherit inputs constants; };
+  overlays = [ niri.overlays.niri ];
+  sharedModules = [
+    nixvim.homeModules.nixvim
+    niri.homeModules.niri
+  ];
 in
 {
   nixosSystemBuilder =
@@ -33,8 +23,14 @@ in
     nixpkgs.lib.nixosSystem {
       specialArgs = extraSpecialArgs;
       modules = [
-        { nixpkgs.overlays = [ niri.overlays.niri ]; }
         {
+          nixpkgs.overlays = overlays;
+          home-manager = {
+            useGlobalPkgs = true;
+            useUserPackages = true;
+            inherit extraSpecialArgs sharedModules;
+            users.amlesh = import homeConfigPath;
+          };
           # Required for xdg-desktop-portal when using home-manager
           # with useUserPackages = true
           environment.pathsToLink = [
@@ -44,7 +40,6 @@ in
         }
         hostConfigPath
         home-manager.nixosModules.home-manager
-        (mkHomeManagerModule homeConfigPath)
       ];
     };
 
@@ -55,15 +50,10 @@ in
     }:
     home-manager.lib.homeManagerConfiguration {
       pkgs = import nixpkgs {
-        inherit system;
+        inherit system overlays;
         config.allowUnfree = true;
-        overlays = [ niri.overlays.niri ];
       };
-      modules = [
-        homeConfigPath
-        nixvim.homeModules.nixvim
-        niri.homeModules.niri
-      ];
+      modules = [ homeConfigPath ] ++ sharedModules;
       inherit extraSpecialArgs;
     };
 }
