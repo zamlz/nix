@@ -1,6 +1,5 @@
 {
   config,
-  systemConfig,
   ...
 }:
 let
@@ -52,7 +51,8 @@ in
       please = "sudo";
       weather = "curl wttr.in";
     };
-    loginExtra = if systemConfig.useGUI then builtins.readFile ./login.zsh else "";
+    # FIXME: deprecate this in favor of ly-display-manager
+    loginExtra = builtins.readFile ./login.zsh;
     envExtra = builtins.readFile ./environment.zsh;
     initContent = readFileList [
       ./init/prompt.zsh

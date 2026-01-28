@@ -9,11 +9,9 @@ let
   constants = import ./constants.nix;
   mkSystemConfig =
     {
-      useGUI,
       fontScale,
     }:
     {
-      inherit useGUI;
       inherit fontScale;
     };
   mkExtraSpecialArgs = systemConfig: {
@@ -39,11 +37,10 @@ in
     {
       hostConfigPath,
       homeConfigPath,
-      useGUI ? true,
       fontScale ? 1.0,
     }:
     let
-      systemConfig = mkSystemConfig { inherit useGUI fontScale; };
+      systemConfig = mkSystemConfig { inherit fontScale; };
       extraSpecialArgs = mkExtraSpecialArgs systemConfig;
     in
     nixpkgs.lib.nixosSystem {
@@ -67,12 +64,11 @@ in
   homeManagerBuilder =
     {
       homeConfigPath,
-      useGUI ? false,
       fontScale ? 1.0,
       system ? "x86_64-linux",
     }:
     let
-      systemConfig = mkSystemConfig { inherit useGUI fontScale; };
+      systemConfig = mkSystemConfig { inherit fontScale; };
     in
     home-manager.lib.homeManagerConfiguration {
       pkgs = import nixpkgs {

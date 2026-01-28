@@ -1,6 +1,5 @@
 {
   pkgs,
-  systemConfig,
   ...
 }:
 {
@@ -10,14 +9,14 @@
     libinput.enable = true;
 
     xserver = {
-      enable = systemConfig.useGUI;
+      enable = true;
       autoRepeatDelay = 400;
       autoRepeatInterval = 50;
-      displayManager.startx.enable = systemConfig.useGUI;
+      displayManager.startx.enable = true;
     };
 
     displayManager.ly = {
-      enable = systemConfig.useGUI;
+      enable = true;
       x11Support = false;
       settings = {
         animation = "colormix";
@@ -32,7 +31,7 @@
   # it is the only way it will be properly configured with PAM.
   # Ideally, I could move everything as far into my home-manager
   # config as possible.
-  programs.i3lock.enable = systemConfig.useGUI;
+  programs.i3lock.enable = true;
 
   # For same reasons as above, we need to tell PAM to allow swaylock to
   # authenticate
@@ -41,7 +40,7 @@
   # FIXME: Kinda hacky, but this line is needed'
   # to allow ly to see niri. My home-manager installs
   # one too though.
-  programs.niri.enable = systemConfig.useGUI;
+  programs.niri.enable = true;
 
   # FIXME: Move to home-manager?
   environment.systemPackages = with pkgs; [

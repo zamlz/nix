@@ -80,7 +80,6 @@
 
       homeConfigurations."generic-linux" = homeManagerBuilder {
         homeConfigPath = ./hosts/generic-linux/home.nix;
-        useGUI = false;
       };
 
       nixosConfigurations = {
@@ -101,14 +100,12 @@
         yggdrasil = nixosSystemBuilder {
           hostConfigPath = ./hosts/yggdrasil/configuration.nix;
           homeConfigPath = ./hosts/yggdrasil/home.nix;
-          useGUI = false;
         };
 
         # NAS
         alexandria = nixosSystemBuilder {
           hostConfigPath = ./hosts/alexandria/configuration.nix;
           homeConfigPath = ./hosts/alexandria/home.nix;
-          useGUI = false;
         };
       };
     };
