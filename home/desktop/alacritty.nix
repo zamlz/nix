@@ -1,9 +1,10 @@
 {
   config,
+  self,
   ...
 }:
 let
-  colorScheme = (import ../../lib/colorschemes.nix).defaultColorScheme;
+  colorScheme = (import (self + /lib/colorschemes.nix)).defaultColorScheme;
 in
 {
   programs.alacritty = {

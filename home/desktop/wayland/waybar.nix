@@ -1,9 +1,10 @@
 {
   pkgs,
+  self,
   ...
 }:
 let
-  colorScheme = (import ../../../lib/colorschemes.nix).defaultColorScheme;
+  colorScheme = (import (self + /lib/colorschemes.nix)).defaultColorScheme;
 in
 {
   # FIXME: Need configuration

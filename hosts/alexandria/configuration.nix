@@ -3,12 +3,13 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 {
   constants,
+  self,
   ...
 }:
 {
   imports = [
     ./hardware-configuration.nix
-    ../../nixos/server.nix
+    (self + /nixos/server.nix)
   ];
 
   networking.hostName = "alexandria";

@@ -3,13 +3,14 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 {
   constants,
+  self,
   ...
 }:
 {
   imports = [
     # Import your generated (nixos-generate-config) hardware configuration
     ./hardware-configuration.nix
-    ../../nixos/desktop.nix
+    (self + /nixos/desktop.nix)
   ];
 
   networking.hostName = "xynthar";

@@ -48,6 +48,7 @@
           nixvim
           niri
           inputs
+          self
           ;
       };
       inherit (builders) nixosSystemBuilder homeManagerBuilder;

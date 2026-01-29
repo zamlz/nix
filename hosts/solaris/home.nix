@@ -1,11 +1,12 @@
 {
   constants,
+  self,
   ...
 }:
 {
   imports = [
-    ../../home/cli
-    ../../home/desktop
+    (self + /home/cli)
+    (self + /home/desktop)
   ];
 
   my.fontScale = 2.0;

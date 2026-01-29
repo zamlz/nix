@@ -1,10 +1,11 @@
 {
   pkgs,
+  self,
   ...
 }:
 {
   imports = [
-    ../options.nix
+    (self + /home/options.nix)
     ./alacritty.nix
     ./feh.nix
     ./kitty.nix # [unused]
@@ -13,7 +14,7 @@
     ./x11
     ./qutebrowser.nix
     # FIXME: Need to really cleanup how I manage and store scripts
-    ../../scripts
+    (self + /scripts)
   ];
 
   home.packages = with pkgs; [

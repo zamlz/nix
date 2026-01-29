@@ -1,12 +1,13 @@
 {
   lib,
   pkgs,
+  self,
   ...
 }:
 let
   colorScheme = lib.attrsets.mapAttrs (
     _name: value: builtins.replaceStrings [ "#" ] [ "rgb:" ] value
-  ) (import ../../../lib/colorschemes.nix).defaultColorScheme;
+  ) (import (self + /lib/colorschemes.nix)).defaultColorScheme;
 in
 {
   programs.kakoune = {

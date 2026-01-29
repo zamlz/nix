@@ -1,9 +1,10 @@
 {
   constants,
+  self,
   ...
 }:
 {
-  imports = [ ../../home/cli ];
+  imports = [ (self + /home/cli) ];
 
   home = {
     username = "amlesh";

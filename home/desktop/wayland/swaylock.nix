@@ -1,7 +1,7 @@
-_:
+{ self, ... }:
 let
   removeHash = str: builtins.replaceStrings [ "#" ] [ "" ] str;
-  colorScheme = (import ../../../lib/colorschemes.nix).defaultColorScheme;
+  colorScheme = (import (self + /lib/colorschemes.nix)).defaultColorScheme;
   noHashColorScheme = builtins.mapAttrs (_: removeHash) colorScheme;
 in
 {
