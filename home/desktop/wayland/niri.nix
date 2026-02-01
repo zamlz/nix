@@ -1,4 +1,14 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
+let
+  noctalia =
+    cmd:
+    [
+      "noctalia-shell"
+      "ipc"
+      "call"
+    ]
+    ++ (lib.splitString " " cmd);
+in
 {
   programs.niri = {
     enable = true;
@@ -115,6 +125,12 @@
           ];
           place-within-backdrop = false;
         }
+        {
+          matches = [
+            { namespace = "^noctalia$"; }
+          ];
+          place-within-backdrop = false;
+        }
       ];
 
       binds = {
@@ -125,7 +141,7 @@
         "Mod+Ctrl+Shift+Escape".action.power-off-monitors = { };
 
         "Mod+Return".action.spawn = [ "footclient" ];
-        "Mod+E".action.spawn = [ "fuzzel" ];
+        "Mod+E".action.spawn = noctalia "launcher toggle";
 
         "Mod+Space" = {
           action.toggle-overview = { };

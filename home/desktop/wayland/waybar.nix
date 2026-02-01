@@ -9,7 +9,7 @@ in
 {
   # FIXME: Need configuration
   programs.waybar = with colorScheme; {
-    enable = true;
+    enable = false;
     systemd = {
       enable = true;
       enableInspect = false;

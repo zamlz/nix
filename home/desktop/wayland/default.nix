@@ -6,6 +6,7 @@
   imports = [
     ./foot.nix
     ./niri.nix
+    ./noctalia-shell.nix
     ./swhkd.nix
     ./swaylock.nix
     ./waybar.nix
@@ -16,7 +17,6 @@
     swaybg
     xwayland-satellite
     wl-clipboard # needed by pass
-    # noctalia-shell # not in current flake revision
   ];
 
   services.playerctld.enable = true;

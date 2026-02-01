@@ -3,6 +3,7 @@
   home-manager,
   nixvim,
   niri,
+  noctalia,
   inputs,
   self,
 }:
@@ -13,6 +14,7 @@ let
   sharedModules = [
     nixvim.homeModules.nixvim
     niri.homeModules.niri
+    noctalia.homeModules.default
   ];
 in
 {
