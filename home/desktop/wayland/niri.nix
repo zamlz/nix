@@ -1,13 +1,25 @@
-{ pkgs, lib, ... }:
+{ pkgs, config, ... }:
 let
-  noctalia =
-    cmd:
+  # Terminal prompt launcher for foot
+  # Creates a floating terminal window with specific dimensions and font size
+  termPromptLauncher =
+    {
+      script,
+      lines,
+      columns,
+      fontSize,
+    }:
+    let
+      scaledFontSize = builtins.toString (config.my.fontScale * fontSize);
+      font = "Iosevka:size=${scaledFontSize}";
+    in
     [
-      "noctalia-shell"
-      "ipc"
-      "call"
+      "footclient"
+      "--app-id=termprompt"
+      "--window-size-chars=${toString columns}x${toString lines}"
+      "--override=main.font=${font}"
     ]
-    ++ (lib.splitString " " cmd);
+    ++ script;
 in
 {
   programs.niri = {
@@ -105,6 +117,13 @@ in
         }
         {
           matches = [
+            { app-id = "^termprompt$"; }
+          ];
+          open-floating = true;
+          open-focused = true;
+        }
+        {
+          matches = [
             { app-id = "^org\\.keepassxc\\.KeePassXC$"; }
             { app-id = "^org\\.gnome\\.World\\.Secrets$"; }
           ];
@@ -135,13 +154,6 @@ in
 
       binds = {
         "Mod+Ctrl+Alt+Shift+Slash".action.show-hotkey-overlay = { };
-
-        "Mod+Escape".action.spawn = "swaylock";
-        "Mod+Ctrl+Alt+Escape".action.quit = { };
-        "Mod+Ctrl+Shift+Escape".action.power-off-monitors = { };
-
-        "Mod+Return".action.spawn = [ "footclient" ];
-        "Mod+E".action.spawn = noctalia "launcher toggle";
 
         "Mod+Space" = {
           action.toggle-overview = { };
@@ -249,9 +261,9 @@ in
         "Mod+R".action.switch-preset-column-width = { };
         "Mod+Shift+R".action.switch-preset-window-height = { };
         "Mod+Ctrl+R".action.reset-window-height = { };
-        "Mod+F".action.maximize-column = { };
-        "Mod+Shift+F".action.fullscreen-window = { };
-        "Mod+Ctrl+F".action.expand-column-to-available-width = { };
+        "Mod+T".action.maximize-column = { };
+        "Mod+Shift+T".action.fullscreen-window = { };
+        "Mod+Ctrl+T".action.expand-column-to-available-width = { };
 
         "Mod+C".action.center-column = { };
         "Mod+Ctrl+C".action.center-visible-columns = { };
@@ -275,6 +287,168 @@ in
         "Mod+Shift+I" = {
           action.toggle-keyboard-shortcuts-inhibit = { };
           allow-inhibiting = false;
+        };
+
+        # System Controls
+        "Mod+Ctrl+Alt+Escape".action.spawn = termPromptLauncher {
+          script = [ "${config.xdg.configHome}/scripts/system_manager.py" ];
+          lines = 6;
+          columns = 40;
+          fontSize = 12;
+        };
+        "Mod+Ctrl+Shift+Escape".action.power-off-monitors = { };
+
+        # Launchers
+        "Mod+Return".action.spawn = [ "footclient" ];
+        "Mod+E".action.spawn = termPromptLauncher {
+          script = [ "${config.xdg.configHome}/scripts/fzf-program-launcher.sh" ];
+          lines = 16;
+          columns = 80;
+          fontSize = 9;
+        };
+
+        # External Tools
+        "Mod+G".action.spawn = termPromptLauncher {
+          script = [ "${config.xdg.configHome}/scripts/git_manager.py" ];
+          lines = 35;
+          columns = 164;
+          fontSize = 8;
+        };
+        "Mod+Shift+G".action.spawn = termPromptLauncher {
+          script = [
+            "${config.xdg.configHome}/scripts/git_manager.py"
+            "--open-dir"
+          ];
+          lines = 35;
+          columns = 164;
+          fontSize = 8;
+        };
+        "Mod+M".action.spawn = termPromptLauncher {
+          script = [ "${config.xdg.configHome}/scripts/man_open.py" ];
+          lines = 35;
+          columns = 164;
+          fontSize = 8;
+        };
+        "Mod+Z".action.spawn = termPromptLauncher {
+          script = [ "${config.xdg.configHome}/scripts/calculator.py" ];
+          lines = 12;
+          columns = 96;
+          fontSize = 12;
+        };
+
+        # Password Store
+        "Mod+P".action.spawn = termPromptLauncher {
+          script = [ "${config.xdg.configHome}/scripts/password-store.py" ];
+          lines = 14;
+          columns = 100;
+          fontSize = 9;
+        };
+        "Mod+Shift+P".action.spawn = termPromptLauncher {
+          script = [
+            "${config.xdg.configHome}/scripts/password-store.py"
+            "--qrcode"
+          ];
+          lines = 14;
+          columns = 100;
+          fontSize = 9;
+        };
+
+        # Notes
+        "Mod+N".action.spawn = termPromptLauncher {
+          script = [ "$HOME/usr/notes/bin/notes log" ];
+          lines = 20;
+          columns = 128;
+          fontSize = 9;
+        };
+
+        # Window/Workspace management (commented - conflicts with existing binds)
+        # "Mod+W".action.spawn = termPromptLauncher {
+        #   script = [ "${config.xdg.configHome}/scripts/window_switcher.py" ];
+        #   lines = 20; columns = 128; fontSize = 9;
+        # };
+        # "Mod+Slash".action.spawn = termPromptLauncher {
+        #   script = [ "${config.xdg.configHome}/scripts/workspace_manager.py" "--jump" ];
+        #   lines = 10; columns = 120; fontSize = 9;
+        # };
+        # "Mod+Shift+Slash".action.spawn = termPromptLauncher {
+        #   script = [ "${config.xdg.configHome}/scripts/workspace_manager.py" "--move-window" ];
+        #   lines = 10; columns = 120; fontSize = 9;
+        # };
+        # "Mod+BackSpace".action.spawn = termPromptLauncher {
+        #   script = [ "${config.xdg.configHome}/scripts/workspace_manager.py" "--delete" ];
+        #   lines = 10; columns = 120; fontSize = 9;
+        # };
+
+        # Filesystem
+        "Mod+A".action.spawn = termPromptLauncher {
+          script = [ "${config.xdg.configHome}/scripts/file_system_explorer.py" ];
+          lines = 35;
+          columns = 164;
+          fontSize = 8;
+        };
+        "Mod+S".action.spawn = termPromptLauncher {
+          script = [ "${config.xdg.configHome}/scripts/ripgrep.py" ];
+          lines = 35;
+          columns = 164;
+          fontSize = 8;
+        };
+        "Mod+D".action.spawn = termPromptLauncher {
+          script = [
+            "${config.xdg.configHome}/scripts/file_system_open.py"
+            "--directory"
+          ];
+          lines = 35;
+          columns = 164;
+          fontSize = 8;
+        };
+        "Mod+F".action.spawn = termPromptLauncher {
+          script = [
+            "${config.xdg.configHome}/scripts/file_system_open.py"
+            "--file"
+          ];
+          lines = 35;
+          columns = 164;
+          fontSize = 8;
+        };
+
+        # Filesystem Global search variants
+        "Mod+Shift+A".action.spawn = termPromptLauncher {
+          script = [
+            "${config.xdg.configHome}/scripts/file_system_explorer.py"
+            "--global-search"
+          ];
+          lines = 35;
+          columns = 164;
+          fontSize = 8;
+        };
+        "Mod+Shift+S".action.spawn = termPromptLauncher {
+          script = [
+            "${config.xdg.configHome}/scripts/ripgrep.py"
+            "--global-search"
+          ];
+          lines = 35;
+          columns = 164;
+          fontSize = 8;
+        };
+        "Mod+Shift+D".action.spawn = termPromptLauncher {
+          script = [
+            "${config.xdg.configHome}/scripts/file_system_open.py"
+            "--directory"
+            "--global-search"
+          ];
+          lines = 35;
+          columns = 164;
+          fontSize = 8;
+        };
+        "Mod+Shift+F".action.spawn = termPromptLauncher {
+          script = [
+            "${config.xdg.configHome}/scripts/file_system_open.py"
+            "--file"
+            "--global-search"
+          ];
+          lines = 35;
+          columns = 164;
+          fontSize = 8;
         };
 
         # Media keys

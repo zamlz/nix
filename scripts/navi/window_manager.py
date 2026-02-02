@@ -7,8 +7,8 @@ from typing import Dict, List, Optional
 
 class WindowManager(StrEnum):
     # This is the name of the process from `ps`
-    QTILE = '.qtile-wrapped'
     HERBSTLUFTWM = 'herbstluftwm'
+    NIRI = 'niri-session'
 
 
 def get_running_wm() -> WindowManager:
@@ -19,6 +19,6 @@ def get_running_wm() -> WindowManager:
         match row.strip().split()[-1]:
             case WindowManager.HERBSTLUFTWM:
                 return WindowManager.HERBSTLUFTWM
-            case WindowManager.QTILE:
-                return WindowManager.QTILE
+            case WindowManager.NIRI:
+                return WindowManager.NIRI
     raise ValueError("Unable to identify running window manager!")

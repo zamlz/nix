@@ -20,7 +20,7 @@ from navi.xorg.window import set_window_title
 
 class SystemActions(StrEnum):
     LOCK_SCREEN = "Lock Screen"
-    RESTART_WINDOW_MANAGER = "Restart Window Manager"
+    QUIT_DESKTOP_SESSION = "Quit Desktop Session"
     POWER_OFF = "Power Off"
     REBOOT = "Reboot"
 
@@ -34,9 +34,7 @@ def main() -> None:
         case SystemActions.LOCK_SCREEN:
             navi.system.reload_gpg_agent()
             navi.system.lock_screen(blur_screen=False)
-        case SystemActions.RESTART_WINDOW_MANAGER:
-            # because my nixos system will auto-login, kill the windw
-            # manager is sufficient to restart it
+        case SystemActions.QUIT_DESKTOP_SESSION:
             navi.system.kill_window_manager()
         case SystemActions.POWER_OFF:
             navi.system.power_off()

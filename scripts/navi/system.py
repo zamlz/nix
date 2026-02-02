@@ -8,7 +8,7 @@ from typing import Dict, List, Optional
 
 from loguru import logger
 
-from navi.xorg.window_manager import WindowManager, get_running_wm
+from navi.window_manager import WindowManager, get_running_wm
 from navi.xorg.window import get_last_active_window_id, get_pwd_of_window
 
 
@@ -80,12 +80,16 @@ def blur_image(image: Path) -> Path:
 
 
 def lock_screen(blur_screen: bool) -> None:
-    wallpaper = get_wallpaper()
-    if wallpaper.exists():
-        lock_screen_image = blur_image(wallpaper) if blur_screen else wallpaper
-        execute(["i3lock", "-tnefi", str(lock_screen_image)])
-    else:
-        execute(["i3lock", "-nef", "--color=000000"])
+    match get_running_wm():
+        case WindowManager.HERBSTLUFTWM:
+            wallpaper = get_wallpaper()
+            if wallpaper.exists():
+                lock_screen_image = blur_image(wallpaper) if blur_screen else wallpaper
+                execute(["i3lock", "-tnefi", str(lock_screen_image)])
+            else:
+                execute(["i3lock", "-nef", "--color=000000"])
+        case WindowManager.NIRI:
+            execute(["swaylock"])
 
 
 # NOTE: I'm not totally convinced this should be here
@@ -93,8 +97,9 @@ def kill_window_manager() -> None:
     match get_running_wm():
         case WindowManager.HERBSTLUFTWM:
             sudo_execute(["herbstclient", "quit"])
-        case WindowManager.QTILE:
-            sudo_execute(["qtile", "cmd-obj", "-o", "cmd", "-f", "shutdown"])
+        case WindowManager.NIRI:
+            sudo_execute(["-v"])
+            exeute(["niri" "msg" "action" "exit"])
 
 
 def reboot() -> None:

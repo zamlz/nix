@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from typing import Dict
 
 from navi.shell.colors import AnsiColor
-from navi.xorg.window_manager import WindowManager, get_running_wm
+from navi.window_manager import WindowManager, get_running_wm
 
 # This file makes heavy use of wmctrl as it can interact with any window
 # manager that follows the EWMH/NetWM specification
