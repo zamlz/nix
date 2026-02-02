@@ -7,9 +7,8 @@ let
   colorScheme = (import (self + /lib/colorschemes.nix)).defaultColorScheme;
 in
 {
-  # FIXME: Need configuration
   programs.waybar = with colorScheme; {
-    enable = false;
+    enable = true;
     systemd = {
       enable = true;
       enableInspect = false;

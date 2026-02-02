@@ -7,7 +7,7 @@ let
 in
 {
   programs.noctalia-shell = {
-    enable = true;
+    enable = false;
     systemd.enable = true;
     # systemctl --user add-wants niri.service noctalia.service
     settings = {
