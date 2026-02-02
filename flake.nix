@@ -19,11 +19,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    swhkd = {
-      url = "github:waycrate/swhkd";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     niri.url = "github:sodiboo/niri-flake";
 
     noctalia = {

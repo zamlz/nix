@@ -212,11 +212,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1769461804,
-        "narHash": "sha256-msG8SU5WsBUfVVa/9RPLaymvi5bI8edTavbIq3vRlhI=",
+        "lastModified": 1769789167,
+        "narHash": "sha256-kKB3bqYJU5nzYeIROI82Ef9VtTbu4uA3YydSk/Bioa8=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "bfc1b8a4574108ceef22f02bafcf6611380c100d",
+        "rev": "62c8382960464ceb98ea593cb8321a2cf8f9e3e5",
         "type": "github"
       },
       "original": {
@@ -275,8 +275,7 @@
         "niri": "niri",
         "nixpkgs": "nixpkgs_3",
         "nixvim": "nixvim",
-        "noctalia": "noctalia",
-        "swhkd": "swhkd"
+        "noctalia": "noctalia"
       }
     },
     "rust-analyzer-src": {
@@ -293,26 +292,6 @@
         "owner": "rust-lang",
         "ref": "nightly",
         "repo": "rust-analyzer",
-        "type": "github"
-      }
-    },
-    "swhkd": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1767635719,
-        "narHash": "sha256-KjuBy8RDy/5SqX5zZWfzYPcpfJ92Cohf2CrkMC6ZtjA=",
-        "owner": "waycrate",
-        "repo": "swhkd",
-        "rev": "0f8a2af6a605adcfb06ae0bcb5dce9353169b598",
-        "type": "github"
-      },
-      "original": {
-        "owner": "waycrate",
-        "repo": "swhkd",
         "type": "github"
       }
     },

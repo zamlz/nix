@@ -7,7 +7,6 @@
     ./foot.nix
     ./niri.nix
     ./noctalia-shell.nix
-    ./swhkd.nix
     ./swaylock.nix
     ./waybar.nix
   ];
