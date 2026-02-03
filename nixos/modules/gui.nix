@@ -23,6 +23,7 @@
         battery_id = "BAT0";
         bigclock = true;
         clear_password = true;
+        session_log = null;
       };
     };
   };
