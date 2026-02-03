@@ -13,7 +13,6 @@
     ./fd.nix
     ./fzf.nix
     ./git.nix
-    ./nh.nix
     ./gnupg
     ./helix.nix # [unused]
     ./home-manager.nix
