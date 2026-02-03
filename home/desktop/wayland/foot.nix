@@ -1,5 +1,6 @@
 {
   config,
+  pkgs,
   self,
   ...
 }:
@@ -13,8 +14,10 @@ in
     server.enable = true;
     settings = {
       main = {
+        # FIXME: Set this based on home manager shell?
+        shell = "${pkgs.zsh}/bin/zsh";
         font = "Iosevka:size=${toString (10.0 * config.my.fontScale)}";
-        selection-target = "clipboard";
+        selection-target = "primary";
       };
       cursor = {
         style = "beam";
