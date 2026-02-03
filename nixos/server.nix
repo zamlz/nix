@@ -9,6 +9,7 @@ _: {
     ./modules/nix.nix
     ./modules/nh.nix
     ./modules/security.nix
+    ./modules/shell.nix
     ./modules/time.nix
     ./modules/users.nix
   ];
