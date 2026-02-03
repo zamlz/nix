@@ -10,6 +10,7 @@
   imports = [
     ./hardware-configuration.nix
     (self + /nixos/server.nix)
+    (self + /nixos/services/glances.nix)
   ];
 
   networking.hostName = "alexandria";

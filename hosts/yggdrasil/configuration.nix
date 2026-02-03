@@ -11,6 +11,7 @@
     # Import your generated (nixos-generate-config) hardware configuration
     ./hardware-configuration.nix
     (self + /nixos/server.nix)
+    (self + /nixos/services/glances.nix)
     (self + /nixos/services/kavita.nix)
   ];
 

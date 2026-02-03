@@ -12,6 +12,7 @@
     # Import your generated (nixos-generate-config) hardware configuration
     ./hardware-configuration.nix
     (self + /nixos/desktop.nix)
+    (self + /nixos/services/glances.nix)
   ];
 
   networking.hostName = "solaris";
