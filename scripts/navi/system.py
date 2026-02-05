@@ -99,7 +99,7 @@ def kill_window_manager() -> None:
             sudo_execute(["herbstclient", "quit"])
         case WindowManager.NIRI:
             sudo_execute(["-v"])
-            exeute(["niri" "msg" "action" "exit"])
+            exeute(["niri" "msg" "action" "quit"])
 
 
 def reboot() -> None:
