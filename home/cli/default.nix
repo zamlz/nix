@@ -55,7 +55,6 @@
         ps: with ps; [
           ipdb
           ipython
-          loguru # FIXME: navi dependencies should be tracked separately
         ]
       ))
     ])

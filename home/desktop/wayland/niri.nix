@@ -294,7 +294,7 @@ in
 
         # System Controls
         "Mod+Ctrl+Alt+Escape".action.spawn = termPromptLauncher {
-          script = "${config.xdg.configHome}/scripts/system_manager.py";
+          script = "navi-system";
           lines = 6;
           columns = 40;
           fontSize = 12;
@@ -304,7 +304,7 @@ in
         # Launchers
         "Mod+Return".action.spawn = [ "footclient" ];
         "Mod+E".action.spawn = termPromptLauncher {
-          script = "${config.xdg.configHome}/scripts/fzf-program-launcher.sh";
+          script = "navi-launcher";
           lines = 16;
           columns = 80;
           fontSize = 9;
@@ -312,25 +312,25 @@ in
 
         # External Tools
         "Mod+G".action.spawn = termPromptLauncher {
-          script = "${config.xdg.configHome}/scripts/git_manager.py";
+          script = "navi-git";
           lines = 35;
           columns = 164;
           fontSize = 8;
         };
         "Mod+Shift+G".action.spawn = termPromptLauncher {
-          script = "${config.xdg.configHome}/scripts/git_manager.py --open-dir";
+          script = "navi-git --open-dir";
           lines = 35;
           columns = 164;
           fontSize = 8;
         };
         "Mod+M".action.spawn = termPromptLauncher {
-          script = "${config.xdg.configHome}/scripts/man_open.py";
+          script = "navi-man";
           lines = 35;
           columns = 164;
           fontSize = 8;
         };
         "Mod+Z".action.spawn = termPromptLauncher {
-          script = "${config.xdg.configHome}/scripts/calculator.py";
+          script = "navi-calculator";
           lines = 12;
           columns = 96;
           fontSize = 12;
@@ -338,13 +338,13 @@ in
 
         # Password Store
         "Mod+P".action.spawn = termPromptLauncher {
-          script = "${config.xdg.configHome}/scripts/password-store.py";
+          script = "navi-pass";
           lines = 14;
           columns = 100;
           fontSize = 9;
         };
         "Mod+Shift+P".action.spawn = termPromptLauncher {
-          script = "${config.xdg.configHome}/scripts/password-store.py --qrcode";
+          script = "navi-pass --qrcode";
           lines = 14;
           columns = 100;
           fontSize = 9;
@@ -360,43 +360,43 @@ in
 
         # Window/Workspace management (commented - conflicts with existing binds)
         # "Mod+W".action.spawn = termPromptLauncher {
-        #   script = "${config.xdg.configHome}/scripts/window_switcher.py";
+        #   script = "navi-window";
         #   lines = 20; columns = 128; fontSize = 9;
         # };
         # "Mod+Slash".action.spawn = termPromptLauncher {
-        #   script = "${config.xdg.configHome}/scripts/workspace_manager.py --jump";
+        #   script = "navi-workspace --jump";
         #   lines = 10; columns = 120; fontSize = 9;
         # };
         # "Mod+Shift+Slash".action.spawn = termPromptLauncher {
-        #   script = "${config.xdg.configHome}/scripts/workspace_manager.py --move-window";
+        #   script = "navi-workspace --move-window";
         #   lines = 10; columns = 120; fontSize = 9;
         # };
         # "Mod+BackSpace".action.spawn = termPromptLauncher {
-        #   script = "${config.xdg.configHome}/scripts/workspace_manager.py --delete";
+        #   script = "navi-workspace --delete";
         #   lines = 10; columns = 120; fontSize = 9;
         # };
 
         # Filesystem
         "Mod+A".action.spawn = termPromptLauncher {
-          script = "${config.xdg.configHome}/scripts/file_system_explorer.py";
+          script = "navi-file-explorer";
           lines = 35;
           columns = 164;
           fontSize = 8;
         };
         "Mod+S".action.spawn = termPromptLauncher {
-          script = "${config.xdg.configHome}/scripts/ripgrep.py";
+          script = "navi-ripgrep";
           lines = 35;
           columns = 164;
           fontSize = 8;
         };
         "Mod+D".action.spawn = termPromptLauncher {
-          script = "${config.xdg.configHome}/scripts/file_system_open.py --directory";
+          script = "navi-file-open --directory";
           lines = 35;
           columns = 164;
           fontSize = 8;
         };
         "Mod+F".action.spawn = termPromptLauncher {
-          script = "${config.xdg.configHome}/scripts/file_system_open.py --file";
+          script = "navi-file-open --file";
           lines = 35;
           columns = 164;
           fontSize = 8;
@@ -404,25 +404,25 @@ in
 
         # Filesystem Global search variants
         "Mod+Shift+A".action.spawn = termPromptLauncher {
-          script = "${config.xdg.configHome}/scripts/file_system_explorer.py --global-search";
+          script = "navi-file-explorer --global-search";
           lines = 35;
           columns = 164;
           fontSize = 8;
         };
         "Mod+Shift+S".action.spawn = termPromptLauncher {
-          script = "${config.xdg.configHome}/scripts/ripgrep.py --global-search";
+          script = "navi-ripgrep --global-search";
           lines = 35;
           columns = 164;
           fontSize = 8;
         };
         "Mod+Shift+D".action.spawn = termPromptLauncher {
-          script = "${config.xdg.configHome}/scripts/file_system_open.py --directory --global-search";
+          script = "navi-file-open --directory --global-search";
           lines = 35;
           columns = 164;
           fontSize = 8;
         };
         "Mod+Shift+F".action.spawn = termPromptLauncher {
-          script = "${config.xdg.configHome}/scripts/file_system_open.py --file --global-search";
+          script = "navi-file-open --file --global-search";
           lines = 35;
           columns = 164;
           fontSize = 8;

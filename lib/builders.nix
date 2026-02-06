@@ -10,7 +10,10 @@
 let
   constants = import ./constants.nix;
   extraSpecialArgs = { inherit inputs constants self; };
-  overlays = [ niri.overlays.niri ];
+  overlays = [
+    niri.overlays.niri
+    (import ./overlays.nix { inherit self; })
+  ];
   sharedModules = [
     nixvim.homeModules.nixvim
     niri.homeModules.niri

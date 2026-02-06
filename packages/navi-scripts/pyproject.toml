@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "navi-scripts"
+version = "0.1.0"
+description = "Personal CLI scripts for system management"
+requires-python = ">=3.11"
+dependencies = ["loguru"]
+
+[project.scripts]
+# Main CLI tools
+navi-calculator = "navi.cli.calculator:main"
+navi-file-explorer = "navi.cli.file_system_explorer:main"
+navi-file-open = "navi.cli.file_system_open:main"
+navi-git = "navi.cli.git_manager:main"
+navi-man = "navi.cli.man_open:main"
+navi-notes = "navi.cli.notes_manager:main"
+navi-pass = "navi.cli.password_store:main"
+navi-ripgrep = "navi.cli.ripgrep:main"
+navi-spawn-shell = "navi.cli.spawn_identical_shell:main"
+navi-system = "navi.cli.system_manager:main"
+navi-window = "navi.cli.window_switcher:main"
+navi-workspace = "navi.cli.workspace_manager:main"
+navi-launcher = "navi.cli.program_launcher:main"
+# Internal tools (used by fzf preview and shell hooks)
+navi-save-window-id = "navi.tools.save_active_window_id:main"
+navi-display-window-info = "navi.tools.display_window_info:main"
+navi-display-workspace-info = "navi.tools.display_workspace_info:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["navi*"]
+
+[tool.setuptools.package-data]
+"navi.data" = ["*.sh"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "--cov=navi --cov-report=term-missing --cov-fail-under=8"

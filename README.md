@@ -161,6 +161,61 @@ templates/
   rust.nix
 ```
 
+Custom packages
+```
+packages/
+  navi-scripts/     # Python CLI tools for system management
+    src/navi/       # Source code
+    tests/          # Test suite
+    package.nix     # Nix package definition
+    pyproject.toml  # Python project config
+```
+
+## navi-scripts
+
+`navi-scripts` is a custom Python package containing CLI tools for system management, window switching, file navigation, and more. These tools integrate with fzf for interactive selection and support both X11 (herbstluftwm) and Wayland (niri) window managers.
+
+### Available Commands
+
+| Command              | Description                             |
+| -------------------- | --------------------------------------- |
+| `navi-launcher`      | Program launcher using fzf              |
+| `navi-file-explorer` | Interactive file system explorer        |
+| `navi-file-open`     | Open files or directories with fzf      |
+| `navi-git`           | Git repository manager with lazygit     |
+| `navi-window`        | Window switcher                         |
+| `navi-workspace`     | Workspace manager (jump, move, delete)  |
+| `navi-calculator`    | RPN calculator                          |
+| `navi-pass`          | Password store interface                |
+| `navi-man`           | Man page browser                        |
+| `navi-notes`         | Notes manager                           |
+| `navi-ripgrep`       | Interactive ripgrep search              |
+| `navi-system`        | System actions (lock, reboot, poweroff) |
+
+### Developing navi-scripts
+
+The package is tested as part of the flake checks. To run the full test suite including type checking (ty), linting (ruff), and pytest with 100% coverage requirement:
+
+```shell
+nix build .#checks.x86_64-linux.navi-scripts
+```
+
+To enter a development shell with all dependencies:
+
+```shell
+cd packages/navi-scripts
+nix develop ../../#
+```
+
+The package uses:
+- **ty** for type checking
+- **ruff** for linting
+- **pytest** with pytest-cov for testing (100% coverage required)
+
+### How It's Integrated
+
+The package is added to nixpkgs via an overlay in `lib/overlays.nix`, making it available as `pkgs.navi-scripts`. It's then installed in `home/desktop/default.nix` as part of the desktop environment.
+
 ## Development
 
 For basic development testing, run the following command to test.
@@ -172,9 +227,13 @@ nix develop --command test
 You can run the testing and linting functions directly with
 
 ```shell
+# Nix code checks
 nix build .#checks.x86_64-linux.nixfmt
 nix build .#checks.x86_64-linux.statix
 nix build .#checks.x86_64-linux.deadnix
+
+# Python package checks (ty, ruff, pytest)
+nix build .#checks.x86_64-linux.navi-scripts
 ```
 
 ## Troubleshooting
@@ -232,4 +291,3 @@ Refer to this for neovim configuration reference
 
 Useful configs to take a look at:
 - <https://github.com/kaleocheng/nix-dots/tree/master>
-`

@@ -11,34 +11,29 @@ let
   termPromptLauncher =
     script: lineNum: columnNum: fontSize:
     let
-      saveWindowId = "$HOME/.config/scripts/navi/tools/save_active_window_id.py";
       fontOption = "--option 'font.size=${builtins.toString (config.my.fontScale * fontSize)}'";
       lineOption = "--option 'window.dimensions.lines=${builtins.toString lineNum}'";
       columnOption = "--option 'window.dimensions.columns=${builtins.toString columnNum}'";
       termClass = "--class 'termprompt,termprompt'";
     in
-    # To be clear, not all commands need the saveWindowId script. But some commands do need to have
+    # To be clear, not all commands need the navi-save-window-id script. But some commands do need to have
     # this window id saved before the terminal instance is spawed. To be safe, we simply do it for
     # all of them thanks to this function
-    "${saveWindowId}; ${terminal} ${termClass} ${fontOption} ${lineOption} ${columnOption} --command ${script}";
-  IdenticalTerminalLauncher =
-    let
-      saveWindowId = "$HOME/.config/scripts/navi/tools/save_active_window_id.py";
-    in
-    "${saveWindowId}; ${terminal} -e $HOME/.config/scripts/spawn_identical_shell.py";
-  Calculator = termPromptLauncher "$HOME/.config/scripts/calculator.py" 12 96 12;
-  FileSystemExplorer = termPromptLauncher "$HOME/.config/scripts/file_system_explorer.py" 35 164 8;
-  FileSystemOpen = termPromptLauncher "$HOME/.config/scripts/file_system_open.py" 35 164 8;
-  GitManager = termPromptLauncher "$HOME/.config/scripts/git_manager.py" 35 164 8;
+    "navi-save-window-id; ${terminal} ${termClass} ${fontOption} ${lineOption} ${columnOption} --command ${script}";
+  IdenticalTerminalLauncher = "navi-save-window-id; ${terminal} -e navi-spawn-shell";
+  Calculator = termPromptLauncher "navi-calculator" 12 96 12;
+  FileSystemExplorer = termPromptLauncher "navi-file-explorer" 35 164 8;
+  FileSystemOpen = termPromptLauncher "navi-file-open" 35 164 8;
+  GitManager = termPromptLauncher "navi-git" 35 164 8;
   LogJournalEntry = termPromptLauncher "$HOME/usr/notes/bin/notes log" 20 128 9;
-  maimScreenshot = "$HOME/.config/scripts/maim-screenshot.sh";
-  ManPageOpen = termPromptLauncher "$HOME/.config/scripts/man_open.py" 35 164 8;
-  PasswordStore = termPromptLauncher "$HOME/.config/scripts/password-store.py" 14 100 9;
-  ProgramLauncher = termPromptLauncher "$HOME/.config/scripts/fzf-program-launcher.sh" 16 80 9;
-  RipGrep = termPromptLauncher "$HOME/.config/scripts/ripgrep.py" 35 164 8;
-  SystemManager = termPromptLauncher "$HOME/.config/scripts/system_manager.py" 6 40 12;
-  WindowSwitcher = termPromptLauncher "$HOME/.config/scripts/window_switcher.py" 20 128 9;
-  WorkspaceManager = termPromptLauncher "$HOME/.config/scripts/workspace_manager.py" 10 120 9;
+  maimScreenshot = ./maim-screenshot.sh;
+  ManPageOpen = termPromptLauncher "navi-man" 35 164 8;
+  PasswordStore = termPromptLauncher "navi-pass" 14 100 9;
+  ProgramLauncher = termPromptLauncher "navi-launcher" 16 80 9;
+  RipGrep = termPromptLauncher "navi-ripgrep" 35 164 8;
+  SystemManager = termPromptLauncher "navi-system" 6 40 12;
+  WindowSwitcher = termPromptLauncher "navi-window" 20 128 9;
+  WorkspaceManager = termPromptLauncher "navi-workspace" 10 120 9;
 in
 {
   services.sxhkd = {
