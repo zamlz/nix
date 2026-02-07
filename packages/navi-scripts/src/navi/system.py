@@ -146,12 +146,13 @@ def get_dir_items(
         show_hidden: bool = False,
         show_unrestricted: bool = False,
         pattern: str = "",
-        extension: Optional[str] = None
+        extension: Optional[str] = None,
+        color: bool = True
 ) -> List[str]:
     fd_cmd = [
         "fd", pattern,
         "--base-directory", str(root_dir),
-        "--color", "always"
+        "--color", ("always" if color else "never")
     ]
     if show_hidden:
         fd_cmd.append("--hidden")

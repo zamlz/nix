@@ -29,3 +29,7 @@ class AnsiColor(StrEnum):
     NEGATIVE = "\033[7m"
     CROSSED = "\033[9m"
     RESET = "\033[0m"
+
+
+def remove_ansi_codes(text: str) -> str:
+    return re.sub(r'\x1b\[.*?m', '', text)
