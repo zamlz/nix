@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import os
-import re
 import sys
 from argparse import ArgumentParser
 from pathlib import Path

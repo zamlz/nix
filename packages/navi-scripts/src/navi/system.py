@@ -179,6 +179,7 @@ def open_file(file_path: Path, line_num: int = 0, column_num: int = 0) -> None:
         return
     escaped_file_path = str(file_path).replace(' ', '\\ ')
     # TODO: Study xdg-open to see if there is a better way of doing this
+    # FIXME: Is there something better than xdg-open for wayland?
     if any([str(file_path).endswith(ext) for ext in XDG_OPEN_EXTENSIONS]):
         nohup(["xdg-open", str(file_path)])
     else:
