@@ -201,7 +201,11 @@ def open_directory(dir_path: Path) -> None:
     if not dir_path.is_dir():
         logger.warning(f"{dir_path} is not a directory!")
         return
-    nohup(["alacritty", "--working-directory", str(dir_path)])
+    nohup([
+      "alacritty",
+      "--working-directory", str(dir_path),
+      "--command", "zsh"
+    ])
 
 
 def open_items(items: List[Path]) -> None:
