@@ -379,25 +379,25 @@ in
         # Filesystem
         "Mod+A".action.spawn = termPromptLauncher {
           script = "navi-file-explorer";
-          lines = 35;
+          lines = 30;
           columns = 164;
           fontSize = 8;
         };
         "Mod+S".action.spawn = termPromptLauncher {
           script = "navi-ripgrep";
-          lines = 35;
+          lines = 30;
           columns = 164;
           fontSize = 8;
         };
         "Mod+D".action.spawn = termPromptLauncher {
           script = "navi-file-open --directory";
-          lines = 35;
+          lines = 30;
           columns = 164;
           fontSize = 8;
         };
         "Mod+F".action.spawn = termPromptLauncher {
           script = "navi-file-open --file";
-          lines = 35;
+          lines = 30;
           columns = 164;
           fontSize = 8;
         };
