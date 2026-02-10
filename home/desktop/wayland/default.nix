@@ -6,7 +6,6 @@
   imports = [
     ./foot.nix
     ./niri.nix
-    ./noctalia-shell.nix
     ./swaylock.nix
     ./waybar.nix
   ];

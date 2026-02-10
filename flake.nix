@@ -21,11 +21,6 @@
 
     niri.url = "github:sodiboo/niri-flake";
 
-    noctalia = {
-      url = "github:noctalia-dev/noctalia-shell";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # FIXME: Maybe use this if I really need to use home-manager in arch
     # nixgl.url = "github:nix-community/nixGL";
   };
@@ -38,7 +33,6 @@
       home-manager,
       nixvim,
       niri,
-      noctalia,
       ...
     }@inputs:
     let
@@ -48,7 +42,6 @@
           home-manager
           nixvim
           niri
-          noctalia
           inputs
           self
           ;

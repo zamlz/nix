@@ -248,34 +248,13 @@
         "type": "github"
       }
     },
-    "noctalia": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1770512711,
-        "narHash": "sha256-DUVXjj9llu0AIXa+1lGMaul+LElOg/GKCRr9c/b3BBo=",
-        "owner": "noctalia-dev",
-        "repo": "noctalia-shell",
-        "rev": "50455b800d08cc8eae7991658e7e429317ccc413",
-        "type": "github"
-      },
-      "original": {
-        "owner": "noctalia-dev",
-        "repo": "noctalia-shell",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "home-manager": "home-manager",
         "mdutils": "mdutils",
         "niri": "niri",
         "nixpkgs": "nixpkgs_3",
-        "nixvim": "nixvim",
-        "noctalia": "noctalia"
+        "nixvim": "nixvim"
       }
     },
     "rust-analyzer-src": {

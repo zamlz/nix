@@ -147,12 +147,6 @@ in
           ];
           place-within-backdrop = false;
         }
-        {
-          matches = [
-            { namespace = "^noctalia$"; }
-          ];
-          place-within-backdrop = false;
-        }
       ];
 
       binds = {
