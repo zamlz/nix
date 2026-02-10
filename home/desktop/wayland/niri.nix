@@ -351,6 +351,12 @@ in
           columns = 128;
           fontSize = 9;
         };
+        "Mod+Y".action.spawn = termPromptLauncher {
+          script = "navi-todo";
+          lines = 30;
+          columns = 164;
+          fontSize = 8;
+        };
 
         # Window/Workspace management (commented - conflicts with existing binds)
         # "Mod+W".action.spawn = termPromptLauncher {
