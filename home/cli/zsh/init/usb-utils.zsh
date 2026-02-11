@@ -5,6 +5,6 @@
 create-live-usb() {
     local image="$1"
     local target_path="$2"
-    echo "Writing $1 to $2"
-    sudo pv "$1" -Yo
+    echo "Writing $image to $target_path"
+    sudo pv "$image" -Yo "$target_path"
 }
