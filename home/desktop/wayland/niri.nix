@@ -14,7 +14,7 @@ let
       font = "Iosevka:size=${scaledFontSize}";
     in
     [
-      "footclient"
+      "foot"
       "--app-id=termprompt"
       "--window-size-chars=${toString columns}x${toString lines}"
       "--override=main.font=${font}"
@@ -100,7 +100,6 @@ in
       spawn-at-startup = [
         # FIXME: If NIRI has a systemd target, then we should retarget this service
         { sh = "systemctl --user restart waybar.service"; }
-        { sh = "systemctl --user start foot-server.service"; }
         # FIXME: Create a systemd unit for swaybg or find a different wallpaper service
         { sh = "swaybg --mode fill --image ~/.config/wallpaper"; }
       ];
@@ -296,7 +295,7 @@ in
         "Mod+Ctrl+Shift+Escape".action.power-off-monitors = { };
 
         # Launchers
-        "Mod+Return".action.spawn = [ "footclient" ];
+        "Mod+Return".action.spawn = [ "foot" ];
         "Mod+E".action.spawn = termPromptLauncher {
           script = "navi-launcher";
           lines = 16;
