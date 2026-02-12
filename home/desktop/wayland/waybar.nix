@@ -21,9 +21,6 @@ in
         height = 32; # 3% of 1080p
         modules-left = [
           "custom/system-info"
-          "systemd-failed-units#system"
-          "systemd-failed-units#user"
-          "privacy"
         ];
         modules-center = [ "clock" ];
         modules-right = [
@@ -65,6 +62,28 @@ in
           format = "{ifname}: {essid} ({ipaddr})";
           format-disconnected = "";
         };
+      };
+      botBar = {
+        class = "bot";
+        layer = "top";
+        position = "bottom";
+        height = 32;
+        modules-left = [ "niri/workspaces" ];
+        modules-center = [
+          "systemd-failed-units#system"
+          "systemd-failed-units#user"
+          "privacy"
+        ];
+        modules-right = [
+          "niri/window"
+        ];
+        "niri/workspaces" = {
+          format = "{icon}{value}{icon}";
+          format-icons = {
+            focused = "<span color='${blue}'>\/</span>";
+            default = " ";
+          };
+        };
         "systemd-failed-units#system" = {
           hide-on-ok = true;
           system = true;
@@ -78,23 +97,6 @@ in
           user = true;
           format = "systemd-user: {nr_failed_user} failed units";
           format-ok = "";
-        };
-      };
-      botBar = {
-        class = "bot";
-        layer = "top";
-        position = "bottom";
-        height = 32;
-        modules-left = [ "niri/workspaces" ];
-        modules-right = [
-          "niri/window"
-        ];
-        "niri/workspaces" = {
-          format = "{icon}{value}{icon}";
-          format-icons = {
-            focused = "<span color='${blue}'>\/</span>";
-            default = " ";
-          };
         };
       };
     };
