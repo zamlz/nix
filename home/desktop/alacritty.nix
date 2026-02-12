@@ -1,6 +1,5 @@
 {
   config,
-  pkgs,
   self,
   ...
 }:
@@ -13,9 +12,6 @@ in
     settings = {
       general = {
         live_config_reload = true;
-      };
-      terminal = {
-        shell = "${pkgs.zsh}/bin/zsh";
       };
       colors = with colorScheme; {
         draw_bold_text_with_bright_colors = false;
