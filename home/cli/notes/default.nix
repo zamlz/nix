@@ -2,7 +2,8 @@
   pkgs,
   config,
   ...
-}: {
+}:
+{
   home.sessionPath = [ "${config.home.homeDirectory}/.local/notes-bin" ];
   home.sessionVariables = {
     NOTES_DIRECTORY = "${config.home.homeDirectory}/usr/notes";
