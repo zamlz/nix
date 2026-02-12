@@ -9,36 +9,23 @@ from navi.logging import setup_main_logging
 from navi.shell.fzf import Fzf
 from navi.xorg.window import set_window_title
 
-# FIXME: Should this really be hardcoded?
-NOTES_DIRECTORY = Path.home() / 'usr/notes'
-
-RG_COMMAND=[
-   "rg",
-   "--line-number",
-   "--column",
-   "--no-heading",
-   "--color=always",
-   "--smart-case",
-   "-t",
-   "md",
-   "--",
-   "^\\s*- \\[ \\]"
-]
-
 
 def collect_todos() -> list[str]:
-    result = subprocess.run(RG_COMMAND, capture_output=True)
+    result = subprocess.run('notes-tasks', capture_output=True)
     result.check_returncode()
     return str(result.stdout, encoding="utf-8").strip().split("\n")
 
 
 @setup_main_logging
 def main() -> None:
-    os.chdir(NOTES_DIRECTORY)
-    set_window_title(f"FZF: TODO ({NOTES_DIRECTORY})")
+    notes_directory = os.getenv('NOTES_DIRECTORY')
+    if type(notes_directory) is not str:
+        raise ValueError(f"Invalid value for notes directory: {notes_directory}")
+    os.chdir(notes_directory)
+    set_window_title(f"FZF: TODO ({notes_directory})")
     fzf = Fzf(
         prompt="TODO: ",
-        header=f"(Currently in {NOTES_DIRECTORY})",
+        header=f"(Currently in {notes_directory})",
         delimiter=':',
         preview="bat {1} --highlight-line {2}",
         preview_window="down,40%,border-top,+{2}+3/3",
@@ -50,7 +37,7 @@ def main() -> None:
 
     for selection in selections:
         relative_file_path, line, column, _ = selection.split(':', maxsplit=3)
-        absolute_file_path = NOTES_DIRECTORY / relative_file_path
+        absolute_file_path = Path(notes_directory) / relative_file_path
         navi.system.open_file(absolute_file_path, int(line), int(column))
 
 

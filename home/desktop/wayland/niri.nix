@@ -345,7 +345,7 @@ in
 
         # Notes
         "Mod+N".action.spawn = termPromptLauncher {
-          script = "$HOME/usr/notes/bin/notes log";
+          script = "notes-log-journal";
           lines = 20;
           columns = 90;
           fontSize = 8;
