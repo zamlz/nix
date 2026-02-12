@@ -16,7 +16,7 @@ in
       main = {
         # FIXME: Set this based on home manager shell?
         shell = "${pkgs.zsh}/bin/zsh";
-        font = "Iosevka:size=${toString (8.0 * config.my.fontScale)}";
+        font = "Iosevka:size=${toString (6.0 * config.my.fontScale)}";
         selection-target = "primary";
       };
       cursor = {
