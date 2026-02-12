@@ -41,7 +41,7 @@ def main() -> None:
         header=f"(Currently in {NOTES_DIRECTORY})",
         delimiter=':',
         preview="bat {1} --highlight-line {2}",
-        preview_window="down,60%,border-top,+{2}+3/3",
+        preview_window="down,40%,border-top,+{2}+3/3",
         preview_label="[File Preview]"
     )
     selections = fzf.prompt(collect_todos())
