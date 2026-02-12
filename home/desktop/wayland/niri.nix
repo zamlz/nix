@@ -307,40 +307,40 @@ in
         # External Tools
         "Mod+G".action.spawn = termPromptLauncher {
           script = "navi-git";
-          lines = 35;
-          columns = 164;
+          lines = 20;
+          columns = 124;
           fontSize = 8;
         };
         "Mod+Shift+G".action.spawn = termPromptLauncher {
           script = "navi-git --open-dir";
-          lines = 35;
-          columns = 164;
+          lines = 20;
+          columns = 124;
           fontSize = 8;
         };
         "Mod+M".action.spawn = termPromptLauncher {
           script = "navi-man";
-          lines = 35;
-          columns = 164;
+          lines = 20;
+          columns = 124;
           fontSize = 8;
         };
         "Mod+Z".action.spawn = termPromptLauncher {
           script = "navi-calculator";
           lines = 12;
-          columns = 96;
+          columns = 64;
           fontSize = 12;
         };
 
         # Password Store
         "Mod+P".action.spawn = termPromptLauncher {
           script = "navi-pass";
-          lines = 14;
-          columns = 100;
+          lines = 16;
+          columns = 80;
           fontSize = 9;
         };
         "Mod+Shift+P".action.spawn = termPromptLauncher {
           script = "navi-pass --qrcode";
-          lines = 14;
-          columns = 100;
+          lines = 16;
+          columns = 80;
           fontSize = 9;
         };
 
@@ -348,14 +348,14 @@ in
         "Mod+N".action.spawn = termPromptLauncher {
           script = "$HOME/usr/notes/bin/notes log";
           lines = 20;
-          columns = 128;
+          columns = 90;
           fontSize = 9;
         };
         "Mod+Y".action.spawn = termPromptLauncher {
           script = "navi-todo";
           lines = 30;
-          columns = 164;
-          fontSize = 8;
+          columns = 128;
+          fontSize = 9;
         };
 
         # Window/Workspace management (commented - conflicts with existing binds)
@@ -380,25 +380,25 @@ in
         "Mod+A".action.spawn = termPromptLauncher {
           script = "navi-file-explorer";
           lines = 30;
-          columns = 164;
+          columns = 140;
           fontSize = 8;
         };
         "Mod+S".action.spawn = termPromptLauncher {
           script = "navi-ripgrep";
           lines = 30;
-          columns = 164;
+          columns = 140;
           fontSize = 8;
         };
         "Mod+D".action.spawn = termPromptLauncher {
           script = "navi-file-open --directory";
           lines = 30;
-          columns = 164;
+          columns = 140;
           fontSize = 8;
         };
         "Mod+F".action.spawn = termPromptLauncher {
           script = "navi-file-open --file";
           lines = 30;
-          columns = 164;
+          columns = 140;
           fontSize = 8;
         };
 
