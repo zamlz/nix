@@ -4,7 +4,6 @@
 }:
 {
   imports = [
-    ./foot.nix
     ./niri.nix
     ./swaylock.nix
     ./waybar.nix

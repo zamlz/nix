@@ -1,6 +1,6 @@
 { pkgs, config, ... }:
 let
-  # Terminal prompt launcher for foot
+  # Terminal prompt launcher for alacritty
   # Creates a floating terminal window with specific dimensions and font size
   termPromptLauncher =
     {
@@ -11,14 +11,18 @@ let
     }:
     let
       scaledFontSize = builtins.toString (config.my.fontScale * fontSize);
-      font = "Iosevka:size=${scaledFontSize}";
     in
     [
-      "footclient"
-      "--app-id=termprompt"
-      "--window-size-chars=${toString columns}x${toString lines}"
-      "--override=main.font=${font}"
-      "zsh" # We need this to get environment variables (HACK)
+      "alacritty"
+      "--class=termprompt"
+      "-o"
+      "window.dimensions.columns=${toString columns}"
+      "-o"
+      "window.dimensions.lines=${toString lines}"
+      "-o"
+      "font.size=${scaledFontSize}"
+      "-e"
+      "zsh"
       "-c"
       "${script}"
     ];
@@ -100,7 +104,6 @@ in
       spawn-at-startup = [
         # FIXME: If NIRI has a systemd target, then we should retarget this service
         { sh = "systemctl --user restart waybar.service"; }
-        { sh = "systemctl --user start foot-server.service"; }
         # FIXME: Create a systemd unit for swaybg or find a different wallpaper service
         { sh = "swaybg --mode fill --image ~/.config/wallpaper"; }
       ];
@@ -296,7 +299,7 @@ in
         "Mod+Ctrl+Shift+Escape".action.power-off-monitors = { };
 
         # Launchers
-        "Mod+Return".action.spawn = [ "footclient" ];
+        "Mod+Return".action.spawn = [ "alacritty" ];
         "Mod+E".action.spawn = termPromptLauncher {
           script = "navi-launcher";
           lines = 16;
