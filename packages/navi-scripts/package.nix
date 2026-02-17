@@ -1,32 +1,8 @@
 {
   python3Packages,
-  makeWrapper,
   lib,
   ty,
   ruff,
-  # Runtime dependencies for the CLI tools
-  fzf,
-  fd,
-  ripgrep,
-  bat,
-  tree,
-  mediainfo,
-  wmctrl,
-  xdotool,
-  alacritty,
-  lazygit,
-  xclip,
-  qrencode,
-  imagemagick,
-  feh,
-  i3lock,
-  swaylock,
-  pass,
-  coreutils,
-  gnugrep,
-  gawk,
-  git,
-  man,
 }:
 
 python3Packages.buildPythonApplication {
@@ -55,42 +31,8 @@ python3Packages.buildPythonApplication {
     runHook postCheck
   '';
 
-  nativeBuildInputs = [ makeWrapper ];
-
   postInstall = ''
     chmod +x $out/lib/python*/site-packages/navi/data/*.sh
-  '';
-
-  postFixup = ''
-    for bin in $out/bin/navi-*; do
-      wrapProgram "$bin" \
-        --prefix PATH : ${
-          lib.makeBinPath [
-            fzf
-            fd
-            ripgrep
-            bat
-            tree
-            mediainfo
-            wmctrl
-            xdotool
-            alacritty
-            lazygit
-            xclip
-            qrencode
-            imagemagick
-            feh
-            i3lock
-            swaylock
-            pass
-            coreutils
-            gnugrep
-            gawk
-            git
-            man
-          ]
-        }
-    done
   '';
 
   meta = {
