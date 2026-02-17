@@ -44,7 +44,11 @@ not present in an environment yet). It uses home manager from github to
 bootstrap the installation.
 
 ```shell
-nix run github:nix-community/home-manager -- switch --flake .#generic-linux
+# CLI tools only (headless/server environments)
+nix run github:nix-community/home-manager -- switch --flake .#generic-cli
+
+# CLI + desktop applications
+nix run github:nix-community/home-manager -- switch --flake .#generic-desktop
 ```
 
 ## Basic Usage
@@ -68,7 +72,8 @@ nh os switch .
 All future invocations in the environment should have `home-manager` present.
 
 ```shell
-home-manager switch --flake .#generic-linux
+home-manager switch --flake .#generic-cli      # CLI only
+home-manager switch --flake .#generic-desktop  # CLI + desktop
 ```
 
 ## Directory Structure
@@ -112,7 +117,9 @@ hosts/
   alexandria/
     configuration.nix
     hardware-configuration.nix
-  generic-linux/
+  generic-cli/
+    home.nix
+  generic-desktop/
     home.nix
 ```
 

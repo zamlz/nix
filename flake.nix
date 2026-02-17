@@ -74,8 +74,13 @@
 
       formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt);
 
-      homeConfigurations."generic-linux" = homeManagerBuilder {
-        homeConfigPath = ./hosts/generic-linux/home.nix;
+      homeConfigurations = {
+        generic-cli = homeManagerBuilder {
+          homeConfigPath = ./hosts/generic-cli/home.nix;
+        };
+        generic-desktop = homeManagerBuilder {
+          homeConfigPath = ./hosts/generic-desktop/home.nix;
+        };
       };
 
       nixosConfigurations = {
