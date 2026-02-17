@@ -1,4 +1,9 @@
-{ pkgs, config, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 let
   # Terminal prompt launcher using navi-term
   # Creates a floating terminal window with specific dimensions and font size
@@ -23,10 +28,8 @@ let
       "--font-size"
       scaledFontSize
       "-e"
-      "zsh"
-      "-c"
-      "${script}"
-    ];
+    ]
+    ++ (lib.splitString " " script);
 in
 {
   programs.niri = {
