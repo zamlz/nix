@@ -273,7 +273,7 @@ in
         "Mod+V".action.toggle-window-floating = { };
         "Mod+Shift+V".action.switch-focus-between-floating-and-tiling = { };
 
-        "Mod+W".action.toggle-column-tabbed-display = { };
+        "Mod+B".action.toggle-column-tabbed-display = { };
 
         # Screenshots
         "Print".action.screenshot = { };
@@ -358,22 +358,30 @@ in
         };
 
         # Window/Workspace management (commented - conflicts with existing binds)
-        # "Mod+W".action.spawn = termPromptLauncher {
-        #   script = "navi-window";
-        #   lines = 20; columns = 128; fontSize = 9;
-        # };
-        # "Mod+Slash".action.spawn = termPromptLauncher {
-        #   script = "navi-workspace --jump";
-        #   lines = 10; columns = 120; fontSize = 9;
-        # };
-        # "Mod+Shift+Slash".action.spawn = termPromptLauncher {
-        #   script = "navi-workspace --move-window";
-        #   lines = 10; columns = 120; fontSize = 9;
-        # };
-        # "Mod+BackSpace".action.spawn = termPromptLauncher {
-        #   script = "navi-workspace --delete";
-        #   lines = 10; columns = 120; fontSize = 9;
-        # };
+        "Mod+W".action.spawn = termPromptLauncher {
+          script = "navi-window";
+          lines = 20;
+          columns = 128;
+          fontSize = 9;
+        };
+        "Mod+Slash".action.spawn = termPromptLauncher {
+          script = "navi-workspace --jump";
+          lines = 10;
+          columns = 120;
+          fontSize = 9;
+        };
+        "Mod+Shift+Slash".action.spawn = termPromptLauncher {
+          script = "navi-workspace --move-window";
+          lines = 10;
+          columns = 120;
+          fontSize = 9;
+        };
+        "Mod+BackSpace".action.spawn = termPromptLauncher {
+          script = "navi-workspace --delete";
+          lines = 10;
+          columns = 120;
+          fontSize = 9;
+        };
 
         # Filesystem
         "Mod+A".action.spawn = termPromptLauncher {

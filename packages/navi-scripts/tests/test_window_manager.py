@@ -144,17 +144,41 @@ class TestNiriWM:
         with pytest.raises(NotImplementedError):
             wm.delete_workspace("test-workspace")
 
-    def test_list_workspaces_raises_not_implemented(self):
-        """list_workspaces should raise NotImplementedError for Niri."""
+    def test_list_workspaces_parses_json(self, mock_subprocess_run):
+        """list_workspaces should parse niri msg workspaces JSON output."""
+        mock_subprocess_run.return_value.stdout = b'[{"id": 1, "idx": 1, "name": "main", "is_active": true, "is_focused": true}]'
         wm = NiriWM()
-        with pytest.raises(NotImplementedError):
-            wm.list_workspaces()
+        workspaces = wm.list_workspaces()
+        assert "main" in workspaces
+        assert workspaces["main"].name == "main"
+        assert workspaces["main"].active is True
 
-    def test_list_windows_raises_not_implemented(self):
-        """list_windows should raise NotImplementedError for Niri."""
+    def test_list_windows_parses_json(self, mock_subprocess_run):
+        """list_windows should parse niri msg windows JSON output."""
+        def side_effect(cmd, **kwargs):
+            from unittest.mock import MagicMock
+            result = MagicMock()
+            result.returncode = 0
+            result.check_returncode = MagicMock()
+            if "windows" in cmd:
+                result.stdout = b'[{"id": 123, "title": "Test", "app_id": "test-app", "workspace_id": 1, "is_focused": true}]'
+            elif "workspaces" in cmd:
+                result.stdout = b'[{"id": 1, "idx": 1, "name": "main", "is_active": true}]'
+            return result
+        mock_subprocess_run.side_effect = side_effect
         wm = NiriWM()
-        with pytest.raises(NotImplementedError):
-            wm.list_windows()
+        windows = wm.list_windows()
+        assert 123 in windows
+        assert windows[123].title == "Test"
+        assert windows[123].wm_class == "test-app"
+
+    def test_focus_window_calls_niri_msg(self, mock_subprocess_run):
+        """focus_window should call niri msg action focus-window."""
+        wm = NiriWM()
+        wm.focus_window(123)
+        mock_subprocess_run.assert_called_with([
+            "niri", "msg", "action", "focus-window", "--id", "123"
+        ])
 
 
 class TestWorkspaceDataclass:
