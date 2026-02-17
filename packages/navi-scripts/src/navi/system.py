@@ -45,12 +45,15 @@ def reload_gpg_agent() -> None:
     ).check_returncode()
 
 
-# FIXME: We need this because NIRI session currently doesn't exist in niri-flake,
-# meaning that home-manager cannot pass it's session variables to niri. I am
-# using a system-wide niri-session, but it doesn't understand the existence
-# of home manager so here we are.
+# FIXME: We need this because NIRI session currently doesn't exist
+# in niri-flake, meaning that home-manager cannot pass it's session
+# variables to niri. I am using a system-wide niri-session, but it
+# doesn't understand the existence of home manager so here we are.
 def get_default_editor() -> str:
-    result = subprocess.run(["zsh", "-c", "printenv EDITOR"], capture_output=True)
+    result = subprocess.run(
+        ["zsh", "-c", "printenv EDITOR"],
+        capture_output=True,
+    )
     result.check_returncode()
     return str(result.stdout, encoding="utf-8").strip()
 
