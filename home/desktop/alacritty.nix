@@ -54,7 +54,7 @@ in
       };
 
       font = {
-        size = 6.0 * config.my.fontScale;
+        size = 7.0 * config.my.fontScale;
         glyph_offset = {
           x = 0;
           y = 0;
