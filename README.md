@@ -35,9 +35,9 @@ Since the external linux system is managing the system software, we use
 nix to manage the user software. Once the software has been installed,
 things may not work as expected. This is because some user-level software
 needs to talk to system software and with nix not managing that software
-anymore there is a disconnect. You have to manually configure the host
-system to properly integrate with nix. Look at the subsections for
-further details on what worked on.
+anymore there is a disconnect. You may need to manually configure the host
+system to properly integrate with nix (e.g., disabling conflicting system
+services like ssh-agent or smartcard daemons).
 
 Use the following for the first time install (since home-manager is
 not present in an environment yet). It uses home manager from github to
@@ -46,28 +46,6 @@ bootstrap the installation.
 ```shell
 nix run github:nix-community/home-manager -- switch --flake .#generic-linux
 ```
-
-#### Fedora
-
-I had to disable the following services/sockets and reboot my system.
-
-```shell
-sudo systemctl stop pcscd.service
-sudo systemctl stop pcscd.socket
-sudo systemctl disable pcscd.service
-sudo systemctl disable pcscd.socket
-
-systemctl --user stop gcr-ssh-agent.service
-systemctl --user stop gcr-ssh-agent.socket
-systemctl --user disable gcr-ssh-agent.service
-systemctl --user disable gcr-ssh-agent.socket
-systemctl --user mask gcr-ssh-agent.service
-systemctl --user mask gcr-ssh-agent.socket
-```
-
-This will break any other programs that want to use smartcards through
-Fedora. I don't have any other uses I think. It also disables support
-for the gnome keyring for ssh but that is also fine for me.
 
 ## Basic Usage
 
@@ -189,8 +167,12 @@ packages/
 | `navi-pass`          | Password store interface                |
 | `navi-man`           | Man page browser                        |
 | `navi-notes`         | Notes manager                           |
+| `navi-todo`          | Todo/task viewer                        |
 | `navi-ripgrep`       | Interactive ripgrep search              |
 | `navi-system`        | System actions (lock, reboot, poweroff) |
+| `navi-term`          | Spawn terminal (abstracts emulators)    |
+
+See [packages/navi-scripts/README.md](packages/navi-scripts/README.md) for detailed documentation on window manager abstraction, runtime dependencies, and architecture.
 
 ### Developing navi-scripts
 
