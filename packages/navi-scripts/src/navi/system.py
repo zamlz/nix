@@ -39,6 +39,15 @@ def nohup(command: List[str]) -> None:
     ).check_returncode()
 
 
+def copy_to_clipboard(file_path: Path) -> None:
+    match get_running_wm():
+        case WindowManager.HERBSTLUFTWM:
+            nohup(["xclip", "-selection", "clipboard", str(file_path)])
+        case WindowManager.NIRI:
+            with open(file_path, 'r') as f:
+                subprocess.run(["wl-copy"], input=f.read(), text=True).check_returncode()
+
+
 def reload_gpg_agent() -> None:
     subprocess.run(
         ["gpg-connect-agent", "--no-autostart", "RELOADAGENT", "/bye"],

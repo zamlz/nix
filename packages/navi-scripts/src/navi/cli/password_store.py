@@ -103,7 +103,7 @@ def main() -> None:
         with NamedTemporaryFile() as ntf:
             with open(ntf.name, 'w') as f:
                 f.write(password_data[0])
-            navi.system.nohup(f"xclip -selection clipboard {ntf.name}".split())
+            navi.system.copy_to_clipboard(Path(ntf.name))
             return
     else:
         logger.info(f"Creating QR code for {password_entry}")
