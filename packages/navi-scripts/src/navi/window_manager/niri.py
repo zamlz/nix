@@ -223,3 +223,47 @@ class NiriWM(WindowManager):
         raise ValueError(
             f"Found window id file for {window_id} but no pwd was found!"
         )
+
+    def get_focused_window_id(self) -> Optional[int]:
+        result = subprocess.run(
+            ["niri", "msg", "--json", "focused-window"],
+            capture_output=True
+        )
+        if result.returncode != 0:
+            return None
+        try:
+            data = json.loads(result.stdout)
+            if data and "id" in data:
+                return data["id"]
+        except json.JSONDecodeError:
+            pass
+        return None
+
+    def save_window_pwd(self, window_id: int, pwd: Path) -> None:
+        WINDOW_ID_ENV_DIR.mkdir(parents=True, exist_ok=True)
+        window_id_file = WINDOW_ID_ENV_DIR / f"{window_id}"
+        with open(window_id_file, 'w') as f:
+            f.write(f"WINDOW_PWD='{pwd}'\n")
+
+    def spawn_terminal(
+        self,
+        command: Optional[list[str]] = None,
+        working_dir: Optional[Path] = None,
+        app_id: Optional[str] = None,
+        lines: Optional[int] = None,
+        columns: Optional[int] = None,
+        font_size: Optional[float] = None,
+    ) -> None:
+        cmd = ["foot"]
+        if app_id is not None:
+            cmd.extend(["--app-id", app_id])
+        if lines is not None and columns is not None:
+            cmd.extend(["--window-size-chars", f"{columns}x{lines}"])
+        if font_size is not None:
+            # foot uses --override for runtime config changes
+            cmd.extend(["--override", f"main.font=Iosevka:size={font_size}"])
+        if working_dir is not None:
+            cmd.extend(["--working-directory", str(working_dir)])
+        if command is not None:
+            cmd.extend(command)
+        self._nohup(cmd)

@@ -90,6 +90,39 @@ class WindowManager(ABC):
         """Get the working directory of a window."""
         pass
 
+    @abstractmethod
+    def get_focused_window_id(self) -> Optional[int]:
+        """Get the ID of the currently focused window."""
+        pass
+
+    @abstractmethod
+    def save_window_pwd(self, window_id: int, pwd: Path) -> None:
+        """Save the working directory for a window."""
+        pass
+
+    # Terminal spawning
+    @abstractmethod
+    def spawn_terminal(
+        self,
+        command: Optional[List[str]] = None,
+        working_dir: Optional[Path] = None,
+        app_id: Optional[str] = None,
+        lines: Optional[int] = None,
+        columns: Optional[int] = None,
+        font_size: Optional[float] = None,
+    ) -> None:
+        """Spawn a terminal window with optional customization.
+
+        Args:
+            command: Command to execute in the terminal
+            working_dir: Working directory for the terminal
+            app_id: Window class/app-id for window manager rules
+            lines: Number of lines (height) for the terminal window
+            columns: Number of columns (width) for the terminal window
+            font_size: Font size (already scaled by fontScale from Nix)
+        """
+        pass
+
     # Utility methods shared by implementations
     @staticmethod
     def _execute(command: List[str], environ: Mapping[str, str] = os.environ) -> None:

@@ -1,6 +1,6 @@
 { pkgs, config, ... }:
 let
-  # Terminal prompt launcher for foot
+  # Terminal prompt launcher using navi-term
   # Creates a floating terminal window with specific dimensions and font size
   termPromptLauncher =
     {
@@ -11,14 +11,19 @@ let
     }:
     let
       scaledFontSize = builtins.toString (config.my.fontScale * fontSize);
-      font = "Iosevka:size=${scaledFontSize}";
     in
     [
-      "foot"
-      "--app-id=termprompt"
-      "--window-size-chars=${toString columns}x${toString lines}"
-      "--override=main.font=${font}"
-      "zsh" # We need this to get environment variables (HACK)
+      "navi-term"
+      "--app-id"
+      "termprompt"
+      "--lines"
+      (toString lines)
+      "--columns"
+      (toString columns)
+      "--font-size"
+      scaledFontSize
+      "-e"
+      "zsh"
       "-c"
       "${script}"
     ];
@@ -295,7 +300,11 @@ in
         "Mod+Ctrl+Shift+Escape".action.power-off-monitors = { };
 
         # Launchers
-        "Mod+Return".action.spawn = [ "foot" ];
+        "Mod+Return".action.spawn = [ "navi-term" ];
+        "Mod+Shift+Return".action.spawn = [
+          "navi-term"
+          "--inherit-cwd"
+        ];
         "Mod+E".action.spawn = termPromptLauncher {
           script = "navi-launcher";
           lines = 16;

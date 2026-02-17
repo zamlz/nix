@@ -54,7 +54,7 @@ def get_man_pages() -> List[str]:
 def open_man_page(man_page: str) -> None:
     man_page_name, man_page_index, _ = man_page.split(maxsplit=2)
     logger.debug(f"opening man page: {man_page_name}({man_page_index})")
-    nohup(["alacritty", "--command", "man", man_page_index, man_page_name])
+    get_window_manager().spawn_terminal(command=["man", man_page_index, man_page_name])
 
 
 def reboot() -> None:
@@ -144,17 +144,11 @@ def open_file(file_path: Path, line_num: int = 0, column_num: int = 0) -> None:
     if any([str(file_path).endswith(ext) for ext in XDG_OPEN_EXTENSIONS]):
         nohup(["xdg-open", str(file_path)])
     else:
-        nohup([
-            "alacritty",
-            "--working-directory", str(file_path.parent),
-            # So why do we not run the editor command directly?
-            # Well it would work in starting the editor, but zsh startup
-            # runs all the hooks for saving the window details.
-            # In other words, in order for every terminal window to have
-            # a window_id file generated, we must start zsh
-            "--command", "zsh", "-c",
-            f"{os.getenv('EDITOR')} {escaped_file_path} +{line_num}"
-        ])
+        # Start zsh so shell hooks run (saving window details)
+        get_window_manager().spawn_terminal(
+            command=["zsh", "-c", f"{os.getenv('EDITOR')} {escaped_file_path} +{line_num}"],
+            working_dir=file_path.parent
+        )
 
 
 def open_directory(dir_path: Path) -> None:
@@ -162,11 +156,10 @@ def open_directory(dir_path: Path) -> None:
     if not dir_path.is_dir():
         logger.warning(f"{dir_path} is not a directory!")
         return
-    nohup([
-      "alacritty",
-      "--working-directory", str(dir_path),
-      "--command", "zsh"
-    ])
+    get_window_manager().spawn_terminal(
+        command=["zsh"],
+        working_dir=dir_path
+    )
 
 
 def open_items(items: List[Path]) -> None:

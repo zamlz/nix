@@ -31,7 +31,7 @@ venv() {
 
         echo "Starting venv: ${vname}"
         source "${vdir}/bin/activate"
-        save_window_info
+        navi-save-window-info > /dev/null 2>&1
     else
         echo "Python Virtual Environments (venvs)"
         tree -C -L 1 -d --noreport ${PYTHON_VENVS_DIR}/ | tail -n +2

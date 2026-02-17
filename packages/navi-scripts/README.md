@@ -14,8 +14,11 @@ The package is built as a Python application rather than shell scripts for:
 - Type safety and static analysis
 - Easier testing and maintenance
 - Complex logic (window tracking, workspace management)
+- Window manager abstraction (same commands work on X11 and Wayland)
 
 ## Commands
+
+### User-facing commands
 
 | Command              | Description                                    |
 | -------------------- | ---------------------------------------------- |
@@ -32,7 +35,48 @@ The package is built as a Python application rather than shell scripts for:
 | `navi-todo`          | Todo/task viewer                               |
 | `navi-ripgrep`       | Interactive ripgrep search                     |
 | `navi-system`        | System actions (lock, reboot, poweroff)        |
-| `navi-spawn-shell`   | Spawn terminal with current environment        |
+| `navi-term`          | Spawn terminal (abstracts alacritty/foot)      |
+
+### Internal tools
+
+These are used by shell hooks and fzf previews:
+
+| Command                       | Description                                    |
+| ----------------------------- | ---------------------------------------------- |
+| `navi-save-window-info`       | Save current window's PWD (called by zsh hook) |
+| `navi-display-window-info`    | Display window info (fzf preview)              |
+| `navi-display-workspace-info` | Display workspace info (fzf preview)           |
+
+## Window Manager Abstraction
+
+The package abstracts over window managers, allowing the same commands to work on both
+X11 (herbstluftwm) and Wayland (niri). The `WindowManager` abstract class provides:
+
+- **Clipboard**: Copy to clipboard (xclip vs wl-copy)
+- **Screen lock**: Lock screen (i3lock vs swaylock)
+- **Workspaces**: List, create, delete, jump to workspaces
+- **Windows**: List, focus, track window PWD
+- **Terminal spawning**: Spawn terminals with WM-appropriate emulator and options
+
+### Terminal spawning (`navi-term`)
+
+`navi-term` spawns a terminal using the appropriate emulator for the current WM:
+- **herbstluftwm**: Uses `alacritty` with `--class`, `--option` flags
+- **niri**: Uses `foot` with `--app-id`, `--window-size-chars`, `--override` flags
+
+Options like `--app-id`, `--lines`, `--columns`, `--font-size` are translated to the
+appropriate terminal-specific flags.
+
+Before spawning, `navi-term` saves the currently focused window ID. This enables
+the `--inherit-cwd` flag, which spawns the terminal in the same directory as the
+previously focused window. Example: `navi-term --inherit-cwd`
+
+### Window PWD tracking
+
+Terminal windows track their working directory via zsh hooks:
+1. On every prompt, the `precmd` hook calls `navi-save-window-info`
+2. This saves the current PWD to `~/tmp/.wid/<window_id>`
+3. Commands can retrieve a window's PWD using `wm.get_window_pwd(window_id)`
 
 ## Runtime Dependencies
 
@@ -43,7 +87,23 @@ available in your environment (installed via NixOS/home-manager configuration).
 - `fzf` - fuzzy finder (core dependency, used by all commands)
 - `coreutils` - basic utilities (ls, etc.)
 
+### Window manager specific
+
+| Tool           | Window Manager | Used by                            |
+| -------------- | -------------- | ---------------------------------- |
+| `wmctrl`       | herbstluftwm   | window, workspace                  |
+| `xdotool`      | herbstluftwm   | window, workspace                  |
+| `herbstclient` | herbstluftwm   | workspace, system                  |
+| `xclip`        | herbstluftwm   | clipboard                          |
+| `alacritty`    | herbstluftwm   | terminal spawning                  |
+| `i3lock`       | herbstluftwm   | screen lock                        |
+| `niri`         | niri           | window, workspace, system          |
+| `wl-copy`      | niri           | clipboard                          |
+| `foot`         | niri           | terminal spawning                  |
+| `swaylock`     | niri           | screen lock                        |
+
 ### Used by specific commands
+
 | Tool           | Used by                                               |
 | -------------- | ----------------------------------------------------- |
 | `fd`           | file-open, notes, pass                                |
@@ -51,20 +111,12 @@ available in your environment (installed via NixOS/home-manager configuration).
 | `bat`          | file previews                                         |
 | `tree`         | directory previews                                    |
 | `mediainfo`    | binary file previews                                  |
-| `wmctrl`       | window, workspace                                     |
-| `xdotool`      | window                                                |
-| `alacritty`    | file-open, man (terminal spawning)                    |
 | `lazygit`      | git                                                   |
 | `git`          | git, file-open (git root detection)                   |
 | `pass`         | pass                                                  |
-| `xclip`        | pass (clipboard)                                      |
 | `qrencode`     | pass (QR codes)                                       |
 | `imagemagick`  | pass (image inversion), system (blur for lock screen) |
 | `feh`          | pass (QR display)                                     |
-| `i3lock`       | system (herbstluftwm lock screen)                     |
-| `swaylock`     | system (niri lock screen)                             |
-| `herbstclient` | workspace, system (herbstluftwm)                      |
-| `niri`         | system (niri WM)                                      |
 | `man`          | man                                                   |
 | `gnupg`        | pass (gpg-connect-agent)                              |
 
@@ -76,17 +128,15 @@ available in your environment (installed via NixOS/home-manager configuration).
 
 ```
 src/navi/
-├── cli/           # Entry points (one file per command)
-├── shell/         # fzf wrapper, ANSI colors
-├── xorg/          # X11 window/workspace management
-├── data/          # Shell scripts for fzf previews
-├── system.py      # System operations (open files, lock screen, etc.)
-├── window_manager.py  # WM detection
-└── logging.py     # Logging setup with error handling
+├── cli/             # Entry points (one file per command)
+├── tools/           # Internal tools (shell hooks, fzf previews)
+├── shell/           # fzf wrapper, ANSI colors
+├── window_manager/  # Window manager abstraction
+│   ├── abstract.py      # WindowManager ABC
+│   ├── herbstluftwm.py  # X11 implementation
+│   ├── niri.py          # Wayland implementation
+│   └── types.py         # Window, Workspace dataclasses
+├── data/            # Shell scripts for fzf previews
+├── system.py        # System operations (open files, etc.)
+└── logging.py       # Logging setup with error handling
 ```
-
-## Window Manager Support
-
-Supports two window managers with WM-specific behavior:
-- **herbstluftwm** (X11) - uses wmctrl, xdotool, herbstclient, i3lock
-- **niri** (Wayland) - uses niri CLI, swaylock

@@ -1,3 +1,4 @@
+import os
 import re
 import subprocess
 from pathlib import Path
@@ -148,6 +149,50 @@ class HerbstluftWM(WindowManager):
         raise ValueError(
             f"Found window id file for {window_id} but no pwd was found!"
         )
+
+    def get_focused_window_id(self) -> Optional[int]:
+        # In X11, terminal emulators set WINDOWID env var
+        window_id = os.environ.get("WINDOWID")
+        if window_id is not None:
+            return int(window_id)
+        # Fallback to xdotool
+        result = subprocess.run(
+            ["xdotool", "getactivewindow"],
+            capture_output=True
+        )
+        if result.returncode != 0:
+            return None
+        return int(result.stdout.decode().strip())
+
+    def save_window_pwd(self, window_id: int, pwd: Path) -> None:
+        WINDOW_ID_ENV_DIR.mkdir(parents=True, exist_ok=True)
+        window_id_file = WINDOW_ID_ENV_DIR / f"{window_id}"
+        with open(window_id_file, 'w') as f:
+            f.write(f"WINDOW_PWD='{pwd}'\n")
+
+    def spawn_terminal(
+        self,
+        command: Optional[list[str]] = None,
+        working_dir: Optional[Path] = None,
+        app_id: Optional[str] = None,
+        lines: Optional[int] = None,
+        columns: Optional[int] = None,
+        font_size: Optional[float] = None,
+    ) -> None:
+        cmd = ["alacritty"]
+        if app_id is not None:
+            cmd.extend(["--class", f"{app_id},{app_id}"])
+        if font_size is not None:
+            cmd.extend(["--option", f"font.size={font_size}"])
+        if lines is not None:
+            cmd.extend(["--option", f"window.dimensions.lines={lines}"])
+        if columns is not None:
+            cmd.extend(["--option", f"window.dimensions.columns={columns}"])
+        if working_dir is not None:
+            cmd.extend(["--working-directory", str(working_dir)])
+        if command is not None:
+            cmd.extend(["--command", *command])
+        self._nohup(cmd)
 
     # Private helpers
     @staticmethod

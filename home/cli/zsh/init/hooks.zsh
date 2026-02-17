@@ -2,8 +2,8 @@
 
 # This file contains general zsh hooks which are used for the following purpose
 # - Generating my shell prompt (PS1)
-# - Loading & Saving Xorg Window Info
-# - Setting the Xorg Window Title
+# - Saving Window Info (PWD tracking for navi-spawn-identical-shell)
+# - Setting the Window Title
 
 # register hooks to run before the user is given the oppurtunity to enter a
 # command. The order of these operations matter!!
@@ -11,12 +11,10 @@ precmd() {
     # we must save the last known exit code first, otherwise, subsequent
     # operations will override it.
     local exit_code=$?
-    # load terminal window info if it exists
-    load_window_info > /dev/null 2>&1
     # set my PS1
     export PROMPT=$(generate_complex_prompt ${exit_code})
-    # save terminal window info (creates id file)
-    save_window_info > /dev/null 2>&1
+    # save terminal window info (creates id file for PWD tracking)
+    navi-save-window-info > /dev/null 2>&1
     # get ssh info for window title
     # FIXME: Only works if remote client is using my shell configuration
     if [ -n "$SSH_TTY" ]; then

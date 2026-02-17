@@ -1,26 +1,19 @@
 {
-  pkgs,
   config,
   ...
 }:
 let
-  # FIXME: All alacritty launches (regardless of termprompt) should be generalized
-  # This means that things like working directory should be set
-  terminal = "${pkgs.alacritty}/bin/alacritty";
-  # FIXME: Consolidate this to a script so it is easier to generalize
+  terminal = "navi-term";
+  # termPromptLauncher uses navi-term which abstracts terminal-specific options
+  # navi-term automatically saves the focused window ID before spawning, so commands
+  # like navi-spawn-identical-shell can determine which directory to use
   termPromptLauncher =
     script: lineNum: columnNum: fontSize:
     let
-      fontOption = "--option 'font.size=${builtins.toString (config.my.fontScale * fontSize)}'";
-      lineOption = "--option 'window.dimensions.lines=${builtins.toString lineNum}'";
-      columnOption = "--option 'window.dimensions.columns=${builtins.toString columnNum}'";
-      termClass = "--class 'termprompt,termprompt'";
+      scaledFontSize = builtins.toString (config.my.fontScale * fontSize);
     in
-    # To be clear, not all commands need the navi-save-window-id script. But some commands do need to have
-    # this window id saved before the terminal instance is spawed. To be safe, we simply do it for
-    # all of them thanks to this function
-    "navi-save-window-id; ${terminal} ${termClass} ${fontOption} ${lineOption} ${columnOption} --command ${script}";
-  IdenticalTerminalLauncher = "navi-save-window-id; ${terminal} -e navi-spawn-shell";
+    "navi-term --app-id termprompt --lines ${builtins.toString lineNum} --columns ${builtins.toString columnNum} --font-size ${scaledFontSize} -e ${script}";
+  IdenticalTerminalLauncher = "${terminal} --inherit-cwd";
   Calculator = termPromptLauncher "navi-calculator" 12 96 12;
   FileSystemExplorer = termPromptLauncher "navi-file-explorer" 35 164 8;
   FileSystemOpen = termPromptLauncher "navi-file-open" 35 164 8;

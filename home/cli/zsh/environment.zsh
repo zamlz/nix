@@ -9,27 +9,8 @@ export MANROFFOPT="-c"
 # no longer creates __pycache__ folders in the same folder as *.py files
 export PYTHONPYCACHEPREFIX="$HOME/.cache/__pycache__"
 
-# prepare the window id directory
-WINDIR="$HOME/tmp/.wid"
-mkdir -p $WINDIR
-
-# Load window info for given Target Window ID (used with pwdcfw.sh)
-function load_window_info() {
-    if [ -n "$DISPLAY" ] && [ -n "$TARGET_WINDOWID" ]; then
-        source "$WINDIR/$TARGET_WINDOWID"
-        cd $WINDOW_PWD
-        unset TARGET_WINDOWID
-    fi
-      }
-
-# Save window info for given Window ID (used with pwdcfw.sh)
-function save_window_info() {
-    if [ -n "$DISPLAY" ] && [ -n "$WINDOWID" ]; then
-        WINDOWID_FILE="$WINDIR/$WINDOWID"
-        echo "WINDOW_PWD='$(pwd)'" | tee $WINDOWID_FILE
-    fi
-      }
-
-# Finally, just save the window info in case other processes are started without
-# ever needing a zsh prompt (alacritty spawners)
-save_window_info > /dev/null 2>&1
+# Save the window info immediately in case processes are started without ever
+# needing a zsh prompt. navi-save-window-info saves the current window's PWD,
+# which is used by navi-spawn-identical-shell to open new terminals in the same
+# directory. Works on both X11 (herbstluftwm) and Wayland (niri).
+navi-save-window-info > /dev/null 2>&1
