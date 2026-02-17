@@ -9,7 +9,7 @@ import navi.system
 from navi.data import get_data_script_path
 from navi.logging import setup_main_logging
 from navi.shell.fzf import Fzf
-from navi.xorg.window import set_window_title
+from navi.window_manager import set_window_title
 
 
 SPAWN_TERMINAL_ACTION = "__SPAWN_TERMINAL_ACTION__"

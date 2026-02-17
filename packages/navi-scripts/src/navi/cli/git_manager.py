@@ -11,7 +11,7 @@ import navi.system
 from navi.logging import setup_main_logging
 from navi.shell.colors import AnsiColor
 from navi.shell.fzf import Fzf
-from navi.xorg.window import set_window_title
+from navi.window_manager import set_window_title
 
 
 def launch_lazygit(directory: Path) -> None:

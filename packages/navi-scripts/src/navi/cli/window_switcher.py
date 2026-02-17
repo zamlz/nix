@@ -4,17 +4,14 @@ from loguru import logger
 
 from navi.logging import setup_main_logging
 from navi.shell.fzf import Fzf
-from navi.xorg.window import (
-    get_active_windows,
-    focus_window,
-    set_window_title
-)
+from navi.window_manager import get_window_manager, set_window_title
 
 
 @setup_main_logging
 def main() -> None:
+    wm = get_window_manager()
     set_window_title("FZF: Window Switcher")
-    windows = get_active_windows()
+    windows = wm.list_windows()
     fzf = Fzf(
         prompt="Switch Window: ",
         preview="navi-display-window-info {1} 2>/dev/null",
@@ -26,7 +23,7 @@ def main() -> None:
         logger.warning("No window selected. Aborting!")
         return
     window_id = int(action.split()[0], 0)
-    focus_window(window_id)
+    wm.focus_window(window_id)
     logger.info(f"Changed window focus to {window_id}")
 
 

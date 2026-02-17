@@ -5,7 +5,7 @@ import argparse
 from loguru import logger
 
 from navi.logging import setup_main_logging
-from navi.xorg.window import display_window_info, get_window_from_id
+from navi.window_manager import get_window_manager
 
 
 @setup_main_logging
@@ -14,8 +14,8 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("window_id", type=str)
     args = parser.parse_args()
-    window = get_window_from_id(int(args.window_id, 0))
-    display_window_info(window)
+    window = get_window_manager().get_window(int(args.window_id, 0))
+    window.display_info()
 
 
 if __name__ == "__main__":

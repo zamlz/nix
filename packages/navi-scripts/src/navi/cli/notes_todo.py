@@ -7,7 +7,7 @@ from pathlib import Path
 import navi.system
 from navi.logging import setup_main_logging
 from navi.shell.fzf import Fzf
-from navi.xorg.window import set_window_title
+from navi.window_manager import set_window_title
 
 
 def collect_todos() -> list[str]:

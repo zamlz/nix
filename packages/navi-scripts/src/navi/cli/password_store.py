@@ -14,7 +14,7 @@ from loguru import logger
 import navi.system
 from navi.logging import setup_main_logging
 from navi.shell.fzf import Fzf
-from navi.xorg.window import set_window_title
+from navi.window_manager import get_window_manager, set_window_title
 
 
 def get_gpg_tty_environ() -> dict[str, str]:
@@ -57,6 +57,7 @@ def main() -> None:
     # remove the "./" from the beginning and ".gpg" from the end
     passwords = [str(item)[:-4] for item in dir_items]
     gpg_tty_environ = get_gpg_tty_environ()
+    wm = get_window_manager()
 
     fzf = Fzf(
         prompt=f"Password Store{extra_prompt}: ",
@@ -103,7 +104,7 @@ def main() -> None:
         with NamedTemporaryFile() as ntf:
             with open(ntf.name, 'w') as f:
                 f.write(password_data[0])
-            navi.system.copy_to_clipboard(Path(ntf.name))
+            wm.copy_to_clipboard(Path(ntf.name))
             return
     else:
         logger.info(f"Creating QR code for {password_entry}")

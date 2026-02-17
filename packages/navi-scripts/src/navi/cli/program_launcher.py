@@ -11,7 +11,7 @@ from loguru import logger
 import navi.system
 from navi.logging import setup_main_logging
 from navi.shell.fzf import Fzf
-from navi.xorg.window import set_window_title
+from navi.window_manager import set_window_title
 
 
 def get_programs_in_path() -> List[str]:

@@ -8,14 +8,7 @@ from loguru import logger
 from navi.logging import setup_main_logging
 from navi.shell.colors import AnsiColor
 from navi.shell.fzf import Fzf
-from navi.xorg.window import get_last_active_window_id, set_window_title
-from navi.xorg.workspace import (
-    create_workspace,
-    delete_workspace,
-    jump_to_workspace,
-    list_workspaces,
-    move_window_to_workspace
-)
+from navi.window_manager import get_window_manager, set_window_title
 
 
 def _quit_with_warning(message: str) -> None:
@@ -32,16 +25,17 @@ def main() -> None:
     parser.add_argument("-d", "--delete",action="store_true")
     args = parser.parse_args()
 
+    wm = get_window_manager()
     prompt = ""
     window_id = None
-    workspaces = list_workspaces()
+    workspaces = wm.list_workspaces()
     workspace_names = [str(w) for w in workspaces.values() if not w.active]
 
     if args.jump:
         prompt = "Jump to"
     elif args.move_window:
         prompt = "Move Window to"
-        window_id = get_last_active_window_id()
+        window_id = wm.get_last_active_window_id()
     elif args.delete:
         prompt = "Delete"
     else:
@@ -64,23 +58,23 @@ def main() -> None:
 
     if args.jump or args.move_window:
         if workspace_name not in workspaces.keys():
-            workspace = create_workspace(workspace_name)
+            workspace = wm.create_workspace(workspace_name)
         else:
             workspace = workspaces[workspace_name]
 
         if args.jump:
-            jump_to_workspace(workspace)
+            wm.jump_to_workspace(workspace)
         elif args.move_window:
             if window_id is None:
                 raise ValueError("No last focused window id!")
-            move_window_to_workspace(window_id, workspace)
+            wm.move_window_to_workspace(window_id, workspace)
 
     elif args.delete:
         if workspace_name not in workspaces.keys():
             _quit_with_warning(f"Workspace ({workspace_name}) does not exist!")
         elif workspace_name == 'λ':
             _quit_with_warning("Cannot delete default workspace (λ)")
-        delete_workspace(workspace_name)
+        wm.delete_workspace(workspace_name)
 
 
 if __name__ == "__main__":

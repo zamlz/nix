@@ -7,8 +7,7 @@ from typing import List, Mapping, Optional
 from loguru import logger
 
 from navi.data import get_data_script_path
-from navi.window_manager import WindowManager, get_running_wm
-from navi.xorg.window import get_last_active_window_id, get_pwd_of_window
+from navi.window_manager import get_window_manager
 
 
 # Let the `xdg-open` command handle opening of the following file types.
@@ -39,15 +38,6 @@ def nohup(command: List[str]) -> None:
     ).check_returncode()
 
 
-def copy_to_clipboard(file_path: Path) -> None:
-    match get_running_wm():
-        case WindowManager.HERBSTLUFTWM:
-            nohup(["xclip", "-selection", "clipboard", str(file_path)])
-        case WindowManager.NIRI:
-            with open(file_path, 'r') as f:
-                subprocess.run(["wl-copy"], input=f.read(), text=True).check_returncode()
-
-
 def reload_gpg_agent() -> None:
     subprocess.run(
         ["gpg-connect-agent", "--no-autostart", "RELOADAGENT", "/bye"],
@@ -65,45 +55,6 @@ def open_man_page(man_page: str) -> None:
     man_page_name, man_page_index, _ = man_page.split(maxsplit=2)
     logger.debug(f"opening man page: {man_page_name}({man_page_index})")
     nohup(["alacritty", "--command", "man", man_page_index, man_page_name])
-
-
-def get_wallpaper() -> Path:
-    with open(Path.home() / ".fehbg", 'r') as f:
-        return Path(f.readlines()[-1].strip().split(' ')[-1].replace("'", ''))
-
-
-def blur_image(image: Path) -> Path:
-    blurred_image = Path.home() / "tmp/.blurred" / str(image).replace('/', '.')
-    if not blurred_image.exists():
-        blurred_image.parent.mkdir(parents=True, exist_ok=True)
-        # FIXME: Use a native blurring algorithm?
-        result = subprocess.run(
-            ["convert", str(image), "-blur", "0x8", str(blurred_image)]
-        )
-        result.check_returncode()
-    return blurred_image
-
-
-def lock_screen(blur_screen: bool) -> None:
-    match get_running_wm():
-        case WindowManager.HERBSTLUFTWM:
-            wallpaper = get_wallpaper()
-            if wallpaper.exists():
-                lock_screen_image = blur_image(wallpaper) if blur_screen else wallpaper
-                execute(["i3lock", "-tnefi", str(lock_screen_image)])
-            else:
-                execute(["i3lock", "-nef", "--color=000000"])
-        case WindowManager.NIRI:
-            execute(["swaylock"])
-
-
-# NOTE: I'm not totally convinced this should be here
-def kill_window_manager() -> None:
-    match get_running_wm():
-        case WindowManager.HERBSTLUFTWM:
-            sudo_execute(["herbstclient", "quit"])
-        case WindowManager.NIRI:
-            execute(["niri", "msg", "action", "quit"])
 
 
 def reboot() -> None:
@@ -125,10 +76,11 @@ def get_filesystem_pointer(
 ) -> Path:
     if global_search_mode:
         return Path.home()
-    last_focused_window_id = get_last_active_window_id()
+    wm = get_window_manager()
+    last_focused_window_id = wm.get_last_active_window_id()
     if last_focused_window_id is None:
         return Path.home()
-    window_pwd = get_pwd_of_window(last_focused_window_id)
+    window_pwd = wm.get_window_pwd(last_focused_window_id)
     if window_pwd is None:
         return Path.home()
     if not find_git_root:
