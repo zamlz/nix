@@ -28,8 +28,10 @@ let
       "--font-size"
       scaledFontSize
       "-e"
-    ]
-    ++ (lib.splitString " " script);
+      "zsh"
+      "-c"
+      "${script}"
+    ];
 in
 {
   programs.niri = {
@@ -294,157 +296,229 @@ in
         };
 
         # System Controls
-        "Mod+Ctrl+Alt+Escape".action.spawn = termPromptLauncher {
-          script = "navi-system";
-          lines = 6;
-          columns = 40;
-          fontSize = 12;
+        "Mod+Ctrl+Alt+Escape" = {
+          hotkey-overlay.title = "navi-system";
+          action.spawn = termPromptLauncher {
+            script = "navi-system";
+            lines = 6;
+            columns = 40;
+            fontSize = 12;
+          };
         };
         "Mod+Ctrl+Shift+Escape".action.power-off-monitors = { };
 
         # Launchers
-        "Mod+Return".action.spawn = [ "navi-term" ];
-        "Mod+Shift+Return".action.spawn = [
-          "navi-term"
-          "--inherit-cwd"
-        ];
-        "Mod+E".action.spawn = termPromptLauncher {
-          script = "navi-launcher";
-          lines = 16;
-          columns = 80;
-          fontSize = 9;
+        "Mod+Return" = {
+          hotkey-overlay.title = "navi-term";
+          action.spawn = [ "navi-term" ];
+        };
+        "Mod+Shift+Return" = {
+          hotkey-overlay.title = "Identical navi-term";
+          action.spawn = [
+            "navi-term"
+            "--inherit-cwd"
+          ];
+        };
+        "Mod+E" = {
+          hotkey-overlay.title = "navi-launcher";
+          action.spawn = termPromptLauncher {
+            script = "navi-launcher";
+            lines = 16;
+            columns = 80;
+            fontSize = 9;
+          };
         };
 
         # External Tools
-        "Mod+G".action.spawn = termPromptLauncher {
-          script = "navi-git";
-          lines = 20;
-          columns = 124;
-          fontSize = 8;
+        "Mod+G" = {
+          hotkey-overlay.title = "navi-git";
+          action.spawn = termPromptLauncher {
+            script = "navi-git";
+            lines = 20;
+            columns = 124;
+            fontSize = 8;
+          };
         };
-        "Mod+Shift+G".action.spawn = termPromptLauncher {
-          script = "navi-git --open-dir";
-          lines = 20;
-          columns = 124;
-          fontSize = 8;
+        "Mod+Shift+G" = {
+          hotkey-overlay.title = "navi-git open-dir";
+          action.spawn = termPromptLauncher {
+            script = "navi-git --open-dir";
+            lines = 20;
+            columns = 124;
+            fontSize = 8;
+          };
         };
-        "Mod+M".action.spawn = termPromptLauncher {
-          script = "navi-man";
-          lines = 20;
-          columns = 124;
-          fontSize = 8;
+        "Mod+M" = {
+          hotkey-overlay.title = "navi-man";
+          action.spawn = termPromptLauncher {
+            script = "navi-man";
+            lines = 20;
+            columns = 124;
+            fontSize = 8;
+          };
         };
-        "Mod+Z".action.spawn = termPromptLauncher {
-          script = "navi-calculator";
-          lines = 12;
-          columns = 64;
-          fontSize = 12;
+        "Mod+Z" = {
+          hotkey-overlay.title = "navi-calculator";
+          action.spawn = termPromptLauncher {
+            script = "navi-calculator";
+            lines = 12;
+            columns = 64;
+            fontSize = 12;
+          };
         };
 
         # Password Store
-        "Mod+P".action.spawn = termPromptLauncher {
-          script = "navi-pass";
-          lines = 16;
-          columns = 80;
-          fontSize = 9;
+        "Mod+P" = {
+          hotkey-overlay.title = "navi-pass";
+          action.spawn = termPromptLauncher {
+            script = "navi-pass";
+            lines = 16;
+            columns = 80;
+            fontSize = 9;
+          };
         };
-        "Mod+Shift+P".action.spawn = termPromptLauncher {
-          script = "navi-pass --qrcode";
-          lines = 16;
-          columns = 80;
-          fontSize = 9;
+        "Mod+Shift+P" = {
+          hotkey-overlay.title = "navi-pass qrcode";
+          action.spawn = termPromptLauncher {
+            script = "navi-pass --qrcode";
+            lines = 16;
+            columns = 80;
+            fontSize = 9;
+          };
         };
 
         # Notes
-        "Mod+N".action.spawn = termPromptLauncher {
-          script = "notes-log-journal";
-          lines = 20;
-          columns = 90;
-          fontSize = 8;
+        "Mod+N" = {
+          hotkey-overlay.title = "notes-log-journal";
+          action.spawn = termPromptLauncher {
+            script = "notes-log-journal";
+            lines = 20;
+            columns = 90;
+            fontSize = 8;
+          };
         };
-        "Mod+Y".action.spawn = termPromptLauncher {
-          script = "navi-todo";
-          lines = 30;
-          columns = 128;
-          fontSize = 8;
+        "Mod+Y" = {
+          hotkey-overlay.title = "navi-todo";
+          action.spawn = termPromptLauncher {
+            script = "navi-todo";
+            lines = 30;
+            columns = 128;
+            fontSize = 8;
+          };
         };
 
         # Window/Workspace management (commented - conflicts with existing binds)
-        "Mod+W".action.spawn = termPromptLauncher {
-          script = "navi-window";
-          lines = 20;
-          columns = 128;
-          fontSize = 9;
+        "Mod+W" = {
+          hotkey-overlay.title = "navi-window";
+          action.spawn = termPromptLauncher {
+            script = "navi-window";
+            lines = 20;
+            columns = 128;
+            fontSize = 9;
+          };
         };
-        "Mod+Slash".action.spawn = termPromptLauncher {
-          script = "navi-workspace --jump";
-          lines = 10;
-          columns = 120;
-          fontSize = 9;
+        "Mod+Slash" = {
+          hotkey-overlay.title = "navi-workspace jump";
+          action.spawn = termPromptLauncher {
+            script = "navi-workspace --jump";
+            lines = 10;
+            columns = 120;
+            fontSize = 9;
+          };
         };
-        "Mod+Shift+Slash".action.spawn = termPromptLauncher {
-          script = "navi-workspace --move-window";
-          lines = 10;
-          columns = 120;
-          fontSize = 9;
+        "Mod+Shift+Slash" = {
+          hotkey-overlay.title = "navi-workspace move-window";
+          action.spawn = termPromptLauncher {
+            script = "navi-workspace --move-window";
+            lines = 10;
+            columns = 120;
+            fontSize = 9;
+          };
         };
-        "Mod+BackSpace".action.spawn = termPromptLauncher {
-          script = "navi-workspace --delete";
-          lines = 10;
-          columns = 120;
-          fontSize = 9;
+        "Mod+BackSpace" = {
+          hotkey-overlay.title = "navi-workspace delete";
+          action.spawn = termPromptLauncher {
+            script = "navi-workspace --delete";
+            lines = 10;
+            columns = 120;
+            fontSize = 9;
+          };
         };
 
         # Filesystem
-        "Mod+A".action.spawn = termPromptLauncher {
-          script = "navi-file-explorer";
-          lines = 30;
-          columns = 140;
-          fontSize = 8;
+        "Mod+A" = {
+          hotkey-overlay.title = "navi-file-explorer";
+          action.spawn = termPromptLauncher {
+            script = "navi-file-explorer";
+            lines = 30;
+            columns = 140;
+            fontSize = 8;
+          };
         };
-        "Mod+S".action.spawn = termPromptLauncher {
-          script = "navi-ripgrep";
-          lines = 30;
-          columns = 140;
-          fontSize = 8;
+        "Mod+S" = {
+          hotkey-overlay.title = "navi-ripgrep";
+          action.spawn = termPromptLauncher {
+            script = "navi-ripgrep";
+            lines = 30;
+            columns = 140;
+            fontSize = 8;
+          };
         };
-        "Mod+D".action.spawn = termPromptLauncher {
-          script = "navi-file-open --directory";
-          lines = 30;
-          columns = 140;
-          fontSize = 8;
+        "Mod+D" = {
+          hotkey-overlay.title = "navi-file-open directory";
+          action.spawn = termPromptLauncher {
+            script = "navi-file-open --directory";
+            lines = 30;
+            columns = 140;
+            fontSize = 8;
+          };
         };
-        "Mod+F".action.spawn = termPromptLauncher {
-          script = "navi-file-open --file";
-          lines = 30;
-          columns = 140;
-          fontSize = 8;
+        "Mod+F" = {
+          hotkey-overlay.title = "navi-file-open file";
+          action.spawn = termPromptLauncher {
+            script = "navi-file-open --file";
+            lines = 30;
+            columns = 140;
+            fontSize = 8;
+          };
         };
 
         # Filesystem Global search variants
-        "Mod+Shift+A".action.spawn = termPromptLauncher {
-          script = "navi-file-explorer --global-search";
-          lines = 35;
-          columns = 164;
-          fontSize = 8;
+        "Mod+Shift+A" = {
+          hotkey-overlay.title = "navi-file-explorer global";
+          action.spawn = termPromptLauncher {
+            script = "navi-file-explorer --global-search";
+            lines = 35;
+            columns = 164;
+            fontSize = 8;
+          };
         };
-        "Mod+Shift+S".action.spawn = termPromptLauncher {
-          script = "navi-ripgrep --global-search";
-          lines = 35;
-          columns = 164;
-          fontSize = 8;
+        "Mod+Shift+S" = {
+          hotkey-overlay.title = "navi-ripgrep global";
+          action.spawn = termPromptLauncher {
+            script = "navi-ripgrep --global-search";
+            lines = 35;
+            columns = 164;
+            fontSize = 8;
+          };
         };
-        "Mod+Shift+D".action.spawn = termPromptLauncher {
-          script = "navi-file-open --directory --global-search";
-          lines = 35;
-          columns = 164;
-          fontSize = 8;
+        "Mod+Shift+D" = {
+          hotkey-overlay.title = "navi-file-open directory global";
+          action.spawn = termPromptLauncher {
+            script = "navi-file-open --directory --global-search";
+            lines = 35;
+            columns = 164;
+            fontSize = 8;
+          };
         };
-        "Mod+Shift+F".action.spawn = termPromptLauncher {
-          script = "navi-file-open --file --global-search";
-          lines = 35;
-          columns = 164;
-          fontSize = 8;
+        "Mod+Shift+F" = {
+          hotkey-overlay.title = "navi-file-open file global";
+          action.spawn = termPromptLauncher {
+            script = "navi-file-open --file --global-search";
+            lines = 35;
+            columns = 164;
+            fontSize = 8;
+          };
         };
 
         # Media keys

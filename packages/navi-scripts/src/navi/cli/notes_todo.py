@@ -10,6 +10,19 @@ from navi.shell.fzf import Fzf
 from navi.window_manager import set_window_title
 
 
+# FIXME: We need this because NIRI session currently doesn't exist
+# in niri-flake, meaning that home-manager cannot pass it's session
+# variables to niri. I am using a system-wide niri-session, but it
+# doesn't understand the existence of home manager so here we are.
+def get_notes_directory() -> Path:
+    result = subprocess.run(
+        ["zsh", "-c", "printenv NOTES_DIRECTORY"],
+        capture_output=True,
+    )
+    result.check_returncode()
+    return Path(str(result.stdout, encoding="utf-8").strip())
+
+
 def collect_todos() -> list[str]:
     result = subprocess.run('notes-tasks', capture_output=True)
     result.check_returncode()
@@ -18,9 +31,9 @@ def collect_todos() -> list[str]:
 
 @setup_main_logging
 def main() -> None:
-    notes_directory = os.getenv('NOTES_DIRECTORY')
-    if type(notes_directory) is not str:
-        raise ValueError(f"Invalid value for notes directory: {notes_directory}")
+    notes_directory = get_notes_directory()
+    if not notes_directory.exists():
+        raise ValueError(f"{notes_directory} is not a valid path")
     os.chdir(notes_directory)
     set_window_title(f"FZF: TODO ({notes_directory})")
     fzf = Fzf(
@@ -37,7 +50,7 @@ def main() -> None:
 
     for selection in selections:
         relative_file_path, line, column, _ = selection.split(':', maxsplit=3)
-        absolute_file_path = Path(notes_directory) / relative_file_path
+        absolute_file_path = notes_directory / relative_file_path
         navi.system.open_file(absolute_file_path, int(line), int(column))
 
 

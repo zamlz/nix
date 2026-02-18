@@ -26,19 +26,6 @@ def get_gpg_tty_environ() -> dict[str, str]:
     return gpg_tty_environ
 
 
-# FIXME: We need this because NIRI session currently doesn't exist
-# in niri-flake, meaning that home-manager cannot pass it's session
-# variables to niri. I am using a system-wide niri-session, but it
-# doesn't understand the existence of home manager so here we are.
-def get_password_store_dir() -> Path:
-    result = subprocess.run(
-        ["zsh", "-c", "printenv PASSWORD_STORE_DIR"],
-        capture_output=True,
-    )
-    result.check_returncode()
-    return Path(str(result.stdout, encoding="utf-8").strip())
-
-
 def get_password_data(
         password_entry: str,
         gpg_tty_environ: dict[str, str]
@@ -61,7 +48,7 @@ def main() -> None:
     set_window_title("FZF: Password Store")
     extra_prompt = " [QrCode]" if args.qrcode else ""
     dir_items = navi.system.get_dir_items(
-        root_dir=get_password_store_dir(),
+        root_dir=Path(os.environ['PASSWORD_STORE_DIR']),
         mode=navi.system.SearchMode.FILE,
         show_hidden=False,
         extension="gpg"
