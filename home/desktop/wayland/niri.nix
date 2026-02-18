@@ -1,7 +1,6 @@
 {
   pkgs,
   config,
-  lib,
   ...
 }:
 let
@@ -485,7 +484,7 @@ in
 
         # Filesystem Global search variants
         "Mod+Shift+A" = {
-          hotkey-overlay.title = "navi-file-explorer global";
+          hotkey-overlay.title = "navi-file-explorer [global]";
           action.spawn = termPromptLauncher {
             script = "navi-file-explorer --global-search";
             lines = 35;
@@ -494,7 +493,7 @@ in
           };
         };
         "Mod+Shift+S" = {
-          hotkey-overlay.title = "navi-ripgrep global";
+          hotkey-overlay.title = "navi-ripgrep [global]";
           action.spawn = termPromptLauncher {
             script = "navi-ripgrep --global-search";
             lines = 35;
@@ -503,7 +502,7 @@ in
           };
         };
         "Mod+Shift+D" = {
-          hotkey-overlay.title = "navi-file-open directory global";
+          hotkey-overlay.title = "navi-file-open directory [global]";
           action.spawn = termPromptLauncher {
             script = "navi-file-open --directory --global-search";
             lines = 35;
@@ -512,7 +511,7 @@ in
           };
         };
         "Mod+Shift+F" = {
-          hotkey-overlay.title = "navi-file-open file global";
+          hotkey-overlay.title = "navi-file-open file [global]";
           action.spawn = termPromptLauncher {
             script = "navi-file-open --file --global-search";
             lines = 35;
