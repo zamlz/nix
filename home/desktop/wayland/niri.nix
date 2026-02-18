@@ -64,18 +64,14 @@ in
           { proportion = 1.0; }
         ];
 
-        default-column-width = {
-          proportion = 1.0;
-        };
+        default-column-width.proportion = pkgs.lib.mkDefault 1.0;
 
         preset-window-heights = [
           { proportion = 0.5; }
           { proportion = 1.0; }
         ];
 
-        focus-ring = {
-          enable = false;
-        };
+        focus-ring.enable = false;
 
         border = {
           enable = true;
