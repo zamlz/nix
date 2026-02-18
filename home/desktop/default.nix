@@ -8,11 +8,12 @@
     (self + /home/options.nix)
     ./alacritty.nix
     ./feh.nix
+    ./firefox.nix
     ./kitty.nix # [unused]
     ./mpv.nix
+    ./qutebrowser.nix
     ./wayland
     ./x11
-    ./qutebrowser.nix
   ];
 
   home.packages = with pkgs; [
@@ -27,8 +28,6 @@
     wmctrl
     xclip # needed by sxhkd (screenshot script)
     xdotool
-    # Web
-    firefox
     # Entertainment
     spotify
     # DAW Software & derivatives
