@@ -54,25 +54,19 @@ in
       };
 
       layout = {
-        gaps = 16;
+        gaps = 0;
         background-color = "#00000000";
         center-focused-column = "never";
         always-center-single-column = true;
 
         preset-column-widths = [
-          { proportion = 1 / 3.0; }
-          { proportion = 1 / 2.0; }
-          { proportion = 2 / 3.0; }
+          { proportion = 0.5; }
+          { proportion = 1.0; }
         ];
 
-        default-column-width = {
-          proportion = 1 / 2.0;
-        };
+        default-column-width = { proportion = 0.5; };
 
         preset-window-heights = [
-          { proportion = 1 / 3.0; }
-          { proportion = 1 / 2.0; }
-          { proportion = 2 / 3.0; }
           { proportion = 1.0; }
         ];
 
@@ -82,7 +76,7 @@ in
 
         border = {
           enable = true;
-          width = 6;
+          width = 4;
           active = {
             gradient = {
               from = "#f00a";
@@ -97,10 +91,10 @@ in
         };
 
         struts = {
-          left = 16;
-          right = 16;
-          top = 8;
-          bottom = 8;
+          left = 0;
+          right = 0;
+          top = 0;
+          bottom = 0;
         };
       };
 
@@ -231,27 +225,27 @@ in
         "Mod+Ctrl+WheelScrollLeft".action.move-column-left = { };
 
         # Workspace switching
-        "Mod+1".action.focus-workspace = 1;
-        "Mod+2".action.focus-workspace = 2;
-        "Mod+3".action.focus-workspace = 3;
-        "Mod+4".action.focus-workspace = 4;
-        "Mod+5".action.focus-workspace = 5;
-        "Mod+6".action.focus-workspace = 6;
-        "Mod+7".action.focus-workspace = 7;
-        "Mod+8".action.focus-workspace = 8;
-        "Mod+9".action.focus-workspace = 9;
-        "Mod+0".action.focus-workspace = 10;
+        "Mod+F1".action.focus-workspace = 1;
+        "Mod+F2".action.focus-workspace = 2;
+        "Mod+F3".action.focus-workspace = 3;
+        "Mod+F4".action.focus-workspace = 4;
+        "Mod+F5".action.focus-workspace = 5;
+        "Mod+F6".action.focus-workspace = 6;
+        "Mod+F7".action.focus-workspace = 7;
+        "Mod+F8".action.focus-workspace = 8;
+        "Mod+F9".action.focus-workspace = 9;
+        "Mod+F10".action.focus-workspace = 10;
 
-        "Mod+Shift+1".action.move-column-to-workspace = 1;
-        "Mod+Shift+2".action.move-column-to-workspace = 2;
-        "Mod+Shift+3".action.move-column-to-workspace = 3;
-        "Mod+Shift+4".action.move-column-to-workspace = 4;
-        "Mod+Shift+5".action.move-column-to-workspace = 5;
-        "Mod+Shift+6".action.move-column-to-workspace = 6;
-        "Mod+Shift+7".action.move-column-to-workspace = 7;
-        "Mod+Shift+8".action.move-column-to-workspace = 8;
-        "Mod+Shift+9".action.move-column-to-workspace = 9;
-        "Mod+Shift+0".action.move-column-to-workspace = 10;
+        "Mod+Shift+F1".action.move-column-to-workspace = 1;
+        "Mod+Shift+F2".action.move-column-to-workspace = 2;
+        "Mod+Shift+F3".action.move-column-to-workspace = 3;
+        "Mod+Shift+F4".action.move-column-to-workspace = 4;
+        "Mod+Shift+F5".action.move-column-to-workspace = 5;
+        "Mod+Shift+F6".action.move-column-to-workspace = 6;
+        "Mod+Shift+F7".action.move-column-to-workspace = 7;
+        "Mod+Shift+F8".action.move-column-to-workspace = 8;
+        "Mod+Shift+F9".action.move-column-to-workspace = 9;
+        "Mod+Shift+F10".action.move-column-to-workspace = 10;
 
         "Mod+Grave".action.focus-workspace-previous = { };
 
@@ -262,16 +256,30 @@ in
         "Mod+Shift+Comma".action.consume-window-into-column = { };
         "Mod+Shift+Period".action.expel-window-from-column = { };
 
+        "Mod+C".action.center-column = { };
+        "Mod+Ctrl+C".action.center-visible-columns = { };
+
         # Resize and layout
+        "Mod+1".action.set-column-width = "25%";
+        "Mod+2".action.set-column-width = "50%";
+        "Mod+3".action.set-column-width = "75%";
+        "Mod+4".action.set-column-width = "100%";
+        "Mod+Shift+1".action.set-column-width = "20%";
+        "Mod+Shift+2".action.set-column-width = "40%";
+        "Mod+Shift+3".action.set-column-width = "60%";
+        "Mod+Shift+4".action.set-column-width = "80%";
+        "Mod+Shift+5".action.set-column-width = "100%";
+        "Mod+Ctrl+1".action.set-column-width = "33.333%";
+        "Mod+Ctrl+2".action.set-column-width = "66.667%";
+        "Mod+Ctrl+3".action.set-column-width = "100%";
+
         "Mod+R".action.switch-preset-column-width = { };
         "Mod+Shift+R".action.switch-preset-window-height = { };
         "Mod+Ctrl+R".action.reset-window-height = { };
+
         "Mod+T".action.maximize-column = { };
         "Mod+Shift+T".action.fullscreen-window = { };
         "Mod+Ctrl+T".action.expand-column-to-available-width = { };
-
-        "Mod+C".action.center-column = { };
-        "Mod+Ctrl+C".action.center-visible-columns = { };
 
         "Mod+Minus".action.set-column-width = "-10%";
         "Mod+Equal".action.set-column-width = "+10%";
