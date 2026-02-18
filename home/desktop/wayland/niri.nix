@@ -65,10 +65,11 @@ in
         ];
 
         default-column-width = {
-          proportion = 0.5;
+          proportion = 1.0;
         };
 
         preset-window-heights = [
+          { proportion = 0.5; }
           { proportion = 1.0; }
         ];
 
