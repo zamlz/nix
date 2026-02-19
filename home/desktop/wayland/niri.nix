@@ -35,30 +35,25 @@ in
 {
   # Script to resize niri windows on order of n/x, (n+1)/x, ... x/x
   # where x is the number in the script file name
-  xdg.configFile."niri/n.sh" = {
-    source = ./scripts/niri-resize-n.sh;
-    executable = true;
-  };
-  xdg.configFile."niri/1.sh" = {
-    source = ./scripts/niri-resize-1.sh;
-    executable = true;
-  };
-  xdg.configFile."niri/2.sh" = {
-    source = ./scripts/niri-resize-2.sh;
-    executable = true;
-  };
-  xdg.configFile."niri/3.sh" = {
-    source = ./scripts/niri-resize-3.sh;
-    executable = true;
-  };
-  xdg.configFile."niri/4.sh" = {
-    source = ./scripts/niri-resize-4.sh;
-    executable = true;
-  };
-  xdg.configFile."niri/5.sh" = {
-    source = ./scripts/niri-resize-5.sh;
-    executable = true;
-  };
+  xdg.configFile =
+    let
+      scripts = [
+        "n"
+        "1"
+        "2"
+        "3"
+        "4"
+        "5"
+      ];
+      mkScript = n: {
+        name = "niri/niri-cycle-${n}.sh";
+        value = {
+          source = ./scripts/niri-cycle-${n}.sh;
+          executable = true;
+        };
+      };
+    in
+    builtins.listToAttrs (map mkScript scripts);
   programs.niri = {
     enable = true;
     package = pkgs.niri-stable;
@@ -289,23 +284,23 @@ in
         # FIXME: Replace with resize rotation scripts
         "Mod+1" = {
           hotkey-overlay.title = "Cycle column width by 1sts";
-          action.spawn = [ "${config.xdg.configHome}/niri/1.sh" ];
+          action.spawn = [ "${config.xdg.configHome}/niri/niri-cycle-1.sh" ];
         };
         "Mod+2" = {
           hotkey-overlay.title = "Cycle column width by 2nds";
-          action.spawn = [ "${config.xdg.configHome}/niri/2.sh" ];
+          action.spawn = [ "${config.xdg.configHome}/niri/niri-cycle-2.sh" ];
         };
         "Mod+3" = {
           hotkey-overlay.title = "Cycle column width by 3rds";
-          action.spawn = [ "${config.xdg.configHome}/niri/3.sh" ];
+          action.spawn = [ "${config.xdg.configHome}/niri/niri-cycle-3.sh" ];
         };
         "Mod+4" = {
           hotkey-overlay.title = "Cycle column width by 4ths";
-          action.spawn = [ "${config.xdg.configHome}/niri/4.sh" ];
+          action.spawn = [ "${config.xdg.configHome}/niri/niri-cycle-4.sh" ];
         };
         "Mod+5" = {
           hotkey-overlay.title = "Cycle column width by 5ths";
-          action.spawn = [ "${config.xdg.configHome}/niri/5.sh" ];
+          action.spawn = [ "${config.xdg.configHome}/niri/niri-cycle-5.sh" ];
         };
 
         "Mod+R".action.switch-preset-column-width = { };

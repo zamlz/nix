@@ -2,4 +2,4 @@
 
 export RESIZE_FACTORS='["100%"]'
 RUN_DIR=$(dirname $0)
-$RUN_DIR/n.sh
+$RUN_DIR/niri-cycle-n.sh
