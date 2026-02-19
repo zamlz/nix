@@ -45,6 +45,7 @@
       tree
       zip
       unzip
+      jq
       # Fun CLI Tools
       cmatrix
       figlet

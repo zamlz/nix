@@ -33,6 +33,32 @@ let
     ];
 in
 {
+  # Script to resize niri windows on order of n/x, (n+1)/x, ... x/x
+  # where x is the number in the script file name
+  xdg.configFile."niri/n.sh" = {
+    source = ./scripts/niri-resize-n.sh;
+    executable = true;
+  };
+  xdg.configFile."niri/1.sh" = {
+    source = ./scripts/niri-resize-1.sh;
+    executable = true;
+  };
+  xdg.configFile."niri/2.sh" = {
+    source = ./scripts/niri-resize-2.sh;
+    executable = true;
+  };
+  xdg.configFile."niri/3.sh" = {
+    source = ./scripts/niri-resize-3.sh;
+    executable = true;
+  };
+  xdg.configFile."niri/4.sh" = {
+    source = ./scripts/niri-resize-4.sh;
+    executable = true;
+  };
+  xdg.configFile."niri/5.sh" = {
+    source = ./scripts/niri-resize-5.sh;
+    executable = true;
+  };
   programs.niri = {
     enable = true;
     package = pkgs.niri-stable;
@@ -175,10 +201,11 @@ in
         "Mod+BracketRight".action.focus-workspace-down = { };
         "Mod+BracketLeft".action.focus-workspace-up = { };
 
-        "Mod+Ctrl+H".action.focus-monitor-left = { };
-        "Mod+Ctrl+J".action.focus-monitor-down = { };
-        "Mod+Ctrl+K".action.focus-monitor-up = { };
-        "Mod+Ctrl+L".action.focus-monitor-right = { };
+        # FIXME: Enable when I use multi-monitors
+        # "Mod+Ctrl+H".action.focus-monitor-left = { };
+        # "Mod+Ctrl+J".action.focus-monitor-down = { };
+        # "Mod+Ctrl+K".action.focus-monitor-up = { };
+        # "Mod+Ctrl+L".action.focus-monitor-right = { };
 
         # Move operations
         "Mod+Shift+H".action.move-column-left = { };
@@ -224,53 +251,62 @@ in
         "Mod+Ctrl+WheelScrollLeft".action.move-column-left = { };
 
         # Workspace switching
-        "Mod+F1".action.focus-workspace = 1;
-        "Mod+F2".action.focus-workspace = 2;
-        "Mod+F3".action.focus-workspace = 3;
-        "Mod+F4".action.focus-workspace = 4;
-        "Mod+F5".action.focus-workspace = 5;
-        "Mod+F6".action.focus-workspace = 6;
-        "Mod+F7".action.focus-workspace = 7;
-        "Mod+F8".action.focus-workspace = 8;
-        "Mod+F9".action.focus-workspace = 9;
-        "Mod+F10".action.focus-workspace = 10;
+        "Alt+1".action.focus-workspace = 1;
+        "Alt+2".action.focus-workspace = 2;
+        "Alt+3".action.focus-workspace = 3;
+        "Alt+4".action.focus-workspace = 4;
+        "Alt+5".action.focus-workspace = 5;
+        "Alt+6".action.focus-workspace = 6;
+        "Alt+7".action.focus-workspace = 7;
+        "Alt+8".action.focus-workspace = 8;
+        "Alt+9".action.focus-workspace = 9;
+        "Alt+0".action.focus-workspace = 10;
 
-        "Mod+Shift+F1".action.move-column-to-workspace = 1;
-        "Mod+Shift+F2".action.move-column-to-workspace = 2;
-        "Mod+Shift+F3".action.move-column-to-workspace = 3;
-        "Mod+Shift+F4".action.move-column-to-workspace = 4;
-        "Mod+Shift+F5".action.move-column-to-workspace = 5;
-        "Mod+Shift+F6".action.move-column-to-workspace = 6;
-        "Mod+Shift+F7".action.move-column-to-workspace = 7;
-        "Mod+Shift+F8".action.move-column-to-workspace = 8;
-        "Mod+Shift+F9".action.move-column-to-workspace = 9;
-        "Mod+Shift+F10".action.move-column-to-workspace = 10;
+        "Alt+Shift+1".action.move-column-to-workspace = 1;
+        "Alt+Shift+2".action.move-column-to-workspace = 2;
+        "Alt+Shift+3".action.move-column-to-workspace = 3;
+        "Alt+Shift+4".action.move-column-to-workspace = 4;
+        "Alt+Shift+5".action.move-column-to-workspace = 5;
+        "Alt+Shift+6".action.move-column-to-workspace = 6;
+        "Alt+Shift+7".action.move-column-to-workspace = 7;
+        "Alt+Shift+8".action.move-column-to-workspace = 8;
+        "Alt+Shift+9".action.move-column-to-workspace = 9;
+        "Alt+Shift+0".action.move-column-to-workspace = 10;
 
         "Mod+Grave".action.focus-workspace-previous = { };
 
         # Column operations
-        "Mod+Comma".action.consume-or-expel-window-left = { };
-        "Mod+Period".action.consume-or-expel-window-right = { };
+        "Mod+Ctrl+H".action.consume-or-expel-window-left = { };
+        "Mod+Ctrl+L".action.consume-or-expel-window-right = { };
 
-        "Mod+Shift+Comma".action.consume-window-into-column = { };
-        "Mod+Shift+Period".action.expel-window-from-column = { };
+        "Mod+Ctrl+K".action.consume-window-into-column = { };
+        "Mod+Ctrl+J".action.expel-window-from-column = { };
 
         "Mod+C".action.center-column = { };
         "Mod+Ctrl+C".action.center-visible-columns = { };
 
         # Resize and layout
-        "Mod+1".action.set-column-width = "25%";
-        "Mod+2".action.set-column-width = "50%";
-        "Mod+3".action.set-column-width = "75%";
-        "Mod+4".action.set-column-width = "100%";
-        "Mod+Shift+1".action.set-column-width = "20%";
-        "Mod+Shift+2".action.set-column-width = "40%";
-        "Mod+Shift+3".action.set-column-width = "60%";
-        "Mod+Shift+4".action.set-column-width = "80%";
-        "Mod+Shift+5".action.set-column-width = "100%";
-        "Mod+Ctrl+1".action.set-column-width = "33.333%";
-        "Mod+Ctrl+2".action.set-column-width = "66.667%";
-        "Mod+Ctrl+3".action.set-column-width = "100%";
+        # FIXME: Replace with resize rotation scripts
+        "Mod+1" = {
+          hotkey-overlay.title = "Cycle column width by 1sts";
+          action.spawn = [ "${config.xdg.configHome}/niri/1.sh" ];
+        };
+        "Mod+2" = {
+          hotkey-overlay.title = "Cycle column width by 2nds";
+          action.spawn = [ "${config.xdg.configHome}/niri/2.sh" ];
+        };
+        "Mod+3" = {
+          hotkey-overlay.title = "Cycle column width by 3rds";
+          action.spawn = [ "${config.xdg.configHome}/niri/3.sh" ];
+        };
+        "Mod+4" = {
+          hotkey-overlay.title = "Cycle column width by 4ths";
+          action.spawn = [ "${config.xdg.configHome}/niri/4.sh" ];
+        };
+        "Mod+5" = {
+          hotkey-overlay.title = "Cycle column width by 5ths";
+          action.spawn = [ "${config.xdg.configHome}/niri/5.sh" ];
+        };
 
         "Mod+R".action.switch-preset-column-width = { };
         "Mod+Shift+R".action.switch-preset-window-height = { };
