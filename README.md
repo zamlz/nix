@@ -11,7 +11,7 @@ First, install a minimal installation of NixOS.
 Next, once you get into the system. Create a new entry for the
 system in the `nixosConfigurations`. This will require copying the
 `hardware-configuration.nix` file into the config as well.  Be sure to
-also go through the `configuration.nix` and set the relevent parameters
+also go through the `configuration.nix` and set the relevant parameters
 to build the same system.
 
 Enable flakes on the original system. Add the following to the
@@ -62,7 +62,7 @@ hostname to associate hardware.
 sudo nixos-rebuild switch --flake .#${hostname}
 ```
 
-If `nh` is availabe on the system, you can simply do
+If `nh` is available on the system, you can simply do
 
 ```shell
 nh os switch .
@@ -83,23 +83,23 @@ are sorted into their respective tools, `cli` and `desktop`.
 
 ```
 home/
-  amlesh.nix
+  options.nix
   cli/
     default.nix
     git.nix
-    kakoune.nix
+    kakoune/
     ...
   desktop/
     default.nix
     alacritty.nix
-    herbstluftwm.nix
+    x11/
+    wayland/
     ...
 ```
 
 Every machine has its own directory. NixOS machines have `configuration.nix`
-and `hardware-configuration.nix`. Non-NixOS machines only have `home.nix`.
-
-Most hosts use the default home-manager configuration from `home/amlesh.nix`.
+and `hardware-configuration.nix`. All machines have a `home.nix` that imports
+from `home/cli` and/or `home/desktop`.
 
 ```
 hosts/
@@ -126,24 +126,27 @@ hosts/
 All NixOS system level configurations
 ```
 nixos/
-  audio.nix
-  security.nix
-  nix.nix
-  ...
+  desktop.nix
+  server.nix
+  modules/
+    audio.nix
+    security.nix
+    nix.nix
+    ...
+  services/
+    glances.nix
+    kavita.nix
 ```
 
 Shared library code used across configurations
 ```
 lib/
-  constants.nix
+  builders.nix
+  checks.nix
   colorschemes.nix
-```
-
-Development environment templates
-```
-templates/
-  python312.nix
-  rust.nix
+  constants.nix
+  devshell.nix
+  overlays.nix
 ```
 
 Custom packages
