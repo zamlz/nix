@@ -21,6 +21,11 @@
 
     niri.url = "github:sodiboo/niri-flake";
 
+    slippi = {
+      url = "github:lytedev/slippi-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # FIXME: Maybe use this if I really need to use home-manager in arch
     # nixgl.url = "github:nix-community/nixGL";
   };
@@ -33,6 +38,7 @@
       home-manager,
       nixvim,
       niri,
+      slippi,
       ...
     }@inputs:
     let
@@ -42,6 +48,7 @@
           home-manager
           nixvim
           niri
+          slippi
           inputs
           self
           ;

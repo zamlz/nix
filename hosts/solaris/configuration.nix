@@ -4,6 +4,7 @@
 {
   config,
   constants,
+  inputs,
   self,
   ...
 }:
@@ -13,6 +14,7 @@
     ./hardware-configuration.nix
     (self + /nixos/desktop.nix)
     (self + /nixos/services/glances.nix)
+    inputs.slippi.nixosModules.default
   ];
 
   networking.hostName = "solaris";

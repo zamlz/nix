@@ -12,6 +12,7 @@
     ./kitty.nix # [unused]
     ./mpv.nix
     ./qutebrowser.nix
+    ./slippi.nix
     ./wayland
     ./x11
   ];

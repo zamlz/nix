@@ -3,6 +3,7 @@
   home-manager,
   nixvim,
   niri,
+  slippi,
   inputs,
   self,
 }:
@@ -11,6 +12,7 @@ let
   extraSpecialArgs = { inherit inputs constants self; };
   overlays = [
     niri.overlays.niri
+    slippi.overlays.default
     (import ./overlays.nix { inherit self; })
   ];
   sharedModules = [
