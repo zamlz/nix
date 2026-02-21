@@ -14,6 +14,7 @@
     ./hardware-configuration.nix
     (self + /nixos/desktop.nix)
     (self + /nixos/services/glances.nix)
+    (self + /nixos/services/ollama.nix)
     inputs.slippi.nixosModules.default
   ];
 
