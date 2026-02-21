@@ -1,4 +1,5 @@
 {
+  inputs,
   pkgs,
   config,
   ...
@@ -33,6 +34,8 @@ let
     ];
 in
 {
+  imports = [ inputs.niri.homeModules.niri ];
+
   # Script to resize niri windows on order of n/x, (n+1)/x, ... x/x
   # where x is the number in the script file name
   xdg.configFile =

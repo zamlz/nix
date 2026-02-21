@@ -1,24 +1,14 @@
 {
   nixpkgs,
   home-manager,
-  nixvim,
-  niri,
-  slippi,
   inputs,
   self,
+  ...
 }:
 let
   constants = import ./constants.nix;
   extraSpecialArgs = { inherit inputs constants self; };
-  overlays = [
-    niri.overlays.niri
-    slippi.overlays.default
-    (import ./overlays.nix { inherit self; })
-  ];
-  sharedModules = [
-    nixvim.homeModules.nixvim
-    niri.homeModules.niri
-  ];
+  overlays = import ./overlays.nix { inherit inputs self; };
 in
 {
   nixosSystemBuilder =
@@ -34,7 +24,7 @@ in
           home-manager = {
             useGlobalPkgs = true;
             useUserPackages = true;
-            inherit extraSpecialArgs sharedModules;
+            inherit extraSpecialArgs;
             users.amlesh = import homeConfigPath;
           };
           # Required for xdg-desktop-portal when using home-manager
@@ -59,7 +49,7 @@ in
         inherit system overlays;
         config.allowUnfree = true;
       };
-      modules = [ homeConfigPath ] ++ sharedModules;
+      modules = [ homeConfigPath ];
       inherit extraSpecialArgs;
     };
 }

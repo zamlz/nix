@@ -1,8 +1,11 @@
-{ self, ... }:
+{ inputs, self, ... }:
+
 let
   colorScheme = (import (self + /lib/colorschemes.nix)).defaultColorScheme;
 in
 {
+  imports = [ inputs.nixvim.homeModules.nixvim ];
+
   programs.nixvim = {
     enable = false;
     enableMan = true;
