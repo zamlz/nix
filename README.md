@@ -130,19 +130,35 @@ nixos/
   server.nix
   modules/
     audio.nix
+    fail2ban.nix
     security.nix
+    networking.nix
     nix.nix
     ...
   services/
     glances.nix
     kavita.nix
+    ollama.nix
+```
+
+Flake checks and NixOS VM integration tests
+```
+checks/
+  default.nix         # Combines all checks, handles Linux-only gating
+  nixfmt.nix          # Nix code formatting
+  statix.nix          # Nix linting
+  deadnix.nix         # Dead code detection
+  navi-scripts.nix    # Python package tests (ty, ruff, pytest)
+  ssh-hardening.nix   # VM test: SSH + fail2ban
+  firewall.nix        # VM test: port filtering
+  nfs-mount.nix       # VM test: NFS server/client
+  clamav.nix          # VM test: antivirus services
 ```
 
 Shared library code used across configurations
 ```
 lib/
   builders.nix
-  checks.nix
   colorschemes.nix
   constants.nix
   devshell.nix
@@ -226,7 +242,24 @@ nix build .#checks.x86_64-linux.deadnix
 
 # Python package checks (ty, ruff, pytest)
 nix build .#checks.x86_64-linux.navi-scripts
+
+# NixOS VM integration tests
+nix build .#checks.x86_64-linux.ssh-hardening
+nix build .#checks.x86_64-linux.firewall
+nix build .#checks.x86_64-linux.nfs-mount
+nix build .#checks.x86_64-linux.clamav
 ```
+
+### VM Tests
+
+NixOS VM tests spin up lightweight QEMU virtual machines and run assertions against them, verifying that modules work correctly at runtime. They are defined in `checks/` and run as part of `nix flake check` on Linux.
+
+| Test | Description |
+| --- | --- |
+| `ssh-hardening` | Verifies SSH rejects root login and password auth, fail2ban is active with SSH jail |
+| `firewall` | Verifies only explicitly opened ports are reachable, all others are blocked |
+| `nfs-mount` | Verifies NFS server exports are mountable and files are readable from a client |
+| `clamav` | Verifies ClamAV daemon and fangfrisch timer are enabled, binaries are available |
 
 ## Troubleshooting
 

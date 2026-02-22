@@ -46,7 +46,7 @@
       };
       inherit (builders) nixosSystemBuilder homeManagerBuilder;
       mkDevShell = import ./lib/devshell.nix;
-      mkChecks = import ./lib/checks.nix;
+      mkChecks = import ./checks;
       forAllSystems = nixpkgs.lib.genAttrs [
         "x86_64-linux"
         "aarch64-linux"
