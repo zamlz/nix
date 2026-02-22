@@ -66,15 +66,34 @@ class NiriWM(WindowManager):
         raise ValueError(f"{name} not found in active workspaces")
 
     def create_workspace(self, name: str) -> Workspace:
-        raise NotImplementedError(
-            "Niri uses dynamic workspaces - they are created automatically "
-            "when moving windows to new workspace indices"
+        # Niri guarantees the last workspace is always empty
+        workspaces = self.list_workspaces()
+        last_ws = max(workspaces.values(), key=lambda ws: ws.id)
+        result = subprocess.run([
+            "niri", "msg", "action", "set-workspace-name",
+            name, "--workspace", str(last_ws.id)
+        ])
+        result.check_returncode()
+        return Workspace(
+            id=last_ws.id,
+            active=False,
+            geometry="N/A",
+            viewport="N/A",
+            workarea="N/A",
+            name=name
         )
 
     def delete_workspace(self, name: str) -> None:
-        raise NotImplementedError(
-            "Niri automatically removes empty workspaces"
-        )
+        # Move all windows from the target workspace to the active one
+        active_ws = next(ws for ws in self.list_workspaces().values() if ws.active)
+        for window in self.list_windows().values():
+            if window.workspace.name == name:
+                self.move_window_to_workspace(window.id, active_ws)
+
+        result = subprocess.run([
+            "niri", "msg", "action", "unset-workspace-name", name
+        ])
+        result.check_returncode()
 
     def jump_to_workspace(self, workspace: Workspace) -> None:
         # Use workspace name if available, otherwise use index
@@ -99,14 +118,9 @@ class NiriWM(WindowManager):
         result.check_returncode()
         windows_data = json.loads(result.stdout)
 
-        # Build workspace lookup
+        # Build workspace lookup by internal id
+        # Niri workspace id in windows is the internal id, not idx
         workspaces_by_id = {}
-        for ws in self.list_workspaces().values():
-            # Niri workspace id in windows is the internal id, not idx
-            # We need to re-fetch to get the mapping
-            pass
-
-        # Re-fetch workspaces with internal ids
         ws_result = subprocess.run(
             ["niri", "msg", "--json", "workspaces"],
             capture_output=True
