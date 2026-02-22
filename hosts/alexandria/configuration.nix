@@ -19,12 +19,10 @@
     hostId = "2cbf9c15";
   };
 
-  boot = {
-    loader.grub = {
-      enable = true;
-      device = "/dev/nvme0n1";
-      useOSProber = true;
-    };
+  boot.loader.grub = {
+    enable = true;
+    device = "/dev/nvme0n1";
+    useOSProber = true;
   };
 
   # WARNING: Read comment in lib/constants.nix file!

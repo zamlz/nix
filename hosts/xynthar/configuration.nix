@@ -8,13 +8,15 @@
 }:
 {
   imports = [
-    # Import your generated (nixos-generate-config) hardware configuration
     ./hardware-configuration.nix
     (self + /nixos/desktop.nix)
+    (self + /nixos/services/alexandria-nas-nfs.nix)
   ];
 
-  networking.hostName = "xynthar";
-  networking.hostId = "f820da9f";
+  networking = {
+    hostName = "xynthar";
+    hostId = "f820da9f";
+  };
 
   boot = {
     # NOTE: This is for LUKS for SWAP.
@@ -32,20 +34,6 @@
       efi.canTouchEfiVariables = true;
     };
   };
-
-  # Mount my nas running on alexandria
-  # FIXME: remove this duplication found on all my hosts
-  fileSystems."/mnt/media" = {
-    device = "10.69.8.4:/media";
-    fsType = "nfs";
-    # enable lazy mounting for this share
-    options = [
-      "x-systemd.automount"
-      "noauto"
-    ];
-  };
-  # optional, but ensures rpc-statsd is running for on demand mounting
-  boot.supportedFilesystems = [ "nfs" ];
 
   # WARNING: Read comment in lib/constants.nix file!
   system.stateVersion = constants.stateVersion;
