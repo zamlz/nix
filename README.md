@@ -76,6 +76,55 @@ home-manager switch --flake .#generic-cli      # CLI only
 home-manager switch --flake .#generic-desktop  # CLI + desktop
 ```
 
+## Secrets Management (sops-nix)
+
+Secrets are encrypted in the repo using [sops-nix](https://github.com/Mic92/sops-nix) with AGE encryption. Decryption happens automatically at NixOS activation time via a systemd service, with decrypted secrets written to `/run/secrets/` (tmpfs, never hits disk).
+
+### Initial Setup (per machine)
+
+**1. Generate an AGE key pair (once, on your workstation):**
+
+```shell
+nix run nixpkgs#age -- -keygen -o age-key.txt
+```
+
+Save the printed public key (`age1abc...`) — it goes in `.sops.yaml`.
+
+**2. Place the private key on each NixOS host:**
+
+```shell
+sudo mkdir -p /etc/age
+sudo cp age-key.txt /etc/age/key.txt
+sudo chmod 400 /etc/age/key.txt
+```
+
+Repeat for every machine (solaris, xynthar, yggdrasil, alexandria). You can use the same key across all machines or generate one per machine.
+
+**3. Back up the private key** in your password store or offline. If lost, you must generate a new key and re-encrypt all secrets.
+
+### Adding / Editing Secrets
+
+**1. Create `.sops.yaml`** in the repo root (once, replacing the public key with yours):
+
+```yaml
+keys:
+  - &amlesh age1abc123...  # your AGE public key from step 1
+creation_rules:
+  - path_regex: secrets\.yaml$
+    key_groups:
+      - age:
+        - *amlesh
+```
+
+**2. Create or edit secrets:**
+
+```shell
+# Creates secrets.yaml (or edits existing) — opens $EDITOR, re-encrypts on save
+nix run nixpkgs#sops -- secrets.yaml
+```
+
+Commit the encrypted `secrets.yaml` to git. The values are encrypted; the key names are plaintext.
+
 ## Directory Structure
 
 The following directory stores my `home-manager` configurations. They

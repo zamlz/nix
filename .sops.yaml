@@ -1,0 +1,13 @@
+keys:
+  - &solaris age1auguwd65ce8zp4kzzccmaj43vdcq3p7yrfuc72p5hhzz83nmtgcqz8j64x
+  - &yggdrasil age17yemjvv2547g6kyjj677kwhus4krcxe6l238al60w3cq7f2dlstq6yal57
+  - &alexandria age1ryvhyerym499x5nqj58e0dugpkj3kqvda3m52dkzuxflz7xh9grq9lzzph
+  - &xynthar age1mtwrmum3cmvdqt90zgrxctaln7t9jwwqa96p4nqtvhrlwga7xe6qrmvlrk
+creation_rules:
+  - path_regex: secrets\.yaml$
+    key_groups:
+      - age:
+          - *solaris
+          - *yggdrasil
+          - *alexandria
+          - *xynthar

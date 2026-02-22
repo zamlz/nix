@@ -1,9 +1,9 @@
-_: {
-  # (Don't forget to set a password with ‘passwd’!)
+{ config, ... }:
+{
   users.users.amlesh = {
     isNormalUser = true;
     description = "Amlesh Sivanantham (zamlz)";
-    initialPassword = "pleasechangeme";
+    hashedPasswordFile = config.sops.secrets.user-password.path;
     extraGroups = [
       "audio"
       "docker"
