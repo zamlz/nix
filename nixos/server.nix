@@ -3,6 +3,7 @@ _: {
     ./modules/console.nix
     ./modules/docker.nix
     ./modules/fail2ban.nix
+    ./modules/fwupd.nix
     ./modules/documentation.nix
     ./modules/hardware.nix
     ./modules/locale.nix
