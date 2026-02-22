@@ -13,8 +13,11 @@
     (self + /nixos/services/glances.nix)
   ];
 
-  networking.hostName = "alexandria";
-  networking.hostId = "2cbf9c15";
+  networking = {
+    hostName = "alexandria";
+    hostId = "2cbf9c15";
+    firewall.allowedTCPPorts = [ 2049 ];
+  };
 
   boot = {
     loader.grub = {

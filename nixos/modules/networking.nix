@@ -10,18 +10,13 @@ _: {
       10.69.8.3 yggdrasil
       10.69.8.4 alexandria
     '';
-    firewall = {
-      enable = true;
-      allowedTCPPorts = [
-        22 # ssh
-        2049 # nfs
-      ];
-    };
+    firewall.enable = true;
     networkmanager.enable = true;
   };
 
   services.openssh = {
     enable = true;
+    openFirewall = true;
     settings = {
       PermitRootLogin = "no";
       PasswordAuthentication = false;
