@@ -10,6 +10,11 @@ in
   xdg.configFile."polybar/kernel_info.sh" = {
     source = ./kernel_info.sh;
     executable = true;
+    text = ''
+      #!/usr/bin/env sh
+      # userathost with kernel info
+      echo "$(whoami)@$(uname -n) :: $(uname -o) $(uname -r)"
+    '';
   };
 
   services.polybar = {
