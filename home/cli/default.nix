@@ -13,10 +13,10 @@
     ./fd.nix
     ./fzf.nix
     ./git.nix
-    ./gnupg
+    ./gnupg.nix
     ./helix.nix # [unused]
     ./home-manager.nix
-    ./kakoune
+    ./kakoune.nix
     ./lazygit.nix
     ./notes.nix
     ./man.nix

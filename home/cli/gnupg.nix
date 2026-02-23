@@ -1,4 +1,5 @@
 {
+  self,
   config,
   pkgs,
   ...
@@ -11,7 +12,7 @@
     mutableTrust = false;
     publicKeys = [
       {
-        source = ./public.key;
+        source = self + /public.key;
         trust = 5;
       }
     ];
