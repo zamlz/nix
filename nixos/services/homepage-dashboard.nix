@@ -22,7 +22,7 @@
     widgets = [
       {
         search = {
-          provider = "google";
+          provider = "duckduckgo";
           target = "_blank";
         };
       }
