@@ -16,6 +16,7 @@
     (self + /nixos/services/blocky.nix)
     (self + /nixos/services/prometheus.nix)
     (self + /nixos/services/grafana.nix)
+    (self + /nixos/services/homepage-dashboard.nix)
   ];
 
   networking = {
