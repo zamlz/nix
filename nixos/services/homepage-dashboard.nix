@@ -60,6 +60,13 @@
             };
           }
           {
+            "Jellyfin" = {
+              description = "Media server";
+              href = "http://yggdrasil:8096";
+              icon = "jellyfin";
+            };
+          }
+          {
             "Glances" = {
               description = "System monitoring";
               href = "http://yggdrasil:61208";
