@@ -86,7 +86,7 @@ in
     '';
   };
 
-  xdg.configFile."kak/colors/navi.kak".text = with colorScheme; /* sh  */ ''
+  xdg.configFile."kak/colors/navi.kak".text = with colorScheme; /* sh */ ''
     # For Code
     face global value ${red}
     face global type ${yellow}
