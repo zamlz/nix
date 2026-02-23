@@ -1,20 +1,15 @@
-{
-  config,
-  ...
-}:
-{
-  # use: nix run nixpkgs#mangal mini -- --format cbz -d
-  virtualisation.oci-containers.containers.kavita = {
-    image = "jvmilazz0/kavita:latest";
-    autoStart = true;
-    environment = {
-      TZ = config.time.timeZone;
-    };
-    ports = [ "5000:5000" ];
-    pull = "always";
-    volumes = [
-      "/mnt/media/books/manga:/manga" # FIXME: Dynamically infer this from my filesystem config
-      "/var/lib/kavita:/kavita/config"
-    ];
+# Kavita — book and manga reader.
+#
+# Debugging:
+#   systemctl status kavita
+#   journalctl -u kavita
+#   Access http://<host>:5000 in a browser
+#
+# Tip: nix run nixpkgs#mangal mini -- --format cbz -d
+_: {
+  services.kavita = {
+    enable = true;
+    settings.Port = 5000;
   };
+  networking.firewall.allowedTCPPorts = [ 5000 ];
 }
