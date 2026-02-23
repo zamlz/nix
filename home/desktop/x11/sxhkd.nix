@@ -19,7 +19,6 @@ let
   FileSystemOpen = termPromptLauncher "navi-file-open" 35 164 8;
   GitManager = termPromptLauncher "navi-git" 35 164 8;
   LogJournalEntry = termPromptLauncher "$HOME/usr/notes/bin/notes log" 20 128 9;
-  maimScreenshot = ./maim-screenshot.sh;
   ManPageOpen = termPromptLauncher "navi-man" 35 164 8;
   PasswordStore = termPromptLauncher "navi-pass" 14 100 9;
   ProgramLauncher = termPromptLauncher "navi-launcher" 16 80 9;
@@ -69,14 +68,9 @@ in
       # FIXME: This configuration should somehow be owned by password-store?
       "super + p" = "${PasswordStore}";
       "super + shift + p" = "${PasswordStore} --qrcode";
-      # Screenshot tool:
-      #   Interactively select a window or rectangle with the mouse to take a screen
-      #   shot of it. It's important that these keybindings are prefaces with the =@=
-      #   token as it implies that the command should be executed on key release as
-      #   opposed to key press. Scrot and xclip here will not work properly unless they
-      #   are on key release.
-      "@Print" = "${maimScreenshot} -s";
-      "@shift + Print" = "${maimScreenshot}";
+
+      "@Print" = "${config.xdg.configHome}/sxhkd/maim-screenshot.sh -s";
+      "@shift + Print" = "${config.xdg.configHome}/sxhkd/maim-screenshot.sh";
 
       # Multimedia and Physical Switches
       "XF86AudioMute" = "pactl set-sink-mute @DEFAULT_SINK@ toggle";
@@ -84,5 +78,26 @@ in
       "XF86AudioRaiseVolume" = "pactl set-sink-volume @DEFAULT_SINK@ +1%";
       "XF86AudioLowerVolume" = "pactl set-sink-volume @DEFAULT_SINK@ -1%";
     };
+  };
+
+  # Screenshot tool:
+  #   Interactively select a window or rectangle with the mouse to take a screen
+  #   shot of it. It's important that these keybindings are prefaces with the =@=
+  #   token as it implies that the command should be executed on key release as
+  #   opposed to key press. Scrot and xclip here will not work properly unless they
+  #   are on key release.
+  xdg.configFile."sxhkd/maim-screenshot.sh" = {
+    executable = true;
+    text = /* sh */ ''
+        #!/usr/bin/env sh
+
+        # maim on it's own is a nice minimal screenshot tool that literally prints the
+        # output back to STDOUT. We take that binary output and pipe it to a file and
+        # the user's clipboard.
+
+        maim --hidecursor "$@" /dev/stdout \
+            | tee "$HOME/tmp/$(date +'%Y-%m-%dT%H:%M:%S%:z').png" \
+            | xclip -selection clipboard -target image/png
+    '';
   };
 }
