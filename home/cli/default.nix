@@ -18,7 +18,7 @@
     ./home-manager.nix
     ./kakoune
     ./lazygit.nix
-    ./notes
+    ./notes.nix
     ./man.nix
     ./neovim.nix # [unused]
     ./password-store.nix
