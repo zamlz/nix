@@ -105,26 +105,17 @@ Repeat for every machine (solaris, xynthar, yggdrasil, alexandria). You can use 
 
 ### Adding / Editing Secrets
 
-**1. Create `.sops.yaml`** in the repo root (once, replacing the public key with yours):
-
-```yaml
-keys:
-  - &amlesh age1abc123...  # your AGE public key from step 1
-creation_rules:
-  - path_regex: secrets\.yaml$
-    key_groups:
-      - age:
-        - *amlesh
-```
-
-**2. Create or edit secrets:**
+**Create or edit secrets:**
 
 ```shell
-# Creates secrets.yaml (or edits existing) — opens $EDITOR, re-encrypts on save
-nix run nixpkgs#sops -- secrets.yaml
+# Opens $EDITOR with decrypted values, re-encrypts on save
+# Requires the AGE private key at /etc/age/key.txt (may need sudo)
+sudo SOPS_AGE_KEY_FILE=/etc/age/key.txt nix run nixpkgs#sops -- secrets.yaml
 ```
 
-Commit the encrypted `secrets.yaml` to git. The values are encrypted; the key names are plaintext.
+The `.sops.yaml` file in the repo root defines which AGE public keys can decrypt secrets. Both `.sops.yaml` and the encrypted `secrets.yaml` are safe to commit — values are encrypted, only key names are plaintext.
+
+Per-service secrets (e.g., `grafana-secret-key`) are defined in their respective service modules, while shared secrets (e.g., `user-password`) are defined in `nixos/modules/sops.nix`.
 
 ## Directory Structure
 
@@ -162,8 +153,6 @@ hosts/
   yggdrasil/
     configuration.nix
     hardware-configuration.nix
-    services/
-      kavita.nix
   alexandria/
     configuration.nix
     hardware-configuration.nix
@@ -181,14 +170,20 @@ nixos/
   modules/
     audio.nix
     fail2ban.nix
-    security.nix
     networking.nix
     nix.nix
+    security.nix
+    sops.nix
     ...
   services/
+    alexandria-nas-nfs.nix
+    blocky.nix
     glances.nix
+    grafana.nix
     kavita.nix
     ollama.nix
+    prometheus.nix
+    prometheus-node-exporter.nix
 ```
 
 Flake checks and NixOS VM integration tests
