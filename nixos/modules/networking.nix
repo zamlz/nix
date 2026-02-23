@@ -3,16 +3,14 @@ _: {
 
   # FIXME: Hate that this is hardcoded
   networking = {
-    extraHosts = ''
-      10.69.8.0 solaris
-      10.69.8.1 xynthar.enp
-      10.69.8.2 xynthar.wlp xynthar
-      10.69.8.3 yggdrasil
-      10.69.8.4 alexandria
-    '';
-    nameservers = [ "10.69.8.3" ]; # yggdrasil (blocky)
     firewall.enable = true;
-    networkmanager.enable = true;
+    networkmanager = {
+      enable = true;
+      insertNameservers = [
+        "10.69.8.3" # yggdrasil (blocky)
+        "1.1.1.1" # cloudflare fallback
+      ];
+    };
   };
 
   services.openssh = {
