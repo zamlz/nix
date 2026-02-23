@@ -95,6 +95,7 @@ Save the printed public key (`age1abc...`) — it goes in `.sops.yaml`.
 ```shell
 sudo mkdir -p /etc/age
 sudo cp age-key.txt /etc/age/key.txt
+sudo chown root /etc/age/key.txt
 sudo chmod 400 /etc/age/key.txt
 ```
 
