@@ -13,6 +13,7 @@
     (self + /nixos/services/glances.nix)
     (self + /nixos/services/kavita.nix)
     (self + /nixos/services/alexandria-nas-nfs.nix)
+    (self + /nixos/services/blocky.nix)
   ];
 
   networking = {

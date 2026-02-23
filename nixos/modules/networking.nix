@@ -10,6 +10,7 @@ _: {
       10.69.8.3 yggdrasil
       10.69.8.4 alexandria
     '';
+    nameservers = [ "10.69.8.3" ]; # yggdrasil (blocky)
     firewall.enable = true;
     networkmanager.enable = true;
   };
