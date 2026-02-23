@@ -3,6 +3,6 @@ _: {
     ./herbstluftwm.nix
     ./polybar
     ./sxhkd.nix
-    ./xinit
+    ./xinit.nix
   ];
 }
