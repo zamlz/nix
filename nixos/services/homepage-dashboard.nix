@@ -10,6 +10,10 @@
     enable = true;
     listenPort = 80;
     openFirewall = true;
+    allowedHosts = [
+      "yggdrasil"
+      "10.69.8.3"
+    ];
 
     settings = {
       title = "Homelab";
