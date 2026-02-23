@@ -17,6 +17,8 @@ _: {
       upstreams.groups.default = [
         "https://one.one.one.one/dns-query" # Cloudflare DoH
         "https://dns.google/dns-query" # Google DoH
+        "1.1.1.1" # Cloudflare plain DNS fallback
+        "8.8.8.8" # Google plain DNS fallback
       ];
 
       # Local DNS mappings (replaces need for /etc/hosts)
