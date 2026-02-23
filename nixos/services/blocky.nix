@@ -1,3 +1,14 @@
+# Blocky DNS server for local name resolution and ad blocking.
+# Deployed on yggdrasil (10.69.8.3), all NixOS hosts point here via
+# networking.nameservers in modules/networking.nix.
+#
+# Debugging:
+#   systemctl status blocky
+#   journalctl -u blocky
+#   dig @localhost solaris              # local DNS mapping
+#   dig @localhost google.com           # upstream resolution
+#   dig @localhost ads.google.com       # should be blocked (0.0.0.0)
+#   dig @10.69.8.3 solaris              # query from another machine
 _: {
   services.blocky = {
     enable = true;
