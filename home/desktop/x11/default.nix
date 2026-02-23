@@ -1,7 +1,7 @@
 _: {
   imports = [
     ./herbstluftwm.nix
-    ./polybar
+    ./polybar.nix
     ./sxhkd.nix
     ./xinit.nix
   ];

@@ -8,7 +8,6 @@ let
 in
 {
   xdg.configFile."polybar/kernel_info.sh" = {
-    source = ./kernel_info.sh;
     executable = true;
     text = ''
       #!/usr/bin/env sh
