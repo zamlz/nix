@@ -1,4 +1,5 @@
-_: {
+{ self, ... }:
+{
   imports = [
     ./modules/console.nix
     ./modules/docker.nix
@@ -15,5 +16,6 @@ _: {
     ./modules/shell.nix
     ./modules/time.nix
     ./modules/users.nix
+    (self + /nixos/services/prometheus-node-exporter.nix)
   ];
 }

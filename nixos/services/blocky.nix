@@ -35,13 +35,19 @@ _: {
         clientGroupsBlock.default = [ "ads" ];
       };
 
-      # Listen on port 53 for DNS
-      ports.dns = 53;
+      # Listen on port 53 for DNS, port 4000 for Prometheus metrics
+      ports = {
+        dns = 53;
+        http = 4000;
+      };
     };
   };
 
   networking.firewall = {
-    allowedTCPPorts = [ 53 ];
+    allowedTCPPorts = [
+      53
+      4000
+    ];
     allowedUDPPorts = [ 53 ];
   };
 }

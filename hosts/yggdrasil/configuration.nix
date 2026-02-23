@@ -14,6 +14,8 @@
     (self + /nixos/services/kavita.nix)
     (self + /nixos/services/alexandria-nas-nfs.nix)
     (self + /nixos/services/blocky.nix)
+    (self + /nixos/services/prometheus.nix)
+    (self + /nixos/services/grafana.nix)
   ];
 
   networking = {
