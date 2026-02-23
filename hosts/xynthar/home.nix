@@ -9,6 +9,7 @@
     (self + /home/desktop)
   ];
 
+  my.fontScale = 1.5;
   home = {
     username = "amlesh";
     homeDirectory = "/home/amlesh";
