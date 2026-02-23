@@ -35,7 +35,10 @@ _: {
         clientGroupsBlock.default = [ "ads" ];
       };
 
-      # Listen on port 53 for DNS, port 4000 for Prometheus metrics
+      # Expose Prometheus metrics at /metrics
+      prometheus.enable = true;
+
+      # Listen on port 53 for DNS, port 4000 for HTTP API + metrics
       ports = {
         dns = 53;
         http = 4000;
