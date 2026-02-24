@@ -7,7 +7,7 @@
 }:
 let
   constants = import ./constants.nix;
-  firewallUtils = import ./utils/firewall.nix;
+  firewallUtils = import ./firewall-utils.nix;
   extraSpecialArgs = {
     inherit
       inputs

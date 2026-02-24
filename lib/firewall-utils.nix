@@ -1,5 +1,5 @@
 let
-  constants = import ../constants.nix;
+  constants = import ./constants.nix;
 in
 {
   # Generate iptables firewall rules to open a port for a specific subnet.
