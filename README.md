@@ -144,6 +144,7 @@ from `home/cli` and/or `home/desktop`.
 
 ```
 hosts/
+  default.nix           # Host registry (shared by nixosConfigurations and homeConfigurations)
   solaris/
     configuration.nix
     hardware-configuration.nix
@@ -180,6 +181,8 @@ nixos/
     blocky.nix
     glances.nix
     grafana.nix
+    homepage-dashboard.nix
+    jellyfin.nix
     kavita.nix
     ollama.nix
     prometheus.nix
