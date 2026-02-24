@@ -1,6 +1,8 @@
-_: {
-  # Allows access to the NFS server
-  networking.firewall.allowedTCPPorts = [ 2049 ];
+{ firewallUtils, ... }:
+{
+  imports = [
+    (firewallUtils.mkOpenPortForSubnetRule { port = 2049; }) # NFS server
+  ];
 
   boot = {
     supportedFilesystems = [ "zfs" ];
