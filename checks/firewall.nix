@@ -1,4 +1,7 @@
 { self, pkgs }:
+let
+  constants = import (self + /lib/constants.nix);
+in
 pkgs.testers.nixosTest {
   name = "firewall";
 
@@ -8,6 +11,7 @@ pkgs.testers.nixosTest {
       (self + /nixos/modules/firewall.nix)
       (self + /nixos/modules/ssh.nix)
     ];
+    _module.args = { inherit constants; };
   };
   nodes.client = { };
 

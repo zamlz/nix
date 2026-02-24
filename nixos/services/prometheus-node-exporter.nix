@@ -4,10 +4,10 @@
 # Debugging:
 #   systemctl status prometheus-node-exporter
 #   curl http://localhost:9100/metrics
-{ firewallUtils, ... }:
+{ constants, firewallUtils, ... }:
 {
   imports = [
-    (firewallUtils.mkOpenPortForSubnetRule { port = 9100; }) # Node exporter metrics
+    (firewallUtils.mkOpenPortForSubnetRule { port = constants.ports.prometheusNodeExporter; }) # Node exporter metrics
   ];
 
   services.prometheus.exporters.node = {

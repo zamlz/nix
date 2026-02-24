@@ -1,7 +1,7 @@
-{ firewallUtils, ... }:
+{ constants, firewallUtils, ... }:
 {
   imports = [
-    (firewallUtils.mkOpenPortForSubnetRule { port = 2049; }) # NFS server
+    (firewallUtils.mkOpenPortForSubnetRule { port = constants.ports.nfs; }) # NFS server
   ];
 
   boot = {
@@ -24,8 +24,8 @@
   services.nfs.server = {
     enable = true;
     exports = ''
-      /export/nas       10.69.8.0/24(rw,fsid=0,sync,no_subtree_check,root_squash)
-      /export/nas/media 10.69.8.0/24(rw,nohide,sync,no_subtree_check,root_squash)
+      /export/nas       ${constants.lanSubnet}(rw,fsid=0,sync,no_subtree_check,root_squash)
+      /export/nas/media ${constants.lanSubnet}(rw,nohide,sync,no_subtree_check,root_squash)
     '';
   };
 

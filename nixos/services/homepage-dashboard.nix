@@ -4,7 +4,17 @@
 # Debugging:
 #   systemctl status homepage-dashboard
 #   Access http://yggdrasil in a browser
-{ lib, firewallUtils, ... }:
+{
+  config,
+  constants,
+  lib,
+  firewallUtils,
+  ...
+}:
+let
+  hostname = config.networking.hostName;
+  hostIp = constants.hostIpAddressMap.${hostname};
+in
 {
   imports = [
     (firewallUtils.mkOpenPortForSubnetRule { port = 80; }) # Homepage dashboard web UI
@@ -14,7 +24,7 @@
     enable = true;
     listenPort = 80;
     openFirewall = false;
-    allowedHosts = "yggdrasil,10.69.8.3";
+    allowedHosts = "${hostname},${hostIp}";
 
     settings = {
       title = "Homelab";
@@ -61,42 +71,42 @@
           {
             "Grafana" = {
               description = "Monitoring dashboards";
-              href = "http://yggdrasil:3000";
+              href = "http://yggdrasil:${toString constants.ports.grafana}";
               icon = "grafana";
             };
           }
           {
             "Prometheus" = {
               description = "Metrics collection";
-              href = "http://yggdrasil:9090";
+              href = "http://yggdrasil:${toString constants.ports.prometheusServer}";
               icon = "prometheus";
             };
           }
           {
             "Blocky" = {
               description = "DNS server and ad blocker";
-              href = "http://yggdrasil:4000";
+              href = "http://yggdrasil:${toString constants.ports.blockyHttp}";
               icon = "blocky";
             };
           }
           {
             "Kavita" = {
               description = "Book and manga reader";
-              href = "http://yggdrasil:5000";
+              href = "http://yggdrasil:${toString constants.ports.kavita}";
               icon = "kavita";
             };
           }
           {
             "Jellyfin" = {
               description = "Media server";
-              href = "http://yggdrasil:8096";
+              href = "http://yggdrasil:${toString constants.ports.jellyfin}";
               icon = "jellyfin";
             };
           }
           {
             "Glances" = {
               description = "System monitoring";
-              href = "http://yggdrasil:61208";
+              href = "http://yggdrasil:${toString constants.ports.glances}";
               icon = "glances";
             };
           }
@@ -107,14 +117,14 @@
           {
             "Open WebUI" = {
               description = "Ollama LLM interface";
-              href = "http://solaris:8080";
+              href = "http://solaris:${toString constants.ports.openWebui}";
               icon = "open-webui";
             };
           }
           {
             "Glances" = {
               description = "System monitoring";
-              href = "http://solaris:61208";
+              href = "http://solaris:${toString constants.ports.glances}";
               icon = "glances";
             };
           }
@@ -125,7 +135,7 @@
           {
             "Glances" = {
               description = "System monitoring";
-              href = "http://alexandria:61208";
+              href = "http://alexandria:${toString constants.ports.glances}";
               icon = "glances";
             };
           }

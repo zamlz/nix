@@ -1,7 +1,7 @@
-{ firewallUtils, ... }:
+{ constants, firewallUtils, ... }:
 {
   imports = [
-    (firewallUtils.mkOpenPortForSubnetRule { port = 61208; }) # Glances web UI
+    (firewallUtils.mkOpenPortForSubnetRule { port = constants.ports.glances; }) # Glances web UI
   ];
 
   services.glances = {

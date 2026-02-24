@@ -19,4 +19,31 @@
   stateVersion = "23.05";
 
   lanSubnet = "10.69.8.0/24";
+  parentSubnet = "10.69.0.0/16";
+
+  hostIpAddressMap = {
+    solaris = "10.69.8.0";
+    xynthar = "10.69.8.2";
+    yggdrasil = "10.69.8.3";
+    alexandria = "10.69.8.4";
+  };
+
+  # Host role mappings — change these if a service moves to a different host
+  dnsServer = "yggdrasil";
+  metricsServer = "yggdrasil";
+  nasHost = "alexandria";
+
+  # Service ports referenced across multiple files
+  ports = {
+    blockyDns = 53;
+    blockyHttp = 4000;
+    glances = 61208;
+    grafana = 3000;
+    jellyfin = 8096;
+    kavita = 5000;
+    nfs = 2049;
+    openWebui = 8080;
+    prometheusNodeExporter = 9100;
+    prometheusServer = 9090;
+  };
 }

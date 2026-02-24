@@ -6,10 +6,15 @@
 #   Access http://<host>:5000 in a browser
 #
 # Tip: nix run nixpkgs#mangal mini -- --format cbz -d
-{ config, firewallUtils, ... }:
+{
+  config,
+  constants,
+  firewallUtils,
+  ...
+}:
 {
   imports = [
-    (firewallUtils.mkOpenPortForSubnetRule { port = 5000; }) # Kavita web UI
+    (firewallUtils.mkOpenPortForSubnetRule { port = constants.ports.kavita; }) # Kavita web UI
   ];
 
   sops.secrets.kavita-token-key = {
@@ -19,6 +24,6 @@
   services.kavita = {
     enable = true;
     tokenKeyFile = config.sops.secrets.kavita-token-key.path;
-    settings.Port = 5000;
+    settings.Port = constants.ports.kavita;
   };
 }

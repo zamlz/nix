@@ -5,10 +5,10 @@
 #   systemctl status prometheus
 #   curl http://localhost:9090/targets    # check scrape target health
 #   curl http://localhost:9090/metrics    # prometheus's own metrics
-{ firewallUtils, ... }:
+{ constants, firewallUtils, ... }:
 {
   imports = [
-    (firewallUtils.mkOpenPortForSubnetRule { port = 9090; }) # Prometheus web UI and API
+    (firewallUtils.mkOpenPortForSubnetRule { port = constants.ports.prometheusServer; }) # Prometheus web UI and API
   ];
 
   services.prometheus = {
@@ -19,12 +19,9 @@
         job_name = "node";
         static_configs = [
           {
-            targets = [
-              "solaris:9100"
-              "xynthar:9100"
-              "yggdrasil:9100"
-              "alexandria:9100"
-            ];
+            targets = builtins.map (host: "${host}:${toString constants.ports.prometheusNodeExporter}") (
+              builtins.attrNames constants.hostIpAddressMap
+            );
           }
         ];
       }
@@ -32,7 +29,7 @@
         job_name = "blocky";
         static_configs = [
           {
-            targets = [ "localhost:4000" ];
+            targets = [ "${constants.dnsServer}:${toString constants.ports.blockyHttp}" ];
           }
         ];
       }

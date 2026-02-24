@@ -9,15 +9,15 @@
 #   dig @localhost google.com           # upstream resolution
 #   dig @localhost ads.google.com       # should be blocked (0.0.0.0)
 #   dig @10.69.8.3 solaris              # query from another machine
-{ firewallUtils, ... }:
+{ constants, firewallUtils, ... }:
 {
   imports = [
-    (firewallUtils.mkOpenPortForSubnetRule { port = 53; }) # DNS
+    (firewallUtils.mkOpenPortForSubnetRule { port = constants.ports.blockyDns; }) # DNS
     (firewallUtils.mkOpenPortForSubnetRule {
-      port = 53;
+      port = constants.ports.blockyDns;
       proto = "udp";
     }) # DNS
-    (firewallUtils.mkOpenPortForSubnetRule { port = 4000; }) # HTTP API and Prometheus metrics
+    (firewallUtils.mkOpenPortForSubnetRule { port = constants.ports.blockyHttp; }) # HTTP API and Prometheus metrics
   ];
 
   services.blocky = {
@@ -32,12 +32,7 @@
       ];
 
       # Local DNS mappings (replaces need for /etc/hosts)
-      customDNS.mapping = {
-        "solaris" = "10.69.8.0";
-        "xynthar" = "10.69.8.2";
-        "yggdrasil" = "10.69.8.3";
-        "alexandria" = "10.69.8.4";
-      };
+      customDNS.mapping = constants.hostIpAddressMap;
 
       # Ad blocking via blocklists
       blocking = {
@@ -52,8 +47,8 @@
 
       # Listen on port 53 for DNS, port 4000 for HTTP API + metrics
       ports = {
-        dns = 53;
-        http = 4000;
+        dns = constants.ports.blockyDns;
+        http = constants.ports.blockyHttp;
       };
     };
   };

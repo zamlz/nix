@@ -1,7 +1,8 @@
-_: {
-  # Mount my nas running on alexandria
+{ constants, ... }:
+{
+  # Mount the NAS
   fileSystems."/mnt/media" = {
-    device = "10.69.8.4:/media";
+    device = "${constants.hostIpAddressMap.${constants.nasHost}}:/media";
     fsType = "nfs";
     # enable lazy mounting for this share
     options = [

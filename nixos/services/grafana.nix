@@ -5,10 +5,15 @@
 #   systemctl status grafana
 #   Access http://yggdrasil:3000 in a browser
 #   Default login: admin / admin (change on first login)
-{ config, firewallUtils, ... }:
+{
+  config,
+  constants,
+  firewallUtils,
+  ...
+}:
 {
   imports = [
-    (firewallUtils.mkOpenPortForSubnetRule { port = 3000; }) # Grafana web UI
+    (firewallUtils.mkOpenPortForSubnetRule { port = constants.ports.grafana; }) # Grafana web UI
   ];
 
   sops.secrets.grafana-secret-key = {
@@ -20,7 +25,7 @@
     settings = {
       server = {
         http_addr = "0.0.0.0";
-        http_port = 3000;
+        http_port = constants.ports.grafana;
       };
       security.secret_key = "$__file{${config.sops.secrets.grafana-secret-key.path}}";
     };
@@ -28,7 +33,7 @@
       {
         name = "Prometheus";
         type = "prometheus";
-        url = "http://localhost:9090";
+        url = "http://${constants.metricsServer}:${toString constants.ports.prometheusServer}";
         isDefault = true;
       }
     ];
