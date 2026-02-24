@@ -9,10 +9,12 @@ _: {
       extraCommands = ''
         iptables -I nixos-fw -s 10.69.8.0/24 -j nixos-fw-accept
         iptables -I nixos-fw -p tcp --dport 22 -j nixos-fw-accept
+        iptables -I nixos-fw -s 10.69.5.29 -p tcp --dport 8096 -j nixos-fw-accept
       '';
       extraStopCommands = ''
         iptables -D nixos-fw -s 10.69.8.0/24 -j nixos-fw-accept || true
         iptables -D nixos-fw -p tcp --dport 22 -j nixos-fw-accept || true
+        iptables -D nixos-fw -s 10.69.5.29 -p tcp --dport 8096 -j nixos-fw-accept || true
       '';
     };
     networkmanager = {
