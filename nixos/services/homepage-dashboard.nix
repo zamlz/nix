@@ -28,6 +28,29 @@
       }
     ];
 
+    bookmarks = [
+      {
+        "Bookmarks" = [
+          {
+            "GitHub" = [
+              {
+                href = "https://github.com";
+                icon = "github";
+              }
+            ];
+          }
+          {
+            "YouTube" = [
+              {
+                href = "https://youtube.com";
+                icon = "youtube";
+              }
+            ];
+          }
+        ];
+      }
+    ];
+
     services = [
       {
         "yggdrasil" = [
