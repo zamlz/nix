@@ -4,6 +4,7 @@
     ./modules/console.nix
     ./modules/docker.nix
     ./modules/fail2ban.nix
+    ./modules/firewall.nix
     ./modules/fwupd.nix
     ./modules/documentation.nix
     ./modules/hardware.nix
@@ -12,6 +13,7 @@
     ./modules/nix.nix
     ./modules/nh.nix
     ./modules/security.nix
+    ./modules/ssh.nix
     ./modules/sops.nix
     ./modules/shell.nix
     ./modules/time.nix

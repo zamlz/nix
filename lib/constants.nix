@@ -17,4 +17,6 @@
   #   DO NOT CHANGE these values without reading the documentation
   #   See: https://nixos.org/manual/nixos/stable/options.html#opt-system.stateVersion
   stateVersion = "23.05";
+
+  lanSubnet = "10.69.8.0/24";
 }

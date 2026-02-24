@@ -4,7 +4,7 @@ pkgs.testers.nixosTest {
 
   nodes.server = {
     imports = [
-      (self + /nixos/modules/networking.nix)
+      (self + /nixos/modules/ssh.nix)
       (self + /nixos/modules/fail2ban.nix)
     ];
   };

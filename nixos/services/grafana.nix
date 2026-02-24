@@ -5,8 +5,12 @@
 #   systemctl status grafana
 #   Access http://yggdrasil:3000 in a browser
 #   Default login: admin / admin (change on first login)
-{ config, ... }:
+{ config, firewallUtils, ... }:
 {
+  imports = [
+    (firewallUtils.mkOpenPortForSubnetRule { port = 3000; }) # Grafana web UI
+  ];
+
   sops.secrets.grafana-secret-key = {
     owner = "grafana";
   };
@@ -29,5 +33,4 @@
       }
     ];
   };
-  networking.firewall.allowedTCPPorts = [ 3000 ];
 }

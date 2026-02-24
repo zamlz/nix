@@ -1,8 +1,13 @@
 {
   pkgs,
+  firewallUtils,
   ...
 }:
 {
+  imports = [
+    (firewallUtils.mkOpenPortForSubnetRule { port = 8080; }) # Open WebUI
+  ];
+
   services.ollama = {
     enable = true;
     package = pkgs.ollama-vulkan;
@@ -22,6 +27,6 @@
       OLLAMA_API_BASE_URL = "http://127.0.0.1:11434";
       WEBUI_AUTH = "false"; # disable login for local use
     };
-    openFirewall = true;
+    openFirewall = false;
   };
 }

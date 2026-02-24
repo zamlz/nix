@@ -7,7 +7,15 @@
 }:
 let
   constants = import ./constants.nix;
-  extraSpecialArgs = { inherit inputs constants self; };
+  firewallUtils = import ./utils/firewall.nix;
+  extraSpecialArgs = {
+    inherit
+      inputs
+      constants
+      firewallUtils
+      self
+      ;
+  };
   overlays = import ./overlays.nix { inherit inputs self; };
 
   # Shared modules used by nixosSystemBuilder

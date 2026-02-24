@@ -4,12 +4,16 @@
 # Debugging:
 #   systemctl status homepage-dashboard
 #   Access http://yggdrasil in a browser
-{ lib, ... }:
+{ lib, firewallUtils, ... }:
 {
+  imports = [
+    (firewallUtils.mkOpenPortForSubnetRule { port = 80; }) # Homepage dashboard web UI
+  ];
+
   services.homepage-dashboard = {
     enable = true;
     listenPort = 80;
-    openFirewall = true;
+    openFirewall = false;
     allowedHosts = "yggdrasil,10.69.8.3";
 
     settings = {

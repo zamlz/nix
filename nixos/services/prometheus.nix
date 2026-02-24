@@ -5,7 +5,12 @@
 #   systemctl status prometheus
 #   curl http://localhost:9090/targets    # check scrape target health
 #   curl http://localhost:9090/metrics    # prometheus's own metrics
-_: {
+{ firewallUtils, ... }:
+{
+  imports = [
+    (firewallUtils.mkOpenPortForSubnetRule { port = 9090; }) # Prometheus web UI and API
+  ];
+
   services.prometheus = {
     enable = true;
     globalConfig.scrape_interval = "15s";
@@ -33,5 +38,4 @@ _: {
       }
     ];
   };
-  networking.firewall.allowedTCPPorts = [ 9090 ];
 }

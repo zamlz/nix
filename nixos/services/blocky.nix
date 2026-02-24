@@ -9,7 +9,17 @@
 #   dig @localhost google.com           # upstream resolution
 #   dig @localhost ads.google.com       # should be blocked (0.0.0.0)
 #   dig @10.69.8.3 solaris              # query from another machine
-_: {
+{ firewallUtils, ... }:
+{
+  imports = [
+    (firewallUtils.mkOpenPortForSubnetRule { port = 53; }) # DNS
+    (firewallUtils.mkOpenPortForSubnetRule {
+      port = 53;
+      proto = "udp";
+    }) # DNS
+    (firewallUtils.mkOpenPortForSubnetRule { port = 4000; }) # HTTP API and Prometheus metrics
+  ];
+
   services.blocky = {
     enable = true;
     settings = {
@@ -48,11 +58,4 @@ _: {
     };
   };
 
-  networking.firewall = {
-    allowedTCPPorts = [
-      53
-      4000
-    ];
-    allowedUDPPorts = [ 53 ];
-  };
 }

@@ -5,6 +5,8 @@ pkgs.testers.nixosTest {
   nodes.server = {
     imports = [
       (self + /nixos/modules/networking.nix)
+      (self + /nixos/modules/firewall.nix)
+      (self + /nixos/modules/ssh.nix)
     ];
   };
   nodes.client = { };
