@@ -190,7 +190,6 @@ nixos/
     ollama.nix
     prometheus.nix
     prometheus-node-exporter.nix
-    tailscale-subnet-router.nix
 ```
 
 Flake checks and NixOS VM integration tests

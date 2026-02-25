@@ -42,6 +42,7 @@ Services to Consider
 - Navidrome — self-hosted Spotify-like music streaming.
 - Linkding — bookmark manager (Pocket/Raindrop alternative).
 - IT-Tools — collection of developer tools (JSON formatter, hash generator, etc.) in a web UI.
+- Booklore — library for books
 
 
 Completed
@@ -60,4 +61,4 @@ Completed
 - [x] Centralize constants (IPs, ports, roles)      `2026-02-24`
 - [x] SSH hardening + dedicated module              `2026-02-23`
 - [x] Homepage dashboard                            `2026-02-22`
-- [x] Tailscale VPN mesh + subnet router             `2026-02-24`
+- [x] Tailscale VPN mesh                              `2026-02-24`
