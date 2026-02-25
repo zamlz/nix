@@ -39,6 +39,7 @@
     blockyHttp = 4000;
     glances = 61208;
     grafana = 3000;
+    immich = 2283;
     jellyfin = 8096;
     kavita = 5000;
     nfs = 2049;

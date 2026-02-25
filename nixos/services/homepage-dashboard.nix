@@ -115,6 +115,13 @@ in
       {
         "solaris" = [
           {
+            "Immich" = {
+              description = "Photo and video management";
+              href = "http://solaris:${toString constants.ports.immich}";
+              icon = "immich";
+            };
+          }
+          {
             "Open WebUI" = {
               description = "Ollama LLM interface";
               href = "http://solaris:${toString constants.ports.openWebui}";

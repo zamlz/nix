@@ -13,6 +13,7 @@
     ./nvidia.nix
     (self + /nixos/desktop.nix)
     (self + /nixos/services/glances.nix)
+    (self + /nixos/services/immich.nix)
     (self + /nixos/services/ollama.nix)
     (self + /nixos/services/alexandria-nas-nfs.nix)
     inputs.slippi.nixosModules.default
