@@ -18,7 +18,6 @@
     (self + /nixos/services/grafana.nix)
     (self + /nixos/services/jellyfin.nix)
     (self + /nixos/services/homepage-dashboard.nix)
-    (self + /nixos/services/tailscale-subnet-router.nix)
   ];
 
   networking = {
