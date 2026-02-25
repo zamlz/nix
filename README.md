@@ -171,10 +171,13 @@ nixos/
   modules/
     audio.nix
     fail2ban.nix
+    firewall.nix
     networking.nix
     nix.nix
     security.nix
     sops.nix
+    ssh.nix
+    tailscale.nix
     ...
   services/
     alexandria-nas-nfs.nix
@@ -187,6 +190,7 @@ nixos/
     ollama.nix
     prometheus.nix
     prometheus-node-exporter.nix
+    tailscale-subnet-router.nix
 ```
 
 Flake checks and NixOS VM integration tests
