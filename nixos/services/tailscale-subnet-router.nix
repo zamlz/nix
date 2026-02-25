@@ -17,7 +17,7 @@
 #   ip route show table 52   # tailscale routing table
 { constants, ... }:
 {
-  services.tailscale.extraUpFlags = [
+  services.tailscale.extraSetFlags = [
     "--advertise-routes=${constants.lanSubnet}"
   ];
 
