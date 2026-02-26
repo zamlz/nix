@@ -1,4 +1,4 @@
-{
+rec {
   # The stateVersion is used in both the system config and the
   # home-manager configuration. Please read the notes for two use-cases
   # before editing this value.
@@ -95,13 +95,18 @@
     prometheus = {
       host = "yggdrasil";
       port = 9090;
-      meta = {
-        name = "Prometheus";
-        description = "Metrics collection";
-        icon = "prometheus";
-      };
     };
   };
+
+  # Services with meta — proxied by Caddy, DNS entries in Blocky, shown on dashboard
+  publicServices = builtins.listToAttrs (
+    builtins.filter (entry: entry.value ? meta) (
+      map (name: {
+        inherit name;
+        value = services.${name};
+      }) (builtins.attrNames services)
+    )
+  );
 
   # Multi-host / infrastructure ports (not tied to a single service)
   ports = {

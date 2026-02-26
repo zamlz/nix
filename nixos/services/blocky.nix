@@ -49,7 +49,7 @@ in
             map (name: {
               name = "${name}.${constants.domainSuffix}";
               value = caddyIp;
-            }) (builtins.attrNames constants.services)
+            }) (builtins.attrNames constants.publicServices)
           );
         in
         constants.hostIpAddressMap // serviceDns // { ${constants.domainSuffix} = caddyIp; };

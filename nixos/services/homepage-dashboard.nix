@@ -14,17 +14,12 @@ let
   hostname = config.networking.hostName;
   hostIp = constants.hostIpAddressMap.${hostname};
 
-  # Services with meta appear on the dashboard
-  visibleServiceNames = builtins.filter (name: constants.services.${name} ? meta) (
-    builtins.attrNames constants.services
-  );
-
   serviceEntries = map (name: {
-    ${constants.services.${name}.meta.name} = {
-      inherit (constants.services.${name}.meta) description icon;
+    ${constants.publicServices.${name}.meta.name} = {
+      inherit (constants.publicServices.${name}.meta) description icon;
       href = "http://${name}.${constants.domainSuffix}";
     };
-  }) visibleServiceNames;
+  }) (builtins.attrNames constants.publicServices);
 
   # Per-host Glances entries
   glancesHosts = [
@@ -49,7 +44,7 @@ in
     enable = true;
     listenPort = constants.services.homepage.port;
     openFirewall = false;
-    allowedHosts = "${hostname},${hostIp},${constants.domainSuffix},homepage.${constants.domainSuffix}";
+    allowedHosts = "${hostname},${hostIp},${constants.domainSuffix}";
 
     settings = {
       title = "Homelab";

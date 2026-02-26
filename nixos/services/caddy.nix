@@ -23,8 +23,10 @@ let
   generatedHosts = builtins.listToAttrs (
     map (name: {
       name = "http://${name}.${constants.domainSuffix}";
-      value = mkVhost "${constants.services.${name}.host}:${toString constants.services.${name}.port}";
-    }) (builtins.attrNames constants.services)
+      value = mkVhost "${constants.publicServices.${name}.host}:${
+        toString constants.publicServices.${name}.port
+      }";
+    }) (builtins.attrNames constants.publicServices)
   );
 in
 {
