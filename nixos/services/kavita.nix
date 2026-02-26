@@ -14,7 +14,7 @@
 }:
 {
   imports = [
-    (firewallUtils.mkOpenPortForSubnetRule { port = constants.ports.kavita; }) # Kavita web UI
+    (firewallUtils.mkOpenPortForSubnetRule { inherit (constants.services.kavita) port; }) # Kavita web UI
   ];
 
   sops.secrets.kavita-token-key = {
@@ -24,6 +24,6 @@
   services.kavita = {
     enable = true;
     tokenKeyFile = config.sops.secrets.kavita-token-key.path;
-    settings.Port = constants.ports.kavita;
+    settings.Port = constants.services.kavita.port;
   };
 }

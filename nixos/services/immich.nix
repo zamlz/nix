@@ -7,12 +7,12 @@
 { constants, firewallUtils, ... }:
 {
   imports = [
-    (firewallUtils.mkOpenPortForSubnetRule { port = constants.ports.immich; })
+    (firewallUtils.mkOpenPortForSubnetRule { inherit (constants.services.immich) port; })
   ];
 
   services.immich = {
     enable = true;
-    port = constants.ports.immich;
+    inherit (constants.services.immich) port;
     host = "0.0.0.0";
     openFirewall = false;
     accelerationDevices = [ "/dev/dri/renderD128" ];

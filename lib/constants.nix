@@ -28,23 +28,85 @@
     alexandria = "10.69.8.4";
   };
 
-  # Host role mappings — change these if a service moves to a different host
-  dnsServer = "yggdrasil";
-  metricsServer = "yggdrasil";
   nasHost = "alexandria";
 
-  # Service ports referenced across multiple files
+  domainSuffix = "lab.zamlz.org";
+
+  # Service registry
+  services = {
+    blocky = {
+      host = "yggdrasil";
+      port = 4000;
+      meta = {
+        name = "Blocky";
+        description = "DNS server and ad blocker";
+        icon = "blocky";
+      };
+    };
+    grafana = {
+      host = "yggdrasil";
+      port = 3000;
+      meta = {
+        name = "Grafana";
+        description = "Monitoring dashboards";
+        icon = "grafana";
+      };
+    };
+    homepage = {
+      host = "yggdrasil";
+      port = 3030;
+    };
+    immich = {
+      host = "solaris";
+      port = 2283;
+      meta = {
+        name = "Immich";
+        description = "Photo and video management";
+        icon = "immich";
+      };
+    };
+    jellyfin = {
+      host = "yggdrasil";
+      port = 8096;
+      meta = {
+        name = "Jellyfin";
+        description = "Media server";
+        icon = "jellyfin";
+      };
+    };
+    kavita = {
+      host = "yggdrasil";
+      port = 5000;
+      meta = {
+        name = "Kavita";
+        description = "Book and manga reader";
+        icon = "kavita";
+      };
+    };
+    openwebui = {
+      host = "solaris";
+      port = 8080;
+      meta = {
+        name = "Open WebUI";
+        description = "Ollama LLM interface";
+        icon = "open-webui";
+      };
+    };
+    prometheus = {
+      host = "yggdrasil";
+      port = 9090;
+      meta = {
+        name = "Prometheus";
+        description = "Metrics collection";
+        icon = "prometheus";
+      };
+    };
+  };
+
+  # Multi-host / infrastructure ports (not tied to a single service)
   ports = {
-    blockyDns = 53;
-    blockyHttp = 4000;
     glances = 61208;
-    grafana = 3000;
-    immich = 2283;
-    jellyfin = 8096;
-    kavita = 5000;
     nfs = 2049;
-    openWebui = 8080;
     prometheusNodeExporter = 9100;
-    prometheusServer = 9090;
   };
 }

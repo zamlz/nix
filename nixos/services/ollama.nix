@@ -6,7 +6,7 @@
 }:
 {
   imports = [
-    (firewallUtils.mkOpenPortForSubnetRule { port = constants.ports.openWebui; }) # Open WebUI
+    (firewallUtils.mkOpenPortForSubnetRule { inherit (constants.services.openwebui) port; }) # Open WebUI
   ];
 
   services.ollama = {
@@ -23,7 +23,7 @@
 
   services.open-webui = {
     enable = true;
-    port = constants.ports.openWebui;
+    inherit (constants.services.openwebui) port;
     environment = {
       OLLAMA_API_BASE_URL = "http://127.0.0.1:11434";
       WEBUI_AUTH = "false"; # disable login for local use

@@ -9,7 +9,7 @@
   imports = [
     # Wider subnet to include TV and other devices
     (firewallUtils.mkOpenPortForSubnetRule {
-      port = constants.ports.jellyfin;
+      inherit (constants.services.jellyfin) port;
       subnet = constants.parentSubnet;
     })
   ];

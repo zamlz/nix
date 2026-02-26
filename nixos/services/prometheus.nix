@@ -8,7 +8,7 @@
 { constants, firewallUtils, ... }:
 {
   imports = [
-    (firewallUtils.mkOpenPortForSubnetRule { port = constants.ports.prometheusServer; }) # Prometheus web UI and API
+    (firewallUtils.mkOpenPortForSubnetRule { inherit (constants.services.prometheus) port; }) # Prometheus web UI and API
   ];
 
   services.prometheus = {
@@ -29,7 +29,7 @@
         job_name = "blocky";
         static_configs = [
           {
-            targets = [ "${constants.dnsServer}:${toString constants.ports.blockyHttp}" ];
+            targets = [ "${constants.services.blocky.host}:${toString constants.services.blocky.port}" ];
           }
         ];
       }

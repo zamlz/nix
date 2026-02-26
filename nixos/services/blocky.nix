@@ -10,14 +10,17 @@
 #   dig @localhost ads.google.com       # should be blocked (0.0.0.0)
 #   dig @10.69.8.3 solaris              # query from another machine
 { constants, firewallUtils, ... }:
+let
+  dnsPort = 53;
+in
 {
   imports = [
-    (firewallUtils.mkOpenPortForSubnetRule { port = constants.ports.blockyDns; }) # DNS
+    (firewallUtils.mkOpenPortForSubnetRule { port = dnsPort; })
     (firewallUtils.mkOpenPortForSubnetRule {
-      port = constants.ports.blockyDns;
+      port = dnsPort;
       proto = "udp";
-    }) # DNS
-    (firewallUtils.mkOpenPortForSubnetRule { port = constants.ports.blockyHttp; }) # HTTP API and Prometheus metrics
+    })
+    (firewallUtils.mkOpenPortForSubnetRule { inherit (constants.services.blocky) port; })
   ];
 
   services.blocky = {
@@ -32,9 +35,19 @@
       ];
 
       # Local DNS mappings (replaces need for /etc/hosts)
-      customDNS.mapping = constants.hostIpAddressMap;
+      # Includes host IPs + reverse proxy URLs (*.lab.zamlz.org → Caddy host)
+      customDNS.mapping =
+        let
+          caddyIp = constants.hostIpAddressMap.yggdrasil;
+          serviceDns = builtins.listToAttrs (
+            map (name: {
+              name = "${name}.${constants.domainSuffix}";
+              value = caddyIp;
+            }) (builtins.attrNames constants.services)
+          );
+        in
+        constants.hostIpAddressMap // serviceDns // { ${constants.domainSuffix} = caddyIp; };
 
-      # Ad blocking via blocklists
       blocking = {
         denylists.ads = [
           "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"
@@ -42,13 +55,11 @@
         clientGroupsBlock.default = [ "ads" ];
       };
 
-      # Expose Prometheus metrics at /metrics
       prometheus.enable = true;
 
-      # Listen on port 53 for DNS, port 4000 for HTTP API + metrics
       ports = {
-        dns = constants.ports.blockyDns;
-        http = constants.ports.blockyHttp;
+        dns = dnsPort;
+        http = constants.services.blocky.port;
       };
     };
   };

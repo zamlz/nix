@@ -13,7 +13,7 @@
 }:
 {
   imports = [
-    (firewallUtils.mkOpenPortForSubnetRule { port = constants.ports.grafana; }) # Grafana web UI
+    (firewallUtils.mkOpenPortForSubnetRule { inherit (constants.services.grafana) port; }) # Grafana web UI
   ];
 
   sops.secrets.grafana-secret-key = {
@@ -25,7 +25,7 @@
     settings = {
       server = {
         http_addr = "0.0.0.0";
-        http_port = constants.ports.grafana;
+        http_port = constants.services.grafana.port;
       };
       security.secret_key = "$__file{${config.sops.secrets.grafana-secret-key.path}}";
     };
@@ -33,7 +33,7 @@
       {
         name = "Prometheus";
         type = "prometheus";
-        url = "http://${constants.metricsServer}:${toString constants.ports.prometheusServer}";
+        url = "http://${constants.services.prometheus.host}:${toString constants.services.prometheus.port}";
         isDefault = true;
       }
     ];
