@@ -28,7 +28,7 @@ let
     "alexandria"
   ];
   glancesEntries = map (host: {
-    "Glances (${host})" = {
+    "${host}" = {
       description = "System monitoring";
       href = "http://${host}:${toString constants.ports.glances}";
       icon = "glances";
@@ -55,10 +55,35 @@ in
 
     services = [
       { "Services" = serviceEntries; }
-      { "Monitoring" = glancesEntries; }
+      { "Monitoring (Glances)" = glancesEntries; }
     ];
 
     widgets = [
+      {
+        resources = {
+          cpu = true;
+          memory = true;
+          disk = "/";
+        };
+      }
+      {
+        openmeteo = {
+          label = "Union City";
+          latitude = 37.5934;
+          longitude = -122.0439;
+          units = "imperial";
+        };
+      }
+      {
+        datetime = {
+          locale = "en";
+          format = {
+            dateStyle = "long";
+            timeStyle = "short";
+            hourCycle = "h12";
+          };
+        };
+      }
       {
         search = {
           provider = "duckduckgo";
