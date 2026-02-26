@@ -39,6 +39,7 @@ rec {
       port = 4000;
       meta = {
         name = "Blocky";
+        group = "Utilities";
         description = "DNS server and ad blocker";
         icon = "blocky";
       };
@@ -48,6 +49,7 @@ rec {
       port = 3000;
       meta = {
         name = "Grafana";
+        group = "Utilities";
         description = "Monitoring dashboards";
         icon = "grafana";
       };
@@ -61,6 +63,7 @@ rec {
       port = 2283;
       meta = {
         name = "Immich";
+        group = "Media & Apps";
         description = "Photo and video management";
         icon = "immich";
       };
@@ -70,6 +73,7 @@ rec {
       port = 8096;
       meta = {
         name = "Jellyfin";
+        group = "Media & Apps";
         description = "Media server";
         icon = "jellyfin";
       };
@@ -79,6 +83,7 @@ rec {
       port = 5000;
       meta = {
         name = "Kavita";
+        group = "Media & Apps";
         description = "Book and manga reader";
         icon = "kavita";
       };
@@ -88,6 +93,7 @@ rec {
       port = 8080;
       meta = {
         name = "Open WebUI";
+        group = "Media & Apps";
         description = "Ollama LLM interface";
         icon = "open-webui";
       };
