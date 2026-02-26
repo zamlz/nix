@@ -15,12 +15,18 @@ let
 in
 {
   imports = [
-    (firewallUtils.mkOpenPortForSubnetRule { port = dnsPort; })
+    (firewallUtils.mkOpenPortForSubnetRule {
+      port = dnsPort;
+      subnet = constants.parentSubnet;
+    })
     (firewallUtils.mkOpenPortForSubnetRule {
       port = dnsPort;
       proto = "udp";
+      subnet = constants.parentSubnet;
     })
-    (firewallUtils.mkOpenPortForSubnetRule { inherit (constants.services.blocky) port; })
+    (firewallUtils.mkOpenPortForSubnetRule {
+      inherit (constants.services.blocky) port;
+    })
   ];
 
   services.blocky = {

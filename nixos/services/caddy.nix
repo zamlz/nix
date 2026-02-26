@@ -29,8 +29,14 @@ let
 in
 {
   imports = [
-    (firewallUtils.mkOpenPortForSubnetRule { port = reverseProxyHttpPort; })
-    (firewallUtils.mkOpenPortForSubnetRule { port = reverseProxyHttpsPort; })
+    (firewallUtils.mkOpenPortForSubnetRule {
+      port = reverseProxyHttpPort;
+      subnet = constants.parentSubnet;
+    })
+    (firewallUtils.mkOpenPortForSubnetRule {
+      port = reverseProxyHttpsPort;
+      subnet = constants.parentSubnet;
+    })
   ];
 
   services.caddy = {
