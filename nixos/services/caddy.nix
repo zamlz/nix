@@ -1,20 +1,30 @@
-# Caddy reverse proxy — provides clean URLs for all homelab services.
+# Caddy reverse proxy — provides HTTPS for all homelab services.
 # Deployed on yggdrasil via its configuration.nix.
 #
-# All services are accessible at http://<service>.lab.zamlz.org
+# TLS certificates are obtained via Cloudflare DNS-01 ACME challenge.
+# All services are accessible at https://<service>.lab.zamlz.org
 # DNS entries are managed in Blocky (blocky.nix).
 #
 # Debugging:
 #   systemctl status caddy
 #   journalctl -u caddy
-#   curl -v http://grafana.lab.zamlz.org
-{ constants, firewallUtils, ... }:
+#   curl -v https://grafana.lab.zamlz.org
+{
+  config,
+  pkgs,
+  constants,
+  firewallUtils,
+  ...
+}:
 let
   reverseProxyHttpPort = 80;
   reverseProxyHttpsPort = 443;
 
   mkVhost = backend: {
     extraConfig = ''
+      tls {
+        dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+      }
       reverse_proxy http://${backend}
     '';
   };
@@ -22,7 +32,7 @@ let
   # Generate virtualHosts from services registry
   generatedHosts = builtins.listToAttrs (
     map (name: {
-      name = "http://${name}.${constants.domainSuffix}";
+      name = "${name}.${constants.domainSuffix}";
       value = mkVhost "${constants.publicServices.${name}.host}:${
         toString constants.publicServices.${name}.port
       }";
@@ -41,18 +51,25 @@ in
     })
   ];
 
+  sops.secrets.cloudflare-api-token = { };
+
+  sops.templates.caddy-env = {
+    content = ''
+      CLOUDFLARE_API_TOKEN=${config.sops.placeholder.cloudflare-api-token}
+    '';
+    owner = "caddy";
+  };
+
+  systemd.services.caddy.serviceConfig.EnvironmentFile = config.sops.templates.caddy-env.path;
+
   services.caddy = {
     enable = true;
+    package = pkgs.caddy-with-cloudflare;
     httpPort = reverseProxyHttpPort;
     httpsPort = reverseProxyHttpsPort;
 
-    # Disable HTTPS for now — all services are HTTP-only on the LAN
-    globalConfig = ''
-      auto_https off
-    '';
-
     virtualHosts = generatedHosts // {
-      "http://${constants.domainSuffix}" =
+      "${constants.domainSuffix}" =
         mkVhost "${constants.services.homepage.host}:${toString constants.services.homepage.port}";
     };
   };
