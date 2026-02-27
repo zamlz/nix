@@ -182,9 +182,11 @@ nixos/
   services/
     alexandria-nas-nfs.nix
     blocky.nix
+    caddy.nix
     glances.nix
     grafana.nix
     homepage-dashboard.nix
+    immich.nix
     jellyfin.nix
     kavita.nix
     ollama.nix
