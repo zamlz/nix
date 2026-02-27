@@ -5,8 +5,8 @@
   (final: _prev: {
     navi-scripts = final.callPackage (self + /packages/navi-scripts/package.nix) { };
     caddy-with-cloudflare = final.caddy.withPlugins {
-      plugins = [ "github.com/caddy-dns/cloudflare@v0.0.0-20240703190432-89f16b99c18e" ];
-      hash = "sha256-qFJsoubtQPllBcWqyRgJj1oN9X6u4L+9j1i+uMDiDlw=";
+      plugins = [ "github.com/caddy-dns/cloudflare@v0.2.3" ];
+      hash = "sha256-bJO2RIa6hYsoVl3y2L86EM34Dfkm2tlcEsXn2+COgzo=";
     };
   })
 ]
