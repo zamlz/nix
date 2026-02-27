@@ -26,7 +26,7 @@
     settings = {
       PORT = toString constants.services.pocket-id.port;
       APP_URL = "http://pocket-id.${constants.domainSuffix}";
-      TRUST_PROXY = "true";
+      TRUST_PROXY = true;
     };
     credentials = {
       ENCRYPTION_KEY = config.sops.secrets.pocket-id-encryption-key.path;
