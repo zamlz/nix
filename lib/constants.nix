@@ -34,6 +34,11 @@ rec {
 
   # Service registry
   services = {
+    caddy = {
+      host = "yggdrasil";
+      httpPort = 80;
+      httpsPort = 443;
+    };
     blocky = {
       host = "yggdrasil";
       port = 4000;

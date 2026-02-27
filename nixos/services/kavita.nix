@@ -1,9 +1,10 @@
 # Kavita — book and manga reader.
+# Accessed via Caddy reverse proxy.
 #
 # Debugging:
 #   systemctl status kavita
 #   journalctl -u kavita
-#   Access http://<host>:5000 in a browser
+#   Access https://kavita.lab.zamlz.org in a browser
 #
 # Tip: nix run nixpkgs#mangal mini -- --format cbz -d
 {
@@ -14,7 +15,10 @@
 }:
 {
   imports = [
-    (firewallUtils.mkOpenPortForSubnetRule { inherit (constants.services.kavita) port; }) # Kavita web UI
+    (firewallUtils.mkOpenPortForHostsRule {
+      inherit (constants.services.kavita) port;
+      hosts = [ constants.services.caddy.host ];
+    })
   ];
 
   sops.secrets.kavita-token-key = {

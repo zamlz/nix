@@ -24,8 +24,9 @@ in
       proto = "udp";
       subnet = constants.parentSubnet;
     })
-    (firewallUtils.mkOpenPortForSubnetRule {
+    (firewallUtils.mkOpenPortForHostsRule {
       inherit (constants.services.blocky) port;
+      hosts = [ constants.services.prometheus.host ];
     })
   ];
 

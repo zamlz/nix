@@ -12,7 +12,10 @@
 }:
 {
   imports = [
-    (firewallUtils.mkOpenPortForSubnetRule { inherit (constants.services.immich) port; })
+    (firewallUtils.mkOpenPortForHostsRule {
+      inherit (constants.services.immich) port;
+      hosts = [ constants.services.caddy.host ];
+    })
   ];
 
   sops.secrets.immich-oidc-client-secret = { };

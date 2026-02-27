@@ -1,10 +1,9 @@
 # Grafana dashboard — visualizes Prometheus metrics.
-# Deployed on yggdrasil (10.69.8.3).
+# Accessed via Caddy reverse proxy.
 #
 # Debugging:
 #   systemctl status grafana
-#   Access http://yggdrasil:3000 in a browser
-#   Default login: admin / admin (change on first login)
+#   Access https://grafana.lab.zamlz.org in a browser
 {
   config,
   constants,
@@ -13,7 +12,10 @@
 }:
 {
   imports = [
-    (firewallUtils.mkOpenPortForSubnetRule { inherit (constants.services.grafana) port; }) # Grafana web UI
+    (firewallUtils.mkOpenPortForHostsRule {
+      inherit (constants.services.grafana) port;
+      hosts = [ constants.services.caddy.host ];
+    })
   ];
 
   sops.secrets.grafana-secret-key = {

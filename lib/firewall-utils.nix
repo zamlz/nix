@@ -25,4 +25,34 @@ in
         '';
       };
     };
+
+  # Generate iptables firewall rules to open a port for specific hosts.
+  # Uses the hostIpAddressMap from constants to resolve hostnames to IPs.
+  #
+  # Usage: mkOpenPortForHostsRule { port = 2283; hosts = [ "yggdrasil" ]; }
+  #        mkOpenPortForHostsRule { port = 9090; hosts = [ "yggdrasil" "solaris" ]; }
+  mkOpenPortForHostsRule =
+    {
+      port,
+      hosts,
+      proto ? "tcp",
+    }:
+    let
+      rules = map (
+        host:
+        let
+          hostIp = constants.hostIpAddressMap.${host};
+        in
+        {
+          add = "iptables -I nixos-fw -s ${hostIp} -p ${proto} --dport ${toString port} -j nixos-fw-accept";
+          remove = "iptables -D nixos-fw -s ${hostIp} -p ${proto} --dport ${toString port} -j nixos-fw-accept || true";
+        }
+      ) hosts;
+    in
+    {
+      networking.firewall = {
+        extraCommands = builtins.concatStringsSep "\n" (map (r: r.add) rules);
+        extraStopCommands = builtins.concatStringsSep "\n" (map (r: r.remove) rules);
+      };
+    };
 }

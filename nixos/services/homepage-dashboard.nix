@@ -1,9 +1,9 @@
 # Homepage dashboard — centralized service overview for the homelab.
-# Deployed on yggdrasil via Caddy at http://lab.zamlz.org.
+# Accessed via Caddy reverse proxy.
 #
 # Debugging:
 #   systemctl status homepage-dashboard
-#   curl http://lab.zamlz.org
+#   curl https://lab.zamlz.org
 {
   config,
   constants,
@@ -48,7 +48,10 @@ let
 in
 {
   imports = [
-    (firewallUtils.mkOpenPortForSubnetRule { inherit (constants.services.homepage) port; })
+    (firewallUtils.mkOpenPortForHostsRule {
+      inherit (constants.services.homepage) port;
+      hosts = [ constants.services.caddy.host ];
+    })
   ];
 
   services.homepage-dashboard = {

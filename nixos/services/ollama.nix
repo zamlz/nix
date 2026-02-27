@@ -6,7 +6,10 @@
 }:
 {
   imports = [
-    (firewallUtils.mkOpenPortForSubnetRule { inherit (constants.services.openwebui) port; }) # Open WebUI
+    (firewallUtils.mkOpenPortForHostsRule {
+      inherit (constants.services.openwebui) port;
+      hosts = [ constants.services.caddy.host ];
+    })
   ];
 
   services.ollama = {

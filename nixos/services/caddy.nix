@@ -17,8 +17,7 @@
   ...
 }:
 let
-  reverseProxyHttpPort = 80;
-  reverseProxyHttpsPort = 443;
+  inherit (constants.services.caddy) httpPort httpsPort;
 
   mkVhost = backend: {
     extraConfig = ''
@@ -42,11 +41,11 @@ in
 {
   imports = [
     (firewallUtils.mkOpenPortForSubnetRule {
-      port = reverseProxyHttpPort;
+      port = httpPort;
       subnet = constants.parentSubnet;
     })
     (firewallUtils.mkOpenPortForSubnetRule {
-      port = reverseProxyHttpsPort;
+      port = httpsPort;
       subnet = constants.parentSubnet;
     })
   ];
@@ -65,8 +64,7 @@ in
   services.caddy = {
     enable = true;
     package = pkgs.caddy-with-cloudflare;
-    httpPort = reverseProxyHttpPort;
-    httpsPort = reverseProxyHttpsPort;
+    inherit httpPort httpsPort;
 
     virtualHosts = generatedHosts // {
       "${constants.domainSuffix}" =

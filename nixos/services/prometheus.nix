@@ -1,5 +1,5 @@
 # Prometheus metrics collector — scrapes node-exporter and blocky metrics.
-# Deployed on yggdrasil (10.69.8.3).
+# Accessed by Grafana only.
 #
 # Debugging:
 #   systemctl status prometheus
@@ -8,7 +8,10 @@
 { constants, firewallUtils, ... }:
 {
   imports = [
-    (firewallUtils.mkOpenPortForSubnetRule { inherit (constants.services.prometheus) port; }) # Prometheus web UI and API
+    (firewallUtils.mkOpenPortForHostsRule {
+      inherit (constants.services.prometheus) port;
+      hosts = [ constants.services.grafana.host ];
+    })
   ];
 
   services.prometheus = {

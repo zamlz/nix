@@ -1,5 +1,5 @@
 # Pocket ID — passkey-based OIDC provider for SSO across homelab services.
-# Deployed on yggdrasil, accessible via Caddy at https://pocket-id.lab.zamlz.org.
+# Accessed via Caddy reverse proxy.
 #
 # Debugging:
 #   systemctl status pocket-id
@@ -14,7 +14,10 @@
 }:
 {
   imports = [
-    (firewallUtils.mkOpenPortForSubnetRule { inherit (constants.services.pocket-id) port; })
+    (firewallUtils.mkOpenPortForHostsRule {
+      inherit (constants.services.pocket-id) port;
+      hosts = [ constants.services.caddy.host ];
+    })
   ];
 
   sops.secrets.pocket-id-encryption-key = {

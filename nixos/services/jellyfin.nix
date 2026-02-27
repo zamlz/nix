@@ -1,16 +1,16 @@
 # Jellyfin media server — self-hosted Netflix for movies, shows, and more.
+# Accessed via Caddy reverse proxy.
 #
 # Debugging:
 #   systemctl status jellyfin
 #   journalctl -u jellyfin
-#   Access http://<host>:8096 in a browser
+#   Access https://jellyfin.lab.zamlz.org in a browser
 { constants, firewallUtils, ... }:
 {
   imports = [
-    # Wider subnet to include TV and other devices
-    (firewallUtils.mkOpenPortForSubnetRule {
+    (firewallUtils.mkOpenPortForHostsRule {
       inherit (constants.services.jellyfin) port;
-      subnet = constants.parentSubnet;
+      hosts = [ constants.services.caddy.host ];
     })
   ];
 

@@ -7,7 +7,10 @@
 { constants, firewallUtils, ... }:
 {
   imports = [
-    (firewallUtils.mkOpenPortForSubnetRule { port = constants.ports.prometheusNodeExporter; }) # Node exporter metrics
+    (firewallUtils.mkOpenPortForHostsRule {
+      port = constants.ports.prometheusNodeExporter;
+      hosts = [ constants.services.prometheus.host ];
+    })
   ];
 
   services.prometheus.exporters.node = {
