@@ -3,7 +3,7 @@
 #
 # Debugging:
 #   systemctl status pocket-id
-#   Access http://pocket-id.lab.zamlz.org in a browser
+#   Access https://pocket-id.lab.zamlz.org in a browser
 #
 # After first deploy, visit the URL to register the initial admin user + passkey.
 {
