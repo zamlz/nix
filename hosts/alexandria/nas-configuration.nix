@@ -1,7 +1,13 @@
 { constants, firewallUtils, ... }:
+let
+  nfsClientIps = map (host: constants.hostIpAddressMap.${host}) constants.nfsClients;
+in
 {
   imports = [
-    (firewallUtils.mkOpenPortForSubnetRule { port = constants.ports.nfs; }) # NFS server
+    (firewallUtils.mkOpenPortForHostsRule {
+      port = constants.ports.nfs;
+      hosts = constants.nfsClients;
+    })
   ];
 
   boot = {
@@ -23,10 +29,15 @@
 
   services.nfs.server = {
     enable = true;
-    exports = ''
-      /export/nas       ${constants.lanSubnet}(rw,fsid=0,sync,no_subtree_check,root_squash)
-      /export/nas/media ${constants.lanSubnet}(rw,nohide,sync,no_subtree_check,root_squash)
-    '';
+    exports =
+      let
+        mkExportLine =
+          path: opts: builtins.concatStringsSep " " (map (ip: "${path} ${ip}(${opts})") nfsClientIps);
+      in
+      ''
+        ${mkExportLine "/export/nas" "rw,fsid=0,sync,no_subtree_check,root_squash"}
+        ${mkExportLine "/export/nas/media" "rw,nohide,sync,no_subtree_check,root_squash"}
+      '';
   };
 
   # NOTE: Uncomment this to allow automounting this nas

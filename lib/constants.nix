@@ -29,6 +29,11 @@ rec {
   };
 
   nasHost = "alexandria";
+  nfsClients = [
+    "yggdrasil"
+    "xynthar"
+    "solaris"
+  ];
 
   domainSuffix = "lab.zamlz.org";
 
