@@ -98,6 +98,16 @@ rec {
         icon = "open-webui";
       };
     };
+    pocket-id = {
+      host = "yggdrasil";
+      port = 1411;
+      meta = {
+        name = "Pocket ID";
+        group = "Utilities";
+        description = "Passkey authentication provider";
+        icon = "pocket-id";
+      };
+    };
     prometheus = {
       host = "yggdrasil";
       port = 9090;

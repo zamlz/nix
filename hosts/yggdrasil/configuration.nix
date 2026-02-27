@@ -17,6 +17,7 @@
     (self + /nixos/services/prometheus.nix)
     (self + /nixos/services/grafana.nix)
     (self + /nixos/services/jellyfin.nix)
+    (self + /nixos/services/pocket-id.nix)
     (self + /nixos/services/homepage-dashboard.nix)
     (self + /nixos/services/caddy.nix)
   ];
