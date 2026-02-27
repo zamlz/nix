@@ -45,6 +45,7 @@
         api_url = "https://pocket-id.${constants.domainSuffix}/api/oidc/userinfo";
         allow_sign_up = false;
         oauth_allow_insecure_email_lookup = true;
+        skip_org_role_sync = true;
       };
     };
     provision.datasources.settings.datasources = [
