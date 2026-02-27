@@ -13,6 +13,7 @@
 let
   hostname = config.networking.hostName;
   hostIp = constants.hostIpAddressMap.${hostname};
+  backgroundUrl = "https://i.ibb.co/R4bb12zv/background.webp";
 
   # Build a service entry for the dashboard
   mkServiceEntry = name: {
@@ -70,7 +71,7 @@ in
       hideVersion = true;
       disableUpdateCheck = true;
       background = {
-        image = "https://i.ibb.co/fYMvM3yf/farm-house-upscaled.jpg";
+        image = backgroundUrl;
         opacity = 30;
       };
       layout = {
