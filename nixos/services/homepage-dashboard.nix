@@ -6,16 +6,11 @@
 #   curl http://lab.zamlz.org
 {
   config,
-  pkgs,
   constants,
   firewallUtils,
   ...
 }:
 let
-  backgroundImage = pkgs.fetchurl {
-    url = "https://i.ibb.co/fYMvM3yf/farm-house-upscaled.jpg";
-    hash = "sha256-/yEA08ee9i3MLGh4gpXqrpCDvU5vmZ33NsqjnSAcpiw=";
-  };
   hostname = config.networking.hostName;
   hostIp = constants.hostIpAddressMap.${hostname};
 
@@ -55,11 +50,6 @@ in
     (firewallUtils.mkOpenPortForSubnetRule { inherit (constants.services.homepage) port; })
   ];
 
-  system.activationScripts.homepage-background = ''
-    mkdir -p /var/lib/homepage-dashboard/images
-    cp -f ${backgroundImage} /var/lib/homepage-dashboard/images/background.jpg
-  '';
-
   services.homepage-dashboard = {
     enable = true;
     listenPort = constants.services.homepage.port;
@@ -80,7 +70,7 @@ in
       hideVersion = true;
       disableUpdateCheck = true;
       background = {
-        image = "/images/background.jpg";
+        image = "https://i.ibb.co/fYMvM3yf/farm-house-upscaled.jpg";
         opacity = 30;
       };
       layout = {
