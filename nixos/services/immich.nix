@@ -4,11 +4,18 @@
 #   systemctl status immich
 #   journalctl -u immich
 #   Access http://<host>:2283 in a browser
-{ constants, firewallUtils, ... }:
+{
+  config,
+  constants,
+  firewallUtils,
+  ...
+}:
 {
   imports = [
     (firewallUtils.mkOpenPortForSubnetRule { inherit (constants.services.immich) port; })
   ];
+
+  sops.secrets.immich-oidc-client-secret = { };
 
   services.immich = {
     enable = true;
@@ -16,6 +23,14 @@
     host = "0.0.0.0";
     openFirewall = false;
     accelerationDevices = [ "/dev/dri/renderD128" ];
+    settings.oauth = {
+      enabled = true;
+      issuerUrl = "https://pocket-id.${constants.domainSuffix}/.well-known/openid-configuration";
+      clientId = "69e15412-f80d-423f-a8cb-6ac0d693d9f0";
+      clientSecret._secret = config.sops.secrets.immich-oidc-client-secret.path;
+      buttonText = "Login with Pocket ID";
+      autoRegister = false;
+    };
   };
 
   # Allows immich to access devices for hardware acceleration
