@@ -33,18 +33,13 @@ let
     );
 
   # Per-host Glances entries
-  glancesHosts = [
-    "yggdrasil"
-    "solaris"
-    "alexandria"
-  ];
   glancesEntries = map (host: {
     "${host}" = {
       description = "System monitoring";
-      href = "http://${host}:${toString constants.ports.glances}";
+      href = "https://${host}.${constants.domainSuffix}";
       icon = "glances";
     };
-  }) glancesHosts;
+  }) constants.glancesHosts;
 in
 {
   imports = [

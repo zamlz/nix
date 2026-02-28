@@ -34,6 +34,11 @@ rec {
     "xynthar"
     "solaris"
   ];
+  glancesHosts = [
+    "yggdrasil"
+    "solaris"
+    "alexandria"
+  ];
 
   domainSuffix = "lab.zamlz.org";
 
@@ -117,6 +122,10 @@ rec {
         description = "Passkey authentication provider";
         icon = "pocket-id";
       };
+    };
+    oauth2-proxy = {
+      host = "yggdrasil";
+      port = 4180;
     };
     prometheus = {
       host = "yggdrasil";

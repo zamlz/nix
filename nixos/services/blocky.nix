@@ -45,15 +45,27 @@ in
       # Includes host IPs + reverse proxy URLs (*.lab.zamlz.org → Caddy host)
       customDNS.mapping =
         let
-          caddyIp = constants.hostIpAddressMap.yggdrasil;
+          caddyIp = constants.hostIpAddressMap.${constants.services.caddy.host};
           serviceDns = builtins.listToAttrs (
             map (name: {
               name = "${name}.${constants.domainSuffix}";
               value = caddyIp;
             }) (builtins.attrNames constants.publicServices)
           );
+          glancesDns = builtins.listToAttrs (
+            map (host: {
+              name = "${host}.${constants.domainSuffix}";
+              value = caddyIp;
+            }) constants.glancesHosts
+          );
         in
-        constants.hostIpAddressMap // serviceDns // { ${constants.domainSuffix} = caddyIp; };
+        constants.hostIpAddressMap
+        // serviceDns
+        // glancesDns
+        // {
+          ${constants.domainSuffix} = caddyIp;
+          "oauth.${constants.domainSuffix}" = caddyIp;
+        };
 
       blocking = {
         denylists.ads = [
