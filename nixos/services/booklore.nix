@@ -28,7 +28,7 @@
     };
     templates.booklore-env = {
       content = ''
-        DATABASE_URL=jdbc:mariadb://127.0.0.1:3306/booklore
+        DATABASE_URL=jdbc:mariadb://booklore-mariadb:3306/booklore
         DATABASE_USERNAME=booklore
         DATABASE_PASSWORD=${config.sops.placeholder.booklore-db-password}
       '';
@@ -41,6 +41,24 @@
         MARIADB_PASSWORD=${config.sops.placeholder.booklore-db-password}
       '';
     };
+  };
+
+  # Create a dedicated Docker network so booklore and mariadb can
+  # communicate by container name without using host networking.
+  systemd.services = {
+    docker-network-booklore = {
+      description = "Create Docker network for Booklore";
+      after = [ "docker.service" ];
+      wantedBy = [ "multi-user.target" ];
+      serviceConfig = {
+        Type = "oneshot";
+        RemainAfterExit = true;
+        ExecStart = "${config.virtualisation.docker.package}/bin/docker network create booklore || true";
+        ExecStop = "${config.virtualisation.docker.package}/bin/docker network rm booklore || true";
+      };
+    };
+    docker-booklore.after = [ "docker-network-booklore.service" ];
+    docker-booklore-mariadb.after = [ "docker-network-booklore.service" ];
   };
 
   virtualisation.oci-containers.containers = {
@@ -58,8 +76,9 @@
         "/mnt/media/books:/books:ro"
         "booklore-bookdrop:/bookdrop"
       ];
+      ports = [ "${toString constants.services.booklore.port}:6060" ];
       dependsOn = [ "booklore-mariadb" ];
-      extraOptions = [ "--network=host" ];
+      extraOptions = [ "--network=booklore" ];
     };
 
     booklore-mariadb = {
@@ -68,7 +87,7 @@
       volumes = [
         "booklore-mariadb:/var/lib/mysql"
       ];
-      extraOptions = [ "--network=host" ];
+      extraOptions = [ "--network=booklore" ];
     };
   };
 }

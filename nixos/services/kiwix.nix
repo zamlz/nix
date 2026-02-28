@@ -23,7 +23,7 @@
     image = "ghcr.io/kiwix/kiwix-serve:3.8.1";
     ports = [ "${toString constants.services.kiwix.port}:8080" ];
     volumes = [
-      "/mnt/media/backups/wikipedia:/data:ro"
+      "/mnt/media/backups/zim:/data:ro"
     ];
     cmd = [ "*.zim" ];
   };
