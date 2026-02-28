@@ -35,6 +35,7 @@
     redirectURL = "https://oauth.${constants.domainSuffix}/oauth2/callback";
     cookie.domain = ".${constants.domainSuffix}";
 
+    passHostHeader = false;
     extraConfig = {
       oidc-issuer-url = "https://pocket-id.${constants.domainSuffix}";
       reverse-proxy = true;
@@ -43,6 +44,7 @@
       cookie-samesite = "lax";
       skip-provider-button = true;
       email-domain = "*";
+      proxy-websockets = false;
     };
 
     keyFile = config.sops.templates.oauth2-proxy-env.path;
