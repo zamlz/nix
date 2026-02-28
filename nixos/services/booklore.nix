@@ -50,12 +50,13 @@
       description = "Create Docker network for Booklore";
       after = [ "docker.service" ];
       wantedBy = [ "multi-user.target" ];
+      path = [ config.virtualisation.docker.package ];
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
-        ExecStart = "${config.virtualisation.docker.package}/bin/docker network create booklore || true";
-        ExecStop = "${config.virtualisation.docker.package}/bin/docker network rm booklore || true";
       };
+      script = "docker network inspect booklore >/dev/null 2>&1 || docker network create booklore";
+      postStop = "docker network rm booklore || true";
     };
     docker-booklore.after = [ "docker-network-booklore.service" ];
     docker-booklore-mariadb.after = [ "docker-network-booklore.service" ];
