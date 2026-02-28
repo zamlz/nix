@@ -73,8 +73,14 @@ in
         opacity = 30;
       };
       layout = {
-        "Media & Apps".columns = 2;
-        "Utilities".columns = 2;
+        "Media & Apps" = {
+          columns = 2;
+          style = "row";
+        };
+        "Utilities" = {
+          columns = 2;
+          style = "row";
+        };
         "Monitoring" = {
           columns = 3;
           style = "row";
