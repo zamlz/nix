@@ -57,6 +57,8 @@ in
         "--set-xauthrequest=true"
         "--skip-provider-button=true"
         "--email-domain=*"
+        "--pass-host-header=false"
+        "--proxy-websockets=false"
       ];
       EnvironmentFile = config.sops.templates.oauth2-proxy-env.path;
       Restart = "on-failure";
