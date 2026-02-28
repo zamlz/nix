@@ -21,6 +21,7 @@
     (self + /nixos/services/homepage-dashboard.nix)
     (self + /nixos/services/bentopdf.nix)
     (self + /nixos/services/booklore.nix)
+    (self + /nixos/services/kiwix.nix)
     (self + /nixos/services/caddy.nix)
   ];
 

@@ -143,6 +143,16 @@ rec {
         icon = "bentopdf";
       };
     };
+    kiwix = {
+      host = "yggdrasil";
+      port = 8086;
+      meta = {
+        name = "Kiwix";
+        group = "Media & Apps";
+        description = "Offline Wikipedia mirror";
+        icon = "kiwix";
+      };
+    };
     prometheus = {
       host = "yggdrasil";
       port = 9090;
