@@ -50,6 +50,8 @@
       environment = {
         TZ = "America/Los_Angeles";
         DISK_TYPE = "NETWORK";
+        USER_ID = "0";
+        GROUP_ID = "0";
       };
       volumes = [
         "booklore-data:/app/data"
