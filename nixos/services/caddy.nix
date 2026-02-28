@@ -18,7 +18,9 @@
 }:
 let
   inherit (constants.services.caddy) httpPort httpsPort;
-  oauth2ProxyAddr = "127.0.0.1:${toString constants.services.oauth2-proxy.port}";
+
+  # Allowed IPs for glances (LAN subnet)
+  allowedSubnet = constants.lanSubnet;
 
   tls = ''
     tls {
@@ -33,15 +35,11 @@ let
     '';
   };
 
-  mkProtectedVhost = backend: {
+  mkRestrictedVhost = backend: {
     extraConfig = ''
       ${tls}
-      forward_auth http://${oauth2ProxyAddr} {
-        uri /oauth2/auth
-        header_up X-Real-IP {remote_host}
-        header_up X-Forwarded-Uri {uri}
-        copy_headers X-Auth-Request-User X-Auth-Request-Email
-      }
+      @blocked not remote_ip ${allowedSubnet}
+      respond @blocked 403
       reverse_proxy http://${backend}
     '';
   };
@@ -56,11 +54,11 @@ let
     }) (builtins.attrNames constants.publicServices)
   );
 
-  # Generate Glances vhosts with forward auth
+  # Generate Glances vhosts with IP restriction
   glancesHosts = builtins.listToAttrs (
     map (host: {
       name = "${host}.${constants.domainSuffix}";
-      value = mkProtectedVhost "${host}:${toString constants.ports.glances}";
+      value = mkRestrictedVhost "${host}:${toString constants.ports.glances}";
     }) constants.glancesHosts
   );
 in
@@ -98,12 +96,6 @@ in
       // {
         "${constants.domainSuffix}" =
           mkVhost "${constants.services.homepage.host}:${toString constants.services.homepage.port}";
-        "oauth.${constants.domainSuffix}" = {
-          extraConfig = ''
-            ${tls}
-            reverse_proxy http://${oauth2ProxyAddr}
-          '';
-        };
       };
   };
 }

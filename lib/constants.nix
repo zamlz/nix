@@ -123,10 +123,6 @@ rec {
         icon = "pocket-id";
       };
     };
-    oauth2-proxy = {
-      host = "yggdrasil";
-      port = 4180;
-    };
     prometheus = {
       host = "yggdrasil";
       port = 9090;

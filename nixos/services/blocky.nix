@@ -64,7 +64,6 @@ in
         // glancesDns
         // {
           ${constants.domainSuffix} = caddyIp;
-          "oauth.${constants.domainSuffix}" = caddyIp;
         };
 
       blocking = {
