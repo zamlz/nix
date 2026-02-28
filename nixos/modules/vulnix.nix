@@ -24,18 +24,24 @@ in
       StateDirectory = "vulnix";
     };
     script = ''
-      # Run vulnix and capture output (exits non-zero when CVEs found)
-      report=$(vulnix --system 2>&1) || true
-      echo "$report" > ${reportDir}/report.txt
+            # Run vulnix and capture output (exits non-zero when CVEs found)
+            report=$(vulnix --system 2>&1) || true
+            echo "$report" > ${reportDir}/report.txt
 
-      # Count unique CVEs from the report
-      cve_count=$(echo "$report" | grep -c '^CVE-' || true)
+            # Count unique CVEs from the report
+            cve_count=$(echo "$report" | grep -oP 'CVE-\d+-\d+' | sort -u | wc -l)
+            # Count affected packages (lines starting with dashes)
+            pkg_count=$(echo "$report" | grep -c '^----' || true)
+            pkg_count=$((pkg_count / 2))
 
-      # Write Prometheus metric
-      cat > ${textfileDir}/vulnix.prom <<EOF
-      # HELP vulnix_cve_count Number of CVEs found by vulnix scan
+            # Write Prometheus metrics
+            cat > ${textfileDir}/vulnix.prom <<EOF
+      # HELP vulnix_cve_count Number of unique CVEs found by vulnix scan
       # TYPE vulnix_cve_count gauge
       vulnix_cve_count $cve_count
+      # HELP vulnix_vulnerable_package_count Number of packages with known CVEs
+      # TYPE vulnix_vulnerable_package_count gauge
+      vulnix_vulnerable_package_count $pkg_count
       EOF
     '';
   };
