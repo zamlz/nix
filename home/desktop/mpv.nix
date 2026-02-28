@@ -1,10 +1,6 @@
-{
-  pkgs,
-  ...
-}:
-{
+_: {
   programs.mpv = {
     enable = true;
-    scripts = [ pkgs.mpvScripts.mpv-cheatsheet ];
+    # scripts = [ pkgs.mpvScripts.mpv-cheatsheet ]; # broken in nixpkgs: browserify missing npm
   };
 }

@@ -7,8 +7,18 @@
     enable = true;
     defaultEditor = true;
     extraPackages = with pkgs; [
-      marksman
-      python311Packages.python-lsp-server
+      nixd
+      python3Packages.python-lsp-server
+      rust-analyzer
+      marksman # markdown
+      bash-language-server
+      shellcheck
+      yaml-language-server
+      taplo # toml
+      vscode-langservers-extracted # HTML, CSS, JSON
+      # gopls  # Go
+      # lua-language-server
+      # typescript-language-server
     ];
     settings = {
       theme = "navi";
