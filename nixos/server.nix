@@ -19,6 +19,7 @@
     ./modules/shell.nix
     ./modules/time.nix
     ./modules/users.nix
+    ./modules/vulnix.nix
     (self + /nixos/services/prometheus-node-exporter.nix)
   ];
 }

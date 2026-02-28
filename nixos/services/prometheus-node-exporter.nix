@@ -4,7 +4,11 @@
 # Debugging:
 #   systemctl status prometheus-node-exporter
 #   curl http://localhost:9100/metrics
+#   ls /var/lib/prometheus-node-exporter/textfile/  # custom .prom files
 { constants, firewallUtils, ... }:
+let
+  textfileDir = "/var/lib/prometheus-node-exporter/textfile";
+in
 {
   imports = [
     (firewallUtils.mkOpenPortForHostsRule {
@@ -13,8 +17,15 @@
     })
   ];
 
+  systemd.tmpfiles.rules = [
+    "d ${textfileDir} 0755 root root -"
+  ];
+
   services.prometheus.exporters.node = {
     enable = true;
     openFirewall = false;
+    extraFlags = [
+      "--collector.textfile.directory=${textfileDir}"
+    ];
   };
 }
