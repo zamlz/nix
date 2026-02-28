@@ -2,6 +2,10 @@
 # Runs on yggdrasil (localhost only), used by Caddy to gate access to
 # services that don't support OIDC natively (e.g. Glances).
 #
+# Note: We use a raw systemd service instead of the NixOS module because
+# the module always injects --pass-host-header and --proxy-websockets flags
+# which are incompatible with static upstreams used in forward auth mode.
+#
 # Debugging:
 #   systemctl status oauth2-proxy
 #   journalctl -u oauth2-proxy
@@ -9,8 +13,12 @@
 {
   config,
   constants,
+  pkgs,
   ...
 }:
+let
+  port = toString constants.services.oauth2-proxy.port;
+in
 {
   sops = {
     secrets = {
@@ -25,28 +33,34 @@
     };
   };
 
-  services.oauth2-proxy = {
-    enable = true;
-    provider = "oidc";
-    clientID = "72ba6487-5eac-423b-b622-2e088499fe13";
-    scope = "openid email profile";
-    httpAddress = "127.0.0.1:${toString constants.services.oauth2-proxy.port}";
-    upstream = [ "static://202" ];
-    redirectURL = "https://oauth.${constants.domainSuffix}/oauth2/callback";
-    cookie.domain = ".${constants.domainSuffix}";
+  systemd.services.oauth2-proxy = {
+    description = "OAuth2 Proxy";
+    after = [
+      "network.target"
+    ];
+    wantedBy = [ "multi-user.target" ];
 
-    passHostHeader = false;
-    extraConfig = {
-      oidc-issuer-url = "https://pocket-id.${constants.domainSuffix}";
-      reverse-proxy = true;
-      set-xauthrequest = true;
-      cookie-secure = true;
-      cookie-samesite = "lax";
-      skip-provider-button = true;
-      email-domain = "*";
-      proxy-websockets = false;
+    serviceConfig = {
+      ExecStart = builtins.concatStringsSep " " [
+        "${pkgs.oauth2-proxy}/bin/oauth2-proxy"
+        "--provider=oidc"
+        "--client-id=72ba6487-5eac-423b-b622-2e088499fe13"
+        "--oidc-issuer-url=https://pocket-id.${constants.domainSuffix}"
+        "--scope=openid email profile"
+        "--http-address=127.0.0.1:${port}"
+        "--upstream=static://202"
+        "--redirect-url=https://oauth.${constants.domainSuffix}/oauth2/callback"
+        "--cookie-domain=.${constants.domainSuffix}"
+        "--cookie-secure=true"
+        "--cookie-samesite=lax"
+        "--reverse-proxy=true"
+        "--set-xauthrequest=true"
+        "--skip-provider-button=true"
+        "--email-domain=*"
+      ];
+      EnvironmentFile = config.sops.templates.oauth2-proxy-env.path;
+      Restart = "on-failure";
+      DynamicUser = true;
     };
-
-    keyFile = config.sops.templates.oauth2-proxy-env.path;
   };
 }
