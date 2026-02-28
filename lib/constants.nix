@@ -123,6 +123,26 @@ rec {
         icon = "pocket-id";
       };
     };
+    booklore = {
+      host = "yggdrasil";
+      port = 6060;
+      meta = {
+        name = "Booklore";
+        group = "Media & Apps";
+        description = "Digital book library";
+        icon = "booklore";
+      };
+    };
+    bentopdf = {
+      host = "yggdrasil";
+      port = 8085;
+      meta = {
+        name = "BentoPDF";
+        group = "Utilities";
+        description = "Privacy-first PDF toolkit";
+        icon = "bentopdf";
+      };
+    };
     prometheus = {
       host = "yggdrasil";
       port = 9090;

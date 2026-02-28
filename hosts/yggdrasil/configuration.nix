@@ -19,6 +19,8 @@
     (self + /nixos/services/jellyfin.nix)
     (self + /nixos/services/pocket-id.nix)
     (self + /nixos/services/homepage-dashboard.nix)
+    (self + /nixos/services/bentopdf.nix)
+    (self + /nixos/services/booklore.nix)
     (self + /nixos/services/caddy.nix)
   ];
 
