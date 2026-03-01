@@ -30,6 +30,7 @@
     (self + /nixos/services/speedtest-tracker.nix)
     (self + /nixos/services/forgejo.nix)
     (self + /nixos/services/pairdrop.nix)
+    (self + /nixos/services/tailscale-subnet-router.nix)
     (self + /nixos/services/caddy.nix)
   ];
 
