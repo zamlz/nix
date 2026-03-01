@@ -81,6 +81,10 @@ in
           columns = 2;
           style = "row";
         };
+        "Media Management" = {
+          columns = 2;
+          style = "row";
+        };
         "Monitoring" = {
           columns = 3;
           style = "row";
@@ -91,6 +95,7 @@ in
     services = [
       { "Media & Apps" = servicesByGroup "Media & Apps"; }
       { "Utilities" = servicesByGroup "Utilities"; }
+      { "Media Management" = servicesByGroup "Media Management"; }
       { "Monitoring" = glancesEntries; }
     ];
 

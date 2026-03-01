@@ -153,6 +153,26 @@ rec {
         icon = "kiwix";
       };
     };
+    cyberchef = {
+      host = "yggdrasil";
+      port = 8087;
+      meta = {
+        name = "CyberChef";
+        group = "Utilities";
+        description = "Data encoding, conversion and analysis toolkit";
+        icon = "cyberchef";
+      };
+    };
+    pinchflat = {
+      host = "yggdrasil";
+      port = 8945;
+      meta = {
+        name = "Pinchflat";
+        group = "Media Management";
+        description = "YouTube content archiver";
+        icon = "pinchflat";
+      };
+    };
     prometheus = {
       host = "yggdrasil";
       port = 9090;
