@@ -14,12 +14,7 @@
 #   docker logs navidrome
 #   curl http://localhost:4533
 #   Access https://navidrome.lab.zamlz.org in a browser
-{
-  config,
-  constants,
-  firewallUtils,
-  ...
-}:
+{ constants, firewallUtils, ... }:
 {
   imports = [
     (firewallUtils.mkOpenPortForHostsRule {
@@ -28,25 +23,13 @@
     })
   ];
 
-  sops.secrets.navidrome-oidc-client-secret = { };
-
-  sops.templates.navidrome-env = {
-    content = ''
-      ND_OIDC_CLIENTSECRET=${config.sops.placeholder.navidrome-oidc-client-secret}
-    '';
-  };
-
   virtualisation.oci-containers.containers.navidrome = {
     image = "ghcr.io/navidrome/navidrome:latest";
-    environmentFiles = [ config.sops.templates.navidrome-env.path ];
     environment = {
       ND_MUSICFOLDER = "/music";
       ND_PORT = toString constants.services.navidrome.port;
       ND_LOGLEVEL = "info";
       ND_ENABLEINSIGHTSCOLLECTOR = "false";
-      ND_OIDC_ENABLED = "true";
-      ND_OIDC_CLIENTID = "a24f6c9c-d8af-4f36-948f-6d148fc2e9ac";
-      ND_OIDC_DISCOVERYURL = "https://pocket-id.${constants.domainSuffix}/.well-known/openid-configuration";
     };
     ports = [ "${toString constants.services.navidrome.port}:${toString constants.services.navidrome.port}" ];
     volumes = [
