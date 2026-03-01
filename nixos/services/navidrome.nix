@@ -43,6 +43,7 @@
       ND_MUSICFOLDER = "/music";
       ND_PORT = toString constants.services.navidrome.port;
       ND_LOGLEVEL = "info";
+      ND_ENABLEINSIGHTSCOLLECTOR = "false";
       ND_OIDC_ENABLED = "true";
       ND_OIDC_CLIENTID = "a24f6c9c-d8af-4f36-948f-6d148fc2e9ac";
       ND_OIDC_DISCOVERYURL = "https://pocket-id.${constants.domainSuffix}/.well-known/openid-configuration";
