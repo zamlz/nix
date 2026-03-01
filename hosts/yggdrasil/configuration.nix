@@ -26,6 +26,7 @@
     (self + /nixos/services/navidrome.nix)
     (self + /nixos/services/cyberchef.nix)
     (self + /nixos/services/pinchflat.nix)
+    (self + /nixos/services/pairdrop.nix)
     (self + /nixos/services/caddy.nix)
   ];
 

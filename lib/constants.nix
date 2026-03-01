@@ -193,6 +193,16 @@ rec {
         icon = "pinchflat";
       };
     };
+    pairdrop = {
+      host = "yggdrasil";
+      port = 3001;
+      meta = {
+        name = "Pairdrop";
+        group = "Utilities";
+        description = "Local network file sharing";
+        icon = "pairdrop";
+      };
+    };
     prometheus = {
       host = "yggdrasil";
       port = 9090;
