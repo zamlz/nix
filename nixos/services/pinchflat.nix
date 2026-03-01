@@ -11,7 +11,12 @@
 #   docker logs pinchflat
 #   curl http://localhost:8945
 #   Access https://pinchflat.lab.zamlz.org in a browser
-{ config, constants, firewallUtils, ... }:
+{
+  config,
+  constants,
+  firewallUtils,
+  ...
+}:
 {
   imports = [
     (firewallUtils.mkOpenPortForHostsRule {
