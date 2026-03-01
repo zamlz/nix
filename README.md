@@ -181,17 +181,29 @@ nixos/
     ...
   services/
     alexandria-nas-nfs.nix
+    bentopdf.nix
     blocky.nix
+    booklore.nix
     caddy.nix
+    cyberchef.nix
+    forgejo.nix
+    gatus.nix
     glances.nix
     grafana.nix
     homepage-dashboard.nix
     immich.nix
     jellyfin.nix
     kavita.nix
+    kiwix.nix
+    miniflux.nix
+    navidrome.nix
     ollama.nix
+    pairdrop.nix
+    pinchflat.nix
+    pocket-id.nix
     prometheus.nix
     prometheus-node-exporter.nix
+    speedtest-tracker.nix
 ```
 
 Flake checks and NixOS VM integration tests
