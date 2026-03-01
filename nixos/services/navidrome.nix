@@ -1,5 +1,5 @@
 # Navidrome — self-hosted music streaming server (Subsonic-compatible).
-# Runs natively on yggdrasil, music library on Alexandria NAS via NFS.
+# Runs as an OCI container on yggdrasil, music library on Alexandria NAS via NFS.
 # Accessible at https://navidrome.lab.zamlz.org via Caddy.
 #
 # Mobile apps (Subsonic-compatible):
@@ -7,14 +7,12 @@
 #   iOS: Amperfy (free), Substreamer
 #
 # First-time setup:
-#   1. Create /mnt/media/music on Alexandria with chmod 755
-#   2. Create an OIDC client in Pocket ID with callback:
-#      https://navidrome.lab.zamlz.org/login/callback
-#   3. Add sops secret: navidrome-oidc-client-secret
+#   Create /mnt/media/music on Alexandria: mkdir -p && chmod 755
+#   Drop music files into /mnt/media/music — Navidrome will scan automatically.
 #
 # Debugging:
-#   systemctl status navidrome
-#   journalctl -u navidrome
+#   docker logs navidrome
+#   curl http://localhost:4533
 #   Access https://navidrome.lab.zamlz.org in a browser
 {
   config,
@@ -38,19 +36,21 @@
     '';
   };
 
-  services.navidrome = {
-    enable = true;
-    openFirewall = false;
-    settings = {
-      MusicFolder = "/mnt/media/music";
-      Port = constants.services.navidrome.port;
-      Address = "0.0.0.0";
-      "OIDC.Enabled" = true;
-      "OIDC.ClientID" = "a24f6c9c-d8af-4f36-948f-6d148fc2e9ac";
-      "OIDC.DiscoveryURL" = "https://pocket-id.${constants.domainSuffix}/.well-known/openid-configuration";
+  virtualisation.oci-containers.containers.navidrome = {
+    image = "ghcr.io/navidrome/navidrome:latest";
+    environmentFiles = [ config.sops.templates.navidrome-env.path ];
+    environment = {
+      ND_MUSICFOLDER = "/music";
+      ND_PORT = toString constants.services.navidrome.port;
+      ND_LOGLEVEL = "info";
+      ND_OIDC_ENABLED = "true";
+      ND_OIDC_CLIENTID = "a24f6c9c-d8af-4f36-948f-6d148fc2e9ac";
+      ND_OIDC_DISCOVERYURL = "https://pocket-id.${constants.domainSuffix}/.well-known/openid-configuration";
     };
+    ports = [ "${toString constants.services.navidrome.port}:${toString constants.services.navidrome.port}" ];
+    volumes = [
+      "navidrome-data:/data"
+      "/mnt/media/music:/music:ro"
+    ];
   };
-
-  systemd.services.navidrome.serviceConfig.EnvironmentFile =
-    config.sops.templates.navidrome-env.path;
 }
