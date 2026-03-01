@@ -153,6 +153,16 @@ rec {
         icon = "kiwix";
       };
     };
+    navidrome = {
+      host = "yggdrasil";
+      port = 4533;
+      meta = {
+        name = "Navidrome";
+        group = "Media & Apps";
+        description = "Music streaming server";
+        icon = "navidrome";
+      };
+    };
     cyberchef = {
       host = "yggdrasil";
       port = 8087;
