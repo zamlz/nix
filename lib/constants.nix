@@ -193,14 +193,14 @@ rec {
         icon = "pinchflat";
       };
     };
-    uptime-kuma = {
+    gatus = {
       host = "yggdrasil";
       port = 3002;
       meta = {
-        name = "Uptime Kuma";
+        name = "Gatus";
         group = "Utilities";
-        description = "Service uptime monitoring";
-        icon = "uptime-kuma";
+        description = "Service health monitoring";
+        icon = "gatus";
       };
     };
     speedtest-tracker = {
