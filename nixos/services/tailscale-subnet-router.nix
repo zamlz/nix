@@ -12,10 +12,26 @@
 # Debugging:
 #   tailscale status          # check advertised routes
 #   tailscale netcheck        # connectivity diagnostics
-{ constants, ... }:
+{ pkgs, constants, ... }:
 {
-  services.tailscale = {
-    useRoutingFeatures = "server";
-    extraUpFlags = [ "--advertise-routes=${constants.parentSubnet}" ];
+  services.tailscale.useRoutingFeatures = "server";
+
+  # extraUpFlags only applies on initial auth, so use a dedicated service
+  # to idempotently apply subnet routing config on every boot.
+  systemd.services.tailscale-set-routes = {
+    description = "Advertise LAN subnet routes via Tailscale";
+    after = [ "tailscale.service" "network-online.target" ];
+    wants = [ "network-online.target" ];
+    wantedBy = [ "multi-user.target" ];
+    path = [ pkgs.tailscale ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+    };
+    script = ''
+      # Wait until tailscaled is ready
+      until tailscale status >/dev/null 2>&1; do sleep 1; done
+      tailscale set --advertise-routes=${constants.parentSubnet}
+    '';
   };
 }
