@@ -193,6 +193,37 @@ rec {
         icon = "pinchflat";
       };
     };
+    uptime-kuma = {
+      host = "yggdrasil";
+      port = 3002;
+      meta = {
+        name = "Uptime Kuma";
+        group = "Utilities";
+        description = "Service uptime monitoring";
+        icon = "uptime-kuma";
+      };
+    };
+    speedtest-tracker = {
+      host = "yggdrasil";
+      port = 3003;
+      meta = {
+        name = "Speedtest Tracker";
+        group = "Utilities";
+        description = "Internet speed monitoring";
+        icon = "speedtest-tracker";
+      };
+    };
+    forgejo = {
+      host = "yggdrasil";
+      port = 3004;
+      sshPort = 2222;
+      meta = {
+        name = "Forgejo";
+        group = "Utilities";
+        description = "Self-hosted Git service";
+        icon = "forgejo";
+      };
+    };
     pairdrop = {
       host = "yggdrasil";
       port = 3001;

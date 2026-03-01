@@ -26,6 +26,9 @@
     (self + /nixos/services/navidrome.nix)
     (self + /nixos/services/cyberchef.nix)
     (self + /nixos/services/pinchflat.nix)
+    (self + /nixos/services/uptime-kuma.nix)
+    (self + /nixos/services/speedtest-tracker.nix)
+    (self + /nixos/services/forgejo.nix)
     (self + /nixos/services/pairdrop.nix)
     (self + /nixos/services/caddy.nix)
   ];
