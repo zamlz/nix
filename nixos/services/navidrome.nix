@@ -31,7 +31,9 @@
       ND_LOGLEVEL = "info";
       ND_ENABLEINSIGHTSCOLLECTOR = "false";
     };
-    ports = [ "${toString constants.services.navidrome.port}:${toString constants.services.navidrome.port}" ];
+    ports = [
+      "${toString constants.services.navidrome.port}:${toString constants.services.navidrome.port}"
+    ];
     volumes = [
       "navidrome-data:/data"
       "/mnt/media/music:/music:ro"

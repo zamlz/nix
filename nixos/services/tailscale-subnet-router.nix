@@ -20,7 +20,10 @@
   # to idempotently apply subnet routing config on every boot.
   systemd.services.tailscale-set-routes = {
     description = "Advertise LAN subnet routes via Tailscale";
-    after = [ "tailscale.service" "network-online.target" ];
+    after = [
+      "tailscale.service"
+      "network-online.target"
+    ];
     wants = [ "network-online.target" ];
     wantedBy = [ "multi-user.target" ];
     path = [ pkgs.tailscale ];
