@@ -153,6 +153,16 @@ rec {
         icon = "kiwix";
       };
     };
+    miniflux = {
+      host = "yggdrasil";
+      port = 8083;
+      meta = {
+        name = "Miniflux";
+        group = "Media & Apps";
+        description = "Minimalist RSS reader";
+        icon = "miniflux";
+      };
+    };
     navidrome = {
       host = "yggdrasil";
       port = 4533;

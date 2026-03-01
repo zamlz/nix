@@ -22,6 +22,7 @@
     (self + /nixos/services/bentopdf.nix)
     (self + /nixos/services/booklore.nix)
     (self + /nixos/services/kiwix.nix)
+    (self + /nixos/services/miniflux.nix)
     (self + /nixos/services/navidrome.nix)
     (self + /nixos/services/cyberchef.nix)
     (self + /nixos/services/pinchflat.nix)
