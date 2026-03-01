@@ -35,6 +35,7 @@
       APP_KEY=${config.sops.placeholder.speedtest-tracker-app-key}
       APP_URL=https://speedtest-tracker.${constants.domainSuffix}
       DB_CONNECTION=sqlite
+      SCHEDULE="0 6 * * *"
     '';
   };
 
