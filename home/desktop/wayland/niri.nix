@@ -62,6 +62,7 @@ in
     package = pkgs.niri-stable;
 
     settings = {
+      animations.enable = false;
       input = {
         keyboard = {
           xkb = {
