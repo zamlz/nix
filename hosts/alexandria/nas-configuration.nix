@@ -44,8 +44,9 @@ in
   # sequence, and the NFS bind mount is ordered after it.
   systemd.services.zfs-nas-mount = {
     description = "Import and mount encrypted ZFS NAS pool";
-    after = [ "sops-install-secrets.service" ];
-    requires = [ "sops-install-secrets.service" ];
+    # sops-nix uses activation scripts on this host (not a systemd service),
+    # so secrets in /run/secrets/ are available before sysinit.target completes.
+    after = [ "sysinit.target" ];
     wantedBy = [ "multi-user.target" ];
     path = [ pkgs.zfs ];
     serviceConfig = {
