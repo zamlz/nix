@@ -21,15 +21,16 @@
     })
   ];
 
-  sops.secrets.miniflux-admin-password = { };
-  sops.secrets.miniflux-oidc-client-secret = { };
-
-  sops.templates.miniflux-env = {
+  sops = {
+    secrets.miniflux-admin-password = { };
+    secrets.miniflux-oidc-client-secret = { };
+    templates.miniflux-env = {
     content = ''
       ADMIN_USERNAME=admin
       ADMIN_PASSWORD=${config.sops.placeholder.miniflux-admin-password}
       OAUTH2_CLIENT_SECRET=${config.sops.placeholder.miniflux-oidc-client-secret}
     '';
+    };
   };
 
   services.miniflux = {

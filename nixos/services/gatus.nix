@@ -15,9 +15,9 @@
 #   Access https://gatus.lab.zamlz.org in a browser
 { constants, firewallUtils, ... }:
 let
-  endpoints = map (name: {
-    name = constants.publicServices.${name}.meta.name;
-    url = "https://${name}.${constants.domainSuffix}";
+  endpoints = map (svcName: {
+    inherit (constants.publicServices.${svcName}.meta) name;
+    url = "https://${svcName}.${constants.domainSuffix}";
     conditions = [ "[STATUS] < 500" ];
   }) (builtins.attrNames constants.publicServices);
 in
