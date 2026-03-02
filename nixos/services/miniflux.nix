@@ -41,7 +41,7 @@
       OAUTH2_PROVIDER = "oidc";
       OAUTH2_CLIENT_ID = "50c4a367-91d7-48a5-9c71-968b0f51e267";
       OAUTH2_REDIRECT_URL = "https://miniflux.${constants.domainSuffix}/oauth2/oidc/callback";
-      OAUTH2_OIDC_DISCOVERY_ENDPOINT = "https://pocket-id.${constants.domainSuffix}/.well-known/openid-configuration";
+      OAUTH2_OIDC_DISCOVERY_ENDPOINT = "https://pocket-id.${constants.domainSuffix}";
       OAUTH2_USER_CREATION = "1";
     };
   };
